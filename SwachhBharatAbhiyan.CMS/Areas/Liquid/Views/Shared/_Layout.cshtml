@@ -1,0 +1,644 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>@ViewBag.Title</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="all,follow">
+    
+    @Styles.Render("~/Liquid/Content/ThemeCss")
+    @*@Scripts.Render("~/bundles/modernizr")*@
+    @RenderSection("styles", required: false)
+    <link rel="shortcut icon" href="~/Content/images/img/ictsbm2.png" />
+    <link href="~/Content/css/alertify/alertify.core.css" rel="stylesheet" />
+    <link href="~/Content/css/alertify/alertify.default.css" rel="stylesheet" />
+
+</head>
+
+
+
+<body>
+    <div class="page">
+        <!-- Main Navbar-->
+        <header class="header">
+            <nav class="navbar">
+                <!-- Search Box-->
+                <div class="search-box">
+                    <button class="dismiss"><i class="icon-close"></i></button>
+                    <form id="searchForm" action="#" role="search">
+                        <input type="search" placeholder="What are you looking for..." class="form-control">
+                    </form>
+                </div>
+
+                <div class="container-fluid">
+                    <a href="/GarbageCollection/MenuIdealtime" id="snackbar"></a>
+                    <div class="navbar-holder d-flex align-items-center justify-content-between">
+                        <!-- Navbar Header-->
+                        <div class="navbar-header">
+                            <!-- Navbar Brand --><a href="/Liquid/LiquidHome/Index" class="navbar-brand">
+                                <div class="brand-text brand-big">
+                                    <span>
+                                        <img style="height:40px;width:50px;" src="~/Content/images/img/liquid_icon.svg" />
+                                    </span><strong style="vertical-align:middle;font-size:15px;margin-left:3%">Liquid Waste Cleaning Monitoring System</strong>
+                                    @*</span><strong> घंटा गाडी</strong>*@
+                                </div>
+                                <div class="brand-text brand-small"><strong><img style="height:40px;width:50px;" src="~/Content/images/img/liquid_icon.svg" /> </strong></div>
+                            </a>
+                            <!-- Toggle Button--><a id="toggle-btn" href="#" class="menu-btn active"><span></span><span></span><span></span></a>
+                        </div>
+                        <!-- Navbar Menu -->
+                        <!-- Logout    -->
+                        @*<li class="nav-item"><a href="/Account/login" class="nav-link logout">Logout<i class="fa fa-sign-out"></i></a></li>*@
+                        @Html.Partial("_LoginPartial")
+
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <div class="page-content d-flex align-items-stretch">
+            <!-- Side Navbar -->
+            <nav class="side-navbar">
+                <!-- Sidebar Header-->
+                @*<div class="sidebar-header d-flex align-items-center">
+                        <div class="avatar"><img src="img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"></div>
+                        <div class="title">
+                            <h1 class="h4">Mark Stephen</h1>
+                            <p>Web Designer</p>
+                        </div>
+                    </div>*@
+                <!-- Sidebar Navidation Menus-->
+                @*<span class="heading">Main</span>*@
+                <ul class="list-unstyled">
+                    @*<li class=""><a href="/Home/Index"> <i class="icon-home"></i> डैशबोर्ड </a></li>*@
+                    <li class="">
+                        <a href="/Liquid/LiquidHome/Index">
+                            @*<i class="icon-home"></i>*@
+                            @*<img class="" style="height:20px;width:20px;" src="~/Content/images/icons/calendar-tool-for-time-organization (1).png" />*@
+                            @*<img  style="height:20px;width:20px;" src="~/Content/images/icons/calendar-tool-for-time-organization.svg" />*@
+                            <i class="svg_dashboard"> </i> @*डैशबोर्ड*@ Dashboard
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="/Liquid/LiquidAttendence/MenuIndex">
+                            <i class="svg_attendance"> </i>
+                            @*उपस्थिती*@ Workers Attendance / Route
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#exampledropdownDropdown1" aria-expanded="false" data-toggle="collapse">
+
+                            <i class="svg_gc" style=" fill: #000;"> </i>
+                            @*कचरा संकलन*@ Liquid Waste Cleaning Point
+                        </a>
+                        <ul id="exampledropdownDropdown1" class="collapse list-unstyled ">
+                            @*<li><a href="/GarbageCollection/MenuHouseGarbageIndex">घर संकलन</a></li>
+                                <li><a href="/GarbageCollection/MenuPointGarbageIndex">कचरा पॉईंट संकलन </a></li>
+                                <li><a href="/GarbageCollection/MenuDumpYardIndex">डंप यार्ड तपशील</a></li>*@
+
+                            <li><a href="/Liquid/LiquidGarbage/MenuLiquidGarbageIndex">Liquid Waste Cleaning Point</a></li>
+                            @*<li><a href="/GarbageCollection/MenuPointGarbageIndex">Garbage Point Collection</a></li>*@
+                            @*<li><a href="/Liquid/LiquidGarbage/MenuDumpYardIndex">Dump Yard Trips </a></li>*@
+
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#exampledropdownDropdown5" aria-expanded="false" data-toggle="collapse">
+
+                            <i class="svg_summary"> </i>
+                            @*कार्य सारांश*@ Work Summary
+                        </a>
+                        <ul id="exampledropdownDropdown5" class="collapse list-unstyled ">
+                            @*<li><a href="/Employee/MenuEmployeeSummaryIndex"> कर्मचारी कार्य सारांश</a></li>
+                                <li><a href="/GarbageCollection/MenuIdealtime"> कर्मचारी निष्क्रिय वेळ </a></li>*@
+
+                            <li><a href="/Liquid/LiquidEmployee/MenuEmployeeSummaryIndex"> Employee Work Summary </a></li>
+                            <li><a href="/Liquid/LiquidGarbage/MenuIdealtime"> Employee Idle Time </a></li>
+                        </ul>
+                    </li>
+                    <li class="" id="complaint_menu" hidden="hidden">
+                        <a href="/Complaint/MenuIndex">
+                            <i class="svg_swacch"> </i>
+                            @*स्वच्छ तक्रार*@ <span class="satana_feedback">Cleanliness Complaints</span>
+                        </a>
+                    </li>
+
+                    @*<li class="" id="league20_menu">
+                            <a href="/League/MenuIndex">
+                                <i class="svg_league"> </i>
+                                SS League 2020
+                            </a>
+                        </li>
+                        <li class="" id="league20_menu">
+                            <a href="/League/Feedbacklogin" target="new">
+                                <i class="svg_league"> </i>
+                                Validation by Citizen
+                            </a>
+                        </li>*@
+                    @*<li class="ctpt_reg">
+                            <a href="/Sauchalay/SauchalayMenuIndex">
+                                <i class="ctpt"> </i>
+                                CT / PT
+                            </a>
+                        </li>*@
+
+                    <li class="ctpt_reg" hidden="hidden">
+                        <a href="#exampledropdownDropdownCTPT" aria-expanded="false" data-toggle="collapse">
+                            <i class="ctpt"> </i>
+                            CT / PT
+                        </a>
+                        <ul id="exampledropdownDropdownCTPT" class="collapse list-unstyled ">
+                            <li><a href="/Sauchalay/SauchalayMenuIndex">CTPT Details</a></li>
+                            <li id="ctpt_onmap" style="display:none;"><a href="/Sauchalay/MenuCtptMap">CTPT On Map </a></li>
+                        </ul>
+                    </li>
+
+
+                    <li>
+                        <a href="#exampledropdownDropdown3" aria-expanded="false" data-toggle="collapse">
+                            <i class="svg_location"> </i>
+                            @*स्थान*@ Location (On Map)
+                        </a>
+                        <ul id="exampledropdownDropdown3" class="collapse list-unstyled ">
+                            @*<li><a href="/Location/MenuIndex">स्थान तपशील</a></li>
+                                <li><a href="/Location/MenuMapIndex">नकाशावरील स्थान</a></li>*@
+                            @*<li><a href="/Location/MenuHouseMapIndex">नकाशावरील घर स्थान</a></li>*@
+
+                            <li><a href="/Liquid/LiquidLocation/MenuIndex">Location Details</a></li>
+                            <li><a href="/Liquid/LiquidLocation/MenuMapIndex">On Map Location</a></li>
+                            <li id="onmap"><a href="/Liquid/LiquidLocation/AllHouseLocation" target="new">Liquid Point on Map</a></li>
+                            @*<li id="onmap"><a href="/Location/MenuHouseMapIndex">House on Map</a></li>*@
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse">
+                            <i class="svg_register"> </i>
+                            @*नोंदणी फॉर्म*@ Registration Forms
+                        </a>
+                        <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
+                            @*<li><a href="/HouseMaster/MenuIndex">घर नोंदणी</a></li>
+                                <li><a href="/GarbagePoint/MenuIndex">कचरा पॉइंट नोंदणी</a></li>
+                                <li><a href="/DumpYard/MenuIndex">डंप यार्ड नोंदणी</a></li>
+                                <li><a href="/Employee/MenuIndex"> कर्मचारी नोंदणी</a></li>*@
+
+                            <li><a href="/Liquid/LiquidWaste/MenuIndex">Liquid Waste Cleaning Point Registration </a></li>
+                            @*<li><a href="/Liquid/LiquidDumpYard/MenuIndex">Dump Yard Registration </a></li>*@
+                            <li><a href="/Liquid/LiquidEmployee/MenuIndex">Employee Registration  </a></li>
+
+                        </ul>
+                    </li>
+
+                    <li id="report_menu">
+                        <a href="#exampledropdownDropdown4" aria-expanded="false" data-toggle="collapse">
+                            <i class="svg_report"> </i>
+                            @*रिपोर्ट*@ Reports
+                        </a>
+                        <ul id="exampledropdownDropdown4" class="collapse list-unstyled ">
+                            @*<li><a href="/HouseMaster/ReportIndex">घर संकलन रिपोर्ट (कचरा पॅटर्न नुसार) </a></li>
+                            <li><a href="/Report/SingleEmployeeCollection"> घनकचरा संकलन (कर्मचारीनिहाय)</a></li>
+                            <li><a href="/Report/GarbageCollectionPercentage"> घनकचरा संकलन (टक्केवारीनुसार)</a></li>
+                            <li><a href="/Report/EmployeeCollectionCount"> कर्मचारीनिहाय कचरा संकलन </a></li>
+                            <li><a href="/Report/EmployeeCollectionSummary"> घनकचरा संकलन (तारीखानुसार)</a></li>
+                            <li><a href="/Report/AreawiseGarbageCollection"> घनकचरा संकलन (वार्डनिहाय)</a></li>
+                            <li><a href="/Report/CitywiseGarbageReport">शहरानुसार घनकचरा रिपोर्ट</a></li>
+                            <li><a href="/Report/AreawiseGarbageTypeCollection">क्षेत्रानुसार घनकचरा प्रकार रिपोर्ट</a></li>
+                            <li><a href="/Report/Dashboard1">घनकचरा डैशबोर्ड</a></li>
+                            <li><a href="/Report/DumpYardSummary">डंप यार्ड तपशील</a></li>
+                            <li><a href="/Report/Housewise">घरनिहाय तपशील</a></li>
+                            <li><a href="/Report/Daywise">दिवासनुसार तपशील</a></li>*@
+
+                            <li><a href="/Liquid/LiquidWaste/ReportIndex">Liquid Waste Cleaning Report (Pattern-wise)</a></li>
+                            <li><a href="/Liquid/LiquidReport/SingleEmployeeCollection">Liquid Waste Cleaning (Employee-wise)</a></li>
+                            <li><a href="/Liquid/LiquidReport/CitywiseGarbageReport">Liquid Waste Cleaning (Entire City)</a></li>
+                            <li><a href="/Liquid/LiquidReport/AreawiseGarbageCollection">Liquid Waste Cleaning (Ward-Wise)</a></li>
+                            <li><a href="/Liquid/LiquidReport/AreawiseGarbageTypeCollection">Liquid Waste Cleaning (Area-wise)</a></li>
+                            <li><a href="/Liquid/LiquidReport/GarbageCollectionPercentage">Liquid Waste Cleaning (Percentage-Wise)</a></li>
+                            <li><a href="/Liquid/LiquidReport/EmployeeCollectionCount">Employee Wise Liquid Waste Cleaning (Chart-Pattern) </a></li>
+                            <li><a href="/Liquid/LiquidReport/EmployeeCollectionSummary">Liquid Waste Cleaning (Date-wise) </a></li>
+                            <li><a href="/Liquid/LiquidReport/Dashboard1">Liquid Waste Cleaning Dashboard</a></li>
+                            <li><a href="/Liquid/LiquidReport/Daywise">Day-wise Liquid Waste Cleaning Summary </a></li>
+                            <li><a href="/Liquid/LiquidReport/EmployeeCollectionAverage">Average Wise Employee Liquid Waste Cleaning </a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#exampledropdownDropdown2" aria-expanded="false" data-toggle="collapse">
+                            <i class="svg_master"> </i>
+                            @*मास्टर फॉर्म*@ Master Forms
+                        </a>
+                        <ul id="exampledropdownDropdown2" class="collapse list-unstyled ">
+                            @*<li><a href="/MainMaster/MenuStateIndex">राज्य तपशील</a></li>
+                                <li><a href="/MainMaster/MenuDistrictIndex">जिल्हा तपशील</a></li>
+                                <li><a href="/MainMaster/MenuTalukaIndex">तालुका तपशील</a></li>
+                                <li><a href="/MainMaster/MenuZoneIndex">झोन तपशील</a></li>
+                                <li><a href="/MainMaster/MenuWardIndex">वार्ड तपशील</a></li>
+                                <li><a href="/MainMaster/MenuAreaIndex">क्षेत्र तपशील</a></li>
+                                <li><a href="/MainMaster/MenuVehicleIndex">वाहनाचे प्रकार तपशील</a></li>*@
+
+                            @*<li><a href="/MainMaster/MenuStateIndex">State Details</a></li>
+                                <li><a href="/MainMaster/MenuDistrictIndex">District Details</a></li>
+                                <li><a href="/MainMaster/MenuTalukaIndex">Taluka Details</a></li>*@
+                            <li><a href="/Liquid/LiquidMainMaster/MenuZoneIndex">Zone Details</a></li>
+                            <li><a href="/Liquid/LiquidMainMaster/MenuWardIndex">Ward / Prabhag Details</a></li>
+                            <li><a href="/Liquid/LiquidMainMaster/MenuAreaIndex">Area Details</a></li>
+                            <li><a href="/Liquid/LiquidMainMaster/MenuVehicleIndex">Vehicle Type Details</a></li>
+                            @*<li><a href="/MainMaster/AttendenceSettings">Attendence Settings Details</a></li>*@
+                        </ul>
+                    </li>
+                    <li hidden="hidden">
+                        <a href="#exampledropdownDropdown9" aria-expanded="false" data-toggle="collapse">
+                            <i class="svg_league"> </i>
+                            @*रिपोर्ट*@ SS 20-22
+                        </a>
+                        <ul id="exampledropdownDropdown9" class="collapse list-unstyled ">
+                            <li><a href="/Report/OnePointOne2020">1.1</a></li>
+                            <li><a href="/Report/OnePointTwo2020">1.2</a></li>
+                            <li><a href="/Report/OnePointThree2020">1.3</a></li>
+
+                            @*<li><a href="/Report/Onepoint4Index?ReportName=1.4">1.4</a></li>
+                                <li><a href="/Report/Onepoint5Index?ReportName=1.5">1.5</a></li>
+                                <li><a href="/Report/Onepoint6Index?ReportName=1.6">1.6</a></li>
+                                <li><a href="/Report/Onepoint7Index?ReportName=1.7">1.7</a></li>
+                                <li><a href="/Report/Onepoint8Index?ReportName=1.8">1.8</a></li>*@
+
+                            @*<li id="citizen_app"><a href="/League/MenuIndex">Citizen App</a></li>
+                                <li><a id="yocc_fb" href="" target="new">YOCC-Feedback</a></li>
+                                <li><a id="yocc_dnd" href="" target="new">YOCC-DND</a></li>*@
+
+                        </ul>
+                    </li>
+
+                    <li class="" id="infotainment_menu" hidden="hidden">
+                        <a href="#exampledropdownDropdown10" aria-expanded="false" data-toggle="collapse">
+                            <i class="inftnmnt"> </i>
+                            Infotainment
+                        </a>
+                        <ul id="exampledropdownDropdown10" class="collapse list-unstyled ">
+                            <li><a href="/Infotainment/MenuIndex">User Game Details</a></li>
+                        </ul>
+                    </li>
+                    @*<li>
+                            <a href="/Android/AndroidAPKMenu">
+                            <img src="~/Areas/Liquid/Content/theme-assets/img/android.svg" style=" margin-right: 5%;"/>Android App</a>
+                        </li>*@
+                    @*<li class="" id="waste_mgmt">
+                            <a href="#exampledropdownDropdown11" aria-expanded="false" data-toggle="collapse">
+                                <i class="i_waste"> </i>
+                                Waste Management
+                            </a>
+                            <ul id="exampledropdownDropdown11" class="collapse list-unstyled ">
+                                <li><a href="/WasteManagement/MenuAddWasteDetails">Add Waste Details</a></li>
+                                <li><a href="/WasteManagement/MenuWasteIndex">Waste Details</a></li>
+
+                            </ul>
+
+                        </li>*@
+
+
+                    @*<li class="" id="live_menu">
+                            <a href="/Log/MenuIndex">
+                                <i class="svg_swacch"> </i>
+                                <span class="satana_feedback">Live Tracking</span>
+                            </a>
+                        </li>*@
+
+                </ul>
+                @*<span class="heading">Extras</span>*@
+
+            </nav>
+            <div class="content-inner">
+
+                @RenderBody()
+
+                <footer class="main-footer">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                @*<p>Appynitty &copy; 2017-2019</p>*@
+                                <p>ICT BASED MONITORING TECHNOLOGY</p>
+                            </div>
+                            <div class="col-sm-6 text-right">
+                                <p>@*Design by <a href="https://bootstrapious.com/admin-templates" class="external">Bootstrapious</a>*@</p>
+                                <!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </div>
+
+
+    @Scripts.Render("~/Scripts/ThemeScripts")
+
+    <script>
+
+        $(document).ready(function () {
+            
+            notification_count();
+            //if ($("#asdf").text() != "namratas@appynitty.com!") {
+            //    $("#complaint_menu").css("display", "none")
+            //}
+            //if ($("#asdf").text() == "bhadravati@appynitty.com!") {
+            //    $("#onmap").css("display", "none")
+            //}satana_feedback
+            if ($("#asdf").text() == "namratas@appynitty.com!") {
+                $("#complaint_menu").css("display", "block");
+                $("#citizen_app").css("display", "none");
+                $(".ctpt_reg").css("display", "block");
+                $("#infotainment_menu").css("display", "none");
+                //$(".ss2020").css("display", "none");
+                $("#dump").css("display", "none");
+                $("#ctpt_onmap").css("display", "block");
+            }
+
+            if ($("#asdf").text() == "bhadravati@appynitty.com!") {
+                $("#complaint_menu").css("display", "block");
+                $("#citizen_app").css("display", "block");
+                $(".ctpt_reg").css("display", "none");
+                $("#infotainment_menu").css("display", "block");
+                //$(".ss2020").css("display", "none");
+                $("#dump").css("display", "none");
+            }
+
+            if ($("#asdf").text() == "wadi@appynitty.com!") {
+                $("#complaint_menu").css("display", "block");
+                $("#citizen_app").css("display", "block");
+                $(".ctpt_reg").css("display", "none");
+                $("#infotainment_menu").css("display", "block");
+                //  $(".ss2020").css("display", "none");
+                $("#dump").css("display", "none");
+            }
+
+            if ($("#asdf").text() == "satana@np.com!") {
+                $("#complaint_menu").css("display", "block");
+                $("#citizen_app").css("display", "block");
+                $(".ctpt_reg").css("display", "none");
+                $("#infotainment_menu").css("display", "block");
+                $(".satana_feedback").text("Feedback");
+                //  $(".ss2020").css("display", "none");
+                $("#dump").css("display", "none");
+            }
+            if ($("#asdf").text() == "yavatmal@np.com!") {
+                $("#complaint_menu").css("display", "block");
+                $("#citizen_app").css("display", "block");
+                $(".ctpt_reg").css("display", "none");
+                $("#infotainment_menu").css("display", "block");
+                // $(".ss2020").css("display", "none");
+                $("#dump").css("display", "none");
+            }
+            if ($("#asdf").text() == "wani@appynitty.com!") {
+                $("#complaint_menu").css("display", "block");
+                $("#citizen_app").css("display", "block");
+                $(".ctpt_reg").css("display", "none");
+                $("#infotainment_menu").css("display", "block");
+                //  $(".ss2020").css("display", "none");
+                $("#dump").css("display", "none");
+            }
+            if ($("#asdf").text() == "sarni@np.com!") {
+                $("#complaint_menu").css("display", "block");
+                $("#citizen_app").css("display", "block");
+                $(".ctpt_reg").css("display", "block");
+                $("#infotainment_menu").css("display", "block");
+                // $(".ss2020").css("display", "none");
+                $("#dump").css("display", "none");
+                $("#ctpt_onmap").css("display", "block");
+            }
+            if ($("#asdf").text() == "palam@np.com!") {
+                $("#complaint_menu").css("display", "block");
+                $("#citizen_app").css("display", "block");
+                $(".ctpt_reg").css("display", "block");
+                $("#infotainment_menu").css("display", "block");
+                // $(".ss2020").css("display", "none");
+                $("#dump").css("display", "none");
+                $("#ctpt_onmap").css("display", "block");
+            }
+            if ($("#asdf").text() == "warora@np.com!") {
+                $("#complaint_menu").css("display", "block");
+                $("#citizen_app").css("display", "block");
+                $(".ctpt_reg").css("display", "none");
+                $("#infotainment_menu").css("display", "block");
+                // $(".ss2020").css("display", "none");
+                $("#dump").css("display", "none");
+            }
+            if ($("#asdf").text() == "ralegaon@np.com!") {
+                $("#complaint_menu").css("display", "none");
+                $("#citizen_app").css("display", "none");
+                $(".ctpt_reg").css("display", "block");
+                $("#infotainment_menu").css("display", "none");
+                // $(".ss2020").css("display", "none");
+                $("#dump").css("display", "none");
+                $("#ctpt_onmap").css("display", "block");
+            }
+            if ($("#asdf").text() == "mangrulpir@np.com!") {
+                $("#complaint_menu").css("display", "block");
+                $("#citizen_app").css("display", "block");
+                $(".ctpt_reg").css("display", "none");
+                $("#infotainment_menu").css("display", "block");
+                // $(".ss2020").css("display", "none");
+                $("#dump").css("display", "none");
+            }
+            if ($("#asdf").text() == "umarkhed@appynitty.com!") {
+                $("#complaint_menu").css("display", "block");
+                $("#citizen_app").css("display", "block");
+                $(".ctpt_reg").css("display", "none");
+                $("#infotainment_menu").css("display", "block");
+                //  $(".ss2020").css("display", "none");
+                $("#dump").css("display", "none");
+            }
+            if ($("#asdf").text() == "korchi@appynitty.com!") {
+                $("#complaint_menu").css("display", "block");
+                $("#citizen_app").css("display", "block");
+                $(".ctpt_reg").css("display", "none");
+                $("#infotainment_menu").css("display", "block");
+                // $(".ss2020").css("display", "none");
+                $("#dump").css("display", "none");
+            }
+            if ($("#asdf").text() == "gadchiroli@np.com!") {
+                $("#complaint_menu").css("display", "block");
+                $("#citizen_app").css("display", "block");
+                $(".ctpt_reg").css("display", "none");
+                $("#infotainment_menu").css("display", "block");
+                // $(".ss2020").css("display", "none");
+                $("#dump").css("display", "none");
+            }
+            if ($("#asdf").text() == "badnapur@appynitty.com!") {
+                $("#complaint_menu").css("display", "none");
+                $("#citizen_app").css("display", "none");
+                $(".ctpt_reg").css("display", "none");
+                $("#infotainment_menu").css("display", "none");
+                $(".ss2020").css("display", "none");
+                $("#dump").css("display", "none");
+            }
+            if ($("#asdf").text() == "jamkhed@np.com!") {
+                $("#complaint_menu").css("display", "none");
+                $("#citizen_app").css("display", "none");
+                $(".ctpt_reg").css("display", "none");
+                $("#infotainment_menu").css("display", "none");
+                $(".ss2020").css("display", "none");
+                $("#dump").css("display", "none");
+            }
+            if ($("#asdf").text() == "mahur@np.com!") {
+                $("#complaint_menu").css("display", "block");
+                $("#citizen_app").css("display", "block");
+                $(".ctpt_reg").css("display", "block");
+                $("#infotainment_menu").css("display", "block");
+                // $(".ss2020").css("display", "none");
+                $("#dump").css("display", "none");
+                $("#ctpt_onmap").css("display", "block");
+            }
+            if ($("#asdf").text() == "mukhed@np.com!") {
+                $("#complaint_menu").css("display", "block");
+                $("#citizen_app").css("display", "block");
+                $(".ctpt_reg").css("display", "block");
+                $("#infotainment_menu").css("display", "block");
+                //   $(".ss2020").css("display", "none");
+                $("#dump").css("display", "none");
+                $("#ctpt_onmap").css("display", "block");
+            }
+            if ($("#asdf").text() == "maregaon@np.com!") {
+                $("#complaint_menu").css("display", "block");
+                $("#citizen_app").css("display", "block");
+                $(".ctpt_reg").css("display", "block");
+                $("#infotainment_menu").css("display", "block");
+                //  $(".ss2020").css("display", "none");
+                $("#dump").css("display", "none");
+                $("#ctpt_onmap").css("display", "block");
+            }
+            if ($("#asdf").text() == "shrigonda@np.com!") {
+                $("#complaint_menu").css("display", "block");
+                $("#citizen_app").css("display", "block");
+                $(".ctpt_reg").css("display", "none");
+                $("#infotainment_menu").css("display", "block");
+                $("#dump").css("display", "none");
+                // $(".ss2020").css("display", "none");
+            }
+            if ($("#asdf").text() == "aundhanagnath@np.com!") {
+                $("#complaint_menu").css("display", "block");
+                $("#citizen_app").css("display", "block");
+                $(".ctpt_reg").css("display", "block");
+                $("#infotainment_menu").css("display", "block");
+                $("#ctpt_onmap").css("display", "block");
+                $("#dump").css("display", "none");
+                //  $(".ss2020").css("display", "none");
+            }
+
+            if ($("#asdf").text() == "dharmabad@np.com!") {
+                $("#complaint_menu").css("display", "block");
+                $("#citizen_app").css("display", "block");
+                $(".ctpt_reg").css("display", "block");
+                $("#infotainment_menu").css("display", "block");
+                $("#dump").css("display", "none");
+                //   $(".ss2020").css("display", "none");
+                $("#ctpt_onmap").css("display", "block");
+            }
+            if ($("#asdf").text() == "jalna@np.com!") {
+                $("#complaint_menu").css("display", "none");
+                $("#citizen_app").css("display", "none");
+                $(".ctpt_reg").css("display", "none");
+                $("#infotainment_menu").css("display", "none");
+                $("#dump").css("display", "none");
+                $(".ss2020").css("display", "none");
+            }
+            if ($("#asdf").text() == "shevgaon@np.com!") {
+                $("#complaint_menu").css("display", "none");
+                $("#citizen_app").css("display", "none");
+                $(".ctpt_reg").css("display", "none");
+                $(".ss2020").css("display", "none");
+                $("#dump").css("display", "none");
+                $("#infotainment_menu").css("display", "none");
+            }
+            if ($("#asdf").text() == "bhokar@np.com!") {
+                $("#dump").css("display", "block");
+                //  $(".ss2020").css("display", "none");
+            }
+            if ($("#asdf").text() == "Jalkot@np.com!") {
+                $("#complaint_menu").css("display", "none");
+                // $("#citizen_app").css("display", "none");
+                $(".ctpt_reg").css("display", "none");
+                //   $(".ss2020").css("display", "none");
+                $("#dump").css("display", "none");
+                $("#infotainment_menu").css("display", "none");
+            }
+            if ($("#asdf").text() == "naldurg@np.com!") {
+                $("#complaint_menu").css("display", "none");
+                $(".custom_col_hide").css("display", "none");
+                // $("#citizen_app").css("display", "none");
+                $(".ctpt_reg").css("display", "none");
+                //   $(".ss2020").css("display", "none");
+                $("#dump").css("display", "none");
+                $("#infotainment_menu").css("display", "none");
+                $(".ss2020").css("display", "none");
+            }
+            var func_count = 1
+            setInterval(function () {
+                notification_count()
+            }, 35000
+            );
+            // Returns path only
+
+            $('#toggle-btn').on('click', function (e) {
+                e.preventDefault();
+                $(this).toggleClass('active');
+
+                $('.side-navbar').toggleClass('shrinked');
+                $('.content-inner').toggleClass('active');
+                $(document).trigger('sidebarChanged');
+
+                if ($(window).outerWidth() > 1183) {
+                    if ($('#toggle-btn').hasClass('active')) {
+                        $('.navbar-header .brand-small').hide();
+                        $('.navbar-header .brand-big').show();
+                    } else {
+                        $('.navbar-header .brand-small').show();
+                        $('.navbar-header .brand-big').hide();
+                    }
+                }
+
+                if ($(window).outerWidth() < 1183) {
+                    $('.navbar-header .brand-small').show();
+                }
+            });
+
+            function notification_count() {
+
+                $.ajax({
+                    type: "post",
+                    url: "/Liquid/LiquidGarbage/IdelTimeNotification",
+                    // data: { userId: UserId, },
+                    datatype: "json",
+                    traditional: true,
+                    success: function (data) {
+
+                        //  alert(data.length);
+                        // alert($('#notif_count').text());
+                        if (func_count == 1) {
+                            $('#liquid_notif_count').text(data.length);
+                        }
+                        if (data.length > $('#liquid_notif_count').text()) {
+
+                            $('#liquid_notif_count').text(data.length);
+                            //   alert("sdf");
+                            document.getElementById("snackbar").innerHTML = data[0].UserName + "<br>Not active since " + data[0].IdelTime + " min ";
+                            var x = document.getElementById("snackbar");
+                            x.className = "show";
+                            setTimeout(function () { x.className = x.className.replace("show", ""); }, 4000);
+                        }
+
+                        $('#liquid_notif_count').text(data.length);
+                        func_count++;
+                    }
+                });
+            }
+        });
+
+    </script>
+    <script>
+        document.addEventListener('contextmenu', event => event.preventDefault());
+    </script>
+    <script src="~/Content/theme-assets/js/icons_load.js"></script>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

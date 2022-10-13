@@ -1,0 +1,166 @@
+﻿
+@{
+    ViewBag.Title = "AURMenuIndex";
+    Layout = "~/Views/Shared/_AURLayout.cshtml";
+
+}
+
+@*@Styles.Render("~/Content/IndexCSS")*@
+<link href='https://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
+
+@Scripts.Render("~/Scripts/IndexScript")
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+
+<style>
+    .canvasjs-chart-credit {
+        color: #fff !important
+    }
+
+    iframe::-webkit-scrollbar {
+        display: none; /* Safari and Chrome */
+    }
+</style>
+<br />
+@*<input type="hidden" value="0" id="appid" />*@
+
+<h4 style=" margin-left:3%;color: #59b5e4; ">Division And District Wise Urban Local Bodies</h4>
+
+
+@*@foreach (var person in ViewBag.DivisionId)
+    {
+        <li>@person</li>
+    }*@
+@*<div class="d-flex justify-content-between">
+        <div class="card-block" style=" margin-left:5%">
+            <div style="position:relative;top: 94%;z-index: 1; background-color:#fff;height:12px;width:62px;padding-top:10px">
+
+            </div>
+
+            <div id="chartContainer" style="height: 200px; width: 180px;"></div>
+        </div>
+        <div class="card-block">
+            <div style="position:relative;top: 94%;z-index: 1; background-color:#fff;height:12px;width:62px;padding-top:10px">
+
+            </div>
+            <div id="chartContainer1" style="height: 200px; width: 180px;"></div>
+        </div>
+        <div class="card-block" style=" margin-right:12%">
+            <div style="position:relative;top: 94%;z-index: 1; background-color:#fff;height:12px;width:62px;padding-top:10px">
+
+            </div>
+            <div id="chartContainer2" style="height: 200px; width: 270px;"></div>
+        </div>
+    </div>*@
+
+<iframe width="100%" height="600px" src="ULBIndex" frameborder="0" style="box-shadow: 0px 4px 2px 1px rgb(154 217 248); margin-left: 1%;padding-left:1%">
+    <p>Your browser does not support iframes.</p>
+</iframe>
+
+
+@*<script>
+        /* total property*/
+        CanvasJS.addColorSet("customColors1", ["#ff6384", "#36a2eb", "#ffce56"]);
+        var chart = new CanvasJS.Chart("chartContainer", {
+            colorSet: "customColors1",
+            title: {
+                text: "1234567",
+                verticalAlign: "center",
+                dockInsidePlotArea: true,
+                fontColor: "#ff6384",
+                fontSize: 26,
+                fontFamily: "arial"
+            },
+            legend: {
+                verticalAlign: "bottom"
+            },
+            data: [{
+                type: "doughnut",
+                startAngle: -90,
+                innerRadius: "80%",
+                showInLegend: false,
+                legendMarkerType: "square",
+                dataPoints: [
+                    { y: 70, name: "Red" },
+                    { y: 10, name: "Green" },
+                    { y: 20, name: "Yellow" }
+                ]
+            }]
+        });
+
+        chart.render();
+
+        /*Total Scanning */
+        CanvasJS.addColorSet("customColors1", ["#ff6384", "#36a2eb", "#ffce56"]);
+
+        var chart = new CanvasJS.Chart("chartContainer1", {
+            colorSet: "customColors1",
+            title: {
+                text: "1234567",
+                verticalAlign: "center",
+                dockInsidePlotArea: true,
+                fontColor: "#ff6384",
+                fontSize: 26,
+                fontFamily: "arial"
+            },
+            legend: {
+                verticalAlign: "bottom"
+            },
+            data: [{
+                type: "doughnut",
+                startAngle: -90,
+                innerRadius: "80%",
+                showInLegend: false,
+                legendMarkerType: "square",
+                dataPoints: [
+                    { y: 70, name: "Red" },
+                    { y: 10, name: "Green" },
+                    { y: 20, name: "Yellow" }
+                ]
+            }]
+        });
+
+        chart.render();
+
+        /*chart type*/
+        CanvasJS.addColorSet("customColors", ["#ff6384", "#36a2eb", "#ffce56"]);
+        var res_mixed_coll = 70 * 100 / 100;
+        var res_bif_coll = 10 * 100 / 100;
+        var res_not_coll = 20 * 100 / 100;
+        var chart = new CanvasJS.Chart("chartContainer2", {
+            colorSet: "customColors",
+            title: {
+                text: "1234567",
+                verticalAlign: "center",
+                dockInsidePlotArea: true,
+                fontColor: "#ff6384",
+                fontSize: 26,
+                fontFamily: "arial"
+            },
+            toolTip: {
+                content: "In Numbers {number}",
+            },
+            legend: {
+                maxWidth: 90,
+
+                fontSize: 14,
+                verticalAlign: "center",
+                horizontalAlign: "right"
+            },
+            data: [{
+                type: "doughnut",
+                startAngle: -90,
+                innerRadius: "80%",
+                legendText: "{name}:{y}%",
+                showInLegend: true,
+                legendMarkerType: "square",
+                dataPoints: [
+                    { y: res_mixed_coll, name: "Red", number: 70 },
+                    { y: res_bif_coll, name: "Green", number: 10 },
+                    { y: res_not_coll, name: "Yellow", number: 20 }
+                ]
+            }]
+        });
+
+        chart.render();
+    </script>*@

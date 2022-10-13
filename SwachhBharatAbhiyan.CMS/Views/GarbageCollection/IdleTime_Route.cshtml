@@ -1,0 +1,392 @@
+﻿
+
+@{
+    Layout = null;
+}
+<style>
+    /* Always set the map height explicitly to define the size of the div
+           * element that contains the map. */
+    #googleMap {
+        height: 100%;
+    }
+    /* Optional: Makes the sample page fill the window. */
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    #floating-panel {
+        position: absolute;
+        top: 0px;
+        left: 5%;
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+        text-align: center;
+        font-family: 'Roboto','sans-serif';
+        line-height: 30px;
+        padding-left: 10px;
+    }
+
+    #play_id {
+        left: 87%;
+    }
+
+    @@media only screen and (max-width: 1240px) {
+        #play_id {
+            left: 74%;
+        }
+    }
+
+    @@media only screen and (max-width: 991px) {
+        #play_id {
+            left: 72%;
+        }
+    }
+
+    @@media only screen and (max-width: 600px) {
+        #play_id {
+            left: 70%;
+        }
+    }
+
+    @@media only screen and (max-width: 500px) {
+        #play_id {
+            left: 68%;
+        }
+    }
+
+    @@media only screen and (max-width: 400px) and (min-width:300px) {
+        #play_id {
+            left: 64%;
+        }
+    }
+
+    /*@@media only screen and (max-width: 1044px) and (min-width:850px) {
+      #play_id {
+         left: 65%;
+      }
+    }
+            @@media only screen and (max-width: 849px) and (min-width:421px) {
+      #play_id {
+         left: 65%;
+      }
+    }
+            @@media only screen and (max-width: 420px) {
+      #play_id {
+         left: 60%;
+      }
+    }
+              @@media only screen and (max-width: 300px) {
+      #play_id {
+         left: 55%;
+      }
+    }*/
+
+    #floating-panel {
+        margin-left: -10px;
+    }
+    .btn-success {
+        color: #fff;
+        background-color: #479cdf !important;
+        border-color: #479cdf !important;
+    }
+</style>
+
+<fieldset>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="~/Content/css/datepicker/css/datepicker.css" rel="stylesheet" />
+    <div id="floating-panel" style="display:inline-flex;width:auto;background:transparent;border:none">
+        <a style="margin-left:5px" class="btn btn-sm btn-success" href="/GarbageCollection/Idealtime">Back</a>
+    </div>
+    <div class="container ">
+        <div class="row">
+
+            <div class="col-10 bg-white has-shadow" id="googleMap" style="width:auto; height:600px"></div>
+            <div class="col-sm-2"></div>
+        </div>
+    </div>
+    <script>
+
+        function myMap() {
+
+
+
+            function CenterControl(controlDiv, map) {
+
+                // Set CSS for the control border.
+                var controlUI = document.createElement('div');
+
+                controlUI.style.cursor = 'pointer';
+                controlUI.style.marginBottom = '22px';
+                controlUI.style.marginTop = '5px';
+                // controlUI.style.textAlign = 'center';
+                controlDiv.appendChild(controlUI);
+
+                // Set CSS for the control interior.
+                var controlText = document.createElement('div');
+                controlText.style.color = '#fff';
+                controlText.innerHTML = 'Play';
+                controlText.id = "play";
+                controlText.className = 'test btn btn-sm btn-success';
+                controlUI.appendChild(controlText);
+
+                // Setup the click event listeners: simply set the map to Chicago.
+
+            }
+
+            function CenterControlPause(controlDivPause, map) {
+
+                // Set CSS for the control border.
+                var controlUIPause = document.createElement('div');
+
+                controlUIPause.style.cursor = 'pointer';
+                controlUIPause.style.marginBottom = '22px';
+                controlUIPause.style.marginTop = '5px';
+                // controlUI.style.textAlign = 'center';
+                controlDivPause.appendChild(controlUIPause);
+
+                // Set CSS for the control interior.
+                var controlTextPause = document.createElement('div');
+                controlTextPause.style.color = '#fff';
+                controlTextPause.innerHTML = 'Pause';
+                controlTextPause.id = "pause";
+                controlTextPause.className = 'test btn btn-sm btn-success';
+                controlUIPause.appendChild(controlTextPause);
+
+                // Setup the click event listeners: simply set the map to Chicago.
+
+            }
+
+
+
+            var industries = $("#HdnIndustries").val();
+            var date = $("#date").val();
+
+            var geocoder = new google.maps.Geocoder();
+
+            var idlemap = {};
+            var mJson = window.localStorage.getItem("mJson");
+            window.localStorage.removeItem("mJson");
+            //console.log(JSON.parse(mJson));
+            var data = [JSON.parse(mJson)];
+            //console.log(data);
+            //console.log(data[0].UserName);
+
+            var userName = data[0].UserName;
+            var date = data[0].Date;
+            var startAdd = data[0].StartAddress;
+            var endAdd = data[0].EndAddress;
+            var startTime = data[0].StartTime;
+            var endTime = data[0].EndTime;
+
+            var IdelTime = data[0].IdelTime;
+
+            var startLat = data[0].startLat;
+            var startLong = data[0].startLong;
+            var endLat = data[0].EndLat;
+            var endLong = data[0].EndLong;
+
+
+
+            var idlemap = [{ "startLat": startLat, "startLong": startLong, "userName": userName, "date": date, "Address": startAdd, "Time": startTime, "IdelTime": IdelTime },
+            { "startLat": endLat, "startLong": endLong, "userName": userName, "date": date, "Address": endAdd, "Time": endTime, "IdelTime": IdelTime }];
+
+            markers = idlemap;
+            var mapOptions = {
+                center: new google.maps.LatLng(markers.startLat, markers.startLong),
+                zoom: 10,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            var map = new google.maps.Map(document.getElementById("googleMap"), mapOptions);
+
+            var centerControlDiv = document.createElement('div');
+            var centerControlDivPause = document.createElement('div');
+            var centerControl = new CenterControl(centerControlDiv, map);
+            var centerControlPause = new CenterControlPause(centerControlDivPause, map);
+
+            centerControlDiv.index = 1;
+            centerControlDivPause.index = 1;
+            //centerControlDiv.style.left = '90%';
+            centerControlDiv.id = "play_id";
+            centerControlDivPause.style.left = '80%';
+            map.controls[google.maps.ControlPosition.TOP_RIGHT].push(centerControlDiv);
+            map.controls[google.maps.ControlPosition.TOP_RIGHT].push(centerControlDivPause);
+
+            centerControlDiv.addEventListener('click', function () {
+                animateCircle(poly, 17);
+            });
+
+            centerControlDivPause.addEventListener('click', function () {
+                animateCircle(poly, 7);
+            });
+
+            var infoWindow = new google.maps.InfoWindow();
+            var lat_lng = new Array();
+            var latlngbounds = new google.maps.LatLngBounds();
+            for (i = 0; i < markers.length; i++) {
+
+
+
+                var data = markers[i]
+
+                var a = i + 1;
+                // Get Address from server
+                var myLatlng = new google.maps.LatLng(data.startLat, data.startLong);
+                lat_lng.push(myLatlng);
+                var marker = new google.maps.Marker({
+                    position: myLatlng,
+                    map: map,
+                    title: data.UserName,
+                    icon: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=' + a + '|FF0000|000000'
+
+                });
+
+
+                latlngbounds.extend(marker.position);
+
+
+
+
+                (function (marker, data) {
+
+                    //New Marker Click
+                    google.maps.event.addListener(marker, "click", function (e) {
+                        
+                        var latlng = new google.maps.LatLng(data.lat, data.log);
+                        var geocoder = geocoder = new google.maps.Geocoder();
+                        geocoder.geocode({ 'latLng': latlng }, function (results, status) {
+                            
+                            if (status == google.maps.GeocoderStatus.OK) {
+                                
+                                if (results[1]) {
+                                    //alert("Location: " + results[1].formatted_address);
+                                    var address = results[1].formatted_address;
+                                    infoWindow.setContent('<div class=infowindow style="max-width:190px"> <h5><b>Employee Details:</b></h5><p><b>Name:</b>' + data.userName + '</p><p><b>Date:</b>' + data.date + '</p><p><b>Time:</b>' + data.Time + '</p><p><b>House Address:</b>' + address + '</p><p><b>Idle Time:</b>' + data.IdelTime + '</p></div>');
+                                    infoWindow.open(map, marker);
+                                }
+                                else {
+                                    var address = "Not Mention";
+                                    infoWindow.setContent('<div class=infowindow style="max-width:190px"> <h5><b>Employee Details:</b></h5><p><b>Name:</b>' + data.userName + '</p><p><b>Date:</b>' + data.date + '</p><p><b>Time:</b>' + data.Time + '</p><p><b>House Address:</b>' + address + '</p><p><b>Idle Time:</b>' + data.IdelTime + '</p></div>');
+                                    infoWindow.open(map, marker);
+                                }
+
+                            }
+                            else {
+                               
+                                infoWindow.setContent('<div class=infowindow style="max-width:190px"> <h5><b>Employee Details:</b></h5><p><b>Name:</b>' + data.userName + '</p><p><b>Date:</b>' + data.date + '</p><p><b>Time:</b>' + data.Time + '</p><p><b>House Address:</b>' + data.Address + '</p><p><b>Idle Time:</b>' + data.IdelTime + '</p></div>');
+                                infoWindow.open(map, marker);
+                            }
+                        });
+
+                    });
+
+                    //Old Marker click
+                    //google.maps.event.addListener(marker, "click", function (e) {
+                    //    infoWindow.setContent('<div class=infowindow style="max-width:190px"> <h5><b>Employee Details:</b></h5><p><b>Name:</b>' + data.userName + '</p><p><b>Date:</b>' + data.date + '</p><p><b>Time:</b>' + data.Time + '</p><p><b>House Address:</b>' + data.Address + '</p><p><b>Idle Time:</b>' + data.IdelTime + '</p></div>');
+                    //    infoWindow.open(map, marker);
+
+                    //});
+
+                })(marker, data);
+
+
+
+
+
+            }
+            map.setCenter(latlngbounds.getCenter());
+            map.fitBounds(latlngbounds);
+
+            //***********ROUTING****************//
+            var lineSymbol = {
+                path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+                scale: 5,
+                strokeColor: '#388e3c',
+            };
+
+            //Initialize the Path Array
+            var path = new google.maps.MVCArray();
+
+            //Initialize the Direction Service
+            var service = new google.maps.DirectionsService();
+
+            //Set the Path Stroke Color
+            var poly = new google.maps.Polyline({
+                strokeColor: '#4986E7',
+                strokeWeight: 5,
+                map: map, icons: [{
+                    icon: lineSymbol,
+                    offset: '100%',
+                }],
+            });
+            animateCircle(poly, 1);
+            var a = 0;
+            var listener;
+            function animateCircle(line, k) {
+
+                // alert(k);
+                if (k == 7) {
+                    clearInterval(listener);
+                    a = 0;
+                }
+                else {
+                    a = a + 1;
+
+                    if (a == 1) {
+                        var count = 0;
+                        listener = window.setInterval(function () {
+                            count = (count + 1) % 200;
+                            var icons = line.get('icons');
+                            icons[0].offset = (count / 2) + '%';
+                            line.set('icons', icons);
+                            if (count == 199) { clearInterval(listener); a = 0; };
+                        }, 100);
+
+
+                    }
+                }
+
+            }
+            //Loop and Draw Path Route between the Points on MAP
+            for (var i = 0; i < lat_lng.length; i++) {
+                if ((i + 1) <= lat_lng.length) {
+                    var src = lat_lng[i];
+                    var des = lat_lng[i + 1];
+                    path.push(src);
+                    poly.setPath(path);
+                    service.route({
+                        origin: src,
+                        destination: des,
+                        travelMode: google.maps.DirectionsTravelMode.DRIVING
+                    }, function (result, status) {
+                        if (status == google.maps.DirectionsStatus.OK) {
+                            for (var i = 0, len = result.routes[0].overview_path.length; i < len; i++) {
+                                path.push(result.routes[0].overview_path[i]);
+                            }
+                        }
+                    });
+                }
+            }
+
+
+
+        }
+
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=@Session["apikey"]&callback=myMap" type="text/javascript"></script>
+
+    @*Paid API*@
+    @*<script async defer src="https://maps.googleapis.com/maps/api/js?key=@Session["apikey"]&callback=myMap" type="text/javascript"></script>*@
+
+
+</fieldset>
+<script src="~/Content/css/datepicker/js/datepicker.js"></script>
+
+

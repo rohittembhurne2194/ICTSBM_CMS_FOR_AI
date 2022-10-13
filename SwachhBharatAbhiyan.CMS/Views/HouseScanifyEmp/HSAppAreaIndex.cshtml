@@ -1,0 +1,93 @@
+﻿
+@{
+    Layout = "";
+}
+@Styles.Render("~/Content/IndexCSS")
+<link href='https://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
+
+@Scripts.Render("~/Scripts/IndexScript")
+<script src="~/Content/DatatableGrid/AppAreaMapGrid.js"></script>
+<script src="~/Content/DatatableGrid/AppAreaMapInActiveGrid.js"></script>
+
+<style>
+</style>
+<body>
+    <div class="row" style="text-align: center; display: inline-block; width: 100%;margin-top:2%">
+        <label class="check-container">
+            Active
+            <input type="radio" checked="checked" value="0" name="rdActive">
+            <span class="checkmark"></span>
+        </label>
+        &nbsp;
+        <label class="check-container">
+            Not Active
+            <input type="radio" value="1" name="rdActive">
+            <span class="checkmark"></span>
+        </label>
+        <a href="AddAppAreaMap" id="AH" class="btn btn-primary btn-sm float-right" type="button">Add App Map Area</a>
+    </div>
+    <div class="container" id="divActive" style="overflow-y:auto;display:none">
+        <br />
+        <div style="width:100%; margin:0 auto;">
+            <label style="display:inline-flex;padding-right:5px" class="float-right">Search:&nbsp;<input type="text" id="sActive" class="form-control form-control-sm" onkeyup="SearchActive()"></label>
+            <table id="demoGrid" class="table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>AppId</th>
+                        <th>App Name</th>
+                        <th>Map Area Status</th>
+                        <th data-sortable="false"> Action</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+
+    <div class="container" id="divInActive" style="overflow-y:auto;display:none">
+        <br />
+        <div style="width:100%; margin:0 auto;">
+            <label style="display:inline-flex;padding-right:5px" class="float-right">Search:&nbsp;<input type="text" id="sInActive" class="form-control form-control-sm" onkeyup="SearchInActive()"></label>
+            <table id="demoGridInActive" class="table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>AppId</th>
+                        <th>App Name</th>
+                        <th>Map Area Status</th>
+                        <th data-sortable="false"> Action</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+    <input type="hidden" value="@Session["AppName"]" id="myAppName" />
+    <script>
+        $(document).ready(function () {
+            LoadGrid();
+
+        });
+        $('input[type=radio][name=rdActive]').change(function () {
+            LoadGrid();
+        });
+
+        function LoadGrid() {
+            var RadioValue = $("input[name='rdActive']:checked").val();
+
+            if (RadioValue == 0) {
+
+                $("#divActive").show();
+                $("#divInActive").hide();
+
+                loadGridActive();
+
+            }
+            else if (RadioValue == 1) {
+                $("#divActive").hide();
+                $("#divInActive").show();
+                loadGridInActive();
+            }
+
+        }
+
+
+    </script>
+</body>

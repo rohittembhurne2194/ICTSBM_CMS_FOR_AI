@@ -1,0 +1,69 @@
+﻿
+@{
+    Layout = "";
+}
+
+
+@Styles.Render("~/Content/IndexCSS")
+<link href='https://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
+
+@Scripts.Render("~/Scripts/IndexScript")
+<script src="~/Content/DatatableGrid/InfotainmentGrid.js"></script>
+
+<body>
+
+    <div class="container">
+        <br />
+        <h1 class="text-center">Add Infotainment Details</h1>
+        <div style="width:100%; margin:0 auto;">
+            <a href="AddInfotainmentDetails" class="btn btn-success btn-sm float-right" type="button">Add Question</a>
+            <label style="display:inline-flex;padding-right:5px" class="float-right">Search:&nbsp;<input type="text" id="s" class="form-control form-control-sm" onkeyup="Search()"></label>
+            <table id="demoGrid" class="table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th> Id</th>
+                        <th> Game Name</th>
+                        @*<th> Game Name Marathi</th>*@
+                        <th> Slogan</th>
+                        <th> Image</th>
+                        <th> Correct Answer</th>
+                        <th> Point</th>
+                        <th> Action</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+
+
+    <div id="myModal_Image" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 id="header_data" class="modal-title"></h4>
+                </div>
+                <div class="modal-body">
+
+                    <center>
+                        <img class="img-responsive" id="imggg" alt="Photo Not Found">
+                        <br />
+                        @*<p> <b id="hide_date">Date: </b><span id="dateData"></span></p>
+                            <p> <b id="hide_add">Address: </b><span id="latlongData"></span></p>*@
+                    </center>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn" data-dismiss="modal">Close</button>
+                        @*<a href="~/Images/Nagpur/Job/download.pdf" class="btn btn-default" download>Download</a>*@
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="snackbar">Image not uploaded...</div>
+</body>
+
+

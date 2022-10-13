@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D0ED5E3F-AF05-4CAD-94A7-DCD2C201053F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SwachBharat.CMS.Bll.Repository</RootNamespace>
+    <AssemblyName>SwachBharat.CMS.Bll.Repository</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\..\..\..\25-10-2018GramPanvhayatCMS\GramPanchayatCMS\GramPanchayat.CMS.Bll.Repository\bin\Debug\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>D:\CompanyProject\RestroAppy\RestroAppy_CMS\AppyPlatter.CMS.Bll.ViewModels\bin\Debug\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\..\..\..\..\..\Namrata Project\Namrata2018AllProjcts\2018_CMS\Grampanchayat-CMS\27-june -2018-GramPanchayat.CMS SHREYANSH\GramPanchayat.CMSFinal\GramPanchayat.CMS.Bll.Repository\bin\Debug\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\SwachhBharatAbhiyan\Nazim\SwachBharatAbhiyan01Nov2018\SwachhBharatAbhiyan.CMS\bin\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Linq.Dynamic">
+      <HintPath>..\..\..\..\..\..\..\Namrata Project\Namrata2018AllProjcts\2018_CMS\Grampanchayat-CMS\27-june -2018-GramPanchayat.CMS SHREYANSH\GramPanchayat.CMSFinal\GramPanchayat.CMS.Bll.Repository\bin\Debug\System.Linq.Dynamic.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http">
+      <HintPath>..\..\..\Nazim\SwachBharatAbhiyan01Nov2018\SwachhBharatAbhiyan.CMS\bin\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc">
+      <HintPath>..\..\..\..\..\..\2018_Practice\GramPanchayaAdminPanel\GramPanchayaAdminPanel\bin\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ChildRepository\ChildRepository.cs" />
+    <Compile Include="ChildRepository\IChildRepository.cs" />
+    <Compile Include="GridRepository\DashBoardRepository.cs" />
+    <Compile Include="GridRepository\Grid\AdminCountGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\AppAreaMapsGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\AppAreaMapsInActiveGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\AreaGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\AttendeceGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\AttendenceSettingsGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\AURAttendanceGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\AURIndexGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\ComplaintGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\DumpYardCollectionGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\DumpYardGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\DumpYardSupervisorCollecGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\EmloyeeGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\EmpBeatMapsGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\EmpolyeeSummaryGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\EmpShiftGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\GarbageCountGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\HGarbageCotectionGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\GarbagePointGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\HouseBunchGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\HouseDetailsGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\HouseScanifyGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\HSAttendanceGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\HSDumpyardDetailsGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\HSHouseDetailsGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\HSLiquidDetailsGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\HSStreetDetailsGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\HSURAttendanceGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\IdelGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\InfotainmentGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\InfotainmentPlayerGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\LeagueGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\LGarbageCollectionGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\LiquidDumpYardCollectionGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\LiquidIdelGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\LiquidWasteGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\LiquidZoneGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\LocationGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\MasterQRBunchDetailsGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\MasterQRDetailsGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\MonthlyAttendeceGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\OnePointeightEditGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\OnePointeightGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\OnepointfiveEditGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\OnePointFiveGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\OnePointFourEditGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\OnePointFourGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\OnePointSevenGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\OnePointSixGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\PGarbageCollectionGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\RfidGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\SauchalayGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\SauchalayRegistrationGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\SBAAttendenceGrid.cs" />
+    <Compile Include="GridRepository\Grid\SSCollectionGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\SSCollectionGridRepositoryBeat.cs" />
+    <Compile Include="GridRepository\Grid\StreetDumpYardCollectionGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\StreetIdelGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\StreetSweepBeatGrid.cs" />
+    <Compile Include="GridRepository\Grid\StreetSweepBeatPointGrid.cs" />
+    <Compile Include="GridRepository\Grid\StreetSweepGrid.cs" />
+    <Compile Include="GridRepository\Grid\ULBAdminGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\ULBAdminStatusGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\URAttendanceGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\VehicalRegDetailsGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\VehicleRegGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\VehicleTypeGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\StateGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\TalukaGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\IEnumerableConverter.cs" />
+    <Compile Include="GridRepository\Grid\DistrictGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\WardNumberGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\WM_WasteDetailsGridRepository.cs" />
+    <Compile Include="GridRepository\Grid\ZoneGridRepository.cs" />
+    <Compile Include="GridRepository\IDataTableRepository.cs" />
+    <Compile Include="GridRepository\IGridRepository.cs" />
+    <Compile Include="GridRepository\LiquidDashBoardRepository.cs" />
+    <Compile Include="GridRepository\StreetDashBoardRepository.cs.cs" />
+    <Compile Include="MainRepository\IMainRepository.cs" />
+    <Compile Include="MainRepository\MainRepository.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SwachBharat.CMS.Bll.Sevices\SwachBharat.CMS.Bll.Services.csproj">
+      <Project>{d2177440-9a0a-42e0-aaf0-919229691866}</Project>
+      <Name>SwachBharat.CMS.Bll.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SwachBharat.CMS.Bll.ViewModels\SwachBharat.CMS.Bll.ViewModels.csproj">
+      <Project>{76f2f2d5-76b4-4946-b90d-cfd7259c4b60}</Project>
+      <Name>SwachBharat.CMS.Bll.ViewModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SwachBharat.CMS.Dal.DataContexts\SwachBharat.CMS.Dal.DataContexts.csproj">
+      <Project>{234c7af9-98c5-481f-8c64-bedd89226605}</Project>
+      <Name>SwachBharat.CMS.Dal.DataContexts</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\.editorconfig">
+      <Link>.editorconfig</Link>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,389 @@
+﻿.ro1 {
+	width: 100%;
+	overflow: hidden;
+	margin: 0px auto;
+	text-align: center;
+}.roww2 {
+	width: 50%;
+	float: right;
+	margin: 0px auto;
+}
+ .wrapper {
+	width: 50%;
+	float: left;
+	overflow: hidden;
+}
+ .form-control {
+float:right;
+	width: 80%;
+	
+
+}#box {
+	margin-top: 2%;
+}.multiselect-container.dropdown-menu {
+	width: 100%;
+	top: 26px;
+
+left: 0px;
+background: rgba(255,255,255,1) !important;
+box-shadow: 0 0px 0px rgba(255,153,0,.4) !important;
+border: 1px solid #cccccc;
+border: 1px solid rgba(0,0,0, 0.15) !important;
+}
+    .multiselect-container.dropdown-menu a {
+        color: #000 !important;
+        font-size: 17px;
+    }
+        .multiselect-container.dropdown-menu a:hover, .dropdown-menu > li > a:focus {
+            color: #000 !important;
+        }.checkbox input[type="checkbox"], .checkbox-inline input[type="checkbox"], .radio input[type="radio"], .radio-inline input[type="radio"] {
+	position: absolute;
+	margin-top: 4px\9;
+margin-left: -20px;
+}.multiselect-container > li > a > label.radio, .multiselect-container > li > a > label.checkbox {
+	margin: 0;
+	margin-left: 6%;
+	overflow: hidden;
+	padding: 0 0 0 10% !important;
+}
+.border1 {
+	border: 1px solid #ccc;height: 400px;
+	width: 100%;
+	margin-top: 3%;overflow-y: scroll;
+overflow-x: hidden;
+
+}.multiselect.dropdown-toggle.btn.btn-default {
+	color: #000;
+	background: white;
+	box-shadow: none !important;
+	border: 1px solid #cccccc;
+	border: 1px solid rgba(0,0,0, 0.15) !important;
+	padding: 2px 0px;
+	border-radius: 0px;
+	margin-top: 0px;
+}
+ .border {
+	height: 31px;
+	background: #787878;
+	box-shadow: 0px 4px 4px 1px #ccc;
+}
+ #top {
+	margin-top: 4px;
+	color: #fff;
+}
+ label {
+margin-top: 7px;
+font-size: 12px;padding-left: 15px !important;
+font-weight: 600 !important;
+}
+ .form-group {
+
+	width: 96%;
+
+}
+ .ui-jqgrid-htable {
+	width: 516px !important;
+}
+ .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+	border: 0px solid rgba(255,162,0,65) !important;
+	background: rgba(120,120,120,1) !important;
+	font-weight: normal;
+	color: #555555;
+	text-align: center;
+}
+ .ui-widget-content {
+	border: 0px solid #aaaaaa !important;
+	background: #fff !important;
+	color: #222222;
+}
+ .ui-jqgrid tr.ui-row-ltr td {
+	text-align: center !important;
+	border-right-width: 0px !important;
+}
+ .ui-corner-all, .ui-corner-top, .ui-corner-right, .ui-corner-tr {
+	border-top-right-radius: 0px;
+	border-top-left-radius: 0px;
+}
+ .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+	border: 0px solid rgba(255,162,0,65) !important;
+	background: rgba(120,120,120,1) !important;
+	font-weight: normal;
+	color: #555555;
+	text-align: center;
+
+}
+#calender {
+	background: #0171bb !important;
+	float: left;	margin-right: 15px;	border-radius: 6px;
+}#Reset {
+	background: #ec3606 !important;
+	border-radius: 6px;
+
+	float: left;
+}
+ #gridDashboard_pager {
+	background: #fff !important;
+}
+ .panel-body {
+	padding: 0px;
+	border: 3px solid #ccc;
+	border-radius: 0 0px 7px 7px;
+}
+ .form-group2 {
+	margin-bottom: 0px;
+	width: 100%;
+	padding: 0px;
+}
+ .text {
+	border-bottom: 1px solid #ccc;
+	border-top: 1px solid #ccc;
+	width: 94%;
+	margin: 0px auto;overflow: hidden;
+}
+ .currency {
+width: 26%;
+float: right;
+text-align: left;    margin-top: 7px;
+}
+ .currency1 {
+	width: 65%;
+	text-align: right;
+	font-weight: normal;
+}
+ .offer {
+	width: 67%;
+float: left;
+text-align: right;
+font-weight: normal;
+margin-right: 19px;
+}
+ .text2 {
+	padding-bottom: 16px;
+	overflow: hidden;
+	width: 100%;
+}
+ #textarea {
+height: 300px;
+padding: 10px;
+overflow-y: scroll;
+width: 98%;
+}
+ .icon-addon::after, .icon-addon::before {
+	display: table;
+	content: " ";
+}.icon-addon {
+	position: relative;
+	color: #555;
+	display: block;
+}
+ .icon-addon.addon-sm .fa, .icon-addon.addon-sm .glyphicon {
+margin-left: 0;
+font-size: 17px;
+left: 5px;
+top: -7px;
+}
+ .icon-addon.addon-md .glyphicon, .icon-addon .glyphicon, .icon-addon.addon-md .fa, .icon-addon .fa {
+	position: absolute;
+	z-index: 2;
+	left: 10px;
+	font-size: 14px;
+	width: 20px;
+	margin-left: -2.5px;
+	text-align: center;
+	padding: 10px 0;
+	top: 1px;
+}
+ #txtName1 {
+	padding: 0 0px 0px 30px;
+	border-radius: 6px;width: 100%;
+}
+ .radio {
+	padding: 0px;
+	margin: 0px;
+	overflow: hidden;
+	height: auto;
+}
+ .radio1 {
+
+ width: 100%;
+text-align: justify;
+margin-left: 0px;
+margin-top: 12px;
+}
+ .radio2{
+width: 33%;
+float:left;
+}
+ .radio2 p{margin:0px;}
+ .select1 {
+	width: 47%;
+	float: right;
+	overflow: hidden;margin-top: 12px;
+}
+ input[type='number'] {
+	max-width: 100%;float:right;
+	width: 10%;margin-left: 10px;
+}
+
+ .input-group.input-group-sm {
+	max-width: 100%;
+	width: 100%;
+}
+.multiselect-container {
+	width: 235px;
+top: 27px;
+	left: 0px;
+	background: rgba(66,51,56,0.55) !important;
+	box-shadow: none !important;
+	border: 1px solid #cccccc;
+	border: 1px solid rgba(255,153,0, 0.15) !important;
+	overflow: hidden;
+}
+ .btn-default {
+	color: #ffa200;
+background: rgba(66,51,56,0.55) !important;
+box-shadow: none !important;
+border: 1px solid #cccccc;
+border: 1px solid rgba(255,153,0, 0.15) !important;
+ padding: 2px 0px;
+border-radius: 6px;
+margin-top: 0px;
+}
+ .btn-default.active.focus, .btn-default.active:focus, .btn-default.active:hover, .btn-default.focus:active, .btn-default:active:focus, .btn-default:active:hover, .open > .dropdown-toggle.btn-default.focus, .open > .dropdown-toggle.btn-default:focus, .open > .dropdown-toggle.btn-default:hover {
+	color: #fff ;
+border-bottom: 2.5px solid #ffa200;
+background: rgba(255,153,0,.4);
+}
+ input[type="checkbox"], input[type="radio"] {
+	margin: 12px 0 0;
+
+}
+ .btn-group, .btn-group-vertical {
+
+	padding-bottom: 5px;
+}
+ .multiselect-container > li > a > label > input[type="checkbox"] {
+margin-top: 6px;
+}
+
+ .menus ,.btn-group{
+display: block;
+float: right;
+ }
+ .btn-success{display:none;float: left;}
+.mydiv {
+	clear: both;
+	display: inline-block;
+	width: 100%;
+
+}
+    .addon {
+overflow: hidden;
+border: 2px solid rgb(204, 204, 204);
+border-radius: 0px 0px 8px 8px;
+overflow-y: scroll;
+
+}
+    .selected1 {
+	float: left;
+width: 60%;
+color: #fff;
+}
+       .selected2 {
+	float: left;
+width: 20%;
+color: #fff;
+}
+            .selected3 {
+	float: left;
+width: 20%;
+color: #fff;
+}
+    .select {
+display: inline-block;
+width: 100%;
+background: rgba(120,120,120,0.5);
+box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 1px 3px 0 rgba(0,0,0,.12),0 2px 4px 3px rgba(0,0,0,.2);
+}
+    .selec1 {
+	width: 100%;
+	display: inline-block;
+	overflow: hidden;
+
+}
+    .item1 {
+	float: left;
+	width: 60%;
+}
+      .item2 {
+	float: left;
+	width: 20%;
+}
+          .item3 {
+	float: left;
+	width: 20%;
+}
+    .selec2 {
+	width: 100%;
+	display: inline-block;
+	overflow: hidden;
+}
+    .topins1 {
+	float: left;width: 60%;
+}
+        .topins2 {
+	float: left;width: 20%;
+}
+         .topins3 {
+	float: left;width: 20%;
+}
+    .pric {
+	float: right;
+	width: 100%;
+
+}
+    .tot1 {
+width: 80%;
+float: left;
+text-align: right;
+}
+    #txtoffer {
+	width: 10%;
+	max-width: 100%;
+	border: 1px solid #ccc;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+	box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+	-webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+	transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+    hr {
+
+	border-top: 2px solid #ccc;
+}
+    #btnDeals {
+	
+	padding: 10px 18px 10px 18px;
+	border: 1px solid rgba(0, 0, 0, 0.65);
+	transition: 0.5s;
+	color: #000;
+	border-radius: 0px;
+}
+    #btnSaveMenuItem{
+	
+	padding: 10px 18px 10px 18px;
+	border: 1px solid rgba(0, 0, 0, 0.65);
+	transition: 0.5s;
+	color: #000;
+	border-radius: 0px;
+}
+    #cat{background-image: url(/Content/images/arrow-down.png) !important;
+-moz-appearance: none;
+-webkit-appearance: none !important;
+background-repeat: no-repeat !important;
+background-size: 12px 12px !important;
+background-position: 98% 60% !important;}#btnSaveMenuItem:hover {
+	background: rgba(0,0,0,0.8);
+	color: #fff;
+}

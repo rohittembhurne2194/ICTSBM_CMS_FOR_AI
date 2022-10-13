@@ -1,0 +1,104 @@
+﻿body {
+}
+.login-page::before {
+    background: url(../img/new-login-bg-4.png) !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    filter: blur(0px) !important;
+}
+.login-page .form-holder {
+    margin-bottom: -40px !important;
+}
+.btn-primary {
+    background: #189cdf !important;
+    border-color: #189cdf !important;
+}
+nav.navbar {
+    background: #189cdf !important;
+}
+
+nav.side-navbar ul li a:hover {
+    background: #189cdf !important;
+}
+/*.btn-primary:hover {
+    color: #fff;
+    background-color: #0069d9;
+    border-color: #0062cc;
+}*/
+nav.side-navbar ul li.active > a {
+    background: #479cdf !important;
+}
+nav.side-navbar {
+    background: #d8f1fe !important;
+}
+ nav.side-navbar ul li a {
+        color: #000 !important;
+    }
+    nav.side-navbar a[aria-expanded="true"] {
+        background: #189cdf !important;
+    }
+    nav.side-navbar ul li li a {
+     
+        background: #ffffff !important;
+    }
+svg.svg3 g path {
+    fill: #000 !important;
+}
+svg.svg g g * {
+    fill: #000 !important;
+}
+.nav-tabs .tabid.active {
+    color: #fff;
+    background-color: #189cdf !important;
+}
+.btn-success {
+    background-color: #189cdf !important;
+    border-color: #189cdf !important;
+}
+thead {
+   color: #189cdf !important;
+}
+header.page-header {
+    text-align:center;
+}
+.my-card {
+    left: 0% !important;
+    top: 2px !important;
+}
+section.dashboard-counts .icon {
+    width: 85px !important;
+    height: 76px !important;
+    line-height: 90px !important;
+    text-align: center !important;
+    text-size-adjust: auto !important;
+    min-width: 85px !important;
+    max-width: 80px !important;
+    border-radius: 0%;
+    top: 0px;
+    left: 0px;
+    position: absolute;
+}
+.pr-25 {
+    padding-right:25px;
+}
+.login-page .form-holder .form .form-group {
+    position: relative;
+    margin-bottom: 15px !important;
+}
+
+@media only screen and (max-width: 412px) {
+    .login-card {
+        width: 85% !important;
+        margin-left: 0% !important;
+    }
+}
+
+
+@media only screen and (min-width: 1400px) {
+    .login-card {
+        width: 80% !important;
+        margin-left: -15% !important;
+        height:100% !important;
+    }
+
+}

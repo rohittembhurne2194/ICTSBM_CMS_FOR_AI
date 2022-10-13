@@ -1,0 +1,130 @@
+﻿
+@{
+    Layout = "";
+}
+
+@Styles.Render("~/Content/IndexCSS")
+<link href='https://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
+
+@Scripts.Render("~/Scripts/IndexScript")
+<script src="~/Content/DatatableGrid/EmployeeSummaryGrid.js"></script>
+<body>
+    <br />
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="controls">
+                    @*<label>तारखेपासून / From Date</label>*@
+                    <label>From Date</label>
+                    <input id="txt_fdate" class="datepicker form-control form-control-sm" type="text" />
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="controls">
+                    <label>To Date</label>
+                    <input id="txt_tdate" class="datepicker form-control form-control-sm" type="text" />
+                </div>
+            </div>
+
+            <input id="txt_tdate" style="display:none" class="datepicker form-control form-control-sm" type="text" />
+
+            <div class="col-sm-4">
+                @*<label>कर्मचारी निवडा / Select Employee</label>*@
+                <label> Select Employee</label>
+                <select id="selectnumber" class="form-control form-control form-control-sm"></select>
+            </div>
+            <div class="col-sm-2">
+                <div class="controls">
+                    <input data-background-color="filter-button-box-color" style="margin-top:28px;" class="btn btn-sm btn-primary filter-button-style" type="button" value="Filter Records" id="filter" onclick="Search()" />
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="container">
+        <br />
+        <div style="width:100%; margin:0 auto;">
+            @*<input type="text" id="s" class="float-right" onkeyup="Search()"/>*@
+
+
+            <label style="display:inline-flex" class="float-right">Search:&nbsp;<input type="text" id="s" class="form-control form-control-sm" onkeyup="Search()"></label>
+            <table id="demoGrid" class="table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0">
+                <thead>
+                    @*<tr>
+                        <th>daID</th>
+                        <th>कर्मचारी  <br /> Employee</th>
+                        <th>स्टार्ट तारीख <br /> Start Date</th>
+                        <th>सुरवातीची वेळ <br />  Start Time</th>
+                        <th>एन्ड तारीख <br />End Date</th>
+                        <th>समाप्तीचा वेळ <br />  End Time</th>
+                        <th>एकूण घर <br /> Total House </th>
+                        <th>एकूण डंप यार्ड ट्रीप <br />  Total Dump Yard Trip</th>
+                        <th>एकूण अंतर <br /> Total Distance (km)</th>
+                        <th>बॅटरीची स्थिती <br />  Battery Status</th>
+
+                    </tr>*@
+
+                    <tr>
+                        <th>daID</th>
+                        <th> Employee</th>
+                        <th> Start Date</th>
+                        <th> Start Time</th>
+                        <th> End Date</th>
+                        <th> End Time</th>
+                        <th> Total House </th>
+                        <th> Total House Time</th>
+                        <th> Total Dump Yard Trip </th>
+                        <th> Total Dump Yard Time </th>
+                        <th> In Time Battery</th>
+                        <th> Out Time Battery</th>                      
+                        @*<th> Total Distance (km)</th>*@                      
+                        <th> DateTime</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+        var date = new Date();
+
+        var day = date.getDate();
+        var month = date.getMonth() + 1;
+        var year = date.getFullYear();
+
+        if (month < 10) month = "0" + month;
+        if (day < 10) day = "0" + day;
+
+        var today = day + "/" + month + "/" + year;
+
+        document.getElementById('txt_fdate').value = today;
+        document.getElementById('txt_tdate').value = today;
+
+
+</script>
+<script src="~/Content/graph-assets/js/custom.js"></script>
+<script src="~/Content/css/datepicker/js/datepicker.js"></script>
+<script type="text/javascript">
+  $('.datepicker').datepicker({
+      format: 'dd/mm/yyyy',
+      weekStart: 1,
+      color: 'red',
+      pickTime: false
+  }).on('changeDate', function (e) {
+
+      $(this).datepicker('hide');
+
+  });
+  //hide  show on hover
+  $('#txt_fdate').focus(function () {
+      $('.dtpk_drpdwn').eq(1).hide();
+  });
+  $('#txt_tdate').focus(function () {
+      $('.dtpk_drpdwn').eq(0).hide();
+  });
+
+
+</script>

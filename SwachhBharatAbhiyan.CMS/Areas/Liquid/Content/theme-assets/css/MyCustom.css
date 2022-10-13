@@ -1,0 +1,71 @@
+﻿body {
+}
+
+.btn-primary {
+    background: #189cdf !important;
+}
+nav.navbar {
+    background: #189cdf !important;
+}
+
+nav.side-navbar ul li a:hover {
+    background: #189cdf !important;
+}
+nav.side-navbar {
+    background: #d8f1fe !important;
+}
+ nav.side-navbar ul li a {
+        color: #000 !important;
+    }
+    nav.side-navbar a[aria-expanded="true"] {
+        background: #189cdf !important;
+    }
+    nav.side-navbar ul li li a {
+     
+        background: #ffffff !important;
+    }
+svg.svg3 g path {
+    fill: #000 !important;
+}
+svg.svg g g * {
+    fill: #000 !important;
+}
+.nav-tabs .tabid.active {
+    color: #fff;
+    background-color: #189cdf !important;
+}
+.btn-success {
+    background-color: #189cdf !important;
+    border-color: #189cdf !important;
+}
+thead {
+   color: #189cdf !important;
+}
+header.page-header {
+    text-align:center;
+}
+.svg_android {
+    background-image: url("../img/android.svg")
+}
+.my-card {
+    left: 0% !important;
+    top: 2px !important;
+}
+
+section.dashboard-counts .icon {
+    width: 85px !important;
+    height: 76px !important;
+    line-height: 90px !important;
+    text-align: center !important;
+    text-size-adjust: auto !important;
+    min-width: 85px !important;
+    max-width: 80px !important;
+    border-radius: 0%;
+    top: 0px;
+    left: 0px;
+    position: absolute;
+}
+
+.pr-90 {
+    padding-right: 90px;
+}

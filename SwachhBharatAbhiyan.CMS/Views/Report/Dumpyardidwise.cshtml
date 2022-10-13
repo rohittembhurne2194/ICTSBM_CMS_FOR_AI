@@ -1,0 +1,236 @@
+﻿
+@{
+    ViewBag.Title = "Dumpyardidwise";
+}
+
+@Styles.Render("~/Content/IndexCSS")
+<link href='https://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
+<link href="~/Content/css/report_style.css" rel="stylesheet" />
+@Scripts.Render("~/Scripts/IndexScript")
+
+@*<header class="page-header">
+        <div class="container-fluid">
+            <h2 class="no-margin-bottom">Dumpyard Details</h2>
+        </div>
+    </header>*@
+<style>
+    #select_Dumpyard {
+        border-radius: 5px;
+        position: absolute;
+        top: 25%;
+        left: 45%;
+        width: 200px;
+        margin-left: -100px;
+        margin-top: -26px;
+        text-align: center;
+        padding: 1em 0;
+        border: 1px solid #0086c3;
+        background: #ffffff;
+        box-shadow: 0px 0px 10px #0086c3;
+        color: #111;
+    }
+</style>
+
+<body>
+    <br />
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-sm-3">
+                <div class="controls">
+                    @*<label>तारखेपासून / From Date</label>*@
+                    <label>From Date</label>
+                    <input id="txt_fdate" class="datepicker form-control form-control-sm" type="text" />
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="controls">
+                    @*<label>तारीख पर्यंत / To Date</label>*@
+                    <label>To Date</label>
+                    <input id="txt_tdate" class="datepicker form-control form-control-sm" type="text" />
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <label>Select Dumpyard</label>
+                <select id="selectnumber" class="form-control form-control form-control-sm"></select>
+            </div>
+
+            <div class="col-sm-1">
+                <div class="controls">
+                    <input data-background-color="filter-button-box-color" class="btn btn-sm btn-success filter-button-style" type="button" value="Filter Records" id="filter" onclick="Search()" />
+                </div>
+            </div>
+        </div><br />
+        <div class="row" style="margin-top:20px">
+            <div id="frameWrap">
+                @*<img id="loader1" src="~/Images/add_image_square.png" width="36" height="36" alt="loading gif" />*@
+                @*<p id="loader1">Generating Report ...</p>*@
+                <p id="loader1">Generating Report<span> .</span><span> .</span><span> .</span></p>
+                <p id="select_Dumpyard"><i>Please Select Dumpyard First</i></p>
+                @if (ViewBag.IframeUrl != null)
+            {
+                    @*<iframe name="iframemc" id="iframemc" frameborder="0" style="width:11.37465in;height:600px;background-color: white; float:none; margin-left:5px; overflow:hidden"></iframe>*@
+                    <iframe name="iframemc" id="iframemc" scrolling="yes" frameborder="0" style="background-color: white; float:none;  overflow:hidden" width="1180" height="820"></iframe>
+                }
+            </div>
+
+        </div>
+
+    </div>
+</body>
+
+<script>
+   
+      
+  
+        var date = new Date();
+
+        var day = date.getDate();
+        var month = date.getMonth() + 1;
+        var year = date.getFullYear();
+
+        if (month < 10) month = "0" + month;
+        if (day < 10) day = "0" + day;
+
+        //var url = window.location.hostname;
+        //if (url == "localhost") {
+
+        //    var today = month + "/" + day + "/" + year;
+
+        //}
+        //else
+        //{
+        //    var today = day + "/" + month + "/" + year;
+        //}
+
+        var today = month + "/" + day + "/" + year;
+        document.getElementById('txt_fdate').value = today;
+        document.getElementById('txt_tdate').value = today;
+
+
+</script>
+<script src="~/Content/graph-assets/js/custom.js"></script>
+<script src="~/Content/css/datepicker/js/datepicker.js"></script>
+<script type="text/javascript">
+    var type;
+    $(document).ready(function () {
+        
+        var DyId = $('#selectnumber').val();
+        $.ajax({
+
+            type: "post",
+            url: "/Location/DumpYardList",
+            data: { dyId: DyId },
+            datatype: "json",
+            traditional: true,
+            success: function (data) {
+                district = '<option value="-1">Select Dumpyard</option>';
+                for (var i = 0; i < data.length; i++)
+                {
+                    if (data[i].dyName != null)
+                    {
+                        
+                        district = district + '<option value=' + data[i].dyId + '>' + (capitalize_Words(data[i].dyName)); + '</option>';
+                        function capitalize_Words(str) {
+                            return str.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
+                        }
+                    }                
+                }
+             
+                $('#selectnumber').html(district);
+            }
+        });
+
+        
+        var x = $('#myHiddenVar').val();
+        var y = $('#myHiddenVar2').val();
+        var z = $('#myHiddenVar3').val();
+        var Report_Name = "Dumpyard_Employeeswise";
+        var site = '/DisplayReports.aspx?FromDate=' + $('#txt_fdate').val() + '&ToDate=' + $('#txt_tdate').val() + '&AppID=' + x + '&DB_Name=' + y + '&DB_Source=' + z + '&ReportName=' + Report_Name;
+        document.getElementById('iframemc').src = site;
+
+
+        $('#iframemc').on('load', function () {
+            $('#loader1').hide();
+        });
+
+    })
+
+    function Search() {
+        
+        if ($('#selectnumber').val() != -1) {
+            $('#select_Dumpyard').hide();
+        }
+        if ($('#selectnumber').val() == -1) {
+            $('#select_Dumpyard').show();
+        }
+
+        var x = $('#myHiddenVar').val();
+        var y = $('#myHiddenVar2').val();
+        var z = $('#myHiddenVar3').val();
+        var Report_Name = "Dumpyard_Employeeswise";
+        //alert(z);
+        $('#loader1').show();
+        var site = '/DisplayReports.aspx?FromDate=' + $('#txt_fdate').val() + '&ToDate=' + $('#txt_tdate').val() + '&DyId=' + $('#selectnumber').val() + '&Type=' + type + '&AppID=' + x + '&DB_Name=' + y + '&DB_Source=' + z + '&ReportName=' + Report_Name;
+        document.getElementById('iframemc').src = site;
+
+        $('#iframemc').on('load', function () {
+            $('#loader1').hide();
+        });
+
+    }
+
+    //var url = window.location.hostname;
+    //if (url == "localhost") {
+
+    //    $('.datepicker').datepicker({
+    //        format: 'mm/dd/yyyy',
+    //        weekStart: 1,
+    //        color: 'red',
+    //        pickTime: false,
+    //        onRender: function (date) {
+    //            return date > new Date() ? 'disabled' : '';
+    //        }
+    //    }).on('changeDate', function (e) {
+
+    //        //$(this).datepicker('hide');
+    //        $('.dtpk_drpdwn').hide();
+
+    //    });
+    //}
+    //else {
+
+    $('.datepicker').datepicker({
+        format: 'mm/dd/yyyy',
+        weekStart: 1,
+        color: 'red',
+        pickTime: false,
+        onRender: function (date) {
+            return date > new Date() ? 'disabled' : '';
+        }
+    }).on('changeDate', function (e) {
+
+        //$(this).datepicker('hide');
+        $('.dtpk_drpdwn').hide();
+
+    });
+    //}
+
+
+
+
+  //hide  show on hover
+  $('#txt_fdate').focus(function () {
+      $('.dtpk_drpdwn').eq(1).hide();
+  });
+  $('#txt_tdate').focus(function () {
+      $('.dtpk_drpdwn').eq(0).hide();
+  });
+
+
+</script>
+<input type="hidden" value="@Session["NewAppID"]" id="myHiddenVar" />
+<input type="hidden" value="@Session["DB_Name"]" id="myHiddenVar2" />
+<input type="hidden" value="@Session["DB_Source"]" id="myHiddenVar3" />
+

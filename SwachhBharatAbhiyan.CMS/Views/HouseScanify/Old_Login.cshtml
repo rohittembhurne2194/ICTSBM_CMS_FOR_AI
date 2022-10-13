@@ -1,0 +1,328 @@
+﻿@using SwachhBharatAbhiyan.CMS.Models
+@model LoginViewModel
+@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Log In</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="all,follow">
+    @Styles.Render("~/Content/ThemeCss")
+    <link rel="stylesheet" href="css/custom.css">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="/Content/images/img/ictsbm2.png" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+
+</head>
+
+<style>
+        .login-page .form-holder .info {
+            background: #d8f1fe;
+            color: #189cdf;
+        }
+
+        .bg-blue {
+            background: #189cdf !important;
+        }
+
+        .username, .password {
+            font-size: 16px;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .btn-white {
+            background: #fff;
+        }
+
+        .btn-colr {
+            color: #189cdf !important;
+            font-weight: bold !important;
+            font-weight: 600 !important;
+        }
+
+        input.input-material {
+            border-radius: 20px;
+            margin-left: 15%;
+            width: 75%;
+            height: 40px;
+            background: #fff;
+            padding: 10px 15px;
+            border-bottom: 0px solid #eee;
+            color: #bbb6b6;
+        }
+
+        select.input-material {
+            border-radius: 20px;
+            margin-left: 15%;
+            width: 75%;
+            height: 40px;
+            background: #FFF;
+            padding: 5px 15px;
+            border-bottom: 0px solid #eee;
+            color: #bbb6b6;
+        }
+
+        ::placeholder {
+            color: #bbb6b6;
+        }
+
+        :-ms-input-placeholder { /* Internet Explorer 10-11 */
+            color: #bbb6b6;
+        }
+
+        ::-ms-input-placeholder { /* Microsoft Edge */
+            color: #bbb6b6;
+        }
+
+        input[type='submit'] {
+            font-weight: 600 !important;
+        }
+
+        input {
+            color: #000 !important;
+        }
+
+            input[type=text]:focus {
+                outline: 2px solid orange; /* oranges! yey */
+            }
+
+            input[type=password]:focus {
+                outline: 2px solid orange; /* oranges! yey */
+            }
+
+            input:-internal-autofill-selected {
+                background: #fff !important;
+            }
+
+        .blacktext {
+            color: #000000 !important;
+        }
+
+        label {
+            margin-left: 15%;
+        }
+
+        option {
+            width: 50%;
+        }
+        /* Change Autocomplete styles in Chrome*/
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover,
+        input:-webkit-autofill:focus,
+        textarea:-webkit-autofill,
+        textarea:-webkit-autofill:hover,
+        textarea:-webkit-autofill:focus,
+        select:-webkit-autofill,
+        select:-webkit-autofill:hover,
+        select:-webkit-autofill:focus {
+            -webkit-text-fill-color: #000;
+            -webkit-box-shadow: 0 0 0px 1000px #fff inset;
+            transition: background-color 5000s ease-in-out 0s;
+        }
+
+        .topright {
+            position: absolute;
+            top: 13%;
+            right: -5%;
+            font-size: 18px;
+        }
+
+            .topright img {
+                width: 70%;
+                border-radius: 10px;
+            }
+
+        .topcenter {
+            position: absolute;
+            top: 82%;
+            right: -40%;
+            font-size: 18px;
+        }
+
+            .topcenter img {
+                width: 71%;
+                border-radius: 10px;
+            }
+
+        select {
+            -moz-appearance: none; /* Firefox */
+            -webkit-appearance: none; /* Safari and Chrome */
+            appearance: none;
+            margin-bottom: 0px !important;
+        }
+
+        /*     select.round {
+                background-image: linear-gradient(45deg, transparent 50%, gray 50%), linear-gradient(135deg, gray 50%, transparent 50%), radial-gradient(#ddd 70%, transparent 72%);
+                background-position: calc(100% - 31px) calc(1em + 2px), calc(100% - 26px) calc(1em + 2px), calc(100% - 1.5em) 0.5em;
+                background-size: 5px 5px, 5px 5px, 1.5em 1.5em;
+                background-repeat: no-repeat;
+            }
+
+                select.round:focus {
+                    background-image: linear-gradient(45deg, white 50%, transparent 50%), linear-gradient(135deg, transparent 50%, white 50%), radial-gradient(gray 70%, transparent 72%);
+                    background-position: calc(100% - 15px) 1em, calc(100% - 20px) 1em, calc(100% - .5em) .5em;
+                    background-size: 5px 5px, 5px 5px, 1.5em 1.5em;
+                    background-repeat: no-repeat;
+                    border-color: green;
+                    outline: 0;
+                }
+    */
+        .select::after {
+            content: '\25BC';
+            position: absolute;
+            top: 20px;
+            right: 66px;
+            padding: 1em;
+            /* background-color: #34495e; */
+            transition: .25s all ease;
+            pointer-events: none;
+            width: 20px;
+            height: 20px;
+            color: #9a9b9d;
+        }
+
+        label {
+            display: inline-block;
+            margin-bottom: 0.1rem !important;
+        }
+</style>
+<body>
+
+    <div class="page login-page">
+        <div class="container d-flex align-items-center">
+            <div class="form-holder has-shadow">
+                <div class="row">
+                    <!-- Logo & Information Panel-->
+                    <div class="col-lg-6">
+                        <center>
+                            <div class="info  align-items-center">
+
+                                <div class="content">
+                                    <div class="logo">
+                                        <img style="height:auto;width:auto;max-width:200px;" src="~/Content/images/New_Img/WCMT-Logo.png" />
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="content">
+                                    <div class="logo">
+                                        <h1> BigV Admin Login </h1>
+                                    </div>
+                                    <p style="margin:0px">Garbage Collection Van, Swachh Bharat Mission  </p>
+                                </div>
+                            </div>
+                        </center>
+
+                    </div>
+                    <!-- Form Panel    -->
+                    <div class="col-lg-6 bg-blue">
+
+                        @using (Html.BeginForm("Login", "HouseScanify", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <div class="form d-flex align-items-center">
+                                <div class="content">
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger", style = "margin-bottom:-15px;display:block;font-size:12px;" })
+                                    <h2 class="text-center" style=" margin-bottom: 10%; margin-top: -30%;">ICT BASED MONITORING TECHNOLOGY</h2>
+                                    <div class="form-group">
+                                        <label for="login-username" class="username">User Name</label>
+                                        @Html.TextBoxFor(m => m.Email, new { @class = "input-material", @id = "login-username", placeholder = "Username" })
+
+                                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger", style = "display:block;font-size:11px;margin-top:2px" })
+                                    </div>
+
+
+
+
+
+                                    <div class="form-group">
+                                        <label for="login-password" class="password">Password </label>
+                                        @Html.PasswordFor(m => m.Password, new { @class = "input-material ", @id = "login-password", placeholder = "Password" })
+                                        <i class="far fa-eye" id="togglePassword" style="margin-left: -30px; cursor: pointer; color: #9a9b9d; "></i>
+                                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger", style = "display:block;font-size:11px;margin-top:2px" })
+                                    </div>
+                                    @*<a id="login" href="index.html" class="btn btn-primary">Login</a>*@
+
+
+                                    <input class="btn btn-white btn-colr" align="center" style="margin: 5px; margin-left: 30%;margin-top:40px; width: 40%; height: 34px; padding: 5px 15px;border-radius: 20px; position: absolute; left: 20px; " type="submit" id="login" value="LOGIN">
+                                    <!-- This should be submit button but I replaced it with <a> for demo purposes-->
+                                    @*<center><a href="#" class="forgot-pass">Forgot Password?</a></center>*@
+                                    @*<br><small>Do not have an account? </small><a href="register.html" class="signup">Signup</a>*@
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                </div>
+                <div class="topcenter"><img src="~/Content/theme-assets/img/Bottom-Image.png" /></div>
+            </div>
+        </div>
+        <div class="copyrights text-center">
+            <p>
+                @*Design by <a href="https://bootstrapious.com/admin-templates" class="external">Bootstrapious</a>*@
+                <!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
+            </p>
+        </div>
+    </div>
+    @Scripts.Render("~/Scripts/ThemeScripts")
+</body>
+</html>
+
+<script src="~/Content/theme-assets/js/front.js"></script>
+
+
+
+
+
+<script>
+            $(document).ready(function () {
+                //$('#login-username').focus();
+                //alert("aa");
+                var materialInputs = $('input.input-material');
+                // activate labels for prefilled values
+                materialInputs.filter(function () { return $(this).val() !== ""; }).siblings('.label-material').addClass('active');
+            });
+
+            // move label on focus
+            var materialInputs = $('input.input-material');
+            materialInputs.on('focus', function () {
+                $(this).siblings('.label-material').addClass('active');
+            });
+
+            // remove/keep label on blur
+            materialInputs.on('blur', function () {
+                $(this).siblings('.label-material').removeClass('active');
+
+                if ($(this).val() !== '') {
+                    $(this).siblings('.label-material').addClass('active');
+                } else {
+                    $(this).siblings('.label-material').removeClass('active');
+                }
+            });
+</script>
+
+<script>
+    const togglePassword = document.querySelector('#togglePassword');
+    const password = document.querySelector('#login-password');
+
+    togglePassword.addEventListener('click', function (e) {
+        // toggle the type attribute
+        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+        password.setAttribute('type', type);
+        // toggle the eye slash icon
+        this.classList.toggle('fa-eye-slash');
+    });
+</script>
+<script>
+    var select = document.getElementById('Type');
+    select.onchange = function () {
+        select.className = 'input-material blacktext';
+    }
+</script>

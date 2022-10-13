@@ -1,0 +1,712 @@
+﻿@model SwachBharat.CMS.Bll.ViewModels.ChildModel.Model.DashBoardVM
+
+@{
+    Layout = null;
+}
+<style>
+    /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+    #googleMap {
+        height: 100%;
+    }
+    /* Optional: Makes the sample page fill the window. */
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    #floating-panel {
+        position: absolute;
+        top: 0px;
+        left: 5%;
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+        text-align: center;
+        font-family: 'Roboto','sans-serif';
+        line-height: 30px;
+        padding-left: 10px;
+    }
+
+    #floating-panel {
+        margin-left: -10px;
+    }
+
+    /* The container */
+    .check-container {
+        display: block;
+        position: relative;
+        padding-left: 25px;
+        padding-right: 15px;
+        margin-bottom: 12px;
+        cursor: pointer;
+        font-size: 16px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+        /* Hide the browser's default radio button */
+        .check-container input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+    /* Create a custom radio button */
+    .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 20px;
+        width: 20px;
+        background-color: #ccc;
+        border-radius: 50%;
+    }
+
+    /* On mouse-over, add a grey background color */
+    .check-container:hover input ~ .checkmark {
+        background-color: #999;
+    }
+
+    /* When the radio button is checked, add a blue background */
+    .check-container input:checked ~ .checkmark {
+        background-color: #189cdf !important;
+    }
+
+    /* Create the indicator (the dot/circle - hidden when not checked) */
+    .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+    }
+
+    /* Show the indicator (dot/circle) when checked */
+    .check-container input:checked ~ .checkmark:after {
+        display: block;
+    }
+
+    .check-container input ~ .checkmark:after {
+        display: block;
+    }
+
+    /* Style the indicator (dot/circle) */
+    .check-container .checkmark:after {
+        top: 6px;
+        left: 6px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: white;
+    }
+</style>
+
+<link rel="shortcut icon" href="~/Content/images/img/ictsbm2.png" />
+<title>House on Map</title>
+<fieldset>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="~/Content/css/datepicker/css/datepicker.css" rel="stylesheet" />
+    <link href="~/Content/theme-assets/css/MyCustom.css" rel="stylesheet">
+    <link href="~/Content/css/index_style.css" rel="stylesheet" />
+
+    <div class="container">
+        <h3 style="text-align : center; font-weight : bold">@ViewBag.AppName</h3>
+        <div class="row" style="display:flex">
+
+            <div class="col" style="width:20%;padding-right: 5px;">
+
+                <div class="media" style="border:1px solid #8532fc;padding:5px;">
+                    <div class="media-left media-middle" style="padding: 0px 10px;">
+                        <img src="/Content/images/img/segregationImg/icn_house.png" class="media-object" />
+                    </div>
+                    <div class="media-body">
+                        <p class="media-heading" style="font-weight:600">House Count</p>
+                        <p style="font-size:14px;margin:0px"><b>Total :</b> @Model.HouseCollection</p>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="col" style="width:20%;padding-right: 5px;">
+
+
+                <div class="media" style="border:1px solid #6fa570;padding:5px;">
+                    <div class="media-left media-middle" style="padding: 0px 10px;">
+                        <img src="/Content/images/img/segregationImg/icn_segregated_garbage.png" class="media-object" />
+                    </div>
+                    <div class="media-body">
+                        <p class="media-heading" style="font-weight:600">Segregated Count</p>
+                        <p style="font-size:14px;margin:0px"><b>Total :</b> @Model.BifurgatedCount</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col" style="width:20%;padding-right: 5px;">
+                <div class="media" style="border:1px solid #d1655e;padding:5px;">
+                    <div class="media-left media-middle" style="padding: 0px 10px;">
+                        <img src="/Content/images/img/segregationImg/icn_mixed_garbage.png" class="media-object" />
+                    </div>
+                    <div class="media-body">
+                        <p class="media-heading" style="font-weight:600">Mixed Count</p>
+                        <p style="font-size:14px;margin:0px"><b>Total :</b> @Model.MixedCount</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col" style="width:20%;padding-right: 5px;">
+                <div class="media" style="border:1px solid #e89f5f;padding:5px;">
+                    <div class="media-left media-middle" style="padding: 0px 10px;">
+                        <img src="/Content/images/img/segregationImg/icn_garbage_not_recevied.png" class="media-object" />
+                    </div>
+                    <div class="media-body">
+                        <p class="media-heading" style="font-weight:600">Not Received Count</p>
+                        <p style="font-size:14px;margin:0px"><b>Total :</b> @Model.NotCollected</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col" style="width:20%;padding-right: 5px;">
+                <div class="media" style="border:1px solid #0086c3;padding:5px;">
+                    <div class="media-left media-middle" style="padding: 0px 10px;">
+                        <img src="/Content/images/img/segregationImg/icn_not_specified.png" class="media-object" />
+                    </div>
+                    <div class="media-body">
+                        <p class="media-heading" style="font-weight:600">Not Specified Count</p>
+                        <p style="font-size:14px;margin:0px"><b>Total :</b> @Model.NotSpecified</p>
+                    </div>
+                </div>
+            </div>
+
+        </div><br />
+        <div class="row" style="display:flex">
+            <div class="col" style="width:20%;padding-right: 5px;">
+
+                <div class="media" style="border: 1px solid #4f0e54; padding: 5px;">
+                    <div class="media-left media-middle" style="padding: 0px 10px;">
+                        <img src="../../Areas/Liquid/Content/images/img/segregationImg/Liquid.png" class="media-object" />
+                    </div>
+                    <div class="media-body">
+                        <p class="media-heading" style="font-weight:600">Liquid Count</p>
+                        <p style="font-size:14px;margin:0px"><b>Total :</b> @Model.LiquidCollection</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col" style="width:20%;padding-right: 5px;">
+
+                <div class="media" style="border: 1px solid #280100; padding: 5px;">
+                    <div class="media-left media-middle" style="padding: 0px 10px;">
+                        <img src="../../Areas/Street/Content/images/img/segregationImg/Street.png" class="media-object" />
+                    </div>
+                    <div class="media-body">
+                        <p class="media-heading" style="font-weight:600">Street Count</p>
+                        <p style="font-size:14px;margin:0px"><b>Total :</b> @Model.StreetCollection</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col" style="width:20%;padding-right: 5px;">
+
+                <div class="media" style="border: 1px solid #1f32a3; padding: 5px;">
+                    <div class="media-left media-middle" style="padding: 0px 10px;">
+                        <img src="~/Content/images/img/segregationImg/Dump_Yard.png" class="media-object" />
+                    </div>
+                    <div class="media-body">
+                        <p class="media-heading" style="font-weight:600">DumpYard Count</p>
+                        <p style="font-size:14px;margin:0px"><b>Total :</b> @Model.DumpYardCount</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row form" style="text-align:center;display:inline-flex">
+            <label class="check-container">
+                @*All House*@
+                All
+                <input type="radio" checked="checked" value="0" name="radio">
+                <span class="checkmark"></span>
+            </label>
+            <label class="check-container">
+                All with Scanned House
+                <input type="radio" value="1" name="radio">
+                <span class="checkmark"></span>
+            </label>
+            <label class="check-container">
+                Only Scanned House
+                <input type="radio" value="2" name="radio">
+                <span class="checkmark"></span>
+            </label>
+
+            <label class="check-container">
+                Only Without Scanned House
+                <input type="radio" value="3" name="radio">
+                <span class="checkmark"></span>
+            </label>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <div class="controls">
+                    <input type="hidden" value="@ViewBag.lat" id="deflat" />
+                    <input type="hidden" value="@ViewBag.lang" id="deflang" />
+                    @*<label>तारीख निवडा / Select Date</label>*@
+                    <label>Select Date</label>
+                    <input id="txt_fdate" class="datepicker form-control form-control-sm" type="text" />
+                </div>
+            </div>
+            <div class="col-sm-2">
+                @*<label>कर्मचारी निवडा / Select Employee</label>*@
+                <label>Select Employee</label>
+                <select id="selectnumber" class="form-control minimal-form  RequiredInput validate[required] RequiredInput"></select>
+            </div>
+            <div class="col-sm-2">
+                @*<label>कर्मचारी निवडा / Select Employee</label>*@
+                <label>Select Segregation </label>
+                <select id="seg_type" class="form-control minimal-form  RequiredInput validate[required] RequiredInput">
+                    <option value="-1"> All Records</option>
+                    <option value="1"> Segregated Garbage</option>
+                    <option value="0"> Mixed Garbage</option>
+                    <option value="2"> Garbage not Received</option>
+                    <option value="3">  Not Specified</option>
+                </select>
+            </div>
+
+            <div class="col-sm-3">
+                @*<label>कर्मचारी निवडा / Select Employee</label>*@
+                <label>Select Ward / Prabhag</label>
+                <select id="selectWard" class="form-control minimal-form  RequiredInput validate[required] RequiredInput"></select>
+            </div>
+            <div class="col-sm-2">
+                @*<label>कर्मचारी निवडा / Select Employee</label>*@
+                <label>Select Area</label>
+                <select id="selectArea" class="form-control minimal-form  RequiredInput validate[required] RequiredInput"></select>
+            </div>
+            <div class="col-sm-1">
+                <label>&nbsp;</label>
+                <div class="controls">
+                    @*<input data-background-color="filter-button-box-color" style="margin-top:25px;" class="btn btn-sm btn-success filter-button-style" type="button" value="Search" id="filter" onclick="Search()" />
+                        <button id="drop" style="margin-top:25px" class="btn btn-sm btn-success filter-button-style" onclick="userroute()">User Wise Route</button>*@
+                    <a id="filter" onclick="Search()" style="margin-top:5px" class="btn btn-sm btn-success filter-button-style">Search</a>
+                    @*<a id="drop" style="margin-top:25px" class="btn btn-sm btn-success filter-button-style" onclick="userroute()">Route</a>*@
+                    @*<a id="drop" style="margin-top:25px" class="btn btn-sm btn-success filter-button-style" href="~/Location/ShowGrid">Back</a>*@
+
+
+
+                </div>
+            </div>
+
+
+            <div class="col-sm-4">
+                <label>&nbsp;</label>
+                <div class="card" style="width: auto; border:1px solid #ff7676;margin-top:3px">
+                    <div class="card-body" style="padding:8px">
+                        <p class="text-center" style="font-size:14px;margin:0px"><b>Total Scaned House :</b> @Model.TotalScanHouseCount</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+            </div>
+            <div class="col-sm-3">
+                <div class="controls">
+
+                    <label style="margin-top:7px"> House ID / House Owner Filter</label>
+                    <input id="houseId_filter" class="form-control form-control-sm" type="text" />
+                </div>
+            </div>
+
+            <div class="col-sm-1">
+                <label>&nbsp;</label>
+                <div class="controls">
+                    <a id="filter_house" onclick="Search_string()" style="margin-top:10px" class="btn btn-sm btn-success filter-button-style">Search</a>
+                </div>
+            </div>
+
+        </div>
+
+    </div><br />
+    <div class="container">
+        <div class="row" style="position:relative; height:650px;">
+            <p id="wait" style="display:none;position:absolute;top:35%;left:50%;">
+                <img class="rotate_img" src="~/Content/images/img/marker24.png">
+            </p>
+            <div class="col-10 bg-white has-shadow" id="googleMap" style="width:auto; height:600px"></div>
+            <div class="col-sm-2"></div>
+        </div>
+    </div><br />
+ 
+    <div class="modal fade" id="#myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+
+                    </button>
+                    <h4 class="modal-title">Search Result</h4>
+
+                </div>
+                <div class="modal-body">
+                    <p>No records found as per your filter</p>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <script>
+        $(document).ready(function () {
+
+            // For loading all Area
+            $.ajax({
+                type: "post",
+                url: "/HouseMaster/AreaList",
+                data: { stateId: $('#ddlState').val() },
+                datatype: "json",
+                traditional: true,
+                success: function (data) {
+                    district = '';
+                    for (var i = 0; i < data.length; i++) {
+                        district = district + '<option value=' + data[i].Value + '>' + data[i].Text + '</option>';
+                    }
+                    //district = district + '</select>';
+                    $('#selectArea').html(district);
+                }
+            });
+
+
+            $.ajax({
+                type: "post",
+                url: "/HouseMaster/WardList",
+                data: { stateId: $('#ddlState').val() },
+                datatype: "json",
+                traditional: true,
+                success: function (data) {
+                    district = '';
+                    for (var i = 0; i < data.length; i++) {
+                        district = district + '<option value=' + data[i].Value + '>' + data[i].Text + '</option>';
+                    }
+                    //district = district + '</select>';
+                    $('#selectWard').html(district);
+                }
+            });
+            $('input[type=radio][name=radio]').change(function () {
+                myMap();
+            })
+            // for loading ward wise area
+            $('#selectWard').change(function () {
+                var selectedText = $(this).find("option:selected").text();
+                var selectedValue = $(this).val();
+
+                $.ajax({
+                    type: "post",
+                    url: "/GarbagePoint/LoadAreaList?",
+                    data: { WardNo: $('#selectWard').val() },
+                    datatype: "json",
+                    traditional: true,
+                    success: function (data) {
+                        var area;
+                        for (var i = 0; i < data.length; i++) {
+                            area = area + '<option value=' + data[i].Value + '>' + data[i].Text + '</option>';
+                        }
+                        $('#selectArea').html(area);
+                    }
+                });
+
+            });
+
+            $.ajax({
+                type: "post",
+                url: "/Location/UserList",
+                data: { stateId: $('#ddlState').val() },
+                datatype: "json",
+                traditional: true,
+                success: function (data) {
+                    district = '<option value="-1">Select Employee</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        district = district + '<option value=' + data[i].Value + '>' + data[i].Text + '</option>';
+                    }
+                    //district = district + '</select>';
+                    $('#selectnumber').html(district);
+                }
+            });
+        });
+        //User Wise Location
+        // All User On Map
+
+        function myMap() {
+            var RadioValue = $("input[name='radio']:checked").val();
+            if (RadioValue == 0) {
+                document.getElementById('txt_fdate').value = today;
+                $('#selectnumber').val(-1);
+                $('#seg_type').val(-1);
+                $('#txt_fdate').prop('disabled', 'disabled');
+                $('#selectnumber').prop('disabled', 'disabled');
+                $('#seg_type').prop('disabled', 'disabled');
+            } else {
+                $('#txt_fdate').prop('disabled', false);
+                $('#selectnumber').prop('disabled', false);
+                $('#seg_type').prop('disabled', false);
+            }
+            $("#wait").css("display", "block");
+            $("#googleMap").css("display", "none");
+            $.ajax({
+                type: "post",
+                url: "/Location/HouseLocationList?date=" + $('#txt_fdate').val() + "&userId=" + $("#selectnumber").val() + "&areaId=" + $("#selectArea").val() + "&wardNo=" + $("#selectWard").val() + "&searchstring=" + $("#houseId_filter").val() + "&garbageType=" + $("#seg_type").val() + "&FilterType=" + RadioValue + "&ctype=" + $("#c_type").val(),
+                //url: "/Location/HouseLocationList",
+                datatype: "json",
+                traditional: true,
+                success: function (data) {
+                    $("#wait").css("display", "none");
+                    $("#googleMap").css("display", "block");
+                    if (data.length == 0)
+                        $('#\\#myModal').modal('show');
+                    
+                    {
+                        var map = new google.maps.Map(document.getElementById('googleMap'), {
+                            zoom: 12,
+                            center: new google.maps.LatLng($('#deflat').val(), $('#deflang').val()),
+                            mapTypeId: google.maps.MapTypeId.ROADMAP
+                        });
+
+                    }
+                    var map = new google.maps.Map(document.getElementById('googleMap'), {
+                        zoom: 25,
+                        center: new google.maps.LatLng(data[0].houseLat, data[0].houseLong),
+                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                    });
+
+                    var infowindow = new google.maps.InfoWindow();
+                    bounds = new google.maps.LatLngBounds();
+                    var marker, i;
+                    // alert(data.length);
+                    // Get Addres
+                    
+                    var gar_type;
+                    for (i = 0; i < data.length; i++) {
+                        if (data[i].houseOwnerName == null) {
+                            data[i].houseOwnerName = 'Not Available';
+                        }
+                        if (data[i].houseOwnerMobile == null) {
+                            data[i].houseOwnerMobile = '';
+                        }
+                        if (data[i].houseAddress == null) {
+                            data[i].houseAddress = '';
+                        }
+                        gar_type = data[i].garbageType
+
+                        var mUrl = "../Content/images/img/segregationImg/icn_house.png";
+                        if (data[i].lwid != 0) {
+                            var mUrl = "../../Areas/Liquid/Content/images/img/segregationImg/Liquidwaste_Marker.png";
+                        }
+                        if (data[i].ssid != 0) {
+                            var mUrl = "../../Areas/Street/Content/images/img/segregationImg/Street_Sweep.png";
+                        }
+                        if (data[i].dyid != 0) {
+                            var mUrl = "../Content/images/img/segregationImg/Dumpyard_marker.png";
+
+                        }
+                        switch (gar_type) {
+
+                            case 0:
+                                mUrl = "../Content/images/img/segregationImg/icn_mixed_garbage.png"
+                                break;
+                            case 1:
+                                mUrl = "../Content/images/img/segregationImg/icn_segregated_garbage.png"
+                                break;
+                            case 2:
+                                mUrl = "../Content/images/img/segregationImg/icn_garbage_not_recevied.png"
+                                break;
+                            case 3:
+                                mUrl = "../Content/images/img/segregationImg/icn_not_specified.png"
+                                break;
+                        }
+
+
+                        marker = new google.maps.Marker({
+                            position: new google.maps.LatLng(data[i].houseLat, data[i].houseLong),
+                            map: map,
+
+                            icon: {
+                                // labelOrigin: new google.maps.Point(16, 65),
+                                url: mUrl
+                            }
+
+                        });
+
+                        //loc = new google.maps.LatLng(data[i].houseLat, data[i].houseLong);
+                        loc = new google.maps.LatLng(marker.position.lat(), marker.position.lng());
+
+                        bounds.extend(loc);
+
+                        if (gar_type != null) {
+                            google.maps.event.addListener(marker, 'click', (function (marker, i) {
+                                return function () {
+                                    var poptext = '<div class=infowindow style="max-width:190px"> <h4 style="text-transform: capitalize;">' + data[i].houseOwnerName + '</h4><p><b>House Id: </b>' + data[i].ReferanceId + '</p>';
+                                    if (data[i].houseOwnerMobile != '') {
+                                        poptext = poptext + '<p><b>Mobile: </b>' + data[i].houseOwnerMobile + '</p>';
+                                    }
+                                    if (data[i].houseAddress != '') {
+                                        poptext = poptext + '<p><b>Address: </b>' + data[i].houseAddress + '<p>';
+                                    }
+                                    poptext = poptext + '<b>Date: </b>' + data[i].gcDate + '</p><div style="height:auto; width:150px"><p><b>Time: </b>' + data[i].gcTime + '</p></div></div>';
+                                    infowindow.setContent(poptext);
+                                    infowindow.open(map, marker);
+                                }
+                            })(marker, i));
+                        }
+                        else if (data[i].lwid != 0) {
+
+                            google.maps.event.addListener(marker, 'click', (function (marker, i) {
+                                return function () {
+                                    var poptext = '<div class=infowindow style="max-width:190px"> <h4 style="text-transform: capitalize;">' + data[i].houseOwnerName + '</h4><p><b>Liquid Waste Id: </b>' + data[i].ReferanceId + '</p>'
+                                    if (data[i].houseOwnerMobile != '') {
+                                        poptext = poptext + '<p><b>Mobile: </b>' + data[i].houseOwnerMobile + '</p>';
+                                    }
+                                    if (data[i].houseAddress != '') {
+                                        poptext = poptext + '<p><b>Address: </b>' + data[i].houseAddress + '</p>';
+                                    }
+                                    poptext = poptext + '</div>';
+                                    infowindow.setContent(poptext);
+                                    infowindow.open(map, marker);
+                                }
+                            })(marker, i));
+                        }
+                        else if (data[i].ssid != 0) {
+
+                            google.maps.event.addListener(marker, 'click', (function (marker, i) {
+                                return function () {
+                                    var poptext = '<div class=infowindow style="max-width:190px"> <h4 style="text-transform: capitalize;">' + data[i].houseOwnerName + '</h4><p><b>Street Sweep Id: </b>' + data[i].ReferanceId + '</p>'
+                                    if (data[i].houseOwnerMobile != '') {
+                                        poptext = poptext + '<p><b>Mobile: </b>' + data[i].houseOwnerMobile + '</p>';
+                                    }
+                                    if (data[i].houseAddress != '') {
+                                        poptext = poptext + '<p><b>Address: </b>' + data[i].houseAddress + '</p>';
+                                    }
+                                    poptext = poptext + '</div>';
+                                    infowindow.setContent(poptext);
+                                    infowindow.open(map, marker);
+                                }
+                            })(marker, i));
+                        }
+                        else if (data[i].dyid != 0) {
+
+                            google.maps.event.addListener(marker, 'click', (function (marker, i) {
+                                return function () {
+                                    var poptext = '<div class=infowindow style="max-width:190px"> <h4 style="text-transform: capitalize;">' + data[i].houseOwnerName + '</h4><p><b>Dump Yard Id: </b>' + data[i].ReferanceId + '</p>'
+                                    if (data[i].houseOwnerMobile != '') {
+                                        poptext = poptext + '<p><b>Mobile: </b>' + data[i].houseOwnerMobile + '</p>';
+                                    }
+                                    if (data[i].houseAddress != '') {
+                                        poptext = poptext + '<p><b>Address: </b>' + data[i].houseAddress + '</p>';
+                                    }
+                                    poptext = poptext + '</div>';
+                                    infowindow.setContent(poptext);
+                                    infowindow.open(map, marker);
+                                }
+                            })(marker, i));
+                        }
+                        else {
+                             google.maps.event.addListener(marker, 'click', (function (marker, i) {
+                                return function () {
+                                    var poptext = '<div class=infowindow style="max-width:190px"> <h4 style="text-transform: capitalize;">' + data[i].houseOwnerName + '</h4><p><b>House Id: </b>' + data[i].ReferanceId + '</p>'
+                                    if (data[i].houseOwnerMobile != '') {
+                                        poptext = poptext + '<p><b>Mobile: </b>' + data[i].houseOwnerMobile + '</p>';
+                                    }
+                                    if (data[i].houseAddress != '') {
+                                        poptext = poptext + '<p><b>Address: </b>' + data[i].houseAddress + '</p>';
+                                    }
+                                    poptext = poptext + '</div>';
+                                    infowindow.setContent(poptext);
+                                    infowindow.open(map, marker);
+                                }
+                            })(marker, i));
+                        }
+
+
+                    }
+                    map.fitBounds(bounds);
+                    map.panToBounds(bounds);
+
+                }
+
+            });
+
+          
+        }
+
+
+
+
+        function Search() {
+            $("#houseId_filter").val("");
+            myMap();
+        }
+
+        function Search_string() {
+            myMap();
+        }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=@Session["apikey"]&callback=myMap" type="text/javascript"></script>
+
+    @*Paid API*@
+    @*<script async defer src="https://maps.googleapis.com/maps/api/js?key=@Session["apikey"]&callback=myMap" type="text/javascript"></script>*@
+</fieldset>
+<script src="~/Content/css/datepicker/js/datepicker.js"></script>
+
+<script>
+    //$(document).keydown(function (event) {
+    //    if (event.keyCode == 123 || event.keyCode === 67 || event.keyCode === 86 || event.keyCode === 85 || event.keyCode === 117 || event.keyCode === 75) {
+    //        return false;
+    //    }
+    //    else if ((event.ctrlKey && event.shiftKey && event.keyCode == 73) || (event.ctrlKey && event.shiftKey && event.keyCode == 74)) {
+    //        return false;
+    //    }
+    //});
+    //document.addEventListener('contextmenu', event => event.preventDefault());
+</script>
+<script>
+    var date = new Date();
+
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
+    var year = date.getFullYear();
+
+    if (month < 10) month = "0" + month;
+    if (day < 10) day = "0" + day;
+
+    // var today = month+ "/" + day+ "/" + year;
+    var today = day + "/" + month + "/" + year;
+    document.getElementById('txt_fdate').value = today;
+
+
+
+</script>
+
+
+
+<script type="text/javascript">
+    $('.datepicker').datepicker({
+        format: 'dd/mm/yyyy',
+        weekStart: 1,
+        color: 'red',
+        pickTime: false
+    }).on('changeDate', function (e) {
+
+        $(this).datepicker('hide');
+
+    });
+    //hide  show on hover
+    $('#txt_fdate').focus(function () {
+        $('.dtpk_drpdwn').eq(1).hide();
+    });
+
+
+  //$('#filter_house').click(function () {
+  //    alert($("#houseId_filter").val());
+  //});
+
+</script>

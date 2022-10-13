@@ -1,0 +1,535 @@
+﻿@model SwachBharat.CMS.Bll.ViewModels.ChildModel.Model.UREmployeeDetailsVM
+
+@{
+    Layout = "";
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>@ViewBag.Title</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="all,follow">
+    @Styles.Render("~/Content/ThemeCss")
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    @*@Scripts.Render("~/bundles/modernizr")*@
+    @*@RenderSection("styles", required: false)*@
+    <link rel="shortcut icon" href="/Content/images/img/ictsbm2.png" />
+    @Scripts.Render("~/Scripts/IndexScript")
+
+    @Styles.Render("~/Content/IndexCSS")
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
+
+    @Scripts.Render("~/Scripts/IndexScript")
+    @*<script src="~/Content/DatatableGrid/HouseScanify.js"></script>*@
+
+    @*<script src="~/Content/DatatableGrid/URGridDetails.js"></script>*@
+
+</head>
+
+<body>
+    <input type="hidden" value="@ViewBag.AppId" id="appid" />
+    <input type="hidden" value="@ViewBag.EmpId" id="qrEmpId" />
+
+
+    <div class="page">
+        <!-- Main Navbar-->
+        <header class="header">
+            <nav class="navbar">
+                <!-- Search Box-->
+                <div class="search-box">
+                    <button class="dismiss"><i class="icon-close"></i></button>
+                    <form id="searchForm" action="#" role="search">
+                        <input type="search" placeholder="What are you looking for..." class="form-control">
+                    </form>
+                </div>
+
+                <div class="container-fluid">
+                    <div class="navbar-holder d-flex align-items-center justify-content-between">
+                        <!-- Navbar Header-->
+                        <div class="navbar-header">
+                            <!-- Navbar Brand --><a href="#" class="navbar-brand">
+                                <div class="brand-text brand-big"><span><img style="height:40px;width:50px;" src="~/Content/images/img/house_icon.svg" /> </span><strong style="font-size:15px;margin-left:3%"> House / Liquid / Street Scanify</strong></div>
+                                <div class="brand-text brand-small"><strong><img style="height:40px;width:50px;" src="~/Content/images/img/house_icon.svg" /> </strong></div>
+                            </a>
+                            <!-- Toggle Button--><a id="toggle-btn" href="#" class="menu-btn active"><span></span><span></span><span></span></a>
+                        </div>
+                        <!-- Navbar Menu -->
+                        <!-- Logout    -->
+                        <li class="nav-item" style="list-style: none;"><a href="/houseScanifyemp/login" class="nav-link logout">Logout<i class="fa fa-sign-out"></i></a></li>
+
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <div class="page-content d-flex align-items-stretch">
+            <!-- Side Navbar -->
+            <nav class="side-navbar">
+                <!-- Sidebar Header-->
+                <ul>
+                    <li id='URbutton' class='' style='text-align: center;background-color: #189cdf;'><a href='URIndex' style='cursor: pointer'>User Right</a></li>
+                </ul>
+                <ul class="list-unstyled" style="max-height:700px;overflow-y:auto">
+                    <p id="img_ldr" style="display:block;position:absolute;top:40%;left:5%;">
+                        <img style="height:90px" class="" src="~/Content/images/img/loading.gif">
+                    </p>
+                </ul>
+                @*<span class="heading">Extras</span>*@
+
+            </nav>
+
+            <div class="content-inner">
+                <br />
+
+                <div class="container">
+                 
+                    <div class="row">
+                        <span class="backk" style="margin-left: 15px;">
+
+                            <a href="@Url.Action("URIndex", "HouseScanifyEmp")" id="btnBack" class="btn btn-sm btn-primary filter-button-style"><span class="glyphicon glyphicon-circle-arrow-left"></span>  Back</a>
+
+                        </span>
+
+                        <h4 id="ulb_name" class="text-center" style="padding-left:14px;width:80%"></h4>
+
+                    </div>
+                    <br />
+
+
+                </div>
+
+                @using (Html.BeginForm("AddUREmployeeDetails", "HouseScanifyEmp", FormMethod.Post, new { enctype = "multipart/form-data", data_toggle = "validator", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.EmpId);
+                    <div class="container" style="overflow-y:auto">
+                        <br />
+                        <center>  <h1 class="add-edit-h1 title_change"></h1></center>
+                        <div class="row">
+
+
+                            <div>@Html.ValidationSummary(true, "", new { @class = "text-danger" }) </div>
+                            <div class="panel panel-warning col-sm-12 ">
+                                <div class="row">
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            @*@Html.Label("नाव / Name")*@
+                                            @Html.Label("Name")
+                                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                            @Html.TextBoxFor(model => model.EmpName, new { @class = "form-control", style = "font-family:Arial, FontAwesome", required = "required" })
+                                            @Html.ValidationMessageFor(model => model.EmpName, "", new { @class = "text-danger" })
+                                            <span class="text-danger" id="err_name"></span>
+                                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                            <span class="help-block with-errors"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            @*@Html.Label("पत्ता / Address")*@
+                                            @Html.Label("Address")
+                                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                            @Html.TextBoxFor(model => model.EmpAddress, new { @class = "form-control", style = "font-family:Arial, FontAwesome", required = "required" })
+                                            @Html.ValidationMessageFor(model => model.EmpAddress, "", new { @class = "text-danger" })
+                                            <span class="text-danger" id="err_address"></span>
+                                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                            <span class="help-block with-errors"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="row">
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            @*@Html.Label("लॉगिन आई डी / Login ID")*@
+                                            @Html.Label("Login ID")
+                                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                            @Html.TextBoxFor(model => model.LoginId, new { @class = "form-control", style = "font-family:Arial, FontAwesome", required = "required" })
+                                            @Html.ValidationMessageFor(model => model.LoginId, "", new { @class = "text-danger" })
+                                            <span class="text-danger" id="err_login"></span>
+                                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                            <span class="help-block with-errors"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            @*@Html.Label("पासवर्ड / Password")*@
+                                            @Html.Label("Password")
+                                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                            @Html.TextBoxFor(model =>model.EmpPassword , new { @class = "form-control", style = "font-family:Arial, FontAwesome", required = "required" })
+                                            @Html.ValidationMessageFor(model => model.EmpPassword, "", new { @class = "text-danger" })
+                                            <span class="text-danger" id="err_pw"></span>
+                                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                            <span class="help-block with-errors"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            @*@Html.Label("मोबाइल / Mobile")*@
+                                            @Html.Label("Mobile")
+                                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                            @Html.TextBoxFor(model => model.EmpMobileNumber, new { @class = "form-control", style = "font-family:Arial, FontAwesome", minlength = "10", maxlength = "10", required = "required" })
+                                            @Html.ValidationMessageFor(model => model.EmpMobileNumber, "", new { @class = "text-danger" })
+                                            <span class="text-danger" id="err_mobile"></span>
+                                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                            <span class="help-block with-errors"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            @*@Html.Label("मोबाइल / Mobile")*@
+                                            @Html.Label("User Role")
+                                            @{ var RlistItems = new List<SelectListItem>();
+
+                                                RlistItems.Add(new SelectListItem { Text = "Select User Role", Value = "0" });
+                                                RlistItems.Add(new SelectListItem { Text = "Admin", Value = "A" });
+                                                RlistItems.Add(new SelectListItem { Text = "SubAdmin", Value = "SA" });
+
+                                            }
+                                            @Html.DropDownListFor(model => model.type, RlistItems, new { style = "font-family:Arial, FontAwesome", required = "required", @class = "form-control RequiredInput validate[required] RequiredInput" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+
+
+                                    <div class="col-md-2">
+                                        <br />
+                                        <div class="form-group" style="margin-top:10px">
+                                            <label>Is Active </label>
+                                            @Html.CheckBox("isActive")
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <br />
+                                <center id="hur">
+                                    <h4>User Rights</h4>
+                                    <input id="searchbar" onkeyup="search_ulb()" type="text" name="search" placeholder="Search ">
+                                </center>
+
+                                <div class="row" id="checkUR">
+
+
+                                    <div class="container py-4">
+
+                                        <table class="table table-hover">
+
+
+
+
+                                            @*@Html.Label("रक्त गट / Blood Group ")*@
+                                            @for (int i = 0; i < Model.CheckAppDs.Count; i++)
+                                            {
+
+
+
+                                                if (i % 4 == 0)
+                                                {
+
+
+                                                    <tr></tr>
+
+
+
+                                                }
+                                                else
+                                                {
+                                                    <td class="ulbs">
+
+                                                        @Html.CheckBoxFor(x => x.CheckAppDs[i].IsCheked, new { @class = "custom-checkbox" })
+                                                        <label>@Model.CheckAppDs[i].App_Name</label>
+                                                        @Html.HiddenFor(x => x.CheckAppDs[i].AppId)
+                                                        @Html.HiddenFor(x => x.CheckAppDs[i].App_Name)
+                                                    </td>
+                                                }
+                                                if (i % 4 == 0)
+                                                {
+                                                    <td class="ulbs">
+                                                        @Html.CheckBoxFor(x => x.CheckAppDs[i].IsCheked, new { @class = "custom-checkbox" })
+                                                        <label>@Model.CheckAppDs[i].App_Name</label>
+                                                        @Html.HiddenFor(x => x.CheckAppDs[i].AppId)
+                                                        @Html.HiddenFor(x => x.CheckAppDs[i].App_Name)
+                                                    </td>
+                                                }
+
+                                            }
+
+
+
+
+                                        </table>
+                                        <span class="text-danger" id="err_pw"></span>
+                                        <span class="help-block with-errors"></span>
+
+
+
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+                                    <center><span class="text-danger" id="err_generate"></span></center>
+                                    <div class="offset-6 col-md-3">
+                                        <button type="submit" name="submit" class="btn btn-sm btn-success filter-button-style" id="btnSubmit" onclick="return Validate()">
+
+                                            <span class="glyphicon glyphicon-saved"></span>
+                                            <span id="buttonName">Save Changes</span>
+                                        </button>
+
+                                    </div>
+                                    <div class="form-group1">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=@Session["apikey"]&callback=myMap" type="text/javascript"></script>
+    <!-- Dashboard Header Section    -->
+
+    <script>
+
+        var date = new Date();
+
+        var day = date.getDate();
+        var month = date.getMonth() + 1;
+        var year = date.getFullYear();
+
+        if (month < 10) month = "0" + month;
+        if (day < 10) day = "0" + day;
+
+        var today = day + "/" + month + "/" + year;
+
+        document.getElementById('txt_fdate').value = today;
+        document.getElementById('txt_tdate').value = today;
+
+
+    </script>
+    <script src="~/Content/graph-assets/js/custom.js"></script>
+    <script src="~/Content/css/datepicker/js/datepicker.js"></script>
+    <script>
+        $(document).ready(function () {
+            // var ulb_menu=JSON.parse(window.localStorage.getItem("ulb_menu"));
+            
+            var appid = $('#appid').val();
+            var Utype = $('#type').val();
+            if (Utype == 'A') {
+                $('#checkUR').hide();
+                $('#hur').hide();
+
+            }
+            else {
+                $('#checkUR').show();
+                $('#hur').show();
+            }
+
+
+            var id = $('#qrEmpId').val();
+            if (id > 0) {
+                $('#buttonName').text("Save Changes");
+                //$('.title_change').text("कर्मचारी तपशील सादर बदला / Edit Employee Details");
+                $('.title_change').text("Edit User Details");
+            } else {
+                $('#buttonName').text("Save");
+                //$('.title_change').text("कर्मचारी तपशील सादर करा / Add  Employee Details");
+                $('.title_change').text("Add  User Details");
+            }
+
+            $.get("/HouseScanifyEmp/GetURAppNames", null, house);
+            function house(data) {
+                var res = '';
+                //for (var i = 0; i < data.length; i++) {
+                //    res += "<li class=''><a style='cursor:pointer'class='li-hover' onclick='Edit(" + data[i].AppId + ")' id='" + data[i].AppId + "' >" + data[i].AppName + "</a></li>";
+                //}
+                var url_string = window.location.href; //window.location.href
+                var url = new URL(url_string);
+                var AppId_New = url.searchParams.get("AppId");
+
+
+                for (var i = 0; i < data.length; i++) {
+                    res += "<li class='' ><a style='cursor:pointer' class='li-hover' onclick='Edit(" + data[i].AppId + ")' id='" + data[i].AppId + "' >" + data[i].AppName + " ";
+                    if (data[i].TotalHouseUpdated_CurrentDay != 0 || data[i].TotalPointUpdated_CurrentDay != 0 || data[i].TotalDumpUpdated_CurrentDay != 0) {
+                        res += "<i class='fa fa-circle pull-right' style='color:#fe9428;font-size:12px;margin: 3% auto;'></i>";
+                    }
+                    //if (AppId_New == data[i].AppId) {
+                    //      res += "<i class='fa fa-circle pull-right' style='color:#fe9428;font-size:12px;margin: 3% auto;'></i>";
+                    //}
+                    res += "</a></li>";
+                }
+
+
+                $('.list-unstyled').html(res);
+                $('#img_ldr').css("display", "none");
+                $('#' + appid).parents('li').addClass('active');
+
+               
+
+            }
+
+
+          
+
+
+            //imei Validation and clear login validation
+
+            if ($("#imoNo").val().trim() != "") {
+                $('#check').not(this).prop('checked', false);
+            }
+            else {
+
+                $('#check').not(this).prop('checked', true);
+            }
+
+
+
+            /////////
+
+
+            //input Validations
+
+            $("#qrEmpMobileNumber").keypress(function (e) {
+                //if the letter is not digit then display error and don't type anything
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57) && e.which != 44) {
+                    //display error message
+                    //$("#err_mobile").html("केवल अंक | Digits Only").show().delay(1500).show().fadeOut('slow');
+                    $("#err_mobile").html("Digits Only").show().delay(1500).show().fadeOut('slow');
+                    return false;
+                }
+            });
+
+
+
+
+          
+
+            $("#btnSubmit").click(function () {
+                
+                if ($.trim($("#qrEmpName").val()) == '') {
+                    //$("#err_name").html("नाव आवश्यक आहे / Name is Required").delay(1500).show().fadeOut('slow');
+                    $("#err_name").html("Name is Required").delay(1500).show().fadeOut('slow');
+                    $('#qrEmpName').focus();
+                    return false;
+                }
+                if ($.trim($("#qrEmpAddress").val()) == '') {
+                    //$("#err_address").html("पत्ता  आवश्यक आहे / Address is Required").delay(1500).show().fadeOut('slow');
+                    $("#err_address").html("Address is Required").delay(1500).show().fadeOut('slow');
+                    $('#qrEmpAddress').focus();
+                    return false;
+                }
+
+                if ($.trim($("#qrEmpMobileNumber").val()) == '') {
+                    //$("#err_mobile").html("मोबाइल नंबर आवश्यक आहे / Mobile Number is Required").delay(1500).show().fadeOut('slow');
+                    $("#err_mobile").html("Mobile Number is Required").delay(1500).show().fadeOut('slow');
+                    $('#qrEmpMobileNumber').focus();
+                    return false;
+                }
+
+                if ($.trim($("#qrEmpLoginId").val()) == '') {
+                    //$("#err_login").html("लॉगिन आईडी आवश्यक आहे / Login ID is Required").delay(1500).show().fadeOut('slow');
+                    $("#err_login").html("Login ID is Required").delay(1500).show().fadeOut('slow');
+                    $('#qrEmpLoginId').focus();
+                    return false;
+                }
+
+                if ($.trim($("#qrEmpPassword").val()) == '') {
+                    //$("#err_pw").html("पासवर्डआवश्यक आहे / Password is Required").delay(1500).show().fadeOut('slow');
+                    $("#err_pw").html("Password is Required").delay(1500).show().fadeOut('slow');
+                    $('#qrEmpPassword').focus();
+                    return false;
+                }
+
+
+                return true;
+            });
+        });
+
+        $("#LoginId").change(function () {
+            
+
+            var LoginId = $("#LoginId").val();
+            $.ajax({
+                url: "/HouseScanifyEmp/IsLoginIdExists?LoginId=" + LoginId,
+                type: "POST",
+                data: { LoginId: LoginId }
+            })
+                .done(function (msg) {
+                    if (msg == 1) {
+                        $('#err_login').text('This Is Already Exist LoginId!');
+                    } else {
+                        $('#err_login').text('');
+                    }
+                });
+        });
+    </script>
+    <script type="text/javascript">
+        $('.datepicker').datepicker({
+            format: 'dd/mm/yyyy',
+            weekStart: 1,
+            color: 'red',
+            pickTime: false
+        }).on('changeDate', function (e) {
+
+            $(this).datepicker('hide');
+
+        });
+        //hide  show on hover
+        $('#txt_fdate').focus(function () {
+            $('.dtpk_drpdwn').eq(1).hide();
+        });
+        $('#txt_tdate').focus(function () {
+            $('.dtpk_drpdwn').eq(0).hide();
+        });
+        $('#type').change(function () {
+            var Utype = $('#type').val();
+            if (Utype == 'A') {
+                $('#checkUR').hide();
+                $('#hur').hide();
+            }
+            else {
+                $('#checkUR').show();
+                $('#hur').show();
+            }
+
+        });
+
+        // JavaScript code
+        function search_ulb() {
+            let input = document.getElementById('searchbar').value
+            input = input.toLowerCase();
+            let x = document.getElementsByClassName('ulbs');
+
+            for (i = 0; i < x.length; i++) {
+                if (!x[i].innerHTML.toLowerCase().includes(input)) {
+                    x[i].style.display = "none";
+                }
+                else {
+                    x[i].style.display = "block";
+                }
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+﻿@model SwachBharat.CMS.Bll.ViewModels.ChildModel.Model.ZoneVM
+@{
+    ViewBag.Title = "SaveDryWet";
+}
+
+<h2>SaveDryWet</h2>
+
+@using (@Html.BeginForm("SaveDryWet", "HouseMaster", FormMethod.Post))
+{
+
+    @Html.Label("Total")
+    @Html.TextBoxFor(model => model.id)
+    <button type="submit">Save</button>
+}

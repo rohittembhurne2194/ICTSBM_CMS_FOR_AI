@@ -1,0 +1,191 @@
+﻿
+@{
+    //ViewBag.Title = " घनकचरा संकलन (टक्केवारीनुसार)";
+    ViewBag.Title = "T20-1.4";
+}
+
+@Styles.Render("~/Content/IndexCSS")
+<link href='https://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
+<link href="~/Content/css/report_style.css" rel="stylesheet" />
+@Scripts.Render("~/Scripts/IndexScript")
+
+@*<header class="page-header">
+        <div class="container-fluid">
+            <h2 class="no-margin-bottom"> Garbage Collection (Percentage-Wise)</h2>
+        </div>
+    </header>*@
+<body>
+    <br />
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-sm-3">
+                <div class="controls">
+                    @*<label>तारखेपासून / From Date</label>*@
+                    <label>From Date</label>
+                    <input id="txt_fdate" class="datepicker form-control form-control-sm" type="text" />
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="controls">
+                    @*<label>तारीख पर्यंत / To Date</label>*@
+                    <label>To Date</label>
+                    <input id="txt_tdate" class="datepicker form-control form-control-sm" type="text" />
+                </div>
+            </div>
+            @*<div class="col-sm-3">
+                    <label>कर्मचारी निवडा / Select Employee</label>
+                    <select id="selectnumber" class="form-control form-control form-control-sm"></select>
+                </div>*@
+
+            <div class="col-sm-1">
+                <div class="controls">
+                    <input data-background-color="filter-button-box-color" class="btn btn-sm btn-success filter-button-style" type="button" value="Filter Records" id="filter" onclick="Search()" />
+                </div>
+            </div>
+        </div><br />
+        <div class="row">
+            <div id="frameWrap">
+                @*<img id="loader1" src="~/Images/add_image_square.png" width="36" height="36" alt="loading gif" />*@
+                <p id="loader1">Generating Report<span> .</span><span> .</span><span> .</span></p>
+                @if (ViewBag.IframeUrl != null)
+            {
+                    @*<iframe name="iframemc" id="iframemc" frameborder="0" style="width:11.37465in;height:600px; background-color: white; float:none; margin-left:5px; overflow:hidden" ></iframe>*@
+                    <iframe name="iframemc" id="iframemc" scrolling="yes" frameborder="0" style="background-color: white; float:none;  overflow:hidden" width="1150" height="820"></iframe>
+                }
+            </div>
+
+        </div>
+
+    </div>
+</body>
+
+<script>
+        var date = new Date();
+
+        var day = date.getDate();
+        var month = date.getMonth() + 1;
+        var year = date.getFullYear();
+
+        if (month < 10) month = "0" + month;
+        if (day < 10) day = "0" + day;
+
+    var url = window.location.hostname;
+    if (url == "localhost") {
+
+        var today = month + "/" + day + "/" + year;
+
+    }
+    else {
+        var today = day + "/" + month + "/" + year;
+    }
+        document.getElementById('txt_fdate').value = today;
+        document.getElementById('txt_tdate').value = today;
+
+
+</script>
+<script src="~/Content/graph-assets/js/custom.js"></script>
+<script src="~/Content/css/datepicker/js/datepicker.js"></script>
+<script type="text/javascript">
+    var type;
+    $(document).ready(function () {
+
+
+        var UserId = $('#selectnumber').val();
+        $.ajax({
+            type: "post",
+            url: "/Location/UserList",
+            data: { userId: UserId },
+            datatype: "json",
+            traditional: true,
+            success: function (data) {
+                district = '<option value="-1">Select Employee</option>';
+                for (var i = 0; i < data.length; i++) {
+                    district = district + '<option value=' + data[i].Value + '>' + data[i].Text + '</option>';
+                }
+                //district = district + '</select>';
+                $('#selectnumber').html(district);
+            }
+        });
+
+
+        var x = $('#myHiddenVar').val();
+        var y = $('#myHiddenVar2').val();
+        var z = $('#myHiddenVar3').val();
+        var Report_Name = "T20_1.4";
+        var site = '/DisplayReports.aspx?FromDate=' + $('#txt_fdate').val() + '&ToDate=' + $('#txt_tdate').val() + '&AppID=' + x + '&DB_Name=' + y + '&INSERT_ID=' + z + '&ReportName=' + Report_Name;
+        document.getElementById('iframemc').src = site;
+
+
+        $('#iframemc').on('load', function () {
+            $('#loader1').hide();
+        });
+
+    })
+
+    function Search()
+    {
+        var x = $('#myHiddenVar').val();
+        var y = $('#myHiddenVar2').val();
+        var z = $('#selectnumber').val();
+        $('#loader1').show();
+        var Report_Name = "T20_1.4";
+        //var site = '/DisplayReports.aspx?FromDate=' + $('#txt_fdate').val() + '&ToDate=' + $('#txt_tdate').val() + '&UserId=' + $('#selectnumber').val() + '&Type=' + type + '&AppID=' + x + '&DB_Name=' + y + '&ReportName=' + Report_Name;
+        var site = '/DisplayReports.aspx?FromDate=' + $('#txt_fdate').val() + '&ToDate=' + $('#txt_tdate').val() + '&UserId=' + $('#selectnumber').val() + '&Type=' + type + '&AppID=' + x + '&DB_Name=' + y + '&INSERT_ID=' + z + '&ReportName=' + Report_Name;
+        document.getElementById('iframemc').src = site;
+
+        $('#iframemc').on('load', function () {
+            $('#loader1').hide();
+        });
+
+    }
+
+    var url = window.location.hostname;
+    if (url == "localhost") {
+
+        $('.datepicker').datepicker({
+            format: 'mm/dd/yyyy',
+            weekStart: 1,
+            color: 'red',
+            pickTime: false,
+            onRender: function (date) {
+                return date > new Date() ? 'disabled' : '';
+            }
+        }).on('changeDate', function (e) {
+
+            //$(this).datepicker('hide');
+            $('.dtpk_drpdwn').hide();
+
+        });
+    }
+    else {
+
+        $('.datepicker').datepicker({
+            format: 'dd/mm/yyyy',
+            weekStart: 1,
+            color: 'red',
+            pickTime: false,
+            onRender: function (date) {
+                return date > new Date() ? 'disabled' : '';
+            }
+        }).on('changeDate', function (e) {
+
+            //$(this).datepicker('hide');
+            $('.dtpk_drpdwn').hide();
+
+        });
+    }
+  //hide  show on hover
+  $('#txt_fdate').focus(function () {
+      $('.dtpk_drpdwn').eq(1).hide();
+  });
+  $('#txt_tdate').focus(function () {
+      $('.dtpk_drpdwn').eq(0).hide();
+  });
+
+</script>
+<input type="hidden" value="@Session["NewAppID"]" id="myHiddenVar" />
+<input type="hidden" value="@Session["DB_Name"]" id="myHiddenVar2" />
+<input type="hidden" value="@Session["INSERT_ID"]" id="myHiddenVar3" /> 
+ 

@@ -1,0 +1,840 @@
+﻿@model SwachBharat.CMS.Bll.ViewModels.ChildModel.Model.MasterQRDetailsVM
+@{
+    ViewBag.Title = "AddMasterQRDetails";
+    Layout = "";
+}
+<input type="hidden" value="@ViewBag.AppId" id="appid" />
+<input type="hidden" value="@ViewBag.EmpId" id="qrEmpId" />
+
+
+<link rel="shortcut icon" href="~/Content/images/img/sba.png" />
+@Styles.Render("~/Content/ThemeCss")
+@Styles.Render("~/Content/AddEditCSS")
+@Scripts.Render("~/Scripts/AddEditScript")
+@Scripts.Render("~/bundles/modernizr")
+<style>
+    .modal-dialog {
+        left: 0% !important;
+    }
+
+    .glyphicon {
+        position: relative;
+        top: -1px;
+        right: 5px;
+    }
+</style>
+@*<title class="title_change"></title>*@
+@using (Html.BeginForm("AddMasterQRBunchDetails", "MasterQR", FormMethod.Post, new { enctype = "multipart/form-data", data_toggle = "validator", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.masterId);
+
+
+
+
+    <div class="container">
+        @*<a onclick="location.reload();" style="color:#3ab59e;margin-right:7%;cursor:pointer" class="pull-right">Refresh</a>*@
+        <div class="row">
+            <div class="col-sm-1">
+                <span class="backk">
+
+                    <a href="@Url.Action("QRBunchIndex", "MasterQR")" id="btnBack" class="btn"><span class="glyphicon glyphicon-circle-arrow-left"></span>  Back</a>
+
+                </span>
+            </div>
+            <div class="col-sm-10">
+                <h1 class="add-edit-h1 title_change" style=""></h1>
+            </div>
+
+        </div>
+        <div class="row">
+
+
+            <div class="panel panel-warning col-sm-12 ">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+                <div class="row">
+
+
+                    <div class="col-md-4">
+
+
+                        <div class="form-group">
+                            @*@Html.Label("झोन  / Zone")*@
+                            @Html.Label("House Bunch Id")
+                            @if (@Model.HouseBunchId > 0)
+                            {
+                                @Html.DropDownListFor(model => model.HouseBunchId, Model.BunchList, new { style = "font-family:Arial, FontAwesome", required = "required", @readonly = "readonly", @class = "form-control RequiredInput validate[required] RequiredInput", @onchange = "getValue(this);" })
+                            }
+                            else
+                            {
+                                @Html.DropDownListFor(model => model.HouseBunchId, Model.BunchList, new { style = "font-family:Arial, FontAwesome", required = "required", @class = "form-control RequiredInput validate[required] RequiredInput", @onchange = "getValue(this);" })
+                            }
+
+                            @Html.ValidationMessageFor(model => model.HouseBunchId, "", new { @class = "text-danger" })
+                            <span class="text-danger" id="err_zone"></span>
+                            <span class="help-block with-errors"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <br />
+                        <div class="form-group" style="margin-top:10px">
+                            <label>Is Active </label>
+                            @Html.CheckBox("isActive")
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+
+                    </div>
+                    <div class="col-md-3">
+                        <h4>House QR List</h4>
+                    </div>
+                    <div class="col-md-3">
+                        <input id="searchbar_ulb" onkeyup="search_ulb()" type="text" name="search" placeholder="Search ">
+                    </div>
+                    <div class="col-md-2">
+                        <span style="float: right; margin-left: -10%; }">
+                            <input type="checkbox" class="selectall" />
+                            <span style="font-size: 15px;font-weight:bold">Select All</span>
+                        </span>
+                    </div>
+                </div>
+                <center id="hur" style="padding-right: 14%;">
+                </center>
+                @if (Model.SelectedHouseList.Count > 0)
+                {
+                    <div class="row" id="checkUR">
+                        <div class="container py-4">
+                            <table class="table table-hover">
+                                @*@Html.Label("रक्त गट / Blood Group ")*@
+                                @for (int i = 0; i < Model.SelectedHouseList.Count; i++)
+                                {
+
+                                    if (i % 4 == 0)
+                                    {
+
+                                        <tr></tr>
+
+                                    }
+                                    else
+                                    {
+                                        <td class="ulbs">
+
+                                            @Html.CheckBoxFor(x => x.SelectedHouseList[i].IsCheked, new { @class = "custom-checkbox individual" })
+                                            <label>@Model.SelectedHouseList[i].ReferanceId</label>
+                                            @Html.HiddenFor(x => x.SelectedHouseList[i].ReferanceId)
+                                            @Html.HiddenFor(x => x.SelectedHouseList[i].ReferanceId)
+                                        </td>
+                                    }
+                                    if (i % 4 == 0)
+                                    {
+                                        <td class="ulbs">
+                                            @Html.CheckBoxFor(x => x.SelectedHouseList[i].IsCheked, new { @class = "custom-checkbox individual" })
+                                            <label>@Model.SelectedHouseList[i].ReferanceId</label>
+                                            @Html.HiddenFor(x => x.SelectedHouseList[i].ReferanceId)
+                                            @Html.HiddenFor(x => x.SelectedHouseList[i].ReferanceId)
+                                        </td>
+                                    }
+
+                                }
+
+                            </table>
+                            <span class="text-danger" id="err_pw"></span>
+                            <span class="help-block with-errors"></span>
+
+                        </div>
+
+                    </div>
+                }
+
+                <div class="row" id="checkUR">
+
+
+                    <div class="container py-4">
+
+                        <table class="table table-hover">
+
+
+
+
+                            @*@Html.Label("रक्त गट / Blood Group ")*@
+                            @for (int i = 0; i < Model.CheckHlist.Count; i++)
+                            {
+
+
+
+                                if (i % 4 == 0)
+                                {
+
+
+                                    <tr></tr>
+
+
+
+                                }
+                                else
+                                {
+                                    <td class="ulbs">
+
+                                        @Html.CheckBoxFor(x => x.CheckHlist[i].IsCheked, new { @class = "custom-checkbox individual" })
+                                        <label>@Model.CheckHlist[i].ReferanceId</label>
+                                        @Html.HiddenFor(x => x.CheckHlist[i].ReferanceId)
+                                        @Html.HiddenFor(x => x.CheckHlist[i].ReferanceId)
+                                    </td>
+                                }
+                                if (i % 4 == 0)
+                                {
+                                    <td class="ulbs">
+                                        @Html.CheckBoxFor(x => x.CheckHlist[i].IsCheked, new { @class = "custom-checkbox individual" })
+                                        <label>@Model.CheckHlist[i].ReferanceId</label>
+                                        @Html.HiddenFor(x => x.CheckHlist[i].ReferanceId)
+                                        @Html.HiddenFor(x => x.CheckHlist[i].ReferanceId)
+                                    </td>
+                                }
+
+                            }
+
+
+
+
+                        </table>
+                        <span class="text-danger" id="err_pw"></span>
+                        <span class="help-block with-errors"></span>
+
+
+
+                    </div>
+
+                </div>
+                <div class="row justify-content-between">
+
+
+
+                    @Html.HiddenFor(c => c.HouseBunchId)
+
+                    <div class="col-md-4" style="padding-top:10%">
+                        <center><span class="text-danger" id="err_generate"></span></center>
+                        <div class="form-group1">
+                            <button type="submit" name="submit" class="btn" id="btnSubmit" onclick="return Validate()">
+
+                                <span class="glyphicon glyphicon-saved"></span>
+                                <span id="buttonName" onclick="disableButton(this)">Save</span>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <br /><br /><br />
+
+            </div>
+        </div>
+    </div>
+
+
+}
+
+
+
+<div class="modal" id="sendlink_pop">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            @*<div class="modal-header">
+                    <h4 class="modal-title">संदेश पाठवित आहे / Sending Message...</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>*@
+            <!-- Modal body -->
+            <div class="modal-body" style="padding:5px;">
+                <div class="form-group" style="height:auto;margin:0px;">
+                    <p id="send_msg" style="margin:0px;font-size:14px"></p>
+
+                </div>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer" style="padding:0px 0px 8px 0px;border-top:none;justify-content:center;margin:0px;">
+                <button type="button" class="btn" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(".selectall").click(function () {
+        $(".individual").prop("checked", $(this).prop("checked"));
+    });
+
+    // JavaScript code
+    function search_ulb() {
+
+        let input = document.getElementById('searchbar_ulb').value
+        input = input.toLowerCase();
+        let x = document.getElementsByClassName('ulbs');
+
+        for (i = 0; i < x.length; i++) {
+            if (!x[i].innerHTML.toLowerCase().includes(input)) {
+                x[i].style.display = "none";
+            }
+            else {
+                x[i].style.display = "block";
+            }
+        }
+    }
+
+
+
+      $(document).ready(function () {
+          debugger;
+
+          var ReferanceId = $('#HouseBunchId').val();
+
+          if (ReferanceId == '0') {
+              var selItem = sessionStorage.getItem("SelItem");
+              $('#HouseBunchId').val(selItem);
+          }
+
+
+    })
+
+
+
+    //$('#HouseBunchId').change(function () {
+    //    debugger;
+    //    var sel = $(this).val();
+    //    sessionStorage.setItem("SelItem", sel);
+    //    $.ajax({
+    //        url: "/MasterQR/AddMasterQRDetails?",
+    //        data: { houseId: sel }
+    //    }).done(function () {
+
+    //        var url = new URL(window.location.href);
+    //        url.searchParams.set('houseId', sel);
+
+    //        window.location.href = url.href;
+
+    //        //    window.location.reload("/MasterQR/AddMasterQRDetails?houseId=" + sel);
+    //        // alert('Added');
+    //    });
+
+    //});
+</script>
+<script>
+    document.getElementById("ownerName").addEventListener("input", forceLower);
+
+    // Event handling functions are automatically passed a reference to the
+    // event that triggered them as the first argument (evt)
+    function forceLower(evt) {
+        // Get an array of all the words (in all lower case)
+        var words = evt.target.value.toLowerCase().split(/\s+/g);
+
+        // Loop through the array and replace the first letter with a cap
+        var newWords = words.map(function (element) {
+            // As long as we're not dealing with an empty array element, return the first letter
+            // of the word, converted to upper case and add the rest of the letters from this word.
+            // Return the final word to a new array
+            return element !== "" ? element[0].toUpperCase() + element.substr(1, element.length) : "";
+        });
+
+        // Replace the original value with the updated array of capitalized words.
+        evt.target.value = newWords.join(" ");
+    }
+</script>
+
+
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+        debugger;
+        $.ajax({
+            type: "post",
+            url: "/HouseMaster/ZoneList",
+            data: { stateId: $('#ddlState').val() },
+            datatype: "json",
+            traditional: true,
+            success: function (data) {
+                var district;
+                for (var i = 0; i < data.length; i++) {
+                    district = district + '<option value=' + data[i].Value + '>' + data[i].Text + '</option>';
+                }
+                //district = district + '</select>';
+                $('#selectzone').html(district);
+            }
+        });
+
+        $.ajax({
+            type: "post",
+            url: "/HouseMaster/WardList",
+            data: { stateId: $('#ddlState').val() },
+            datatype: "json",
+            traditional: true,
+            success: function (data) {
+                var district;
+                for (var i = 0; i < data.length; i++) {
+                    district = district + '<option value=' + data[i].Value + '>' + data[i].Text + '</option>';
+                }
+                //district = district + '</select>';
+                $('#selectward').html(district);
+            }
+        });
+
+        $('#trash_badge').click(function () {
+            $("#FileUpload_Preview").html("");
+        });
+        $('#filesUpload').change(function () {
+            $("#FileUpload_Preview").html("");
+            $("#FileUpload_Preview").show();
+            $("#FileUpload_Preview").append("<img />");
+
+            if (typeof (FileReader) != "undefined") {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    //-----------------------------------
+                    // Preview image
+                    //-----------------------------------
+                    $("#FileUpload_Preview img").attr("src", e.target.result);
+                    debugger
+                    $("#FileUpload_Preview img").attr("width", "auto");
+                    $("#FileUpload_Preview img").attr("height", "100%");
+                }
+                reader.readAsDataURL($(this)[0].files[0]);
+            }
+        });
+
+
+    });
+
+
+
+
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        zone();
+        ward();
+        area();
+
+        function zone() {
+
+            var UserId = $('#ZoneId').val();
+            $.ajax({
+                type: "post",
+                url: "/HouseMaster/ZoneList",
+                data: { userId: UserId },
+                datatype: "json",
+                traditional: true,
+                success: function (data) {
+                    var district;
+                    for (var i = 0; i < data.length; i++) {
+
+                        if (data[i].Value == $('#ZoneId').val()) {
+                            district = district + '<option value=' + data[i].Value + ' selected>' + data[i].Text + '</option>';
+                        } else { district = district + '<option value=' + data[i].Value + '>' + data[i].Text + '</option>'; }
+
+                    }
+                    //district = district + '</select>';
+                    $('#ZoneId').html(district);
+                }
+            });
+
+        }
+
+        function area() {
+
+            var UserId = $('#AreaId').val();
+            $.ajax({
+                type: "post",
+                url: "/HouseMaster/AreaList",
+                data: { userId: UserId },
+                datatype: "json",
+                traditional: true,
+                success: function (data) {
+                    var district;
+                    for (var i = 0; i < data.length; i++) {
+
+                        if (data[i].Value == $('#AreaId').val()) {
+                            district = district + '<option value=' + data[i].Value + ' selected>' + data[i].Text + '</option>';
+                        } else { district = district + '<option value=' + data[i].Value + '>' + data[i].Text + '</option>'; }
+
+                    }
+                    //district = district + '</select>';
+                    $('#AreaId').html(district);
+                }
+            });
+
+        }
+
+        function ward() {
+
+            var UserId = $('#WardNo').val();
+            $.ajax({
+                type: "post",
+                url: "/HouseMaster/WardList",
+                data: { userId: UserId },
+                datatype: "json",
+                traditional: true,
+                success: function (data) {
+                    var district;
+                    for (var i = 0; i < data.length; i++) {
+
+                        if (data[i].Value == $('#WardNo').val()) {
+                            district = district + '<option value=' + data[i].Value + ' selected>' + data[i].Text + '</option>';
+                        } else { district = district + '<option value=' + data[i].Value + '>' + data[i].Text + '</option>'; }
+                    }
+                    //district = district + '</select>';
+                    $('#WardNo').html(district);
+                }
+            });
+
+
+        }
+
+
+        $("#houseMobile").keypress(function (e) {
+            //if the letter is not digit then display error and don't type anything
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57) && e.which != 44) {
+                //display error message
+                //$("#err_phone").html("केवल अंक | Digits Only").show().delay(1500).show().fadeOut('slow');
+                $("#err_phone").html("केवल अंक | Digits Only").show().delay(1500).show().fadeOut('slow');
+                return false;
+            }
+        });
+        $("#houseOwner").keypress(function (e) {
+            //if the letter is not digit then display error and don't type anything
+            if (!(e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57) && e.which != 44)) {
+                //display error message
+                //$("#err_phone").html("केवल अंक | Digits Only").show().delay(1500).show().fadeOut('slow');
+                $("#err_name").html("Alphabates only").show().delay(1500).show().fadeOut('slow');
+                return false;
+            }
+        });
+
+    });
+
+    $("#btnSubmit").click(function () {
+
+        var bool = validation();
+
+        if (bool == false) {
+            return false;
+        } else {
+            //   alert($("#FileUpload_Preview img").attr('src'));
+            $("#houseOwner").change(function () {
+                //      alert("Sdsadsa");
+                //$("#FileUpload_Preview img").attr('src') === "/Images/QRcode.png";
+                $("#FileUpload_Preview img").attr("src", "/Images/QRcode.png");
+                $("input #filesUpload").attr("src", "/Images/QRcode.png");
+                $('#Download1').hide();
+                $('#send_link').hide();
+                return false;
+            });
+
+            $("#houseNumber").change(function () {
+                //$("#FileUpload_Preview img").attr('src') === "/Images/QRcode.png";
+                $("#FileUpload_Preview img").attr("src", "/Images/QRcode.png");
+                $("input #filesUpload").attr("src", "/Images/QRcode.png");
+                $('#Download1').hide();
+                return false;
+            });
+            if ($("#FileUpload_Preview img").attr('src') == "/Images/QRcode.png") {
+                //$("#err_generate").html("स्कॅनिफाय कोड व्युत्पन्न करा नंतर सेव करा / Generate Scaniffy code then save").delay(1500).show().fadeOut('slow');
+                $("#err_generate").html("Generate Scaniffy code then save").delay(1500).show().fadeOut('slow');
+                return false;
+            }
+            if ($(".add-image").attr("src") == "/Images/default_not_upload.png") {
+                //$("#err_generate").html("स्कॅनिफाय कोड व्युत्पन्न करा नंतर सेव करा / Generate Scaniffy code then save").delay(1500).show().fadeOut('slow');
+                $("#err_generate").html("Generate Scaniffy code then save").delay(1500).show().fadeOut('slow');
+                return false;
+            }
+            return true;
+        }
+
+
+    });
+
+
+
+    function move() {
+        var elem = document.getElementById("myBar");
+        var width = 40;
+        var id = setInterval(frame, 10);
+        function frame() {
+            if (width >= 100) {
+                clearInterval(id);
+            } else {
+                width++;
+                elem.style.width = width + '%';
+                elem.innerHTML = width * 1 + '%';
+            }
+        }
+    }
+
+    $(".add_popup_clear").click(function () {
+        $.ajax({
+            type: "post",
+            url: "/HouseMaster/ZoneList",
+            data: { stateId: $('#ddlState').val() },
+            datatype: "json",
+            traditional: true,
+            success: function (data) {
+                var district;
+                for (var i = 0; i < data.length; i++) {
+                    district = district + '<option value=' + data[i].Value + '>' + data[i].Text + '</option>';
+                }
+                //district = district + '</select>';
+                $('#selectzone').html(district);
+            }
+        });
+
+        $.ajax({
+            type: "post",
+            url: "/HouseMaster/WardList",
+            data: { stateId: $('#ddlState').val() },
+            datatype: "json",
+            traditional: true,
+            success: function (data) {
+                var district;
+                for (var i = 0; i < data.length; i++) {
+                    district = district + '<option value=' + data[i].Value + '>' + data[i].Text + '</option>';
+                }
+                //district = district + '</select>';
+                $('#selectward').html(district);
+            }
+        });
+
+        $('#myModal').find('input:text').val('');
+        // $('#myModal').find('select').val();
+        $('#myModal option').prop('selected', function () {
+            return this.defaultSelected;
+        });
+
+        $('#wardModal').find('input:text').val('');
+        $('#wardModal option').prop('selected', function () {
+            return this.defaultSelected;
+        });
+
+        $('#zoneModal').find('input:text').val('');
+        // $('#wardModal').find('select').val('');
+    });
+    $("#btnPost").click(function () {
+        if ($.trim($("#selectward").val()) == "-1" || $.trim($("#selectward").val()) == "0") {
+            //$("#err_pop_ward").html("वार्ड आवश्यक आहे / Ward is Required").delay(1500).show().fadeOut('slow');
+            $("#err_pop_ward").html("Ward is Required").delay(1500).show().fadeOut('slow');
+            $('#selectward').focus();
+            return false;
+        }
+
+        if ($.trim($("#txtName").val()) == '') {
+            //$("#err_name_pop").html("नाव आवश्यक आहे / Name is Required").delay(1500).show().fadeOut('slow');
+            $("#err_name_pop").html("Name is Required").delay(1500).show().fadeOut('slow');
+            $('#txtName').focus();
+            return false;
+        }
+        if ($.trim($("#txtDesignation").val()) == '') {
+            //$("#err_name_mar_pop").html("नाव मराठी आवश्यक आहे / Name Marathi is Required").delay(1500).show().fadeOut('slow');
+            $("#err_name_mar_pop").html("Name Marathi is Required").delay(1500).show().fadeOut('slow');
+            $('#txtDesignation').focus();
+            return false;
+        }
+        var employee = new Object();
+        employee.Name = $('#txtName').val();
+        employee.NameMar = $('#txtDesignation').val();
+        employee.wardId = $('#selectward').val();
+        if (employee != null) {
+            $.ajax({
+                type: "POST",
+                url: "/HouseMaster/AreaMaster",
+                data: JSON.stringify(employee),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    var UserId = $('#AreaId').val();
+                    $.ajax({
+                        type: "post",
+                        url: "/HouseMaster/AreaList",
+                        data: { userId: UserId },
+                        datatype: "json",
+                        traditional: true,
+                        success: function (data) {
+                            var district;
+                            for (var i = 0; i < data.length; i++) {
+                                district = district + '<option value=' + data[i].Value + '>' + data[i].Text + '</option>';
+                            }
+                            //district = district + '</select>';
+                            $('#AreaId').html(district);
+                            $('#myModal').modal('hide');
+                        }
+                    });
+
+                }
+            });
+        }
+    });
+
+    $("#btnZone").click(function () {
+
+        if ($.trim($("#txtZName").val()) == '') {
+            //$("#err_zname_pop").html(" झोन आवश्यक आहे / Zone is Required ").delay(1500).show().fadeOut('slow');
+            $("#err_zname_pop").html("Zone is Required ").delay(1500).show().fadeOut('slow');
+            $('#txtZName').focus();
+            return false;
+        }
+
+        var employee = new Object();
+        employee.name = $('#txtZName').val();
+
+        if (employee != null) {
+            $.ajax({
+                type: "POST",
+                url: "/HouseMaster/ZoneMaster",
+                data: JSON.stringify(employee),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    var UserId = $('#ZoneId').val();
+                    $.ajax({
+                        type: "post",
+                        url: "/HouseMaster/ZoneList",
+                        data: { userId: UserId },
+                        datatype: "json",
+                        traditional: true,
+                        success: function (data) {
+                            var district;
+                            for (var i = 0; i < data.length; i++) {
+                                if (data[i].Value == $('#ZoneId').val()) {
+                                    district = district + '<option value=' + data[i].Value + ' selected>' + data[i].Text + '</option>';
+                                } else { district = district + '<option value=' + data[i].Value + '>' + data[i].Text + '</option>'; }
+                            }
+                            //district = district + '</select>';
+                            $('#ZoneId').html(district);
+                            $('#zoneModal').modal('hide');
+                        }
+                    });
+
+                }
+            });
+        }
+    });
+
+    $("#btnWard").click(function () {
+        if ($.trim($("#selectzone").val()) == "-1" || $.trim($("#selectzone").val()) == "0") {
+            //$("#err_pop_zone").html("झोन आवश्यक आहे / Zone is Required").delay(1500).show().fadeOut('slow');
+            $("#err_pop_zone").html("Zone is Required").delay(1500).show().fadeOut('slow');
+            $('#selectzone').focus();
+            return false;
+        }
+        if ($.trim($("#txtWard").val()) == '') {
+            //$("#err_ward_pop").html(" वार्ड क्रमांक आवश्यक आहे / Ward number is Required ").delay(1500).show().fadeOut('slow');
+            $("#err_ward_pop").html("Ward number is Required ").delay(1500).show().fadeOut('slow');
+            $('#txtName').focus();
+            return false;
+        }
+
+        var employee = new Object();
+        employee.WardNo = $('#txtWard').val();
+        employee.zoneId = $('#selectzone').val();
+        if (employee != null) {
+            $.ajax({
+                type: "POST",
+                url: "/HouseMaster/WardMaster",
+                data: JSON.stringify(employee),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    var UserId = $('#WardNo').val();
+                    $.ajax({
+                        type: "post",
+                        url: "/HouseMaster/WardList",
+                        data: { userId: UserId },
+                        datatype: "json",
+                        traditional: true,
+                        success: function (data) {
+                            var district;
+                            for (var i = 0; i < data.length; i++) {
+                                if (data[i].Value == $('#WardNo').val()) {
+                                    district = district + '<option value=' + data[i].Value + ' selected>' + data[i].Text + '</option>';
+                                } else { district = district + '<option value=' + data[i].Value + '>' + data[i].Text + '</option>'; }
+                            }
+                            //district = district + '</select>';
+                            $('#WardNo').html(district);
+                            $('#wardModal').modal('hide');
+                        }
+                    });
+
+                }
+            });
+        }
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $('#Download1').click(function () {
+
+            //alert("ff");
+            if ($.trim($("#houseOwner").val()) != '' && $.trim($("#houseNumber").val()) != '') {
+                var area = $("#AreaId").val();
+                var ward = $("#WardNo").val();
+                var name = $("#houseOwner").val();
+                var Refid = $("#n").val();
+                var Number = $("#houseNumber").val();
+                window.location.href = "/HouseMaster/GenratePDF?name=" + name + "&number=" + Number + "&ReferanceId=" + Refid + "&Area=" + area + "&Ward=" + ward;
+            }
+            else {
+                var area = $("#AreaId").val();
+                var ward = $("#WardNo").val();
+                var name = $("#houseOwner").val();
+                var Refid = $("#n").val();
+                var Number = $("#houseNumber").val();
+                //   alert(Number);
+                window.location.href = "/HouseMaster/GenratePDF?name=" + name + "&number=" + Number + "&ReferanceId=" + Refid + "&Area=" + area + "&Ward=" + ward;
+            }
+        })
+
+
+
+
+
+
+        $('#send_link').click(function (e) {
+            var area = $("#AreaId").val();
+            var ward = $("#WardNo").val();
+            var name = $("#houseOwner").val();
+            var Refid = $("#n").val();
+            var Number = $("#houseNumber").val();
+            var mob = $("#houseMobile").val();
+            //alert(name);
+            $('#sendlink_pop').modal('toggle');
+            $("#send_msg").css('color', 'red');
+            //$('#send_msg').html('कृपया थांबा / Please Wait...');
+            $('#send_msg').html('Please Wait...');
+
+
+            var UserId = $('#AreaId').val();
+            $.ajax({
+                type: "post",
+                url: "/HouseMaster/Save2?name=" + name + "&number=" + Number + "&ReferanceId=" + Refid + "&mobile=" + mob + "&Area=" + area + "&Ward=" + ward,
+                data: { userId: UserId },
+                datatype: "json",
+                traditional: true,
+                success: function (data) {
+                    //alert("Send Successfully");
+                    //$('#send_msg').html('आपला संदेश पाठवला गेला आहे / Your message has been sent...');
+                    $('#send_msg').html('Your message has been sent...');
+                    $("#send_msg").css('color', 'green');
+
+                }
+            });
+
+
+        });
+    });
+</script>
+@Scripts.Render("~/Scripts/ThemeScripts")
+
+
+

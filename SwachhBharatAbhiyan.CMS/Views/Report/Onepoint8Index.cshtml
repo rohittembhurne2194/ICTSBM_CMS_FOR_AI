@@ -1,0 +1,98 @@
+﻿@model IList<SwachBharat.CMS.Bll.ViewModels.SS2020Reports.OnePoint4VM>
+@{
+    ViewBag.Title = "1.8";
+}
+@{
+
+}
+<link rel="shortcut icon" href="~/Content/images/img/sba.png" />
+@Styles.Render("~/Content/AddEditCSS")
+@Scripts.Render("~/Scripts/AddEditScript")
+@Scripts.Render("~/bundles/modernizr")
+
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="container">
+        <h3>1.8 : Whether City has banned single use plastic including plastic with < 50 micron during all festivals/social gatherings/events </h3>
+
+        <div style="background-color:#fff; padding:8px;">
+            <h4>Survey conducted (not before 31.12.2018)</h4>
+
+            <br />
+            <br />
+            @if (Model != null)
+            {
+                for (var i = 0; i < Model.Count - 0; i++)
+                {
+                    @Html.HiddenFor(m => Model[i].Q_ID)
+
+                    <table style="font-size:medium;margin-left:50px">
+                        <tr>
+                            <td width="650px">
+                                <ul>
+                                    <li>
+                                        <label for="QUESTIOND"> @Model[i].QUESTIOND</label>
+                                    </li>
+                                </ul>
+                            </td>
+                            <td width="10px"></td>
+                            @if (Model[i].TOTAL_COUNT != null)
+                            {
+                                Model[i].TOTAL_COUNT = null;
+                            }
+                            <td width="200px">
+                                @Html.TextBoxFor(m => Model[i].TOTAL_COUNT)
+                            </td>
+
+                        </tr>
+                    </table>
+                }
+            }
+
+            <br />
+            <br />
+            <div class="" style="margin-left:50px">
+                <a class="btn" href="/Report/MenuonepointeightIndex">Modify</a>
+                <button type="submit" name="submit" class="btn" id="btnSubmit">
+                    <span class="glyphicon glyphicon-saved"></span>
+                    <span id="buttonName">Save</span>
+                </button> &nbsp;
+                @if (TempData["Message"] != null)
+                {
+                    <a class="btn" href="/Report/Show1point8Report">Generate report</a>
+
+                }
+                else if (TempData["Message1"] != null)
+                {
+                    <a class="disabled btn" href="/Report/Show1point8Report">Generate report</a>
+                }
+
+                @if (TempData["Message2"] != null)
+                {
+                    <script type="text/javascript">
+                           alert(@Html.Raw(Json.Encode(TempData["Message2"])));
+                    </script>
+                }
+            </div>
+        </div>
+    </div>
+
+}
+
+<script>
+
+    $("#btnSubmit").click(function () {
+
+    });
+</script>
+
+
+
+
+
+
+

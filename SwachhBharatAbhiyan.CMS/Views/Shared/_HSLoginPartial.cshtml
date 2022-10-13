@@ -1,0 +1,30 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "HousescanifyEmp", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+
+
+        <a class="nav-link logout" href="javascript:document.getElementById('logoutForm').submit()"> Log out<i class="fa fa-sign-out"></i></a>
+
+    }
+}
+
+else if (@HttpContext.Current.Session["status"] == "Success")
+{
+    using (Html.BeginForm("LogOff", "HouseScanifyEmp", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <a class="nav-link logout" href="javascript:document.getElementById('logoutForm').submit()"> Log out<i class="fa fa-sign-out"></i></a>
+
+    }
+}
+else
+{
+    @*<ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
+            <li class="nav-item" style="margin-left:10px;">@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+        </ul>*@
+}

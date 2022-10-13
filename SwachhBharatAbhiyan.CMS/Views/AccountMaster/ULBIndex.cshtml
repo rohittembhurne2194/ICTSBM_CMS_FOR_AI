@@ -1,0 +1,274 @@
+﻿@{
+    Layout = "";
+    var DivisionId = (int)ViewData["DivisionId"];
+    var DistrictId = (int)ViewData["DistrictId"];
+    var AppId = (int)ViewData["AppId"];
+    var UserId = (int)ViewData["UserID"];
+    var ULBType = (string)ViewData["ULBType"];
+}
+@Styles.Render("~/Content/IndexCSS")
+<link href='https://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
+
+@Scripts.Render("~/Scripts/IndexScript")
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+<script src="~/Content/DatatableGrid/ULBAdmin.js"></script>
+<style>
+    .canvasjs-chart-credit {
+        color: #fff !important
+    }
+    body::-webkit-scrollbar {
+        display: none; /* Safari and Chrome */
+    }
+    .card1 {
+        box-shadow: 1px 1px 9px 4px rgb(0 0 0 / 20%);
+        margin-top: 5%;
+        flex: 1;
+        transition: all 0.5s ease-out !important;
+        border-radius:10px;
+    }
+        .card1:hover {
+            box-shadow: 2px 1px 9px 4px rgb(0 0 0 / 20%);
+            /*  box-shadow: 2px 1px 15px 4px rgb(0 0 0 / 20%);*/
+            /*transition: all 800ms cubic-bezier(0.19, 1, 0.22, 1);*/
+            transform: translateY(-9px) scale(1.005) translateZ(0) !important;
+            /*  box-shadow: 0 24px 36px rgba(0,0,0,0.11), 0 24px 46px var(--box-shadow-color);*/
+        }
+</style>
+<body>
+    <input type="hidden" value="@DivisionId" id="DivisionId" />
+    <input type="hidden" value="@DistrictId" id="DistrictId" />
+    <input type="hidden" value="@AppId" id="AppId" />
+    <input type="hidden" value="@UserId" id="UserId" />
+    <input type="hidden" value="@ULBType" id="ULBType" />
+
+    <header class="page-header">
+        <div class="container-fluid">
+
+            <h4 class="no-margin-bottom" style="font-size: 18px; margin-bottom: -0.5rem;"><span id="spnULBName"></span></h4>
+            @*<h4><span style="font-size:16px" id="spnULBCount"></span></h4>*@
+          
+         
+            @*<h4><span style="font-size:16px" id="spnTotalEmp"></span></h4>
+            <h4><span style="font-size:16px" id="spnOnDutyEmp"></span></h4>
+            <h4><span style="font-size:16px" id="spnOffDutylEmp"></span></h4>
+            <h4><span style="font-size:16px" id="spnAbsentlEmp"></span></h4>*@
+
+        </div>
+    </header>
+    <div class="row w-100">
+        <div class="col-lg-12"style="padding-left:30px;" id="worker">
+            <div class="card1 flex" data-sr-id="10" style="visibility: visible; transform: none; opacity: 1; transition: none 0s ease 0s; background: #189cdf; border-radius: 10px; ">
+                <div class="py-3">
+                    <h5 class="text-center text-white">Total ULBs Count</h5>
+                    <div class="d-flex justify-content-between">
+
+                        @*<div class="avatar w-56 m-2 no-shadow gd-success worsvg">
+
+
+        </div>*@
+                        <div class="px-4 flex" style="text-align:center;">
+
+                            <div style="color: #fff; font-weight: 400; font-size: 14px;">Total ULB Count</div>
+                            <span style="margin-top: 1%;font-size:18px; color: #fff; font-weight: 700" id="spnULBCount"></span>
+
+
+                        </div>
+                        <div class="px-4 flex" onclick="showULBStatus(1); return false;" style="text-align:center;cursor:pointer !important;">
+
+                            <div style="color: #fff; font-weight: 600; font-size: 16px;">Live ULBs</div>
+                            <span style="margin-top: 1%;font-size:18px; color: #fff; font-weight: 700" id="spnCompleteULB"></span>
+
+
+                        </div>
+                        <div class="px-4 flex" onclick="showULBStatus(0);return false;" style="text-align:center;cursor:pointer !important;">
+
+                            <div style="color: #fff;font-weight:400;font-size:14px;">Total Inprogress ULBs</div>
+                            <span style="margin-top: 1%;font-size:18px; color: #fff; font-weight: 700" id="spnInprogressULB"></span>
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="d-flex mt-3">
+        <div class="card-block" style=" margin-left: 4%; margin-right: 5%">
+            <div style="position:relative;top: 14%;z-index: 1; background-color:#fff;height:12px;width:62px;padding-top:10px">
+
+            </div>
+            <div style="position:relative;top: 97%;z-index: 1; background-color:#fff;height:12px;width:62px;padding-top:10px">
+
+            </div>
+            <div style="position: relative; top: 90%; left: 64%; z-index: 1; background-color: #fff; height: 12px; width: 66px; padding-top: 10px">
+
+            </div>
+            <div id="chartContainer" style="height: 200px; width: 180px;"></div>
+
+        </div>
+        <div class="card-block" style=" margin-right: 4%">
+            <div style="position:relative;top: 14%;z-index: 1; background-color:#fff;height:12px;width:62px;padding-top:10px">
+
+            </div>
+            <div style="position:relative;top: 97%;z-index: 1; background-color:#fff;height:12px;width:62px;padding-top:10px">
+
+            </div>
+            <div style="position: relative; top: 90%; left: 65%; z-index: 1; background-color: #fff; height: 12px; width: 66px; padding-top: 10px">
+
+            </div>
+            <div id="chartContainer1" style="height: 200px; width: 180px;"></div>
+        </div>
+        <div class="card-block" style=" margin-right:5%">
+            <div style="position:relative;top: 14%;z-index: 1; background-color:#fff;height:12px;width:62px;padding-top:10px">
+
+            </div>
+            <div style="position:relative;top: 94%;z-index: 1; background-color:#fff;height:12px;width:62px;padding-top:10px">
+
+            </div>
+            <div style="position: relative; top: 90%; left: 83%; z-index: 1; background-color: #fff; height: 12px; width: 66px; padding-top: 10px">
+
+            </div>
+            <div id="chartContainer2" style="height: 200px; width: 395px;"></div>
+        </div>
+    </div>
+    <div class="row w-100 mt-3 ml-0">
+       
+        <div class="col-lg-4 col-md-4 col-sm-12" style="cursor:pointer" id="worker">
+            <div class="card1 flex bg-orange" data-sr-id="10" style="visibility: visible; transform: none; opacity: 1; transition: none 0s ease 0s;">
+                <div class="card-body" style="background: #43be9c; border-radius: 10px;">
+                    <div class="align-items-center text-hover-success d-flex-cus">
+                        @*<div class="avatar w-56 m-2 no-shadow gd-success worsvg">
+
+
+                        </div>*@
+                        <div class="flex text-center text-white">
+                            <div style="font-size:14px;">Total Employee Active</div>
+                            <div class="mt-2 outfont" id="spnTotalEmp" style="font-weight: 700; font-size: 18px"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-4 col-sm-12" style="cursor:pointer" id="worker">
+            <div class="card1 flex bg-orange" data-sr-id="10" style="visibility: visible; transform: none; opacity: 1; transition: none 0s ease 0s;">
+                <div class="card-body px-0" style="background: #a376e5; border-radius: 10px;">
+                    <div class="align-items-center text-hover-success d-flex-cus">
+                        @*<div class="avatar w-56 m-2 no-shadow gd-success worsvg">
+
+
+                        </div>*@
+                        <div class="flex text-center text-white">
+                            <div style="font-size:14px;">Employee Present Today</div>
+                            <div class="mt-2 outfont" id="spnOnDutyEmp" style="font-weight:700;font-size:18px"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12" style="cursor:pointer" id="worker">
+            <div class="card1 flex bg-orange" data-sr-id="10" style="visibility: visible; transform: none; opacity: 1; transition: none 0s ease 0s;">
+                <div class="card-body px-0" style="background: #4aadc3; border-radius: 10px;">
+                    <div class="align-items-center text-hover-success d-flex-cus">
+                        @*<div class="avatar w-56 m-2 no-shadow gd-success worsvg">
+
+
+                        </div>*@
+                        <div class="flex text-center text-white">
+                            <div style="font-size:14px;">Employee Off Duty Today</div>
+                            <div class="mt-2 outfont" id="spnOffDutylEmp"style="font-weight: 700; font-size: 18px"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!--<div class="col-lg-4 col-md-3 col-sm-12" style="cursor:pointer" id="worker">
+            <div class="card1 flex bg-orange" data-sr-id="10" style="visibility: visible; transform: none; opacity: 1; transition: none 0s ease 0s;">
+                <div class="card-body px-0" style="background: #e56a6a;border-radius:10px;">
+                    <div class="align-items-center text-hover-success d-flex-cus">-->
+                        @*<div class="avatar w-56 m-2 no-shadow gd-success worsvg">
+
+
+                        </div>*@
+                        <!--<div class="flex text-center text-white">
+                            <div style="font-size:14px;">Employee Not Present Today</div>
+                            <div class="mt-2 outfont" id="spnAbsentlEmp"style="font-weight: 700; font-size: 18px"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>-->
+
+
+    </div>
+
+    <div class="content-inner" style="overflow-y:auto">
+        <br />
+        <div style="width:100%; margin:0 auto;">
+            <table id="demoGrid" class="table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0" style="font-size:14px">
+
+                <thead style="font-size:14px">
+
+
+                    <tr>
+                        <th> ULB ID</th>
+                        <th>
+                            @if (@DivisionId == 0 && @DistrictId == 0 && @AppId == 0)
+                            {
+                                <span>Division Name</span>
+                            }
+                            @if (@DivisionId >= 1 && @DistrictId == 0 && @AppId == 0)
+                            {
+                                <span>District Name</span>
+                            }
+                            @if (@DivisionId == 0 && @DistrictId >= 1 && @AppId == 0)
+                            {
+                                <span>ULB Name</span>
+                            }
+                            @if (@DivisionId == 0 && @DistrictId == 0 && @AppId >= 1)
+                            {
+                                <span>ULB Name</span>
+                            }
+                        </th>
+                        <th> Total Properties</th>
+                        <th> Total Scanning Today</th>
+                        <th> Total Segregated</th>
+                        <th> Total Mixed</th>
+                        <th> Total Not Received</th>
+                    </tr>
+                </thead>
+
+
+            </table>
+        </div>
+    </div>
+    <div class="content-inner" style="overflow-y:auto;display:none" id="divULBStatus">
+        <br />
+        <div style="width:100%; margin:0 auto;">
+            <h4 class="no-margin-bottom"><span id="spnULBStatus"></span></h4>
+
+            <table id="grdULBStatus" class="table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0" style="font-size:14px">
+
+                <thead style="font-size:14px">
+
+
+                    <tr>
+                        <th> ULB ID</th>
+                        <th> ULB Name</th>
+                        <th> ULB Status</th>
+                    </tr>
+                </thead>
+
+
+            </table>
+        </div>
+    </div>
+</body>

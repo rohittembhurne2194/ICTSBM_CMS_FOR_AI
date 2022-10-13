@@ -1,0 +1,117 @@
+﻿
+@{
+    Layout = null;
+}
+
+
+@Styles.Render("~/Content/IndexCSS")
+<link href='https://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
+
+@Scripts.Render("~/Scripts/IndexScript")
+@*<script src="~/Content/DatatableGrid/AdminCount.js"></script>*@
+<style>
+    .card-body {
+        padding: 20px;
+        font-size: 16px;
+        font-weight: 600;
+        text-align: center;
+        border: 1px solid #3ab59e;
+    }
+</style>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Document Title -->
+    <title>Android Application Menus</title>
+    </head>
+    <body>
+        <br />
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-12">
+                    <h3> Android Application Menus</h3>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col">
+                    @*<h3>Super Admin</h3>*@
+                    <a href="/Android/Nagpur">
+                        <div class="card">
+                            <div class="card-body">
+                                Nagpur
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col">
+                    @*<h3>Super Admin</h3>*@
+                    <a href="/Android/Mulchera">
+                        <div class="card">
+                            <div class="card-body">
+                                Mulchera
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col">
+                    @*<h3>Super Admin</h3>*@
+                    <a href="/Android/Etapalli">
+                        <div class="card">
+                            <div class="card-body">
+                                Etapalli
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col">
+                    @*<h3>Super Admin</h3>*@
+                    <a href="/Android/Bhamragad">
+                        <div class="card">
+                            <div class="card-body">
+                                Bhamragad
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col">
+                    @*<h3>Super Admin</h3>*@
+                    <a href="/Android/Alandi">
+                        <div class="card">
+                            <div class="card-body">
+                                Alandi
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col">
+                    @*<h3>Super Admin</h3>*@
+                    <a href="/Android/Gadchiroli">
+                        <div class="card">
+                            <div class="card-body">
+                                Gadchiroli
+                            </div>
+                        </div>
+                    </a>
+                </div>
+               
+            </div>
+
+        </div>
+
+
+
+
+        <div id="snackbar">Image not uploaded...</div>
+    </body>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=@Session["apikey"]&callback=myMap" type="text/javascript"></script>
+    <!-- Dashboard Header Section    -->
+
+    <script type="text/javascript">
+        //setInterval('window.location.reload()', 60000);
+    </script>

@@ -1,0 +1,721 @@
+﻿@model SwachBharat.CMS.Bll.ViewModels.ChildModel.Model.AppAreaMapVM
+
+@{
+    Layout = null;
+}
+
+<style>
+    /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+    #googleMap {
+        height: 100%;
+    }
+    /* Optional: Makes the sample page fill the window. */
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    #floating-panel {
+        position: absolute;
+        top: 0px;
+        left: 5%;
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+        text-align: center;
+        font-family: 'Roboto','sans-serif';
+        line-height: 30px;
+        padding-left: 10px;
+    }
+
+    #floating-panel {
+        margin-left: -10px;
+    }
+
+    .btn-success:focus {
+        background-color: #189cdf !important;
+        border-color: #189cdf !important;
+    }
+
+    .btn-success:active:not(:disabled):not(.disabled), .btn-success.active:not(:disabled):not(.disabled), .show > .btn-success.dropdown-toggle {
+        background-color: #189cdf !important;
+        border-color: #189cdf !important;
+    }
+</style>
+<fieldset>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="~/Content/css/datepicker/css/datepicker.css" rel="stylesheet" />
+    <link href="~/Content/css/index_style.css" rel="stylesheet" />
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.4/jquery-confirm.min.js" integrity="sha512-zP5W8791v1A6FToy+viyoyUUyjCzx+4K8XZCKzW28AnCoepPNIXecxh9mvGuy3Rt78OzEsU+VCvcObwAMvBAww==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>*@
+    <br />
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
+
+                <input type="hidden" value="@Model.AppLat" id="deflat" />
+                <input type="hidden" value="@Model.AppLong" id="deflang" />
+                <input type="hidden" value="@Model.AppId" id="hdAppId" />
+                <input type="hidden" value="@Model.AppName" id="hdAppName" />
+                @*<label>तारीख निवडा / Select Date</label>*@
+
+                @*<label>कर्मचारी निवडा / Select Employee</label>*@
+                <div id="divAppList" style="display:none">
+                    <label>Select App Name</label>
+                    <select id="selectApp" class="form-control minimal-form  RequiredInput validate[required] RequiredInput"></select>
+                </div>
+                <div id="divAppName" style="display:none">
+                    <label>App Name :</label><b><span id="spnAppName"></span></b>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group" style="margin-top:10px">
+                    <label>Is Area Active </label>
+                    @Html.CheckBox("IsAreaActive")
+                </div>
+
+                <div>
+                    <button type="button" class="btn btn-primary save" id="btnAppMapSave">Save</button>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <a href="HSAppAreaIndex" id="AH" class="btn btn-primary btn-sm " style="float: right;" type="button">Back</a>
+            </div>
+        </div>
+        <div>
+            <p class="text-center"><b><span class="text-danger" id="BeatMaap_pop"></span></b></p>
+        </div>
+    </div><br />
+    <div class="container ">
+        <div class="row" style="position:relative; height:650px;">
+            <p id="wait" style="display:none;position:absolute;top:35%;left:50%;">
+                <img class="rotate_img" src="~/Content/images/img/marker24.png">
+            </p>
+            <div class="col-10 bg-white has-shadow" id="googleMap" style="width:auto; height:600px"></div>
+            <div class="col-sm-2"></div>
+        </div>
+    </div>
+    <style>
+
+        button[title="Stop drawing"] {
+            /* content: url(https://cdn4.iconfinder.com/data/icons/whsr-january-flaticon-set/128/compass.png) !important;*/
+            height: 40px;
+            width: 40px;
+            /* cursor: pointer;*/
+            box-shadow: rgb(0 0 0) 0px 1px 4px -1px !important;
+            text-align: center !important;
+        }
+
+            button[title="Stop drawing"] span div {
+                width: 24px !important;
+                height: 21px !important;
+            }
+
+                button[title="Stop drawing"] span div img {
+                    top: -86px !important;
+                    width: 23px !important;
+                    height: 212px !important;
+                }
+
+        button[title="Draw a shape"] {
+            /* content: url(https://cdn4.iconfinder.com/data/icons/whsr-january-flaticon-set/128/compass.png) !important;*/
+            height: 40px;
+            width: 40px;
+            /* cursor: pointer;*/
+            box-shadow: rgb(0 0 0) 0px 1px 4px -1px !important;
+            text-align: center !important;
+        }
+
+            button[title="Draw a shape"] span div {
+                width: 24px !important;
+                height: 21px !important;
+            }
+
+                button[title="Draw a shape"] span div img {
+                    top: -74px !important;
+                    width: 23px !important;
+                    height: 225px !important;
+                }
+    </style>
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                type: "get",
+                url: "/HouseScanifyEmp/ListAppMap",
+                contentType: 'application/json;',
+                dataType: 'json',
+                //traditional: true,
+                success: function (data) {
+                    district = '<option value="-1">Select App Name</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        district = district + '<option value=' + data[i].Value + '>' + data[i].Text + '</option>';
+                    }
+                    //district = district + '</select>';
+                    $('#selectApp').html(district);
+                }
+            });
+            //runMaps();
+        });
+
+        $('#selectApp').on('change', function () {
+
+            $('#hdAppId').val((this.value));
+            $('#hdAppName').val(($(this).find("option:selected").text()));
+            var AppId = $('#hdAppId').val();
+            $.ajax({
+                type: "get",
+                url: "/HouseScanifyEmp/GetAppLatLong?AppId=" + AppId,
+                contentType: 'application/json;',
+                dataType: 'json',
+                //traditional: true,
+                success: function (data) {
+                    $("#deflat").val(data.lat);
+                    $("#deflang").val(data.lng);
+                    runMaps();
+                }
+            });
+
+
+        });
+        //User Wise Location
+        // All User On Map
+
+    </script>
+    <script type="text/javascript">
+        var loadMap = function () {
+
+            if ($("#hdAppId").val() == '-1') {
+                $("#divAppList").show();
+                $("#divAppName").hide();
+            }
+            else {
+                $("#divAppList").hide();
+                $("#divAppName").show();
+                $("#spnAppName").text($("#hdAppName").val());
+            }
+            runMaps();
+        };
+        var polyArr = [];
+        var selectedShape;
+        var arrCoordinate = [];
+        var polyDragStart = [];
+        var polyDragStartCords = [];
+        var LatArray = [];
+        var LngArray = [];
+        var ZoomVal = 0;
+        var map;
+        var runMaps = function () {
+
+             map = new google.maps.Map(document.getElementById('googleMap'), {
+                zoom: 16,
+                center: new google.maps.LatLng($('#deflat').val(), $('#deflang').val()),
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+             });
+            arrCoordinate = @Html.Raw(Json.Encode(@Model.AppAreaLatLong));
+            
+            if (arrCoordinate.length > 0) {
+
+                var polyOld = new google.maps.Polygon({
+                    paths: arrCoordinate,
+                    clickable: true,
+                    draggable: true,
+                    editable: true,
+                    fillColor: '#ffff00',
+                    fillOpacity: 0.1,
+                });
+                var polyArea = google.maps.geometry.spherical.computeArea(polyOld.getPath());
+                if (polyArea > 100000) {
+                    ZoomVal = 14;
+                }
+                else if (polyArea > 10000) {
+                    ZoomVal = 16;
+                }
+                else if (polyArea > 1000) {
+                    ZoomVal = 18;
+                }
+                else if (polyArea > 100) {
+                    ZoomVal = 20;
+                }
+                else if (polyArea > 10) {
+                    ZoomVal = 22;
+                }
+                else if (polyArea > 1) {
+                    ZoomVal = 24
+                }
+
+                //alert(ZoomVal);
+                //alert(polyArea);
+
+                LatArray = [];
+                LngArray = [];
+                for (var j = 0; j < arrCoordinate.length; j++) {
+                    LatArray.push(arrCoordinate[j].lat);
+                    LngArray.push(arrCoordinate[j].lng)
+                }
+                LatArray.sort();
+                LngArray.sort();
+
+                const lowX = LatArray[0];
+                const highX = LatArray[LatArray.length - 1];
+                const lowy = LngArray[0];
+                const highy = LngArray[LngArray.length - 1];
+
+                const centerX = lowX + ((highX - lowX) / 2);
+                const centerY = lowy + ((highy - lowy) / 2);
+
+                map = new google.maps.Map(document.getElementById('googleMap'), {
+                    zoom: ZoomVal,
+                    center: new google.maps.LatLng(centerX, centerY),
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                });
+
+                //map = new google.maps.Map(document.getElementById('googleMap'), {
+                //    zoom: 16,
+                //    center: new google.maps.LatLng(arrCoordinate[0].lat, arrCoordinate[0].lng),
+                //    mapTypeId: google.maps.MapTypeId.ROADMAP
+                //});
+
+                
+
+
+
+
+                polyOld.setMap(map);
+                polyArr = [];
+                polyArr.push(polyOld);
+
+                google.maps.event.addListener(polyOld.getPath(), 'insert_at', function () {
+
+                    polyArr = [];
+                    polyArr.push(polyOld);
+
+                });
+                google.maps.event.addListener(polyOld.getPath(), 'remove_at', function () {
+                    polyArr = [];
+                    polyArr.push(polyOld);
+
+                });
+                google.maps.event.addListener(polyOld.getPath(), 'set_at', function () {
+
+                    polyArr = [];
+                    polyArr.push(polyOld);
+                });
+                google.maps.event.addListener(polyOld, 'dragend', function () {
+
+
+                    if (confirm('Are you sure you want change position of Polygon ?')) {
+                        polyArr = [];
+                        polyArr.push(polyOld);
+                    } else {
+                        polyOld.setMap(null);
+                        console.log('dragend');
+                        //polyOld = polyDragStart;
+                        polyOld.setPaths(polyDragStartCords);
+                        //var poligonCoords = [];
+                        polyOld.setMap(map);
+                        polyArr = [];
+                        polyArr.push(polyOld);
+                        addListenersOnPolygon2(polyOld);
+
+                    }
+
+
+                });
+                google.maps.event.addListener(polyOld, 'dragstart', function () {
+                    console.log('dragstart');
+                    polyDragStart = polyOld;
+                    polyDragStartCords = getCoords(polyOld);
+
+
+                });
+
+
+            }
+
+
+            var addListenersOnPolygon2 = function (poly) {
+                google.maps.event.addListener(poly.getPath(), 'insert_at', function () {
+                    console.log('insert_at');
+
+
+                    polyArr = [];
+                    polyArr.push(poly);
+
+                });
+                google.maps.event.addListener(poly.getPath(), 'remove_at', function () {
+                    console.log('remove_at');
+                    polyArr = [];
+                    polyArr.push(poly);
+
+                });
+                google.maps.event.addListener(poly.getPath(), 'set_at', function () {
+                    console.log('set_at');
+                    polyArr = [];
+                    polyArr.push(poly);
+
+                });
+
+
+            }
+
+
+            function getCoords(poly) {
+                var cords = [];
+                if (poly) {
+                    var vertices = poly.getPath();
+                    for (let i = 0; i < vertices.getLength(); i++) {
+                        var xy = vertices.getAt(i);
+                        var obj = new Object();
+                        obj.lat = xy.lat();
+                        obj.lng = xy.lng();
+                        //var point = new google.maps.LatLng(xy.lat(), xy.lng());
+                        cords.push(obj);
+
+                    }
+                }
+                return cords;
+            }
+            //google.maps.event.addListener(map, 'click', function (event) {
+            //    placeMarker(event.latLng);
+            //    console.log(event.latLng.toUrlValue(5));
+            //});
+
+            //function placeMarker(location) {
+            //    var marker = new google.maps.Marker({
+            //        position: location,
+            //        map: map
+            //    });
+            //    IsPointInPolygon(location);
+            //}
+
+            var drawingManager = new google.maps.drawing.DrawingManager({
+                drawingMode: google.maps.drawing.OverlayType.MARKER,
+                drawingControl: true,
+                drawingControlOptions: {
+                    position: google.maps.ControlPosition.TOP_CENTER,
+                    drawingModes: [
+                        //google.maps.drawing.OverlayType.MARKER,
+                        //google.maps.drawing.OverlayType.CIRCLE,
+                        google.maps.drawing.OverlayType.POLYGON,
+                        //google.maps.drawing.OverlayType.RECTANGLE
+                    ]
+                },
+                markerOptions: {
+                    icon: 'images/beachflag.png'
+                },
+                //circleOptions: {
+                //    fillColor: '#ffff00',
+                //    fillOpacity: 0.2,
+                //    strokeWeight: 3,
+                //    clickable: false,
+                //    editable: true,
+                //    zIndex: 1
+                //},
+                polygonOptions: {
+                    clickable: true,
+                    draggable: true,
+                    editable: true,
+                    fillColor: '#ffff00',
+                    fillOpacity: 0.1,
+
+                },
+                //rectangleOptions: {
+                //    clickable: true,
+                //    draggable: true,
+                //    editable: true,
+                //    fillColor: '#ffff00',
+                //    fillOpacity: 0.5,
+                //}
+            });
+
+            function clearSelection() {
+                if (selectedShape) {
+                    selectedShape.setEditable(false);
+                    selectedShape = null;
+                }
+            }
+
+            function setSelection(shape) {
+                clearSelection();
+                selectedShape = shape;
+                shape.setEditable(true);
+                // google.maps.event.addListener(selectedShape.getPath(), 'insert_at', getPolygonCoords(shape));
+                // google.maps.event.addListener(selectedShape.getPath(), 'set_at', getPolygonCoords(shape));
+            }
+
+            function deleteSelectedShape() {
+                if (selectedShape) {
+                    selectedShape.setMap(null);
+                }
+            }
+
+            function deleteAllShape() {
+                for (var i = 0; i < polyArr.length; i++) {
+                    polyArr[i].setMap(null);
+                }
+                polyArr = [];
+            }
+
+            function CenterControl(controlDiv, map) {
+
+                // Set CSS for the control border.
+                var controlUI = document.createElement('div');
+                controlUI.style.backgroundColor = '#fff';
+                controlUI.style.border = '2px solid #fff';
+                controlUI.style.borderRadius = '3px';
+                controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+                controlUI.style.cursor = 'pointer';
+                controlUI.style.marginBottom = '22px';
+                controlUI.style.textAlign = 'center';
+                controlUI.title = 'Select to delete the shape';
+                controlDiv.appendChild(controlUI);
+
+                // Set CSS for the control interior.
+                var controlText = document.createElement('div');
+                controlText.style.color = 'rgb(25,25,25)';
+                controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
+                controlText.style.fontSize = '16px';
+                controlText.style.lineHeight = '38px';
+                controlText.style.paddingLeft = '5px';
+                controlText.style.paddingRight = '5px';
+                controlText.innerHTML = 'Delete Selected Area';
+                controlUI.appendChild(controlText);
+
+                // Setup the click event listeners: simply set the map to Chicago.
+                controlUI.addEventListener('click', function () {
+                    //deleteSelectedShape();
+                    deleteAllShape();
+                });
+
+            }
+            drawingManager.setMap(map);
+            var getPolygonCoords = function (newShape) {
+                console.log("We are one");
+                var len = newShape.getPath().getLength();
+                for (var i = 0; i < len; i++) {
+                    console.log(newShape.getPath().getAt(i).toUrlValue(6));
+                }
+            };
+
+            google.maps.event.addListener(drawingManager, 'polygoncomplete', function (event) {
+
+                event.getPath().getLength();
+                google.maps.event.addListener(event.getPath(), 'insert_at', function () {
+                    console.log('insert');
+                    polyArr = [];
+                    polyArr.push(event);
+                });
+                google.maps.event.addListener(event.getPath(), 'set_at', function () {
+                    console.log('set');
+                    polyArr = [];
+                    polyArr.push(event);
+                });
+                google.maps.event.addListener(event.getPath(), 'remove_at', function () {
+                    console.log('remove');
+                    polyArr = [];
+                    polyArr.push(event);
+                });
+                google.maps.event.addListener(event, 'dragend', function () {
+                    console.log('dragend');
+
+                    if (confirm('Are you sure you want change position of Polygon ?')) {
+                        polyArr = [];
+                        polyArr.push(event);
+                    } else {
+                        event.setMap(null);
+
+                        //polyOld = polyDragStart;
+                        event.setPaths(polyDragStartCords);
+                        //var poligonCoords = [];
+                        console.log('dragend');
+
+                        event.setMap(map);
+                        polyArr = [];
+                        polyArr.push(event);
+                        addListenersOnPolygon2(event);
+                    }
+
+                });
+                google.maps.event.addListener(event, 'dragstart', function () {
+                    console.log('dragstart');
+                    polyDragStartCords = getCoords(event);
+
+                });
+            });
+
+            google.maps.event.addListener(drawingManager, 'overlaycomplete', function (event) {
+                console.log('complete');
+                
+                if ((event.type == google.maps.drawing.OverlayType.POLYGON) && (event.overlay.getPath().getLength() > 1)) {
+                    drawingManager.setDrawingMode(null);
+                    //Write code to select the newly selected object.
+                    polyArr = [];
+                    polyArr.push(event.overlay);
+                    var newShape = event.overlay;
+                    newShape.type = event.type;
+                    google.maps.event.addListener(newShape, 'click', function () {
+
+                        setSelection(newShape);
+                    });
+
+                    setSelection(newShape);
+                }
+            });
+
+
+            google.maps.event.addListener(drawingManager, "drawingmode_changed", function () {
+                //deleteAllShape();
+                if (drawingManager.getDrawingMode() == 'polygon') {
+
+                    deleteAllShape();
+                }
+            })
+
+            var centerControlDiv = document.createElement('div');
+            var centerControl = new CenterControl(centerControlDiv, map);
+
+            centerControlDiv.index = 1;
+            map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(centerControlDiv);
+
+
+        };
+
+
+
+        $("#btnAppMapSave").click(function () {
+            if (polyArr.length != 1) {
+                $("#BeatMaap_pop").html("Please Create Area...").delay(2000).show().fadeOut('slow');
+                return false;
+            }
+            if ($('#hdAppId').val() == '-1') {
+                $("#BeatMaap_pop").html("Please Select App Name...").delay(2000).show().fadeOut('slow');
+                return false;
+            }
+            var poly = polyArr[0];
+            var vertices = poly.getPath();
+            var AppAreaObj = new Object();
+            var AppName = $('#hdAppName').val();
+            var CordArry = [];
+            for (let i = 0; i < vertices.getLength(); i++) {
+                var xy = vertices.getAt(i);
+                var obj = new Object();
+                obj.lat = xy.lat();
+                obj.lng = xy.lng();
+                CordArry.push(obj);
+            }
+
+            AppAreaObj.AppId = parseInt($('#hdAppId').val());
+            AppAreaObj.AppName = $('#hdAppName').val();
+            AppAreaObj.AppAreaLatLong = CordArry;
+            AppAreaObj.AppLat = $('#deflat').val();
+            AppAreaObj.AppLong = $('#deflang').val();
+            AppAreaObj.IsAreaActive = $('#IsAreaActive').is(':checked')
+            var data = JSON.stringify({ 'AppAreaObj': AppAreaObj });
+            if (confirm('Creating a Map Area For ' + $('#hdAppName').val() + '. Are you sure to create this Map Area ?')) {
+                $.ajax({
+                    type: "post",
+                    url: "/HouseScanifyEmp/SaveAppAreaMap",
+                    data: data,
+                    contentType: 'application/json;',
+                    dataType: 'json',
+                    //traditional: true,
+                    success: function (data) {
+                        //$('#myModal_Image_House').modal('toggle');
+                        //LoadGrid();
+                        alert("Map Area For " + AppName + " Created Successfully...");
+                        //$("#DumpSave_pop").html("QR Status Saved Successfully...").delay(2000).show().fadeOut('slow');
+                        location.href = 'HSAppAreaIndex';
+                    }
+                });
+            }
+            else {
+                return false;
+            }
+
+            
+        }
+        );
+
+        function IsPointInPolygon(location) {
+
+            var EBMObj = new Object();
+            var obj = new Object();
+            var CordArry = [];
+            obj.lat = location.lat();
+            obj.lng = location.lng();
+            CordArry.push(obj);
+            EBMObj.userId = parseInt($('#hduserId').val());
+            EBMObj.ebmLatLong = CordArry;
+            EBMObj.Type = 'W';
+            EBMObj.ebmId = parseInt($('#hdebmId').val());
+            var data = JSON.stringify({ 'EBMObj': EBMObj });
+
+            $.ajax({
+                type: "post",
+                url: "/EmpBeatMap/IsPointInPolygon",
+                data: data,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                //traditional: true,
+                success: function (data) {
+                    //$('#myModal_Image_House').modal('toggle');
+                    //LoadGrid();
+
+                    //$("#DumpSave_pop").html("QR Status Saved Successfully...").delay(2000).show().fadeOut('slow');
+                    alert(data);
+                }
+            });
+
+
+        }
+
+
+        $("#btnEMPShow").click(function () {
+
+            if ($('#selectnumber').val() == '-1') {
+                alert("Please Select User");
+                return false;
+            }
+
+            var userId = $('#selectnumber').val();
+
+
+            $.ajax({
+                type: "get",
+                url: "/EmpBeatMap/GetEmpBeatMap?userId=" + userId,
+                contentType: 'application/json;',
+                dataType: 'json',
+                //traditional: true,
+                success: function (data) {
+                    console.log(data);
+                    //$('#myModal_Image_House').modal('toggle');
+                    //LoadGrid();
+
+                    //$("#DumpSave_pop").html("QR Status Saved Successfully...").delay(2000).show().fadeOut('slow');
+
+                }
+            });
+        }
+        );
+
+
+
+
+
+
+    </script>
+    @*<script async defer src="https://maps.googleapis.com/maps/api/js?key=@Session["apikey"]&callback=myMap" type="text/javascript"></script>*@
+    <script async
+            src="https://maps.googleapis.com/maps/api/js?key=@Session["apikey"]&libraries=drawing,geometry&callback=loadMap">
+    </script>
+    @*Paid API*@
+    @*<script async defer src="https://maps.googleapis.com/maps/api/js?key=@Session["apikey"]&callback=myMap" type="text/javascript"></script>*@
+
+</fieldset>

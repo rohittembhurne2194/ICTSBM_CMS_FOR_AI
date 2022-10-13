@@ -1,0 +1,54 @@
+﻿@model SwachBharat.CMS.Bll.ViewModels.ChildModel.Model.LocationVM
+@{
+    Layout = null;
+}
+<a href="~/Location/ShowGrid">Back</a>
+<fieldset>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <div id="googleMap" style="width:1200px; height:600px"></div>
+    <script>
+
+        function myMap() {
+            $.ajax({
+                type: "post",
+                url: "/StreetLocation/LocatioList",
+                data: { stateId: $('#ddlState').val() },
+                datatype: "json",
+                traditional: true,
+                success: function (data) {
+                    alert(data.length);
+                    var map = new google.maps.Map(document.getElementById('googleMap'), {
+                        zoom: 10,
+                        center: new google.maps.LatLng(data[0].lat, data[0].log),
+                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                    });
+
+                    var infowindow = new google.maps.InfoWindow();
+
+                    var marker, i;
+
+                    for (i = 0; i < data.length; i++) {
+                        marker = new google.maps.Marker({
+                            position: new google.maps.LatLng(data[i].lat, data[i].log),
+                            map: map
+                        });
+                        google.maps.event.addListener(marker, 'click', (function (marker, i) {
+                            return function () {
+                                infowindow.setContent(data[i].name);
+                                infowindow.open(map, marker);
+                            }
+                        })(marker, i));
+                    }
+                }
+
+            });
+        }
+
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=@Session["apikey"]&callback=myMap" type="text/javascript"></script>
+</fieldset>

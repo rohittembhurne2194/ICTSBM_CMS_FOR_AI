@@ -1,0 +1,926 @@
+﻿@model SwachBharat.CMS.Bll.ViewModels.ChildModel.Model.SBALUserLocationMapView
+@{
+    Layout = null;
+}
+<style>
+    /* Always set the map height explicitly to define the size of the div
+           * element that contains the map. */
+    #googleMap {
+        height: 100%;
+    }
+    /* Optional: Makes the sample page fill the window. */
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    #floating-panel {
+        position: absolute;
+        top: 0px;
+        left: 5%;
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+        text-align: center;
+        font-family: 'Roboto','sans-serif';
+        line-height: 30px;
+        padding-left: 10px;
+    }
+
+    #play_id {
+        left: 87%;
+        width: 5%;
+    }
+
+    #myRadioGroup {
+        text-align: center;
+    }
+
+    #filter1, #filter2, #filter3 {
+        margin-top: 3%;
+        margin-bottom: 3%;
+    }
+
+    @@media only screen and (max-width: 1240px) {
+        #play_id {
+            left: 74%;
+        }
+    }
+
+    @@media only screen and (max-width: 991px) {
+        #play_id {
+            left: 72%;
+        }
+    }
+
+    @@media only screen and (max-width: 600px) {
+        #play_id {
+            left: 70%;
+        }
+    }
+
+    @@media only screen and (max-width: 500px) {
+        #play_id {
+            left: 68%;
+        }
+    }
+
+    @@media only screen and (max-width: 400px) and (min-width:300px) {
+        #play_id {
+            left: 64%;
+        }
+    }
+
+    /*@@media only screen and (max-width: 1044px) and (min-width:850px) {
+      #play_id {
+         left: 65%;
+      }
+    }
+            @@media only screen and (max-width: 849px) and (min-width:421px) {
+      #play_id {
+         left: 65%;
+      }
+    }
+            @@media only screen and (max-width: 420px) {
+      #play_id {
+         left: 60%;
+      }
+    }
+              @@media only screen and (max-width: 300px) {
+      #play_id {
+         left: 55%;
+      }
+    }*/
+
+    #floating-panel {
+        margin-left: -10px;
+    }
+
+    .xdsoft_datepicker {
+        display: none !important;
+    }
+
+    .xdsoft_timepicker {
+        width: 170px !important;
+    }
+
+    .xdsoft_prev, .xdsoft_next {
+        margin-left: 40% !important;
+    }
+</style>
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.4/jquery.datetimepicker.min.css" />
+@*<link href="~/Content/css/datepicker/css/datepicker.css" rel="stylesheet" />*@
+<link href="~/Content/Custom/fontawesome/css/font-awesome.min.css" rel="stylesheet" />
+<link href="~/Content/Custom/timepicker.css" rel="stylesheet" />
+<link href="/Content/theme-assets/css/MyCustom.css" rel="stylesheet">
+
+
+<div class="container ">
+
+    <div class="row">
+        <div class="col col-md-12 text-center">
+            <h4 style="font-weight: 700;"><span id="username" style="display:none;">@Model.userName</span> <span id="demo"></span>  <span>Employee Route</span> </h4>
+        </div>
+    </div>
+
+    @*<div class="row" style="margin-top:5px">
+            <div class="col-sm-1">
+
+                <div id="floating-panel" style="display:inline-flex;width:auto;background:transparent;border:none">
+                    <a style="margin-top:22px" class="btn btn-sm btn-success" href="/Liquid/LiquidAttendence/Index">Back</a>
+                </div>
+
+            </div>
+              <div class="col-sm-1">
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label for="">From Time</label>
+                    <div class="input-group time" id="timepicker">
+                        <input autocomplete="off" class="form-control" id="fromtime" name="fromtime" placeholder="From Time" style="font-family:Arial, FontAwesome" type="text" value=""><span class="input-group-addon"><span class="fa fa-clock-o"></span></span>
+                    </div>
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                    <span class="help-block with-errors"></span>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+
+                    <label for="">To Time</label>
+                    <div class="input-group time" id="timepickerrr">
+                        <input autocomplete="off" class="form-control" id="totime" name="totime" placeholder="To Time" style="font-family:Arial, FontAwesome" type="text" value=""><span class="input-group-addon"><span class="fa fa-clock-o"></span></span>
+                    </div>
+
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                    <span class="help-block with-errors"></span>
+                </div>
+            </div>
+
+            <div class="col-sm-1">
+
+                <div id="floating-panel" style="display:inline-flex;width:auto;background:transparent;border:none">
+                    <a style="margin-top:22px" class="btn btn-sm btn-success" onclick="Search()">Search</a>
+                </div>
+
+            </div>
+            <div class="col-sm-3">
+                <br />
+                <h4 class="text-danger" id="err_time"></h4>
+
+            </div>
+
+        </div>*@
+
+    <div id="myRadioGroup">
+
+        <spn style="font-weight: bold; font-size: 16px;">Search By :</spn> <input type="radio" name="filter" checked="checked" value="1" style="margin-left: 1%;" /> Pin No
+        <input type="radio" name="filter" value="2" style="margin-left: 1%;" /> Date Time
+
+        <div id="filter1" class="desc">
+            <div class="row" style="margin-top:5px">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label for="">From Pin</label>
+                        <div class="input-group ">
+                            <input autocomplete="off" class="form-control" id="frompin" name="frompin" placeholder="From Pin" style="font-family:Arial, FontAwesome" type="text" value=""><span class="input-group-addon"></span>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+
+                        <label for="">To Pin</label>
+                        <div class="input-group ">
+                            <input autocomplete="off" class="form-control" id="topin" name="topin" placeholder="To Pin" style="font-family:Arial, FontAwesome" type="text" value=""><span class="input-group-addon"></span>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-sm-1">
+
+                    <div id="floating-panel" style="display:inline-flex;width:auto;background:transparent;border:none">
+                        <a style="margin-top: 22px; color: #fff;" class="btn btn-sm btn-success" onclick="SearchPin()">Search</a>
+                    </div>
+
+                </div>
+                <div class="col-sm-1">
+
+                    <div id="floating-panel" style="display:inline-flex;width:auto;background:transparent;border:none">
+                        <a style="margin-top: 22px; color: #fff;" class="btn btn-sm btn-success" onclick="Reset()">Reset</a>
+                    </div>
+
+                </div>
+                <div class="col-sm-4">
+                    <br />
+                    <h4 class="text-danger" id="err_time"></h4>
+
+                </div>
+
+            </div>
+        </div>
+        <div id="filter2" class="desc" style="display: none;">
+            <div class="row" style="margin-top:5px">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label for="">From Time</label>
+                        <div class="input-group time" id="timepicker">
+                            <input autocomplete="off" class="form-control jquery-date-time-picker" id="fromtime" name="fromtime" placeholder="From Time" style="font-family:Arial, FontAwesome" type="text" value=""><span class="input-group-addon"><span class="fa fa-clock-o"></span></span>
+                        </div>
+                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                        <span class="help-block with-errors"></span>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+
+                        <label for="">To Time</label>
+                        <div class="input-group time" id="timepickerrr">
+                            <input autocomplete="off" class="form-control jquery-date-time-picker" id="totime" name="totime" placeholder="To Time" style="font-family:Arial, FontAwesome" type="text" value=""><span class="input-group-addon"><span class="fa fa-clock-o"></span></span>
+                        </div>
+
+                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                        <span class="help-block with-errors"></span>
+                    </div>
+                </div>
+
+                <div class="col-sm-1">
+
+                    <div id="floating-panel" style="display:inline-flex;width:auto;background:transparent;border:none">
+                        <a style="margin-top: 22px; color: #fff;" class="btn btn-sm btn-success" onclick="SearchTime()">Search</a>
+                    </div>
+
+                </div>
+                <div class="col-sm-1">
+
+                    <div id="floating-panel" style="display:inline-flex;width:auto;background:transparent;border:none">
+                        <a style="margin-top: 22px; color: #fff;" class="btn btn-sm btn-success" onclick="Reset()">Reset</a>
+                    </div>
+
+                </div>
+                <div class="col-sm-4">
+                    <br />
+                    <h4 class="text-danger" id="err_time2"></h4>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div id="floating-panel" style="display:inline-flex;width:auto;background:transparent;border:none">
+    <a style="margin-left:5px" class="btn btn-sm btn-success" href="/Liquid/LiquidAttendence/Index">Back</a>
+</div>
+<fieldset>
+
+    <input type="hidden" value='@Request.QueryString["daId"]' id='HdnIndustries' />
+    <input type="hidden" value='' id='route_date' />
+    <input type="hidden" value='' id='userid' />
+    <div class="container ">
+        <div class="row">
+
+            <div class="col-10 bg-white has-shadow" id="googleMap" style="width:auto; height:600px"></div>
+            <div class="col-sm-2"></div>
+        </div>
+    </div>
+
+    @*<input type="hidden" value="21.1458" id="deflat" />
+        <input type="hidden" value="80.2767" id="deflang" />*@
+
+
+    <input type="hidden" value="@ViewBag.lat" id="deflat" />
+    <input type="hidden" value="@ViewBag.lang" id="deflang" />
+    <input type="hidden" value="@ViewBag.username" id="deflang" />
+
+
+
+    <style>
+        .overlay {
+            position: absolute;
+            top: 6px;
+            left: 105%;
+        }
+
+    </style>
+    <script>
+
+        function SearchPin() {
+            
+            var from = document.getElementById("frompin").value;
+            var to = document.getElementById("topin").value;
+            if (from == "" || to == "") {
+                $("#err_time").html("From Pin and To Pin is required").delay(3000).show().fadeOut('slow');
+                return false;
+            }
+            else {
+                myMap(from, to)
+            }
+
+
+        }
+
+        function SearchTime() {
+            
+            var fromtime = document.getElementById("fromtime").value;
+            var totime = document.getElementById("totime").value;
+            if (fromtime == "" || totime == "") {
+                $("#err_time2").html("From Time and To Time is required").delay(3000).show().fadeOut('slow');
+                return false;
+            }
+            else if (fromtime >= totime) {
+                $("#err_time2").html("Please Select From Time Less Than To Time").delay(3000).show().fadeOut('slow');
+                return false;
+            }
+            else {
+                myMap(fromtime, totime)
+            }
+
+
+        }
+
+        function Reset() {
+            
+            var from = "";
+            var to = "";
+            document.getElementById("frompin").value = "";
+            document.getElementById("topin").value = "";
+            document.getElementById("fromtime").value = "";
+            document.getElementById("totime").value = "";
+            myMap(from, to)
+        }
+
+        var searchData = [];
+        var isSearch = 0;
+        function Search() {
+
+            var from = document.getElementById("fromtime").value;
+            var to = document.getElementById("totime").value;
+            if (from == "" || to == "") {
+                $("#err_time").html("From Time and To time is required").delay(3000).show().fadeOut('slow');
+                return false;
+            }
+            var date = new Date();
+
+            var day = date.getDate();
+            var month = date.getMonth() + 1;
+            var year = date.getFullYear();
+            if (month < 10) month = "0" + month;
+            if (day < 10) day = "0" + day;
+            var today = year + "/" + month + "/" + day
+
+            var fromdt = today + " " + from;
+            var todt = today + " " + to;
+            var fromdate = new Date(Date.parse(fromdt));
+            var todate = new Date(Date.parse(todt));
+            //
+            if (fromdate > todate) {
+                $("#err_time").html("To Time should be greater than from time").delay(3000).show().fadeOut('slow');
+                return false;
+            }
+
+
+
+            $.ajax({
+                type: "post",
+                url: "/LiquidAttendence/UserTimeWiseRouteData?date=" + $('#route_date').val() + "&fTime=" + $("#fromtime").val() + "&tTime=" + $("#totime").val() + "&userId=" + $("#userid").val(),
+                //url: "/Location/HouseLocationList",
+                datatype: "json",
+                traditional: true,
+                success: function (data) {
+
+                    if (data.length == 0) {
+                        alert("No Record Found for selected time intervals");
+                        return false;
+                    }
+                    if (data.length > 0) {
+                        isSearch = 1;
+                        searchData = data;
+                    }
+
+                    myMap()
+                }
+            });
+        }
+        function myMap() {
+            
+
+            var from = document.getElementById("frompin").value;
+            var to = document.getElementById("topin").value;
+            var fromtime = document.getElementById("fromtime").value;
+            var totime = document.getElementById("totime").value;
+
+            function CenterControl(controlDiv, map) {
+
+                // Set CSS for the control border.
+                var controlUI = document.createElement('div');
+
+                controlUI.style.cursor = 'pointer';
+                controlUI.style.marginBottom = '22px';
+                controlUI.style.marginTop = '5px';
+                // controlUI.style.textAlign = 'center';
+                controlDiv.appendChild(controlUI);
+
+                // Set CSS for the control interior.
+                var controlText = document.createElement('div');
+                controlText.style.color = '#fff';
+                controlText.innerHTML = 'Play';
+                controlText.id = "play";
+                controlText.className = 'test btn btn-sm btn-success';
+                controlUI.appendChild(controlText);
+
+                // Setup the click event listeners: simply set the map to Chicago.
+
+            }
+
+            function CenterControlPause(controlDivPause, map) {
+
+                // Set CSS for the control border.
+                var controlUIPause = document.createElement('div');
+
+                controlUIPause.style.cursor = 'pointer';
+                controlUIPause.style.marginBottom = '22px';
+                controlUIPause.style.marginTop = '5px';
+                // controlUI.style.textAlign = 'center';
+                controlDivPause.appendChild(controlUIPause);
+
+                // Set CSS for the control interior.
+                var controlTextPause = document.createElement('div');
+                controlTextPause.style.color = '#fff';
+                controlTextPause.innerHTML = 'Pause';
+                controlTextPause.id = "pause";
+                controlTextPause.className = 'test btn btn-sm btn-success';
+                controlUIPause.appendChild(controlTextPause);
+
+                // Setup the click event listeners: simply set the map to Chicago.
+
+            }
+
+
+
+            var industries = $("#HdnIndustries").val();
+            var geocoder = new google.maps.Geocoder();
+
+
+            $.ajax({
+                type: "post",
+                url: "/LiquidAttendence/UserRouteData?daId=" + industries,
+                datatype: "json",
+                traditional: true,
+                success: function (m) {
+                    // alert(m[0].date);
+                    //$("#route_date").val(m[0].date);
+                    //$("#userid").val(m[0].userId);
+
+                    if (isSearch == 1) {
+                        markers = searchData;
+                    }
+                    else {
+                        markers = m;
+                    }
+                    var mapOptions = {
+                        center: new google.maps.LatLng(markers[0].lat, markers[0].log),
+                        zoom: 10,
+                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                    };
+                    var map = new google.maps.Map(document.getElementById("googleMap"), mapOptions);
+
+                    var centerControlDiv = document.createElement('div');
+                    var centerControlDivPause = document.createElement('div');
+                    var centerControl = new CenterControl(centerControlDiv, map);
+                    var centerControlPause = new CenterControlPause(centerControlDivPause, map);
+
+                    centerControlDiv.index = 1;
+                    centerControlDivPause.index = 1;
+                    //centerControlDiv.style.left = '90%';
+                    centerControlDiv.id = "play_id";
+                    centerControlDivPause.id = "pause_id";
+                    centerControlDivPause.style.left = '80%';
+                    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(centerControlDiv);
+                    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(centerControlDivPause);
+
+                    centerControlDiv.addEventListener('click', function () {
+                        animateCircle(poly, 17);
+                    });
+
+                    centerControlDivPause.addEventListener('click', function () {
+                        animateCircle(poly, 7);
+                    });
+
+                    
+
+                    var infoWindow = new google.maps.InfoWindow();
+                    var lat_lng = new Array();
+                    var latlngbounds = new google.maps.LatLngBounds();
+                    var lastmarker = markers.length;
+
+
+                    for (i = 0; i < markers.length; i++) {
+
+
+
+                        var data = markers[i]
+                        var a = i + 1;
+                        if (a == 1) {
+                            temicon = "../../Areas/Liquid/Content/images/img/segregationImg/Start-Point.png";
+                        }
+                        else if (a == lastmarker) {
+                            temicon = "../../Areas/Liquid/Content/images/img/segregationImg/End_Point.png";
+                        }
+                        else {
+                            temicon = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=' + a + '|0F7017|000000'
+                        }
+                        // Get Address from server
+
+                        //var myLatlng = new google.maps.LatLng(data.lat, data.log);
+                        //lat_lng.push(myLatlng);
+                        //var marker = new google.maps.Marker({
+                        //    position: myLatlng,
+                        //    map: map,
+                        //    title: data.Username,
+                        //    icon: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=' + a + '|FF0000|000000'
+                        //});
+                        // Get Address from server
+                        if (fromtime == "" && totime == "") {
+                            if (from == "" && to == "") {
+                                var myLatlng = new google.maps.LatLng(data.lat, data.log);
+                                lat_lng.push(myLatlng);
+                                var marker = new google.maps.Marker({
+                                    position: myLatlng,
+                                    map: map,
+                                    title: data.Username,
+                                    icon: {
+                                        // labelOrigin: new google.maps.Point(16, 65),
+                                        url: temicon
+                                    }
+                                });
+                            }
+                            else {
+                                if (a >= from && a <= to) {
+                                    var myLatlng = new google.maps.LatLng(data.lat, data.log);
+                                    lat_lng.push(myLatlng);
+                                    var marker = new google.maps.Marker({
+                                        position: myLatlng,
+                                        map: map,
+                                        title: data.Username,
+                                        icon: {
+                                            // labelOrigin: new google.maps.Point(16, 65),
+                                            url: temicon
+                                        }
+                                    });
+                                }
+                                else {
+                                    var myLatlng = new google.maps.LatLng(data.lat, data.log);
+                                    //lat_lng.push(myLatlng);
+                                    var marker = new google.maps.Marker({
+                                        position: myLatlng
+                                    });
+                                }
+                            }
+                        }
+
+                        else if (fromtime != "" && totime != "") {
+                            if (data.datetime >= fromtime && data.datetime <= totime) {
+                                // Get Address from server
+                                var myLatlng = new google.maps.LatLng(data.lat, data.log);
+                                lat_lng.push(myLatlng);
+                                var marker = new google.maps.Marker({
+                                    position: myLatlng,
+                                    map: map,
+                                    title: data.Username,
+                                    icon: {
+                                        // labelOrigin: new google.maps.Point(16, 65),
+                                        url: temicon
+                                    }
+                                });
+                            }
+                            else {
+                                var myLatlng = new google.maps.LatLng(data.lat, data.log);
+                                //lat_lng.push(myLatlng);
+                                var marker = new google.maps.Marker({
+                                    position: myLatlng
+                                });
+                            }
+                        }
+                        else {
+                            // Get Address from server
+                            var myLatlng = new google.maps.LatLng(data.lat, data.log);
+                            lat_lng.push(myLatlng);
+                            var marker = new google.maps.Marker({
+                                position: myLatlng,
+                                map: map,
+                                title: data.Username,
+                                icon: {
+                                    // labelOrigin: new google.maps.Point(16, 65),
+                                    url: temicon
+                                }
+                            });
+                        }
+
+
+                        latlngbounds.extend(marker.position);
+
+
+                        if (data.type == 0) {
+
+                            (function (marker, data) {
+                                if (data.userMobile == null) {
+                                    data.userMobile = '';
+                                }
+                                if (data.vehcileNumber == null) {
+                                    data.vehcileNumber = '';
+                                }
+                                if (data.address == null) {
+                                    data.address = '';
+                                }
+
+                                //New Marker Click
+                                google.maps.event.addListener(marker, "click", function (e) {
+                                    
+                                    var latlng = new google.maps.LatLng(data.lat, data.log);
+                                    var geocoder = geocoder = new google.maps.Geocoder();
+                                    geocoder.geocode({ 'latLng': latlng }, function (results, status) {
+                                        
+                                        if (status == google.maps.GeocoderStatus.OK) {
+                                            
+                                            if (results[1]) {
+                                                //alert("Location: " + results[1].formatted_address);
+                                                var address = results[1].formatted_address;
+                                                infoWindow.setContent('<div class=infowindow style="max-width:190px"> <h3>' + data.userName + '</h3><h5><b>Employee Details:</b></h5><p><b>Date:</b>' + data.date + '</p><p><b>Time:</b>' + data.time + '</p><p><b>Mobile:</b>' + data.userMobile + '<p><b>Vehicle No:</b>' + data.vehcileNumber + '</p><div style="height:auto; width:150px"><p><b>Address:</b>' + address + '</p></div></div>');
+                                                infoWindow.open(map, marker);
+                                            }
+                                            else {
+                                                var address = "Not Mention";
+                                                infoWindow.setContent('<div class=infowindow style="max-width:190px"> <h3>' + data.userName + '</h3><h5><b>Employee Details:</b></h5><p><b>Date:</b>' + data.date + '</p><p><b>Time:</b>' + data.time + '</p><p><b>Mobile:</b>' + data.userMobile + '<p><b>Vehicle No:</b>' + data.vehcileNumber + '</p><div style="height:auto; width:150px"><p><b>Address:</b>' + address + '</p></div></div>');
+                                                infoWindow.open(map, marker);
+                                            }
+
+                                        }
+                                    });
+
+                                });
+
+                                //Old Marker Click
+                                //google.maps.event.addlistener(marker, "click", function (e) {
+                                //    infowindow.setcontent('<div class=infowindow style="max-width:190px"> <h3>' + data.username + '</h3><h5><b>employee details:</b></h5><p><b>date:</b>' + data.date + '</p><p><b>time:</b>' + data.time + '</p><p><b>mobile:</b>' + data.usermobile + '<p><b>vehicle no:</b>' + data.vehcilenumber + '</p><div style="height:auto; width:150px"><p><b>address:</b>' + data.address + '</p></div></div>');
+                                //    infowindow.open(map, marker);
+
+                                //    //animatecircle(poly,9);
+                                //});
+
+                            })(marker, data);
+
+                        }
+
+
+                        //(function (marker, data) {
+
+                        //    //google.maps.event.addListener(marker, "click", function (e) {
+                        //    //    infoWindow.setContent('<div class=infowindow> <h3>' + data.userName + '</h3><h5><b>Details:</b></h5><p><b>Date:</b>' + data.date + '</p><p><b>Time:</b>' + data.time + '</p><p><b>Mobile:</b>' + data.userMobile + '<p><b>Vehcile No:</b>' + data.vehcileNumber + '</p><div style="height:auto; width:150px"><p><b>Address:</b>' + data.address + '</p></div></div>');
+                        //    //    infoWindow.open(map, marker);
+
+
+                        //    google.maps.event.addListener(marker, "click", function (e) {
+                        //        infoWindow.setContent('<div class=infowindow> <h5><b>HouseDetails:</b></h5><p>House-Id:<b>' + data.HouseId + '</b></p><p>Name:<b>' + data.HouseOwnerName + '</b></p><p>MobileNo:<b>' + data.OwnerMobileNo + '</b></p><p>Date:<b>' + data.date + '</b></p><p>Time:<b>' + data.time + '</b></p><p>HouseAddress:<b>' + data.HouseAddress + '</b></p><hr><div><h5><b>EmpDetails:</b></h5><p>EmpName:<b>' + data.userName + '</b></p><p>Vehcile No:<b>' + data.vehcileNumber + '</b></p></div></div>');
+                        //        infoWindow.open(map, marker);
+
+                        //        //animateCircle(poly,9);
+                        //    });
+
+                        //})(marker, data);
+
+
+
+                    }
+                    map.setCenter(latlngbounds.getCenter());
+                    map.fitBounds(latlngbounds);
+
+                    //***********ROUTING****************//
+                    var car = "M17.402,0H5.643C2.526,0,0,3.467,0,6.584v34.804c0,3.116,2.526,5.644,5.643,5.644h11.759c3.116,0,5.644-2.527,5.644-5.644 V6.584C23.044,3.467,20.518,0,17.402,0z M22.057,14.188v11.665l-2.729,0.351v-4.806L22.057,14.188z M20.625,10.773 c-1.016,3.9-2.219,8.51-2.219,8.51H4.638l-2.222-8.51C2.417,10.773,11.3,7.755,20.625,10.773z M3.748,21.713v4.492l-2.73-0.349 V14.502L3.748,21.713z M1.018,37.938V27.579l2.73,0.343v8.196L1.018,37.938z M2.575,40.882l2.218-3.336h13.771l2.219,3.336H2.575z M19.328,35.805v-7.872l2.729-0.355v10.048L19.328,35.805z";
+
+                    //Old
+
+                    var lineSymbol = {
+                        path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+                        scale: 5,
+                        strokeColor: '#388e3c',
+                    };
+
+                    //New
+
+                    //var lineSymbol = {
+                    //    path: car,
+                    //    scale: .5,
+                    //    strokeColor: 'black',
+                    //    strokeWeight: .10,
+                    //    fillOpacity: 1,
+                    //    fillColor: '#ed281a',
+                    //    offset: '2%',
+                    //    transform: 'rotate(20 deg)',
+                    //    anchor: new google.maps.Point(10, 25)
+                    //};
+
+                    //Initialize the Path Array
+                    var path = new google.maps.MVCArray();
+
+                    //Initialize the Direction Service
+                    //var service = new google.maps.DirectionsService();
+
+                    //Set the Path Stroke Color
+                    var poly = new google.maps.Polyline({
+                        strokeColor: '#4986E7',
+                        strokeWeight: 5,
+                        map: map, icons: [{
+                            icon: lineSymbol,
+                            offset: '100%',
+                        }],
+                    });
+                    animateCircle(poly, 1);
+                    var a = 0;
+                    var listener;
+                    function animateCircle(line, k) {
+
+                        // alert(k);
+                        if (k == 7) {
+                            clearInterval(listener);
+                            a = 0;
+                        }
+                        else {
+                            a = a + 1;
+
+                            if (a == 1) {
+                                var count = 0;
+                                listener = window.setInterval(function () {
+                                    count = (count + 1) % 200;
+                                    var icons = line.get('icons');
+                                    icons[0].offset = (count / 2) + '%';
+                                    line.set('icons', icons);
+                                    if (count == 199) { clearInterval(listener); a = 0; };
+                                }, 100);
+
+
+                            }
+                        }
+
+                    }
+                    //Loop and Draw Path Route between the Points on MAP
+                    for (var i = 0; i < lat_lng.length; i++) {
+                        if ((i + 1) <= lat_lng.length) {
+                            var src = lat_lng[i];
+                            var des = lat_lng[i + 1];
+                            path.push(src);
+                            poly.setPath(path);
+                            //service.route({
+                            //    origin: src,
+                            //    destination: des,
+                            //    travelMode: google.maps.DirectionsTravelMode.DRIVING
+                            //}, function (result, status) {
+                            //    if (status == google.maps.DirectionsStatus.OK) {
+                            //        for (var i = 0, len = result.routes[0].overview_path.length; i < len; i++) {
+                            //            path.push(result.routes[0].overview_path[i]);
+                            //        }
+                            //    }
+                            //});
+                        }
+                    }
+                }
+
+            });
+          
+        }
+
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=@Session["apikey"]&callback=myMap" type="text/javascript"></script>
+
+    @*Paid API*@
+    @*<script async defer src="https://maps.googleapis.com/maps/api/js?key=@Session["apikey"]&callback=myMap" type="text/javascript"></script>*@
+
+
+    @*<script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
+            <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js'></script>
+            <script src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js'></script>
+            <script>
+                if (/Mobi/.test(navigator.userAgent)) {
+                    // if mobile device, use native pickers
+                    $(".date-time input").attr("type", "datetime-local");
+                    $(".date input").attr("type", "date");
+                    $(".time input").attr("type", "time");
+                } else {
+                    // if desktop device, use DateTimePicker
+                    $("#datetimepicker").datetimepicker({
+                        icons: {
+                            time: "fa fa-clock-o",
+                            date: "fa fa-calendar",
+                            up: "fa fa-chevron-up",
+                            down: "fa fa-chevron-down",
+                            next: "fa fa-chevron-right",
+                            previous: "fa fa-chevron-left"
+                        }
+                    });
+
+
+                    $("#datepicker").datetimepicker({
+                        useCurrent: false,
+                        format: "L",
+                        icons: {
+                            next: "fa fa-chevron-right",
+                            previous: "fa fa-chevron-left"
+                        }
+                    });
+
+
+                    $("#timepicker").datetimepicker({
+                        format: "LT",
+                        icons: {
+                            up: "fa fa-chevron-up",
+                            down: "fa fa-chevron-down"
+                        }
+                    });
+
+                    $("#timepickerrr").datetimepicker({
+                        format: "LT",
+                        icons: {
+                            up: "fa fa-chevron-up",
+                            down: "fa fa-chevron-down"
+                        }
+                    });
+
+
+                }
+        //# sourceURL=pen.js
+            </script>*@
+
+
+
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.4/build/jquery.datetimepicker.full.min.js"></script>
+
+    <script>
+        /*
+              Ajax GET requests.
+        */
+        function ajaxJQueryGetRequest() {
+            alert(Math.pow(10, 9));
+            var selectedURL = "http://www.wxyz.abc";
+            var datePicker1 = $("#fromtime").val();
+            var datePicker2 = $("#totime").val();
+
+            alert("Date1: " + datePicker1 + "\n" +
+                "Date2: " + datePicker2);
+
+            // Check if dates are not empty
+            if (datePicker1 && datePicker2) {
+                var date1 = new Date(datePicker1);
+                var date2 = new Date(datePicker2);
+
+                var datesData = JSON.stringify({
+                    date1: date1.toUTCString(),
+                    date2: date2.toUTCString()
+                });
+
+                $.get(selectedURL, datesData).done(function (data) {
+                    alert("Data Loaded: " + data);
+                });
+            }
+        }
+
+        $(document).ready(function () {
+            $(".jquery-date-time-picker").datetimepicker({
+                format: 'H:i',
+                step: 15
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("input[name$='filter']").click(function () {
+                var test = $(this).val();
+
+                $("div.desc").hide();
+                $("#filter" + test).show();
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            
+            var x = document.getElementById("username").innerHTML;
+            var tem = x.charAt(0).toUpperCase() + x.slice(1);
+            document.getElementById("demo").innerHTML = tem;
+        });
+
+    </script>
+</fieldset>
+<script src="~/Content/css/datepicker/js/datepicker.js"></script>

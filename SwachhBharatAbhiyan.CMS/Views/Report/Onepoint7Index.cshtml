@@ -1,0 +1,95 @@
+﻿@model IList<SwachBharat.CMS.Bll.ViewModels.SS2020Reports.OnePoint7QuestionVM>
+@{
+    ViewBag.Title = "1.6";
+ 
+}
+@{
+
+}
+<link rel="shortcut icon" href="~/Content/images/img/sba.png" />
+@Styles.Render("~/Content/AddEditCSS")
+@Scripts.Render("~/Scripts/AddEditScript")
+@Scripts.Render("~/bundles/modernizr")
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="container">
+        <h3>1.7 : Whether Storm Water Drains and Water Bodies in all wards clean.</h3>
+
+        <div style="background-color:#fff; padding:8px;">
+            
+            <br />
+            <br />
+     
+            <table class="table table-bordered table-responsive table-hover">
+                <tr>
+                    <th style="display:none;">ID </th>
+                    <th>Ward </th>
+                    <th>Water Bodies</th>
+                    <th>Storm Water</th>
+                    <th>Locations</th>
+                    <th>Outlets</th>
+                     
+                </tr>
+               @if (Model != null)
+               {
+                   for (var i = 0; i < Model.Count - 0; i++)
+                   {
+                    <tr>
+                        <td style="display:none;">@Html.TextBoxFor(m => Model[i].Id)</td>
+                        <td><label for="Area"> @Model[i].Area</label></td>
+                        <td>@Html.TextBoxFor(m => Model[i].No_Water_Bodies)</td>
+                        <td>@Html.TextBoxFor(m => Model[i].No_drain_nallas)</td>
+                        <td>@Html.TextBoxFor(m => Model[i].No_locations)</td>
+                        <td>@Html.TextBoxFor(m => Model[i].No_outlets)</td>
+                     
+                    </tr>
+                   }
+               }
+            </table>  
+
+            <br />
+            <br />
+            <div class="" style="margin-left:50px">
+                <a class="btn" href="/Report/MenuonepointSevenIndex">Modify</a>
+                <button type="submit" name="submit" class="btn" id="btnSubmit">
+                    <span class="glyphicon glyphicon-saved"></span>
+                    <span id="buttonName">Save</span>
+                </button> &nbsp;
+                @if (TempData["Message"] != null)
+                {
+                    <a class="btn" href="/Report/Show1point4Report">Generate report</a>
+
+                }
+                else if (TempData["Message1"] != null)
+                {
+                    <a class="disabled btn" href="/Report/Show1point4Report">Generate report</a>
+                }
+
+                @if (TempData["Message2"] != null)
+                {
+                    <script type="text/javascript">
+                           alert(@Html.Raw(Json.Encode(TempData["Message2"])));
+                    </script>
+                }
+            </div>
+        </div>
+    </div>
+
+}
+
+<script>
+
+    $("#btnSubmit").click(function () {
+
+    });
+</script>
+
+
+
+
+
+
+

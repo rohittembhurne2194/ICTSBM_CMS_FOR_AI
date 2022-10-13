@@ -1,0 +1,87 @@
+/* your styles go here */
+   svg.svg g g *{
+            fill: #686a76;
+        }
+   svg.svg:hover g g *{
+             fill: #fff;
+        }
+   li.active a svg.svg g g *{
+            fill: #fff;
+        }
+   /*li:hover a svg.svg g g *{
+            fill: #fff;
+        }*/
+
+   .side-navbar  ul>li:hover>a:hover svg.svg g g * {
+   fill: #fff;
+}
+/*.treeview ul>li>span ~ ul>li>span:hover {
+    background:#fff;
+    border:none;
+    color:#000
+}
+.side-navbar ul>li>a ~ ul>li>a:hover {
+    background:#686a76;
+    border:none;
+    color:#000
+}*/
+
+/*********************/
+      svg.svg2 g g *{
+            fill: #686a76;
+        }
+   svg.svg2:hover g path {
+             fill: #fff;
+        }
+   li.active a svg.svg2 g path{
+            fill: #fff;
+        }
+   /*li:hover a svg.svg2 g path{
+            fill: #fff;
+        }*/
+   .side-navbar  ul>li:hover>a:hover svg.svg2 g path {
+           fill: #fff;
+        }
+
+   /*********************/
+         svg.svg3 g path {
+            fill: #686a76;
+        }
+          svg.svg3:hover g path {
+             fill: #fff;
+        }
+        li.active a svg.svg3 g path{
+            fill: #fff;
+        }
+         /*li:hover a svg.svg3 g path{
+            fill: #fff;
+        }*/
+
+     .side-navbar  ul>li:hover>a:hover svg.svg3 g path {
+           fill: #fff;
+        }
+
+     
+             #snackbar {
+            visibility: hidden;
+            min-width: 250px;
+            margin-left: -135px;
+            /*background-color: #333;*/
+            background: #3ab59e;
+            box-shadow: 0 12px 20px -10px rgba(34,138,133,0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(34,138,133,0.2);
+
+            color: #fff;
+            text-align: center;
+            border-radius: 2px;
+            padding: 16px;
+            position: fixed;
+            z-index: 1;
+            left: 90%;
+            bottom: 0px;
+            font-size: 16px;
+        }
+        #snackbar.show {
+            visibility: visible;
+            -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+            animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        }

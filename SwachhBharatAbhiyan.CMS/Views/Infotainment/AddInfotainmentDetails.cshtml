@@ -1,0 +1,194 @@
+﻿@model SwachBharat.CMS.Bll.ViewModels.ChildModel.Model.InfotainmentDetailsVW
+
+@{
+    Layout = "";
+}
+<link rel="shortcut icon" href="~/Content/images/img/sba.png" />
+@Styles.Render("~/Content/AddEditCSS")
+@Scripts.Render("~/Scripts/AddEditScript")
+@Scripts.Render("~/bundles/modernizr")
+
+@using (Html.BeginForm("AddInfotainmentDetails", "Infotainment", FormMethod.Post, new { enctype = "multipart/form-data", data_toggle = "validator", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.GameDetailsId);
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-sm-1">
+                <span class="backk">
+                    <a href="@Url.Action("InfotainmentDetails", "Infotainment")" id="btnBack" class="btn"><span class="glyphicon glyphicon-circle-arrow-left"></span>  Back</a>
+                </span>
+            </div>
+
+            <div class="col-sm-10">
+                <h1 class="add-edit-h1 title_change"></h1>
+            </div>
+            <div class="panel panel-warning col-sm-12 ">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+                
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-groups">
+                    <div style="width: auto;padding:0px;text-align: center;height:auto;margin-top:25px">
+                        <div id="FileUpload_Preview">
+                            <a><img src="@Model.Image" class="add-image" style="width:150px;height:130px;padding:2px;overflow:hidden" /></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="" style="">
+                    <div class="input-group1">
+                        <span class="btn btn-file">
+                            <span class="glyphicon glyphicon-picture"></span>
+                            Browse &hellip;    <input type="file" accept="image/*" name="filesUpload" class="fileUplode" id="filesUpload" onchange="ValidateSize(this)">
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.Label("Game Name")
+                    @Html.DropDownListFor(model => model.GameMasterId, Model.GameMasterList, new { style = "font-family:Arial, FontAwesome", required = "required", @class = "form-control RequiredInput validate[required] RequiredInput" })
+                    <span class="text-danger" id="err_name"></span>
+                    <span class="help-block with-errors"></span>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.Label("Slogan")
+                    @Html.DropDownListFor(model => model.SloganId, Model.SloganList, new { style = "font-family:Arial, FontAwesome", required = "required", @class = "form-control RequiredInput validate[required] RequiredInput" })
+                    <span class="text-danger" id="err_slogan"></span>
+                    <span class="help-block with-errors"></span>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.Label("Correct Answer")
+                    @Html.DropDownListFor(model => model.AnswerTypeId, Model.AnswerTypeList, new { style = "font-family:Arial, FontAwesome", required = "required", @class = "form-control RequiredInput validate[required] RequiredInput" })
+                    <span class="text-danger" id="err_answertype"></span>
+                    <span class="help-block with-errors"></span>
+                </div>
+            </div>
+
+        </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.Label("Description")
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.TextBoxFor(model => model.Description, new { @class = "form-control", style = "font-family:Arial, FontAwesome" })
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                        <span class="text-danger" id="err_Description"></span>
+                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                        <span class="help-block with-errors"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.Label("Point")
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.TextBoxFor(model => model.Points, new { @class = "form-control", style = "font-family:Arial, FontAwesome", required = "required" })
+                        @Html.ValidationMessageFor(model => model.Points, "", new { @class = "text-danger" })
+                        <span class="text-danger" id="err_point"></span>
+                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                        <span class="help-block with-errors"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <center><span class="text-danger" id="err_generate"></span></center>
+                <div class="form-group1">
+                    <button type="submit" name="submit" class="btn" id="btnSubmit" onclick="return Validate()">
+                        <span class="glyphicon glyphicon-saved"></span>
+                        <span id="buttonName">Save Changes</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        var id = $('#GameDetailsId').val();
+        if (id > 0) {
+            $('#buttonName').text("Save Changes");
+            $('.title_change').text("Edit Infotainment Details");
+        } else {
+            $('#buttonName').text("Save");
+            $('.title_change').text("Add Infotainment Details");
+        }
+    });
+
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        
+        $('#trash_badge').click(function () {
+            $("#FileUpload_Preview").html("");
+        });
+        $('#filesUpload').change(function () {
+            $("#FileUpload_Preview").html("");
+            $("#FileUpload_Preview").show();
+            $("#FileUpload_Preview").append("<img />");
+
+            if (typeof (FileReader) != "undefined") {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    //-----------------------------------
+                    // Preview image
+                    //-----------------------------------
+                    $("#FileUpload_Preview img").attr("src", e.target.result);
+                    $("#FileUpload_Preview img").attr("width", "200px");
+                    $("#FileUpload_Preview img").attr("height", "150px");
+                }
+                reader.readAsDataURL($(this)[0].files[0]);
+            }
+        });
+    });
+</script>
+<script type="text/javascript">
+       
+        $("#btnSubmit").click(function () {
+            if ($('#GameMasterId').val() == 0) {
+                $("#err_name").html("Game Name is Required").delay(1500).show().fadeOut('slow');
+                $('#GameMasterId').focus();
+                return false;
+            }
+            if ($('#SloganId').val() == 0) {
+                $("#err_slogan").html("Slogan is Required").delay(1500).show().fadeOut('slow');
+                $('#SloganId').focus();
+                return false;
+            }
+
+            if ($('#AnswerTypeId').val() == 0) {
+                $("#err_answertype").html("Correct Answer is Required").delay(1500).show().fadeOut('slow');
+                $('#AnswerTypeId').focus();
+                return false;
+            }
+
+            if ($.trim($("#Points").val()) == '0') {
+                $("#err_point").html("Point is Required").delay(1500).show().fadeOut('slow');
+                $('#Points').focus();
+                return false;
+            }
+
+            return true;
+        });
+
+</script>

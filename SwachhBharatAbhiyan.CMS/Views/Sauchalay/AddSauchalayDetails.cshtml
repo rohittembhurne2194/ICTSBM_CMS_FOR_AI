@@ -1,0 +1,284 @@
+﻿@model SwachBharat.CMS.Bll.ViewModels.ChildModel.Model.SauchalayDetailsVM
+
+@{
+    Layout = "";
+}
+<link rel="shortcut icon" href="~/Content/images/img/sba.png" />
+@Styles.Render("~/Content/AddEditCSS")
+@Scripts.Render("~/Scripts/AddEditScript")
+@Scripts.Render("~/bundles/modernizr")
+
+@using (Html.BeginForm("AddSauchalayDetails", "Sauchalay", FormMethod.Post, new { enctype = "multipart/form-data", data_toggle = "validator", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Id);
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-sm-1">
+                <span class="backk">
+                    <a href="@Url.Action("SauchalayRegistrationIndex", "Sauchalay")" id="btnBack" class="btn"><span class="glyphicon glyphicon-circle-arrow-left"></span>  Back</a>
+                </span>
+            </div>
+
+            <div class="col-sm-10">
+                <h1 class="add-edit-h1 title_change"></h1>
+            </div>
+            <div class="panel panel-warning col-sm-12 ">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-groups">
+                    <div style="width: auto;padding:0px;text-align: center;height:auto;margin-top:25px">
+                        @Html.Label("CTPT Image")
+                        <div id="FileUpload_Preview">
+                            <a><img src="@Model.Image" class="add-image" style="width:150px;height:130px;padding:2px;overflow:hidden" /></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="" style="">
+                    <div class="input-group1">
+                        <span class="btn btn-file">
+                            <span class="glyphicon glyphicon-picture"></span>
+                            Browse &hellip;    <input type="file" accept="image/*" name="filesUpload" class="fileUplode" id="filesUpload" onchange="ValidateSize(this)">
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-6">
+                <div class="form-groups">
+                    <div style="width: auto;padding:0px;text-align: center;height:auto;margin-top:25px">
+                        @Html.Label("CTPT QR Image")
+                        <div id="FileUpload_Preview1">
+                            <a><img src="@Model.QrImage" class="add-image" style="width:150px;height:130px;padding:2px;overflow:hidden" /></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="" style="">
+                    <div class="input-group1">
+                        <span class="btn btn-file">
+                            <span class="glyphicon glyphicon-picture"></span>
+                            Browse &hellip;    <input type="file" accept="image/*" name="filesUpload1" class="fileUplode" id="filesUpload1" onchange="ValidateSize(this)">
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-6">
+                    <div class="form-group">
+                        @*@Html.Label("रेफरेन्स आई डी / Reference Id")*@
+                        @Html.Label("CTPT Id")
+                        <input type="text" value="@Model.SauchalayID" id="n" readonly="readonly" />
+                    </div>
+    
+
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    @*@Html.Label("नाव / Name")*@
+                    @Html.Label("Name")
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.TextBoxFor(model => model.Name, new { @class = "form-control", style = "font-family:Arial, FontAwesome" })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    <span class="text-danger" id="err_name"></span>
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                    <span class="help-block with-errors"></span>
+                </div>
+            </div>
+
+       
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    @*@Html.Label("नाव / Name")*@
+                    @Html.Label("Lattitude")
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.TextBoxFor(model => model.Lat, new { @class = "form-control", style = "font-family:Arial, FontAwesome" })
+                    @Html.ValidationMessageFor(model => model.Lat, "", new { @class = "text-danger" })
+                    <span class="text-danger" id="err_name"></span>
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                    <span class="help-block with-errors"></span>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    @*@Html.Label("नाव / Name")*@
+                    @Html.Label("Longitude")
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.TextBoxFor(model => model.Long, new { @class = "form-control", style = "font-family:Arial, FontAwesome" })
+                    @Html.ValidationMessageFor(model => model.Long, "", new { @class = "text-danger" })
+                    <span class="text-danger" id="err_name"></span>
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                    <span class="help-block with-errors"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    @*@Html.Label("मोबाइल नंबर / Mobile Number")*@
+                    @Html.Label("Mobile Number")
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.TextBoxFor(model => model.Mobile, new { @class = "form-control", style = "font-family:Arial, FontAwesome", minlength = "10", maxlength = "10" })
+                    <span class="text-danger" id="err_phone"></span>
+                </div>
+
+            </div>
+            <div class="col-md-6">
+                <div class="form-group extra-height-for-textarea">
+                    @Html.Label("Address")
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.TextAreaFor(model => model.Address, new { @class = "form-control", style = "font-family:Arial, FontAwesome;min-height: 35px;padding: 6px 10px!important;height:35px!important;font-size: 16px!important;overflow: auto;resize: vertical;overflow: hidden;" })
+                    @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                    <span class="text-danger" id="err_address"></span>
+                </div><br />
+            </div>
+
+            
+
+        </div>
+       
+
+        @Html.HiddenFor(c => c.SauchalayID)
+
+        <div class="row">
+            <center><span class="text-danger" id="err_generate"></span></center>
+            <div class="form-group1">
+                <button type="submit" name="submit" class="btn" id="btnSubmit" onclick="return Validate()">
+                    <span class="glyphicon glyphicon-saved"></span>
+                    <span id="buttonName">Save Changes</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#trash_badge').click(function () {
+            $("#FileUpload_Preview").html("");
+        });
+        $('#filesUpload').change(function () {
+            $("#FileUpload_Preview").html("");
+            $("#FileUpload_Preview").show();
+            $("#FileUpload_Preview").append("<img />");
+
+            if (typeof (FileReader) != "undefined") {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    //-----------------------------------
+                    // Preview image
+                    //-----------------------------------
+                    $("#FileUpload_Preview img").attr("src", e.target.result);
+                    $("#FileUpload_Preview img").attr("width", "200px");
+                    $("#FileUpload_Preview img").attr("height", "150px");
+                }
+                reader.readAsDataURL($(this)[0].files[0]);
+            }
+        });
+
+
+
+
+        $('#trash_badge').click(function () {
+            $("#FileUpload_Preview1").html("");
+        });
+        $('#filesUpload1').change(function () {
+            $("#FileUpload_Preview1").html("");
+            $("#FileUpload_Preview1").show();
+            $("#FileUpload_Preview1").append("<img />");
+
+            if (typeof (FileReader) != "undefined") {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    //-----------------------------------
+                    // Preview image
+                    //-----------------------------------
+                    $("#FileUpload_Preview1 img").attr("src", e.target.result);
+                    $("#FileUpload_Preview1 img").attr("width", "200px");
+                    $("#FileUpload_Preview1 img").attr("height", "150px");
+                }
+                reader.readAsDataURL($(this)[0].files[0]);
+            }
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#SauchalayID').val($('#n').val());
+                        // alert($('#SauchalayID').val());
+                        var id = $('#Id').val();
+                        if (id > 0) {
+            $('#buttonName').text("Save Changes");
+            $('.title_change').text("Edit CT / PT Details");
+                        } else {
+            $('#buttonName').text("Save");
+            $('.title_change').text("Add CT / PT Details");
+                        }
+
+
+                        $("#Name").keypress(function (e) {
+                            //if the letter is not digit then display error and don't type anything
+                            if (!(e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57) && e.which != 44)) {
+                                //display error message
+                                //$("#err_phone").html("केवल अंक | Digits Only").show().delay(1500).show().fadeOut('slow');
+                                $("#err_name").html("Alphabates only").show().delay(1500).show().fadeOut('slow');
+                                return false;
+                            }
+                        });
+
+                        $("#Mobile").keypress(function (e) {
+                            //if the letter is not digit then display error and don't type anything
+                            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57) && e.which != 44) {
+                                //display error message
+                                //$("#err_phone").html("केवल अंक | Digits Only").show().delay(1500).show().fadeOut('slow');
+                                $("#err_phone").html("केवल अंक | Digits Only").show().delay(1500).show().fadeOut('slow');
+                                return false;
+                            }
+                        });
+    });
+
+
+
+</script>
+@*<script type="text/javascript">
+
+        $("#btnSubmit").click(function () {
+            if ($('#GameMasterId').val() == 0) {
+                $("#err_name").html("Game Name is Required").delay(1500).show().fadeOut('slow');
+                $('#GameMasterId').focus();
+                return false;
+            }
+            if ($('#SloganId').val() == 0) {
+                $("#err_slogan").html("Slogan is Required").delay(1500).show().fadeOut('slow');
+                $('#SloganId').focus();
+                return false;
+            }
+
+            if ($('#AnswerTypeId').val() == 0) {
+                $("#err_answertype").html("Correct Answer is Required").delay(1500).show().fadeOut('slow');
+                $('#AnswerTypeId').focus();
+                return false;
+            }
+
+            if ($.trim($("#Points").val()) == '0') {
+                $("#err_point").html("Point is Required").delay(1500).show().fadeOut('slow');
+                $('#Points').focus();
+                return false;
+            }
+
+            return true;
+        });
+
+</script>*@

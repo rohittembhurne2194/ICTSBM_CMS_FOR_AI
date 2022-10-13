@@ -1,0 +1,219 @@
+﻿
+@model IEnumerable<SwachBharat.CMS.Bll.ViewModels.MainModel.MenuItemULB>
+
+@{
+    Layout = "";
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>@ViewBag.Title</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="all,follow">
+    @Styles.Render("~/Content/ThemeCss")
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    @*@Scripts.Render("~/bundles/modernizr")*@
+    @*@RenderSection("styles", required: false)*@
+    <link rel="shortcut icon" href="~/Content/images/img/ictsbm2.png" />
+    <link href="~/Content/css/alertify/alertify.core.css" rel="stylesheet" />
+    <link href="~/Content/css/alertify/alertify.default.css" rel="stylesheet" />
+    <script src="~/Content/DatatableGrid/AdminCount.js"></script>
+
+</head>
+<body>
+    <div class="page">
+        <!-- Main Navbar-->
+        <header class="header">
+            <nav class="navbar">
+                <!-- Search Box-->
+                <div class="search-box">
+                    <button class="dismiss"><i class="icon-close"></i></button>
+                    <form id="searchForm" action="#" role="search">
+                        <input type="search" placeholder="What are you looking for..." class="form-control">
+                    </form>
+                </div>
+
+                <div class="container-fluid">
+                    <div class="navbar-holder d-flex align-items-center justify-content-between">
+                        <!-- Navbar Header-->
+                        <div class="navbar-header">
+                            <!-- Navbar Brand --><a href="/Home/Index" class="navbar-brand">
+                                <div class="brand-text brand-big"><span><img style="height:40px;width:50px;" src="~/Content/images/img/house_icon.svg" /> </span><strong style="font-size:15px;margin-left:3%"> ICTSBM ULB Details</strong></div>
+                                <div class="brand-text brand-small"><strong><img style="height:40px;width:50px;" src="~/Content/images/img/house_icon.svg" /> </strong></div>
+                            </a>
+                            <!-- Toggle Button--><a id="toggle-btn" href="#" class="menu-btn active"><span></span><span></span><span></span></a>
+                        </div>
+                        <!-- Navbar Menu -->
+                        <!-- Logout    -->
+                        <li class="nav-item" style="list-style: none;"><a href="/Admin/login" class="nav-link logout">Logout<i class="fa fa-sign-out"></i></a></li>
+                        @*<li class="nav-item"><a href="/Account/login" class="nav-link logout">Logout<i class="fa fa-sign-out"></i></a></li>*@
+
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <div class="page-content d-flex align-items-stretch" hidden>
+            <!-- Side Navbar -->
+            <nav class="side-navbar">
+                <!-- Sidebar Header-->
+                <ul class="list-unstyled">
+                    @{
+                        var i = 0;
+
+                        foreach (var item in Model.Where(s => s.districtId == 0 && s.ULBId == 0).ToList())
+                        {
+                            i++;
+                            var aName = "#exampledropdownDropdow" + i;
+                            var lName = "exampledropdownDropdow" + i;
+
+                            <li>
+                                @if ((Model.Where(s => s.districtId == 0 && s.ULBId == 0).ToList().Count > 1) || (Model.Where(s => s.ULBId == 0 && s.districtId != 0 && s.divisionId == item.divisionId).ToList().Count > 1))
+                                {
+                                    <a href="@{@aName}" aria-expanded="false" data-toggle="collapse">
+
+                                        <i class="svg_gc" style=" fill: #000;"> </i>
+                                        @*कचरा संकलन*@ @item.LinkText
+                                    </a>
+                                }
+                                <ul id="@{@lName}" class="in list-unstyled ">
+                                    @{
+                                        var j = 0;
+                                        foreach (var firstItem in (Model.Where(s => s.ULBId == 0 && s.districtId != 0 && s.divisionId == item.divisionId).ToList()))
+                                        {
+                                            j++;
+                                            var aName1 = "#exampledropdownDropdow" + i + j;
+                                            var lName1 = "exampledropdownDropdow" + i + j;
+                                            <li>
+                                                @if (Model.Where(s => s.ULBId == 0 && s.districtId != 0 && s.divisionId == item.divisionId).ToList().Count > 0)
+                                                {
+                                                    <a href="@{@aName1}" aria-expanded="false" data-toggle="collapse">
+
+                                                        <i class="svg_gc" style=" fill: #000;"> </i>
+                                                        @*कचरा संकलन*@ @firstItem.LinkText
+                                                    </a>
+                                                }
+
+                                                <ul id="@{@lName1}" class="in list-unstyled">
+                                                    @{foreach (var secondItem in (Model.Where(s => s.divisionId == item.divisionId && s.districtId == firstItem.districtId && s.ULBId != 0).ToList()))
+                                                        {
+                                                            <li class="">
+                                                                @Html.ActionLink(@secondItem.LinkText, @secondItem.ActionName, new { area = "", controller = @secondItem.ControllerName, returnUrl = @secondItem.returnUrl, Type = @secondItem.Type })
+                                                            </li>
+
+                                                        }
+                                                    }
+                                                </ul>
+                                            </li>
+
+
+                                        }
+                                    }
+                                </ul>
+                            </li>
+
+                        }
+                    }
+                </ul>
+            </nav>
+
+            <div class="content-inner">
+                <div style="width:100%;height:600px">
+
+
+                </div>
+                <footer class="main-footer">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <p>Appynitty &copy; 2017-2019</p>
+                            </div>
+                            <div class="col-sm-6 text-right">
+                                <p>@*Design by <a href="https://bootstrapious.com/admin-templates" class="external">Bootstrapious</a>*@</p>
+                                <!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+
+    </div>
+
+
+    @Scripts.Render("~/Scripts/ThemeScripts")
+    <script>
+
+
+
+
+        $(document).ready(function () {
+            
+            //if ($("#asdf").text() != "namratas@appynitty.com!") {
+            //    $("#complaint_menu").css("display", "none")
+            //    $("#report_menu").css("display", "none")
+            //}
+
+
+            $(document).on('click', '.nav', function (e) {
+                if (!$(e.target).is('a')) {
+                    $('.collapse').collapse('hide');
+                }
+            });
+
+            var pathname = window.location.pathname;
+            //alert(pathname);
+            if (pathname == "/GarbageCollection/MenuHouseGarbageIndex" || pathname == "/GarbageCollection/MenuPointGarbageIndex" || pathname == "/Location/MenuIndex" || pathname == "/Location/MenuMapIndex" || pathname == "/HouseMaster/MenuIndex" || pathname == "/GarbagePoint/MenuIndex" || pathname == "/Employee/MenuIndex" || pathname == "/MainMaster/MenuStateIndex" || pathname == "/MainMaster/MenuTalukaIndex" || pathname == "/MainMaster/MenuDistrictIndex" || pathname == "/MainMaster/MenuZoneIndex" || pathname == "/MainMaster/MenuWardIndex" || pathname == "/MainMaster/MenuAreaIndex" || pathname == "/MainMaster/MenuVehicleIndex" || pathname == "/HouseMaster/ReportIndex" || pathname == "/GarbageCollection/MenuEntryDetails" || pathname == "/GarbageCollection/MenuIdealtime") {
+
+                $('.collapse a').filter(function () {
+                    {
+                        return $(this).attr('href') == pathname
+                    }
+                }).addClass('active').closest('ul li a').parents().addClass('active show');
+                if (!$(e.target).is('a')) {
+                    $('.collapse').collapse('hide');
+                }
+            }
+            else {
+                $('a[href="' + this.location.pathname + '"]').parents('li,ul').addClass('active');
+            }
+
+
+
+        });
+
+        // Returns path only
+
+        $('#toggle-btn').on('click', function (e) {
+            e.preventDefault();
+            $(this).toggleClass('active');
+
+            $('.side-navbar').toggleClass('shrinked');
+            $('.content-inner').toggleClass('active');
+            $(document).trigger('sidebarChanged');
+
+            if ($(window).outerWidth() > 1183) {
+                if ($('#toggle-btn').hasClass('active')) {
+                    $('.navbar-header .brand-small').hide();
+                    $('.navbar-header .brand-big').show();
+                } else {
+                    $('.navbar-header .brand-small').show();
+                    $('.navbar-header .brand-big').hide();
+                }
+            }
+
+            if ($(window).outerWidth() < 1183) {
+                $('.navbar-header .brand-small').show();
+            }
+        });
+
+    </script>
+    <script src="~/Content/theme-assets/js/icons_load.js"></script>
+    @*@RenderSection("scripts", required: false)*@
+</body>
+</html>

@@ -1,0 +1,116 @@
+﻿     body{
+        font-size:14px;
+    }
+    #frameWrap {
+        position: relative;
+        border: 1px solid #777777;
+        background: #f0f0f0;
+        box-shadow: 0px 0px 10px #777777;
+    }
+
+    #iframe1 {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }  
+  #loader1 {
+        border-radius: 5px;
+        position: absolute;
+        top: 25%;
+        left: 45%;
+        width: 200px;
+        margin-left: -100px;
+        margin-top: -26px;
+        text-align: center;
+        padding: 1em 0;
+        border: 1px solid #0086c3;
+        background: #ffffff;
+        box-shadow: 0px 0px 10px #0086c3;
+        color:#0086c3;
+    }
+    
+  @keyframes blink {
+    /**
+     * At the start of the animation the dot
+     * has an opacity of .2
+     */
+    0% {
+      opacity: .2;
+    }
+    /**
+     * At 20% the dot is fully visible and
+     * then fades out slowly
+     */
+    20% {
+      opacity: 1;
+    }
+    /**
+     * Until it reaches an opacity of .2 and
+     * the animation can start again
+     */
+    100% {
+      opacity: .2;
+    }
+}
+
+#loader1 span {
+    /*font-size:20px;*/
+    width:10px;
+    /**
+     * Use the blink animation, which is defined above
+     */
+    animation-name: blink;
+    /**
+     * The animation should take 1.4 seconds
+     */
+    animation-duration: 1.4s;
+    /**
+     * It will repeat itself forever
+     */
+    animation-iteration-count: infinite;
+    /**
+     * This makes sure that the starting style (opacity: .2)
+     * of the animation is applied before the animation starts.
+     * Otherwise we would see a short flash or would have
+     * to set the default styling of the dots to the same
+     * as the animation. Same applies for the ending styles.
+     */
+    animation-fill-mode: both;
+}
+
+#loader1 span:nth-child(2) {
+    /**
+     * Starts the animation of the third dot
+     * with a delay of .2s, otherwise all dots
+     * would animate at the same time
+     */
+    animation-delay: .2s;
+}
+
+#loader1 span:nth-child(3) {
+    /**
+     * Starts the animation of the third dot
+     * with a delay of .4s, otherwise all dots
+     * would animate at the same time
+     */
+    animation-delay: .4s;
+}
+
+label{
+        margin-bottom: 0.1rem;
+    }
+    .datepicker{
+        padding : 2px 2px 2px 6px;
+        font-size:12px;
+    }
+    #selectnumber{
+         padding : 2px 2px 2px 6px;
+        font-size:12px;
+        max-height: 24px;
+    }
+    #filter{
+        margin-top:19px;font-size: 12px;
+    }
+    .filter-row{
+        font-size: 12px;
+    }

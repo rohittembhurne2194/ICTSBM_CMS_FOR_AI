@@ -1,0 +1,365 @@
+﻿
+@{
+    //ViewBag.Title = "घर संकलन रिपोर्ट (कचरा पॅटर्न नुसार) ";
+    ViewBag.Title = "Street Sweeping Report (Pattern-wise)";
+}
+
+@Styles.Render("~/Content/IndexCSS")
+<link href='https://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
+<link href="~/Content/css/report_style.css" rel="stylesheet" />
+@Scripts.Render("~/Scripts/IndexScript")
+
+<style>
+
+    /* The container */
+    .container_radio {
+        display: inline;
+        margin-left: 8px;
+        border-radius: 2px;
+        position: relative;
+        padding-left: 28px;
+        margin-bottom: 12px;
+        cursor: pointer;
+        font-size: 12px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        vertical-align: top
+    }
+
+        /* Hide the browser's default radio button */
+        .container_radio input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+    /* Create a custom radio button */
+    .checkmark {
+        position: absolute;
+        top: 2px;
+        left: 4px;
+        height: 25px;
+        width: 25px;
+        background-color: #ccc;
+        border-radius: 50%;
+    }
+
+    .checkmark1 {
+        position: absolute;
+        border-radius: 50%;
+        top: 2px;
+        left: 4px;
+        width: 18px;
+        height: 18px;
+        -ms-transform: rotate(45deg); /* IE 9 */
+        -webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */
+        transform: rotate(45deg);
+    }
+
+    .checkmark_stem {
+        position: absolute;
+        width: 3px;
+        height: 10px;
+        background-color: #EEF5F9;
+        left: 8px;
+        top: 1px;
+    }
+
+    .checkmark_kick {
+        position: absolute;
+        width: 7px;
+        height: 3px;
+        background-color: #EEF5F9;
+        left: 4px;
+        top: 9px;
+    }
+
+    /* On mouse-over, add a grey background color */
+    .container_radio:hover input ~ .checkmark {
+        background-color: #ccc;
+    }
+
+    /* When the radio button is checked, add a blue background */
+    .container_radio:nth-child(1) input ~ .checkmark1 {
+        border: 2px solid #999;
+    }
+
+    .container_radio:nth-child(2) input ~ .checkmark1 {
+        border: 2px solid #6fa570;
+    }
+
+    .container_radio:nth-child(3) input ~ .checkmark1 {
+        border: 2px solid #d1655e;
+    }
+
+    .container_radio:nth-child(4) input ~ .checkmark1 {
+        border: 2px solid #e89f5f;
+    }
+
+    .container_radio:nth-child(5) input ~ .checkmark1 {
+        border: 2px solid #0086c3;
+    }
+
+    .container_radio:nth-child(1) input:checked ~ .checkmark1 {
+        background-color: #999;
+    }
+
+    .container_radio:nth-child(2) input:checked ~ .checkmark1 {
+        background-color: #6fa570;
+    }
+
+    .container_radio:nth-child(3) input:checked ~ .checkmark1 {
+        background-color: #d1655e;
+    }
+
+    .container_radio:nth-child(4) input:checked ~ .checkmark1 {
+        background-color: #e89f5f;
+    }
+
+    .container_radio:nth-child(5) input:checked ~ .checkmark1 {
+        background-color: #0086c3;
+    }
+    /* Create the indicator (the dot/circle - hidden when not checked) */
+    .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+    }
+
+    /* Show the indicator (dot/circle) when checked */
+    .container_radio input:checked ~ .checkmark:after {
+        display: block;
+    }
+
+    /* Style the indicator (dot/circle) */
+    .container_radio .checkmark:after {
+        top: 7px;
+        left: 7px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: white;
+    }
+
+    .checkcolor {
+        background-color: #fff !important;
+    }
+</style>
+
+@*<header class="page-header">
+        <div class="container-fluid">
+            <h2 class="no-margin-bottom">घर संकलन रिपोर्ट (कचरा पॅटर्न नुसार) </h2>
+            <h2 class="no-margin-bottom">Household Collection Report (Pattern-wise)</h2>
+        </div>
+    </header>*@
+<body>
+    <br />
+
+    <div class="container">
+        <div class="row filter-row">
+
+            <div class="col-sm-3">
+                <div class="controls">
+                    @*<label>तारखेपासून / From Date</label>*@
+                    <label>From Date</label>
+                    <input id="txt_fdate" class="datepicker form-control form-control-sm" type="text" />
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="controls">
+                    @*<label>तारीख पर्यंत / To Date</label>*@
+                    <label>To Date</label>
+                    <input id="txt_tdate" class="datepicker form-control form-control-sm" type="text" />
+                </div>
+            </div>
+            <div class="col-sm-3">
+                @*<label>कर्मचारी निवडा / Select Employee</label>*@
+                <label>Select Employee</label>
+                <select id="selectnumber" class="form-control form-control form-control-sm"></select>
+            </div>
+
+            <div class="col-sm-1">
+                <div class="controls">
+                    <input data-background-color="filter-button-box-color" style="margin-top:16px;" class="btn btn-sm btn-success filter-button-style" type="button" value="Filter Records" id="filter" onclick="Search()" />
+                </div>
+            </div>
+        </div>
+
+
+        <br />
+        <div class="row">
+            <div id="frameWrap">
+                @*<img id="loader1" src="~/Images/add_image_square.png" width="36" height="36" alt="loading gif" />*@
+                @*<p id="loader1" style="top:15%">Generating Report ...</p>*@
+                <p id="loader1" style="top:15%">Generating Report<span> .</span><span> .</span><span> .</span></p>
+                @if (ViewBag.IframeUrl != null)
+                {
+                    @*<iframe name="iframemc" id="iframemc" frameborder="0" style="width:11.37465in;height:1000px;background-color: white; float:none; margin-left:5px; overflow:hidden" ></iframe>*@
+                    <iframe name="iframemc" id="iframemc" scrolling="yes" frameborder="0" style="background-color: white; float:none;  overflow:hidden" width="1150" height="1500"></iframe>
+                }
+            </div>
+
+        </div>
+
+    </div>
+</body>
+
+<script>
+        var date = new Date();
+
+        var day = date.getDate();
+        var month = date.getMonth() + 1;
+        var year = date.getFullYear();
+
+        if (month < 10) month = "0" + month;
+        if (day < 10) day = "0" + day;
+
+    //var url = window.location.hostname;
+    //if (url == "localhost") {
+
+    //    var today = month + "/" + day + "/" + year;
+
+    //}
+    //else {
+    //    var today = day + "/" + month + "/" + year;
+    //}
+
+        var today = month + "/" + day + "/" + year;
+
+        document.getElementById('txt_fdate').value = today;
+        document.getElementById('txt_tdate').value = today;
+
+
+</script>
+<script src="~/Content/graph-assets/js/custom.js"></script>
+<script src="~/Content/css/datepicker/js/datepicker.js"></script>
+<script type="text/javascript">
+    var type;
+    $(document).ready(function () {
+        radioLoad();
+        $('.container_radio input').click(function () {
+            type = $(this).val();
+            //alert(type);
+            $('div.checkmark_stem').removeClass('checkcolor');
+            $('div.checkmark_kick').removeClass('checkcolor');
+            radioLoad();
+
+        });
+
+        var UserId = $('#selectnumber').val();
+        $.ajax({
+            type: "post",
+            url: "/Location/UserList?rn=S",
+            data: { userId: UserId },
+            datatype: "json",
+            traditional: true,
+            success: function (data) {
+                district = '<option value="-1">Select Employee</option>';
+                for (var i = 0; i < data.length; i++) {
+                    district = district + '<option value=' + data[i].Value + '>' + data[i].Text + '</option>';
+                }
+                //district = district + '</select>';
+                $('#selectnumber').html(district);
+            }
+        });
+
+
+
+
+        //var site = '/DisplayReports.aspx?FromDate=' + $('#txt_fdate').val() + '&ToDate=' + $('#txt_tdate').val();
+
+        var x = $('#myHiddenVar').val();
+        var y = $('#myHiddenVar2').val();
+        var z = $('#myHiddenVar3').val();
+        var Report_Name = "Street Ghar Sankalan Tapashil";
+
+        var site = '../../DisplayReports.aspx?FromDate=' + $('#txt_fdate').val() + '&ToDate=' + $('#txt_tdate').val() + '&AppID=' + x + '&DB_Name=' + y + '&DB_Source=' + z + '&ReportName=' + Report_Name;
+        document.getElementById('iframemc').src = site;
+
+
+        $('#iframemc').on('load', function () {
+            $('#loader1').hide();
+        });
+
+    })
+
+    function Search()
+    {
+        var x = $('#myHiddenVar').val();
+        var y = $('#myHiddenVar2').val();
+        var z = $('#myHiddenVar3').val();
+        //var z = $('#myHiddenVar2').val();
+        $('#loader1').show();
+        var Report_Name = "Street Ghar Sankalan Tapashil";
+        //var site = '/DisplayReports.aspx?FromDate=' + $('#txt_fdate').val() + '&ToDate=' + $('#txt_tdate').val() + '&UserId=' + $('#selectnumber').val() + '&Type=' + type;
+        var site = '../../DisplayReports.aspx?FromDate=' + $('#txt_fdate').val() + '&ToDate=' + $('#txt_tdate').val() + '&UserId=' + $('#selectnumber').val() + '&Type=' + type + '&AppID=' + x + '&DB_Name=' + y + '&DB_Source=' + z + '&ReportName=' + Report_Name;
+        document.getElementById('iframemc').src = site;
+
+        $('#iframemc').on('load', function () {
+            $('#loader1').hide();
+        });
+
+    }
+
+    //var url = window.location.hostname;
+    //if (url == "localhost") {
+
+    //    $('.datepicker').datepicker({
+    //        format: 'mm/dd/yyyy',
+    //        weekStart: 1,
+    //        color: 'red',
+    //        pickTime: false,
+    //        onRender: function (date) {
+    //            return date > new Date() ? 'disabled' : '';
+    //        }
+    //    }).on('changeDate', function (e) {
+
+    //        //$(this).datepicker('hide');
+    //        $('.dtpk_drpdwn').hide();
+
+    //    });
+    //}
+    //else {
+
+    $('.datepicker').datepicker({
+        format: 'mm/dd/yyyy',
+        weekStart: 1,
+        color: 'red',
+        pickTime: false,
+        onRender: function (date) {
+            return date > new Date() ? 'disabled' : '';
+        }
+    }).on('changeDate', function (e) {
+
+        //$(this).datepicker('hide');
+        $('.dtpk_drpdwn').hide();
+
+    });
+    //}
+  //hide  show on hover
+  $('#txt_fdate').focus(function () {
+      $('.dtpk_drpdwn').eq(1).hide();
+  });
+  $('#txt_tdate').focus(function () {
+      $('.dtpk_drpdwn').eq(0).hide();
+  });
+
+  function radioLoad() {
+      var aaa = $('.container_radio input[name=radio]:checked');
+      var bbb = $(aaa).siblings()[1];
+      var ccc = $(bbb).children('.checkmark_stem');
+      var ddd = $(bbb).children('.checkmark_kick');
+
+      //console.log($(ccc).css("background-color", 'red'));
+      // console.log($(ddd).css("background-color", 'red'));
+
+      $(ccc).addClass('checkcolor');
+      $(ddd).addClass('checkcolor');
+
+  }
+</script>
+<input type="hidden" value="@Session["NewAppID"]" id="myHiddenVar" />
+<input type="hidden" value="@Session["DB_Name"]" id="myHiddenVar2" /> 
+<input type="hidden" value="@Session["DB_Source"]" id="myHiddenVar3" />

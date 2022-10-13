@@ -1,0 +1,144 @@
+﻿
+@{
+    Layout = null;
+}
+<style>
+    /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+    #googleMap {
+        height: 100%;
+    }
+    /* Optional: Makes the sample page fill the window. */
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    #floating-panel {
+        position: absolute;
+        top: 0px;
+        left: 5%;
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+        text-align: center;
+        font-family: 'Roboto','sans-serif';
+        line-height: 30px;
+        padding-left: 10px;
+    }
+
+    #floating-panel {
+        margin-left: -10px;
+    }
+</style>
+
+<fieldset>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="~/Content/css/datepicker/css/datepicker.css" rel="stylesheet" />   
+    <div id="floating-panel" style="display:inline-flex;width:auto;background:transparent;border:none">
+        <a style="margin-left:5px" class="btn btn-sm btn-success" href="/Attendence/Index">Back</a>
+    </div>
+
+    <input type="hidden" value='@Request.QueryString["daId"]' id='HdnIndustries' />
+    <div class="container ">
+        <div class="row">
+
+            <div class="col-10 bg-white has-shadow" id="googleMap" style="width:auto; height:600px"></div>
+            <div class="col-sm-2"></div>
+        </div>
+    </div>  
+    <script>
+
+        function myMap() {
+            var industries = $("#HdnIndustries").val();          
+            var geocoder = new google.maps.Geocoder();
+            $.ajax({
+                type: "post",
+                url: "/Attendence/UserAttendenceLocation?daId=" + industries,
+                datatype: "json",
+                traditional: true,
+                success: function (m) {
+                    markers = m;
+                    var mapOptions = {
+                        center: new google.maps.LatLng(markers[0].lat, markers[0].log),
+                        zoom: 10,
+                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                    };
+                    var map = new google.maps.Map(document.getElementById("googleMap"), mapOptions);                    
+                    var infoWindow = new google.maps.InfoWindow();
+                    var lat_lng = new Array();
+                    var latlngbounds = new google.maps.LatLngBounds();
+                    for (i = 0; i < markers.length; i++) {
+                       
+                        var data = markers[i]
+                        var a = "";
+                        if (i == 0) {
+                            a = "S"
+                        } else { a = "E" }                                                            
+                        var myLatlng = new google.maps.LatLng(data.lat, data.log);
+                        lat_lng.push(myLatlng);
+                        var marker = new google.maps.Marker({
+                            position: myLatlng,
+                            map: map,
+                            title: data.Username,
+                            icon: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld='+a+'|FF0000|000000'
+                        });
+                        latlngbounds.extend(marker.position);
+                        (function (marker, data) {
+                            google.maps.event.addListener(marker, "click", function (e) {
+                                infoWindow.setContent('<div class=infowindow> <h3>' + data.userName + '</h3><h5><b>Details:</b></h5><p><b>Date:</b>' + data.date + '</p><p><b>Time:</b>' + data.time + '</p><p><b>Mobile:</b>' + data.userMobile + '<p><b>Vehicle No:</b>' + data.vehcileNumber + '</p><div style="height:auto; width:150px"><p><b>Address:</b>' + data.address + '</p></div></div>');
+                                infoWindow.open(map, marker);
+                            });
+                        })(marker, data);
+                    }
+                    map.setCenter(latlngbounds.getCenter());
+                    map.fitBounds(latlngbounds);
+
+                    //***********ROUTING****************//
+
+                    //Initialize the Path Array
+                    var path = new google.maps.MVCArray();
+
+                    //Initialize the Direction Service
+                    var service = new google.maps.DirectionsService();
+
+                    //Set the Path Stroke Color
+                    var poly = new google.maps.Polyline({ map: map, strokeColor: '#4986E7' });
+
+                    //Loop and Draw Path Route between the Points on MAP
+                    for (var i = 0; i < lat_lng.length; i++) {
+                        if ((i + 1) <= lat_lng.length) {
+                            var src = lat_lng[i];
+                            var des = lat_lng[i + 1];
+                            path.push(src);
+                            poly.setPath(path);
+                            service.route({
+                                origin: src,
+                                destination: des,
+                                travelMode: google.maps.DirectionsTravelMode.DRIVING
+                            }, function (result, status) {
+                                if (status == google.maps.DirectionsStatus.OK) {
+                                    for (var i = 0, len = result.routes[0].overview_path.length; i < len; i++) {
+                                        path.push(result.routes[0].overview_path[i]);
+                                    }
+                                }
+                            });
+                        }
+                    }
+                }
+
+            });
+
+        }
+
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=@Session["apikey"]&callback=myMap" type="text/javascript"></script>
+</fieldset>
+<script src="~/Content/css/datepicker/js/datepicker.js"></script>
+

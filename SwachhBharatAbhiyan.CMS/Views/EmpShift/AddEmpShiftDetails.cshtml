@@ -1,0 +1,306 @@
+﻿@model SwachBharat.CMS.Bll.ViewModels.ChildModel.Model.EmpShiftVM
+
+@{
+    Layout = "";
+}
+<link rel="shortcut icon" href="~/Content/images/img/sba.png" />
+@Styles.Render("~/Content/AddEditCSS")
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.4/jquery.datetimepicker.min.css" />
+@Scripts.Render("~/Scripts/AddEditScript")
+@Scripts.Render("~/bundles/modernizr")
+
+<link href="~/Content/css/datepicker/css/datepicker.css" rel="stylesheet" />
+@*<link href="~/Content/Custom/timepicker.css" rel="stylesheet" />*@
+@*<script src="~/Content/css/datepicker/js/datepicker.js"></script>*@
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/2.5.4/build/jquery.timepicker.full.min.js"></script>*@
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.css" integrity="sha512-GgUcFJ5lgRdt/8m5A0d0qEnsoi8cDoF0d6q+RirBPtL423Qsj5cI9OxQ5hWvPi5jjvTLM/YhaaFuIeWCLi6lyQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.js" integrity="sha512-WHnaxy6FscGMvbIB5EgmjW71v5BCQyz5kQTcZ5iMxann3HczLlBHH5PQk7030XmmK5siar66qzY+EJxKHZTPEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+@using (Html.BeginForm("AddEmpShiftDetails", "EmpShift", FormMethod.Post, new { enctype = "multipart/form-data", data_toggle = "validator", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.shiftId);
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-sm-1">
+                <span class="backk">
+                    <a href="@Url.Action("Index", "EmpShift")" id="btnBack" class="btn"><span class="glyphicon glyphicon-circle-arrow-left"></span>  Back</a>
+                </span>
+            </div>
+
+            <div class="col-sm-10">
+                <h1 class="add-edit-h1 title_change"></h1>
+            </div>
+            <div class="panel panel-warning col-sm-12 ">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+
+        <div class="row">
+
+
+            <!--<div class="col-md-4">
+        <div class="form-group">-->
+            @*@Html.Label("नाव / Name")*@
+            <!--@Html.Label("Shift Name")
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.TextBoxFor(model => model.shiftName, new { @class = "form-control", style = "font-family:Arial, FontAwesome", required = "required" })
+            @Html.ValidationMessageFor(model => model.shiftName, "", new { @class = "text-danger" })
+            <span class="text-danger" id="err_name"></span>
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+            <span class="help-block with-errors"></span>
+        </div>
+    </div>-->
+            <div class="col-md-4">
+                <div class="form-group">
+                    @*@Html.Label("नाव / Name")*@
+                    @Html.Label("Shift Name")
+                    @{ var RlistItems = new List<SelectListItem>();
+
+                        RlistItems.Add(new SelectListItem { Text = "Select Shift Name", Value = "0" });
+                        RlistItems.Add(new SelectListItem { Text = "Morning", Value = "Morning" });
+                        RlistItems.Add(new SelectListItem { Text = "Afternoon", Value = "Afternoon" });
+                        RlistItems.Add(new SelectListItem { Text = "Evening", Value = "Evening" });
+                        RlistItems.Add(new SelectListItem { Text = "Night", Value = "Night" });
+                    }
+                    @Html.DropDownListFor(model => model.shiftName, RlistItems, new { style = "font-family:Arial, FontAwesome", required = "required", @class = "form-control RequiredInput validate[required] RequiredInput" })
+
+                    <span class="text-danger" id="err_name"></span>
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                    <span class="help-block with-errors"></span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    @*@Html.Label("एम्प्लॉयमेंट आयडी / Employment ID ")*@
+                    @Html.Label("Shift Start")
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="input-group time" id="timepicker">
+                        @Html.TextBoxFor(model => model.shiftStart, new { @class = "form-control", style = "font-family:Arial, FontAwesome" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.shiftStart, "", new { @class = "text-danger" })
+
+                    <span class="text-danger" id="err_shiftStart"></span>
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                    <span class="help-block with-errors"></span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    @*@Html.Label("एम्प्लॉयमेंट आयडी / Employment ID ")*@
+                    @Html.Label("Shift End")
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="input-group time" id="timepickerr">
+                        @Html.TextBoxFor(model => model.shiftEnd, new { @class = "form-control", style = "font-family:Arial, FontAwesome" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.shiftEnd, "", new { @class = "text-danger" })
+                    <span class="text-danger" id="err_shiftEnd"></span>
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                    <span class="help-block with-errors"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <center><span class="text-danger" id="err_generate"></span></center>
+            <div class="form-group1">
+                <button type="submit" name="submit" class="btn" id="btnSubmit">
+
+                    <span class="glyphicon glyphicon-saved"></span>
+                    <span id="buttonName">Save Changes</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+}
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        //$(".jquery-date-time-picker").datetimepicker({
+        //    datepicker: false,
+        //    //format: 'H:i',
+        //    ampm: true, // FOR AM/PM FORMAT
+        //    format: 'g:i A',
+        //    step: 15
+        //}).keypress(function (event) { event.preventDefault(); });
+
+        //var shiftId = $("#shiftId").val();
+        //if (shiftId > 0) {
+        //    $("#shiftName").attr('readOnly', 'true');
+        //}
+
+
+        $('#shiftStart').timepicker({
+            timeFormat: 'h:i a',
+            dropdown: true,
+            scrollbar: true,
+            step: 15,
+        });
+        $('#shiftEnd').timepicker({
+            timeFormat: 'h:i a',
+            dropdown: true,
+            scrollbar: true,
+            step: 15,
+
+        });
+
+        
+        
+        $('#shiftStart').on('change', checkStartDates);
+        $('#shiftEnd').on('change', checkEndDates);
+
+        $.ajax({
+            type: "post",
+            url: "/EmpShift/CheckShiftName",
+            data: {},
+            datatype: "json",
+            traditional: true,
+            success: function (data) {
+                var shifts = data;
+                var shiftId = $("#shiftId").val();
+                var shiftName = $("#shiftName").val();
+                if (shiftId > 0) {
+                    $("select#shiftName option[value!='" + shiftName + "']").hide();
+                    $("select#shiftName option[value='" + shiftName + "']").show();
+
+                } else {
+                    if (shifts.length > 0) {
+                        for (var i = 0; i < shifts.length; i++) {
+
+                            $("select#shiftName option[value='" + shifts[i] + "']").hide();
+                        }
+                    }
+                }
+            }
+        });
+
+
+    });
+</script>
+<script type="text/javascript">
+
+
+    function timeToInt(time) {
+        var arr = time.match(/^(0?[1-9]|1[012]):([0-5][0-9])([\s])([APap][mM])$/);
+        if (arr == null) return -1;
+        if (arr[1] == 12) {
+            arr[1] = 0;
+        }
+        
+        if (arr[4].toUpperCase() == 'PM') {
+            arr[1] = parseInt(arr[1]) + 12;
+        }
+        return parseInt(arr[1] * 100) + parseInt(arr[2]);
+    }
+
+    function checkStartDates() {
+
+        if ($('#shiftStart').val() == '') {
+
+            $("#err_shiftStart").html("Shift Start is Required").delay(1500).show().fadeOut('slow');
+            return false;
+
+        }
+        var start = timeToInt($('#shiftStart').val());
+
+        if (start == -1) {
+            $("#err_shiftStart").html("Shift Start time is not valid").delay(1500).show().fadeOut('slow');
+            return false;
+            //    alert("Start or end time it's not valid");
+        }
+
+        //if (start > end) {
+        //    $("#err_shiftStart").html("Shift Start time should be lower than End time").delay(1500).show().fadeOut('slow');
+        //    return false;
+        //    //alert('Start time should be lower than end time');
+        //}
+        return true;
+    }
+
+    function checkEndDates() {
+        if ($('#shiftEnd').val() == '') {
+
+            $("#err_shiftEnd").html("Shift End is Required").delay(1500).show().fadeOut('slow');
+            return false;
+
+        }
+        var end = timeToInt($('#shiftEnd').val());
+        if (end == -1) {
+            $("#err_shiftEnd").html("Shift End time is not valid").delay(1500).show().fadeOut('slow');
+            return false;
+
+        }
+        return true;
+    }
+
+    function compareDate() {
+
+        var start = timeToInt($('#shiftStart').val());
+        var end = timeToInt($('#shiftEnd').val());
+        if (start > end) {
+            $("#err_shiftStart").html("Shift Start time should be lower than End time").delay(1500).show().fadeOut('slow');
+            return false;
+            //alert('Start time should be lower than end time');
+        }
+        return true;
+    }
+
+
+
+</script>
+<script type="text/javascript">
+    $("#btnSubmit").click(function () {
+        if ($.trim($("#shiftName").val()) == '0') {
+            //$("#err_name").html("नाव आवश्यक आहे / Name is Required").delay(1500).show().fadeOut('slow');
+            $("#err_name").html("Shift Name is Required").delay(1500).show().fadeOut('slow');
+            $('#shiftName').focus();
+            return false;
+        }
+        if ($.trim($("#shiftStart").val()) == '') {
+            //$("#err_name").html("नाव आवश्यक आहे / Name is Required").delay(1500).show().fadeOut('slow');
+            $("#err_shiftStart").html("Shift Start is Required").delay(1500).show().fadeOut('slow');
+            $('#shiftStart').focus();
+            return false;
+        }
+        if ($.trim($("#shiftEnd").val()) == '') {
+            //$("#err_name").html("नाव आवश्यक आहे / Name is Required").delay(1500).show().fadeOut('slow');
+            $("#err_shiftEnd").html("Shift End is Required").delay(1500).show().fadeOut('slow');
+            $('#shiftEnd').focus();
+            return false;
+        }
+        if (!(checkStartDates())) {
+            return false;
+        }
+        if (!(checkEndDates())) {
+            return false;
+        }
+        if (!(compareDate())) {
+            return false;
+        }
+    });
+    //$("#shiftName").blur(function () {
+    //    var shiftId = $("#shiftId").val();
+    //    if (!(shiftId > 0)) {
+    //        var shiftName = $("#shiftName").val();
+    //        $.ajax({
+    //            url: "/EmpShift/CheckShiftName?shiftName=" + shiftName,
+    //            type: "POST",
+    //            data: { shiftName: shiftName }
+    //        })
+    //            .done(function (msg) {
+    //                if (msg == 1) {
+    //                    $('#err_name').text('This Shift Name Is Already Exist!').delay(2000).show().fadeOut('slow');
+    //                    $("#shiftName").val('');
+    //                } else {
+    //                    $('#err_name').text('');
+    //                }
+    //            });
+    //    }
+
+    //});
+</script>

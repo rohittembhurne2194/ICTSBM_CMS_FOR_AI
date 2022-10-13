@@ -1,0 +1,95 @@
+﻿
+@{
+    Layout = "";
+}
+@Styles.Render("~/Content/IndexCSS")
+<link href='https://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
+@using Microsoft.AspNet.Identity
+@Scripts.Render("~/Scripts/IndexScript")
+<script src="~/Content/DatatableGrid/SauchalayRegistrationGrid.js"></script>
+
+<body>
+    <div style="display:none;">
+        @Html.ActionLink(User.Identity.GetUserName() + "!", "Index", "Home", routeValues: null, htmlAttributes: new { title = "Manage", @id = "asdf"})
+    </div>
+    
+    <div class="container">
+        <br />
+        <div style="width:100%; margin:0 auto;">
+            <a href="AddSauchalayDetails" class="btn btn-success btn-sm float-right" type="button" id="ctpt">Add CT /PT</a>
+            <label style="display:inline-flex;padding-right:5px" class="float-right">Search:&nbsp;<input type="text" id="s" class="form-control form-control-sm" onkeyup="Search()"></label>
+            <table id="demoGrid" class="table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0">
+                <thead>
+                    @*<tr>
+                            <th>Id</th>
+                            <th>घर आयडी <br />House ID</th>
+                            <th>नाव <br />Name</th>
+                            <th>स्कॅनिफाय कोड <br />Scaniffy Code</th>
+                            <th>डाउनलोड <br />Download</th>
+                            <th>झोन  <br />Zone</th>
+                            <th>वार्ड क्रमांक <br />Ward No.</th>
+                            <th>क्षेत्र <br />Areas</th>
+                            <th>घर क्रमांक <br />House No.</th>
+                            <th>मोबाइल <br />Mobile</th>
+                            <th>पत्ता <br />Address</th>
+                            <th data-sortable="false">क्रिया <br />Action</th>
+
+                        </tr>*@
+
+                    <tr>
+                        <th> Id </th>
+                        <th> CTPT Id</th>
+                        <th> Name</th>
+                        <th> Mobile </th>
+                        <th> CTPT Image</th>
+                        <th> CTPT QrCode Image</th>
+                        <th> Address</th>
+                        <th> DateTime</th>
+                        <th data-sortable="false"> Action</th>
+
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+
+
+    <div id="myModal_Image" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 id="header_data" class="modal-title"></h4>
+                </div>
+                <div class="modal-body">
+
+                    <center>
+                        <img class="img-responsive" id="imggg" alt="Photo Not Found">
+                        <br />
+                        <p> <b id="hide_date">Date: </b><span id="dateData"></span></p>
+                        <p> <b id="hide_add">Address: </b><span id="latlongData"></span></p>
+                    </center>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn" data-dismiss="modal">Close</button>
+                        @*<a href="~/Images/Nagpur/Job/download.pdf" class="btn btn-default" download>Download</a>*@
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="snackbar">Image not uploaded...</div>
+    <script>
+        if ($("#asdf").text() == "palgharwaste@ulb.com!") {
+
+            $("#ctpt").css("display", "none");
+
+        } else {
+            $("#ctpt").css("display", "block");
+        }
+    </script>
+</body>
+

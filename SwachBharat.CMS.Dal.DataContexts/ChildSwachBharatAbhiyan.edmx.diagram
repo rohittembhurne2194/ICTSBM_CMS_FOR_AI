@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="00a410a197d54ea48e9573e29a38d1eb" Name="Diagram1" ZoomLevel="66" ShowGrid="false" SnapToGrid="true">
+        <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.GarbagePointDetail" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.Qr_Employee_Daily_Attendance" Width="1.5" PointX="12.375" PointY="13.75" />
+        <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.GamePlayerDetail" Width="1.5" PointX="14.375" PointY="6.75" />
+        <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.Qr_Location" Width="1.5" PointX="14.375" PointY="13.75" />
+        <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.WM_GarbageCategory" Width="1.5" PointX="15.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.WM_GarbageSubCategory" Width="1.5" PointX="0.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.WM_Garbage_Details" Width="1.5" PointX="15.375" PointY="3.75" />
+        <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.WM_Garbage_Summary" Width="1.5" PointX="7.375" PointY="15.75" />
+        <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.ZoneMaster" Width="1.5" PointX="5.375" PointY="8.75" />
+        <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.VehicleType" Width="1.5" PointX="5.375" PointY="5.75" />
+        <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.TeritoryMaster" Width="1.5" PointX="12.375" PointY="10.75" />
+        <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.WardNumber" Width="1.5" PointX="0.75" PointY="5.75" />
+        <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.QrEmployeeMaster" Width="1.5" PointX="9.375" PointY="0.75" />
+        <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.SS_1_4_ANSWER" Width="1.5" PointX="3" PointY="0.75" />
+        <AssociationConnector Association="DevSwachhBharatNagpurModel.FK_SS_1_4_ANSWER_SS_1_4_ANSWER" />
+        <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.SS_1_4_QUESTION" Width="1.5" PointX="5.375" PointY="11.75" />
+        <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.GramCleaningComplient" Width="1.5" PointX="16.375" PointY="12.75" />
+        <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.SS_1_7_ANSWER" Width="1.5" PointX="11.375" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.WM_Garbage_Sales" Width="1.5" PointX="16.375" PointY="7.75" />
+        <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.UserMaster_Liquid" Width="1.5" PointX="18.375" PointY="8.75" />
+        <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.UserMaster_Street" Width="1.5" PointX="11.375" PointY="18.75" />
+        <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.Location" Width="1.5" PointX="7.375" PointY="5.75" />
+        <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.Vw_MsgNotification" Width="2.375" PointX="0.75" PointY="18.75" />
+        <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.MonthlyAttedance" Width="1.5" PointX="18.375" PointY="8.75" />
+        <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.HouseMaster" Width="1.5" PointX="9.375" PointY="15.75" />
+        <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.StreetSweepingBeat" Width="1.5" PointX="3.375" PointY="14.75" />
+        <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.VW_HSGetHouseDetails" Width="1.5" PointX="11.375" PointY="18.75" />
+        <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.VW_HSGetDumpyardDetails" Width="1.5" PointX="13.375" PointY="18.75" />
+        <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.VW_HSGetLiquidDetails" Width="1.5" PointX="15.375" PointY="18.75" />
+        <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.VW_HSGetStreetDetails" Width="1.5" PointX="17.375" PointY="18.75" />
+        <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.EmpBeatMap" Width="1.5" PointX="19.375" PointY="18.75" />
+        <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.Vehical_QR_Master" Width="1.5" PointX="20.375" PointY="0.75" />
+        <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.VehicleRegistration" Width="1.5" PointX="20.375" PointY="4.75" />
+        <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.GarbageCollectionDetail" Width="1.5" PointX="20.375" PointY="7.75" />
+        <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.SauchalayAddress" Width="1.5" PointX="7.375" PointY="11.75" />
+        <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.EmpShift" Width="1.5" PointX="9.375" PointY="11.75" />
+        <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.UserMaster" Width="1.5" PointX="21.375" PointY="16.75" />
+        <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.MasterQR" Width="1.5" PointX="17.375" PointY="3.75" />
+        <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.HouseList" Width="1.5" PointX="22.375" PointY="0.75" />
+        <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.Daily_Attendance" Width="1.5" PointX="0.75" PointY="8.75" />
+        <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.DumpYardDetail" Width="1.5" PointX="9.375" PointY="5.75" />
+        <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.LiquidWasteDetail" Width="1.5" PointX="11.375" PointY="4.75" />
+        <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.StreetSweepingDetail" Width="1.5" PointX="6.875" PointY="18.875" />
+        <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.HouseBunch" Width="1.5" PointX="22.375" PointY="3.75" />
+        <EntityTypeShape EntityType="DevSwachhBharatNagpurModel.MasterQRBunch" Width="1.5" PointX="22.375" PointY="6.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

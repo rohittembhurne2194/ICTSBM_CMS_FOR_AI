@@ -1,0 +1,599 @@
+﻿@model SwachBharat.CMS.Bll.ViewModels.MainModel.AEmployeeDetailVM
+
+
+@{
+    Layout = "";
+}
+
+<link rel="shortcut icon" href="~/Content/images/img/sba.png" />
+@Styles.Render("~/Content/AddEditCSS")
+
+@Scripts.Render("~/Scripts/AddEditScript")
+@Scripts.Render("~/bundles/modernizr")
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<style>
+
+    .plus, .minus {
+        display: inline-block;
+        background-repeat: no-repeat;
+        background-size: 16px 16px !important;
+        width: 16px;
+        height: 16px;
+        /*vertical-align: middle;*/
+    }
+
+    .plus {
+        background-image: url(https://img.icons8.com/color/48/000000/plus.png);
+    }
+
+    .minus {
+        background-image: url(https://img.icons8.com/color/48/000000/minus.png);
+    }
+
+    ul {
+        list-style: none;
+        padding: 0px 0px 0px 20px;
+    }
+
+        ul.inner_ul li:before {
+            content: "├";
+            font-size: 18px;
+            margin-left: -11px;
+            margin-top: -5px;
+            vertical-align: middle;
+            float: left;
+            width: 8px;
+            color: #41424e;
+        }
+
+        ul.inner_ul li:last-child:before {
+            content: "└";
+        }
+
+    .inner_ul {
+        padding: 0px 0px 0px 35px;
+    }
+</style>
+
+@using (Html.BeginForm("AddAUREmployeeDetails", "AccountMaster", FormMethod.Post, new { enctype = "multipart/form-data", data_toggle = "validator", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.qrEmpId);
+
+    <input type="hidden" value="@ViewBag.UType" id="UType" />
+    <div class="container">
+        <div class="row">
+            <span class="backk">
+
+                <a href="@Url.Action("Index", "AccountMaster")" id="btnBack" class="btn"><span class="glyphicon glyphicon-circle-arrow-left"></span>  Back</a>
+            </span>
+            <h1 class="add-edit-h1 title_change"></h1>
+            <div class="row">@Html.ValidationSummary(true, "", new { @class = "text-danger" }) </div>
+            <div class="panel panel-warning col-sm-12 ">
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @*@Html.Label("नाव / Name")*@
+                            @Html.Label("Name")
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.TextBoxFor(model => model.qrEmpName, new { @class = "form-control", style = "font-family:Arial, FontAwesome", required = "required" })
+                            @Html.ValidationMessageFor(model => model.qrEmpName, "", new { @class = "text-danger" })
+                            <span class="text-danger" id="err_name"></span>
+                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                            <span class="help-block with-errors"></span>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @*@Html.Label("मोबाइल / Mobile")*@
+                            @Html.Label("Mobile")
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.TextBoxFor(model => model.qrEmpMobileNumber, new { @class = "form-control", style = "font-family:Arial, FontAwesome", minlength = "10", maxlength = "10", required = "required" })
+                            @Html.ValidationMessageFor(model => model.qrEmpMobileNumber, "", new { @class = "text-danger" })
+                            <span class="text-danger" id="err_mobile"></span>
+                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                            <span class="help-block with-errors"></span>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @*@Html.Label("लॉगिन आई डी / Login ID")*@
+                            @Html.Label("Login ID")
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.TextBoxFor(model => model.qrEmpLoginId, new { @class = "form-control", style = "font-family:Arial, FontAwesome", required = "required" })
+                            @Html.ValidationMessageFor(model => model.qrEmpLoginId, "", new { @class = "text-danger" })
+                            <span class="text-danger" id="err_login"></span>
+                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                            <span class="help-block with-errors"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @*@Html.Label("पासवर्ड / Password")*@
+                            @Html.Label("Password")
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.TextBoxFor(model => model.qrEmpPassword, new { @class = "form-control", style = "font-family:Arial, FontAwesome", required = "required" })
+                            @Html.ValidationMessageFor(model => model.qrEmpPassword, "", new { @class = "text-danger" })
+                            <span class="text-danger" id="err_pw"></span>
+                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                            <span class="help-block with-errors"></span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--<div class="row">
+
+
+                <div class="col-md-6">
+                    <div class="form-group">-->
+                @*@Html.Label("रक्त गट / Blood Group ")*@
+                @*@Html.Label("Division")
+                    @Html.DropDownListFor(model => model.DivisionId, Model.DivisionList, new { placeholder = HttpUtility.HtmlDecode("&#xf039;Select Division"), style = "font-family:Arial, FontAwesome", required = "required", @class = "form-control RequiredInput validate[required] RequiredInput" })
+                    @Html.ValidationMessageFor(model => model.DivisionId, "", new { @class = "text-danger" })*@
+
+
+                <!--</div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">-->
+                @*@Html.Label("रक्त गट / Blood Group ")*@
+                @*@Html.Label("District")
+                    @Html.DropDownListFor(model => model.DistictId, Model.DistrictList, new { @disabled = "disabled", placeholder = HttpUtility.HtmlDecode("&#xf039;Select District"), style = "font-family:Arial, FontAwesome", required = "required", @class = "form-control RequiredInput validate[required] RequiredInput" })
+                    @Html.ValidationMessageFor(model => model.DistictId, "", new { @class = "text-danger" })*@
+
+                <!--</div>
+
+                    </div>
+                </div>-->
+
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @*@Html.Label("पत्ता / Address")*@
+                            @Html.Label("Address")
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.TextBoxFor(model => model.qrEmpAddress, new { @class = "form-control", style = "font-family:Arial, FontAwesome", required = "required" })
+                            @Html.ValidationMessageFor(model => model.qrEmpAddress, "", new { @class = "text-danger" })
+                            <span class="text-danger" id="err_address"></span>
+                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                            <span class="help-block with-errors"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @*@Html.Label("रक्त गट / Blood Group ")*@
+                            @Html.Label("User Type")
+                            @{ var RlistItems = new List<SelectListItem>();
+
+                                //RlistItems.Add(new SelectListItem { Text = "Select User Type", Value = "0" });
+                                RlistItems.Add(new SelectListItem { Text = "Admin", Value = "A" });
+                                RlistItems.Add(new SelectListItem { Text = "Sub Admin", Value = "SA" });
+
+                            }
+                            @Html.DropDownListFor(model => model.type, RlistItems, "Select User Type", new { style = "font-family:Arial, FontAwesome", required = "required", @class = "form-control RequiredInput validate[required] RequiredInput" })
+                            @Html.ValidationMessageFor(model => model.type, "", new { @class = "text-danger" })
+
+
+                            <span class="text-danger" id="err_type"></span>
+                            <span class="help-block with-errors"></span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <br />
+                        <div class="form-group" style="margin-top:10px">
+                            <label>Is Active </label>
+                            @Html.CheckBox("isActive")
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+
+            <br />
+            <div class="row" id="checkUR">
+                <label>Select ULBs</label>
+                <div class="tree_main">
+                    <ul class="main_ul">
+                        @{
+                            //var icount = Model.Where(s => s.districtId == 0 && s.ULBId == 0).ToList().Count;
+                            for (int i = 0; i < Model.ULBList.Count; i++)
+                            {
+                                var aName = "#exampledropdownDropdow" + i;
+                                var lName = "exampledropdownDropdow" + i;
+
+                                <li>
+                                    <span class="plus">&nbsp;</span>
+                                    @Html.CheckBoxFor(m => m.ULBList[i].IsChecked, new { @class = "parentULB" })
+                                    @Html.LabelFor(m => m.ULBList[i].IsChecked, Model.ULBList[i].LinkText)
+
+
+                                    <ul id="@{@lName}" class="in list-unstyled inner_ul" style="display: none">
+                                        @{
+                                            //var jcount = Model.Where(s => s.ULBId == 0 && s.districtId != 0 && s.divisionId == item.divisionId).ToList().Count;
+                                            for (int j = 0; j < Model.ULBList[i].DistrictList.Count; j++)
+                                            {
+                                                var aName1 = "#exampledropdownDropdow" + i + j;
+                                                var lName1 = "exampledropdownDropdow" + i + j;
+                                                <li>
+                                                    <span class="plus">&nbsp;</span>
+                                                    @Html.CheckBoxFor(m => m.ULBList[i].DistrictList[j].IsChecked, new { @class = "parentULB" })
+                                                    @Html.LabelFor(m => m.ULBList[i].DistrictList[j].IsChecked, Model.ULBList[i].DistrictList[j].LinkText)
+
+
+                                                    <ul id="@{@lName1}" class="in list-unstyled inner_ul" style="display: none">
+                                                        @{
+                                                            for (int k = 0; k < Model.ULBList[i].DistrictList[j].ULBList.Count; k++)
+                                                            {
+                                                                <li class="">
+                                                                    @Html.CheckBoxFor(m => m.ULBList[i].DistrictList[j].ULBList[k].IsChecked)
+                                                                    @Html.LabelFor(m => m.ULBList[i].DistrictList[j].ULBList[k].IsChecked, Model.ULBList[i].DistrictList[j].ULBList[k].LinkText)
+                                                                    @Html.HiddenFor(m => m.ULBList[i].DistrictList[j].ULBList[k].ULBId)
+                                                                </li>
+
+                                                            }
+                                                        }
+                                                    </ul>
+                                                </li>
+
+
+                                            }
+                                        }
+                                    </ul>
+                                </li>
+
+                            }
+                        }
+                    </ul>
+                </div>
+                @*<div class="tree_main">
+                        <ul class="main_ul">
+                            <li>
+                                <span class="plus">&nbsp;</span>
+                                <input type="checkbox" id="c_bs_1" />
+                                <span>Main Level 1 </span>
+                                <ul class="sub_ul" style="display: none">
+                                    <li>
+                                        <span class="plus">&nbsp;</span>
+                                        <input type="checkbox" id="c_bf_1" />
+                                        <span>Sub Level 1 </span>
+                                        <ul style="display: none" class="inner_ul">
+                                            <li>
+                                                <input type="checkbox" id="c_io_1" /><span>Last Level 1 </span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" id="c_io_2" /><span>Last Level 2 </span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" id="c_io_3" /><span>Last Level 3 </span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" id="c_io_4" /><span>Last Level 4 </span>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <span class="plus">&nbsp;</span>
+                                        <input type="checkbox" id="c_bf_2" />
+                                        <span>Sub Level 2</span>
+                                        <ul style="display: none" class="inner_ul">
+                                            <li>
+                                                <input type="checkbox" id="c_io_5" /><span>Last Level 5 </span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" id="c_io_6" /><span>Last Level 6 </span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" id="c_io_7" /><span>Last Level 7 </span>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" id="c_io_8" /><span>Last Level 8 </span>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </div>*@
+
+
+            </div>
+
+            <br />
+
+
+            <div class="row">
+                <center><span class="text-danger" id="err_generate"></span></center>
+                <div class="form-group1">
+                    <button type="submit" name="submit" class="btn" id="btnSubmit" onclick="return Validate()">
+
+                        <span class="glyphicon glyphicon-saved"></span>
+                        <span id="buttonName">Save Changes</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+<script>
+    document.getElementById("qrEmpName").addEventListener("input", forceLower);
+
+    // Event handling functions are automatically passed a reference to the
+    // event that triggered them as the first argument (evt)
+    function forceLower(evt) {
+        // Get an array of all the words (in all lower case)
+        var words = evt.target.value.toLowerCase().split(/\s+/g);
+
+        // Loop through the array and replace the first letter with a cap
+        var newWords = words.map(function (element) {
+            // As long as we're not dealing with an empty array element, return the first letter
+            // of the word, converted to upper case and add the rest of the letters from this word.
+            // Return the final word to a new array
+            return element !== "" ? element[0].toUpperCase() + element.substr(1, element.length) : "";
+        });
+
+        // Replace the original value with the updated array of capitalized words.
+        evt.target.value = newWords.join(" ");
+    }
+</script>
+
+
+<script type="text/javascript">
+
+    $('#type').change(function () {
+        var Utype = $('#type').val();
+        if (Utype == 'A') {
+            $('#checkUR').hide();
+        }
+        else {
+            $('#checkUR').show();
+        }
+
+    });
+
+
+
+    $(document).ready(function () {
+
+        var Utype = $('#type').val();
+        if (Utype == 'A') {
+            $('#checkUR').hide();
+
+        }
+        else {
+            $('#checkUR').show();
+        }
+
+        $(".plus").click(function () {
+            $(this).toggleClass("minus").siblings("ul").toggle();
+        })
+
+        $("input[type=checkbox]").click(function () {
+            //alert($(this).attr("id"));
+            //var sp = $(this).attr("id");
+            //if (sp.substring(0, 4) === "c_bs" || sp.substring(0, 4) === "c_bf") {
+            $(this).siblings("ul").find("input[type=checkbox]").prop('checked', $(this).prop('checked'));
+            //}
+        })
+
+        $("input[type=checkbox]").change(function () {
+            var sp = $(this).attr("id");
+            if (sp.substring(0, 4) === "c_io") {
+                var ff = $(this).parents("ul[id^=bf_l]").attr("id");
+                if ($('#' + ff + ' > li input[type=checkbox]:checked').length == $('#' + ff + ' > li input[type=checkbox]').length) {
+                    $('#' + ff).siblings("input[type=checkbox]").prop('checked', true);
+                    check_fst_lvl(ff);
+                }
+                else {
+                    $('#' + ff).siblings("input[type=checkbox]").prop('checked', false);
+                    check_fst_lvl(ff);
+                }
+            }
+
+            if (sp.substring(0, 4) === "c_bf") {
+                var ss = $(this).parents("ul[id^=bs_l]").attr("id");
+                if ($('#' + ss + ' > li input[type=checkbox]:checked').length == $('#' + ss + ' > li input[type=checkbox]').length) {
+                    $('#' + ss).siblings("input[type=checkbox]").prop('checked', true);
+                    check_fst_lvl(ss);
+                }
+                else {
+                    $('#' + ss).siblings("input[type=checkbox]").prop('checked', false);
+                    check_fst_lvl(ss);
+                }
+            }
+        });
+
+    })
+
+    function check_fst_lvl(dd) {
+        //var ss = $('#' + dd).parents("ul[id^=bs_l]").attr("id");
+        var ss = $('#' + dd).parent().closest("ul").attr("id");
+        if ($('#' + ss + ' > li input[type=checkbox]:checked').length == $('#' + ss + ' > li input[type=checkbox]').length) {
+            //$('#' + ss).siblings("input[id^=c_bs]").prop('checked', true);
+            $('#' + ss).siblings("input[type=checkbox]").prop('checked', true);
+        }
+        else {
+            //$('#' + ss).siblings("input[id^=c_bs]").prop('checked', false);
+            $('#' + ss).siblings("input[type=checkbox]").prop('checked', false);
+        }
+
+    }
+
+    function pageLoad() {
+        $(".plus").click(function () {
+            $(this).toggleClass("minus").siblings("ul").toggle();
+        })
+    }
+
+
+    var toggler = document.getElementsByClassName("caret");
+    var i;
+
+    for (i = 0; i < toggler.length; i++) {
+        toggler[i].addEventListener("click", function () {
+            this.parentElement.querySelector(".nested").classList.toggle("active");
+            this.classList.toggle("caret-down");
+        });
+    }
+
+    $(".parentULB").change(function () {
+        $(this).siblings('ul')
+            .find("input[type='checkbox']")
+            .prop('checked', this.checked);
+    });
+
+    $(document).ready(function () {
+        
+        var id = $('#qrEmpId').val();
+        if (id > 0) {
+            $('#buttonName').text("Save Changes");
+            //$('.title_change').text("कर्मचारी तपशील सादर बदला / Edit Employee Details");
+            $('.title_change').text("Edit User Details");
+        } else {
+            $('#buttonName').text("Save");
+            //$('.title_change').text("कर्मचारी तपशील सादर करा / Add  Employee Details");
+            $('.title_change').text("Add  User Details");
+        }
+
+        /*  $('#DivisionId').html('<option selected = "selected" value = "0" > --Select Division--</option >');*/
+
+        //imei Validation and clear login validation
+
+        if ($("#imoNo").val().trim() != "") {
+            $('#check').not(this).prop('checked', false);
+        }
+        else {
+
+            $('#check').not(this).prop('checked', true);
+        }
+
+        $('#check').change(function () {
+            if ($(this).is(':checked')) {
+                // Do something...
+                $("#imoNo").val("");
+            };
+
+        });
+
+        /////////
+
+
+        //input Validations
+
+        $("#qrEmpMobileNumber").keypress(function (e) {
+            //if the letter is not digit then display error and don't type anything
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57) && e.which != 44) {
+                //display error message
+                //$("#err_mobile").html("केवल अंक | Digits Only").show().delay(1500).show().fadeOut('slow');
+                $("#err_mobile").html("Digits Only").show().delay(1500).show().fadeOut('slow');
+                return false;
+            }
+        });
+
+
+
+
+
+        $("#btnSubmit").click(function () {
+            if ($.trim($("#qrEmpName").val()) == '') {
+                //$("#err_name").html("नाव आवश्यक आहे / Name is Required").delay(1500).show().fadeOut('slow');
+                $("#err_name").html("Name is Required").delay(1500).show().fadeOut('slow');
+                $('#qrEmpName').focus();
+                return false;
+            }
+            if ($.trim($("#qrEmpAddress").val()) == '') {
+                //$("#err_address").html("पत्ता  आवश्यक आहे / Address is Required").delay(1500).show().fadeOut('slow');
+                $("#err_address").html("Address is Required").delay(1500).show().fadeOut('slow');
+                $('#qrEmpAddress').focus();
+                return false;
+            }
+
+            if ($.trim($("#qrEmpMobileNumber").val()) == '') {
+                //$("#err_mobile").html("मोबाइल नंबर आवश्यक आहे / Mobile Number is Required").delay(1500).show().fadeOut('slow');
+                $("#err_mobile").html("Mobile Number is Required").delay(1500).show().fadeOut('slow');
+                $('#qrEmpMobileNumber').focus();
+                return false;
+            }
+
+            if ($.trim($("#qrEmpLoginId").val()) == '') {
+                //$("#err_login").html("लॉगिन आईडी आवश्यक आहे / Login ID is Required").delay(1500).show().fadeOut('slow');
+                $("#err_login").html("Login ID is Required").delay(1500).show().fadeOut('slow');
+                $('#qrEmpLoginId').focus();
+                return false;
+            }
+
+            if ($.trim($("#qrEmpPassword").val()) == '') {
+                //$("#err_pw").html("पासवर्डआवश्यक आहे / Password is Required").delay(1500).show().fadeOut('slow');
+                $("#err_pw").html("Password is Required").delay(1500).show().fadeOut('slow');
+                $('#qrEmpPassword').focus();
+                return false;
+            }
+            if ($.trim($("#type").val()) == '0') {
+                //$("#err_pw").html("पासवर्डआवश्यक आहे / Password is Required").delay(1500).show().fadeOut('slow');
+                $("#err_type").html("User Type is Required").delay(1500).show().fadeOut('slow');
+                $('#type').focus();
+                return false;
+            }
+
+
+            return true;
+        });
+    });
+
+    $('#DivisionId').change(function () {
+        
+        var selectedText = $(this).find("option:selected").text();
+        var selectedValue = $(this).val();
+        if (selectedValue == 0) {
+            $('#DistictId').attr("disabled", "disabled");
+        }
+        else {
+            $('#DistictId').removeAttr("disabled", "disabled");
+        }
+        $.ajax({
+            type: "post",
+            url: "/Admin/AddHSUREmployeeDetails ?",
+            data: { Id: $('#DivisionId').val() },
+            datatype: "json",
+            traditional: true,
+            success: function (data) {
+                
+                var area;
+                for (var i = 0; i < data.length; i++) {
+                    /* area = area + '<option value=' + data[i].Value + '>' + data[i].Text + '</option>';*/
+
+                    area = area + '<td class="ulbs"><input class="custom-checkbox individual" data-val="true" data-val-required="The IsCheked field is required." id="CheckDist_0__IsCheked" name="CheckDist[0].IsCheked" type="checkbox" value="true" autocomplete="off"><input name="CheckDist[0].IsCheked" type="hidden" value="false" autocomplete="off"> <label>' + data[i].Text + '</label> <input data-val="true" data-val-number="The field id must be a number." data-val-required="The id field is required." id="CheckDist_0__id" name="CheckDist[0].id" type="hidden" value="1001" autocomplete="off"> <input id="CheckDist_0__name" name="CheckDist[0].name" type="hidden" value="Seloo" autocomplete="off">   </td>'
+                }
+
+
+                $('#checkUR').html(area);
+            }
+        });
+
+    });
+</script>
+

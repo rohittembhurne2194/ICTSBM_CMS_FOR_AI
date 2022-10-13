@@ -1,0 +1,29 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+    @Html.AntiForgeryToken()
+
+        <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
+        
+               
+            <li class="nav-item">
+                <a href="/GarbageCollection/MenuIdealtime" class="nav-link"><i class="fa fa-bell-o"></i><span class="badge bg-red badge-corner" id="notif_count"></span></a>
+            </li>
+          
+            <li  class="nav-item">
+                @Html.ActionLink(User.Identity.GetUserName() + "!", "Index", "Home", routeValues: null, htmlAttributes: new { title = "Manage" , @id="asdf"})
+              
+            </li>
+            @*<li  class="nav-item" style="margin-left:10px;"><a class="nav-link logout" href="javascript:document.getElementById('logoutForm').submit()">लॉग आऊट<i class="fa fa-sign-out"></i></a></li>*@
+            <li class="nav-item" style="margin-left:10px;"><a class="nav-link logout" href="javascript:document.getElementById('logoutForm').submit()"> Log out<i class="fa fa-sign-out"></i></a></li>
+        </ul>
+    }
+}
+else
+{
+    <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">     
+        <li  class="nav-item" style="margin-left:10px;">@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}

@@ -1,0 +1,88 @@
+﻿@model SwachBharat.CMS.Bll.ViewModels.SS2020Reports.OnePoint4VM
+ 
+
+@{
+    Layout = "";
+}
+<link rel="shortcut icon" href="~/Content/images/img/sba.png" />
+@Styles.Render("~/Content/AddEditCSS")
+@Scripts.Render("~/Scripts/AddEditScript")
+@Scripts.Render("~/bundles/modernizr")
+
+@using (Html.BeginForm())
+{
+    @*@Html.HiddenFor(model => model.);*@
+    @Html.AntiForgeryToken()
+    <div class="container">
+        <div class="row"> 
+            
+            <h1 class="add-edit-h1 title_change"> </h1>
+           
+            <div class="panel panel-warning col-sm-12 ">
+                <span class="backk">
+
+                    @*<a href="@Url.Action("MenuonepointfourIndex", "Report")" id="btnBack" class="btn"><span class="glyphicon glyphicon-circle-arrow-left"></span>  Back</a>*@
+                    <a class="btn" href="/Report/MenuOnePointFourDetails?INSERT_ID=@Model.INSERT_ID"><span class="glyphicon glyphicon-circle-arrow-left"></span>BACK</a>
+                </span>
+                <br />
+                <br />
+                <br />
+                <div class="row">
+                   
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @*@Html.Label("देशाचे नाव / Country Name")*@
+                            @Html.Label("COUNT")
+                            @Html.TextBoxFor(model => model.TOTAL_COUNT, new {id="TotalCount", @class = "form-control", style = "font-family:Arial, FontAwesome", required = "required" })
+                            @Html.ValidationMessageFor(model => model.TOTAL_COUNT, "", new { @class = "text-danger" })
+
+                          
+                            @Html.TextBoxFor(model => model.INSERT_ID, new { id = "INSERTID", @class = "form-control", style = "display: none;", required = "required" })
+                            
+                            <span class="text-danger" id="err_country"></span>
+                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                            <span class="help-block with-errors"></span>
+                        </div>
+                    </div>
+                   
+                </div>
+                <div class="row">
+
+                    <div class="form-group1">
+                        <button type="submit" name="submit" class="btn" id="btnSubmit" onclick="return Validate()">
+                            <span class="glyphicon glyphicon-saved"></span>
+                            <span id="buttonName">Save</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+ 
+
+
+<script>
+    $(document).ready(function () {
+        var id = $('#TotalCount').val();
+        if (id > 0) {
+            $('#buttonName').text("Save Changes");
+            $('.title_change').text("");
+        } else {
+            $('#buttonName').text("Save");
+            $('.title_change').text("Add Total Count Details");
+        }
+    });
+
+    $("#btnSubmit").click(function () {
+        
+        if ($.trim($("#TotalCount").val()) == '') {
+            $("#err_country").html("TotalCount is Required").delay(1500).show().fadeOut('slow');
+            $('#TotalCount').focus();
+            return false;
+        }
+      
+        return true;
+    });
+</script>

@@ -1,0 +1,244 @@
+﻿
+@model SwachBharat.CMS.Bll.ViewModels.ChildModel.Model.ComplaintVM
+@{
+    Layout = null;
+}
+<title> संपर्क तपशील बदला | Update Grievances Status </title>
+<link rel="shortcut icon" href="~/Content/images/title_bar.png" />
+@*<link href="~/Content/css/alertify/alertify.core.css" rel="stylesheet" />
+    <link href="~/Content/css/alertify/alertify.default.css" rel="stylesheet" />*@
+<link href="~/Content/css/prityy_photo/css/lightbox.css" rel="stylesheet" />
+<script src="~/Content/ImageSizeValidation/ImageSizeValidation.js"></script>
+@Styles.Render("~/Content/bootstrap.min.css")
+@Scripts.Render("~/bundles/modernizr")
+<link href="~/Content/css/appy-platter/css/font-awesome.min.css" rel="stylesheet" />
+<style>
+    .btn {
+        color: #fff;
+        display: inline-block;
+        font-weight: 600;
+        padding: 4px 14px 4px 19px;
+        background-color: #349b98;
+        box-shadow: 0 12px 20px -10px rgba(34,138,133,0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(34,138,133,0.2);
+        border-color: transparent;
+        border-radius: 5px;
+    }
+
+        .btn:hover {
+            color: #F7A33E;
+        }
+</style>
+@*<link href="~/Content/css/custom_style.css" rel="stylesheet" />*@
+@*"Badge^width:92px;height:91px;padding:2px^https://vaultstorage2015.blob.core.windows.net//"*@
+@using (Html.BeginForm("EditDetails", "Complaint", FormMethod.Post, new { enctype = "multipart/form-data", data_toggle = "validator", role = "form" }))
+{
+    @Html.HiddenFor(x => x.complaintId)
+    @Html.HiddenFor(x => x.endImage)
+    @Html.HiddenFor(x => x.status)
+    @*<span class="backk">
+
+            <a href="@Url.Action("Index", "GPCleaningComplient")" id="btnBack" class="btn"><span class="glyphicon glyphicon-circle-arrow-left"></span>  Back</a>
+        </span>*@
+    @*<h1 class="add-edit-h1"> संपर्क तपशील बदला | Update Complaint Status</h1>*@
+
+    <div class="panel panel-warning col-sm-12 ">
+
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="form-groups">
+                    <div style="width: auto;padding: 6px;text-align: center;margin: 0px auto;height: auto;">
+                        <div id="FileUpload_Preview">
+                            <a><img src="@Model.endImage " class="add-image" style="width:150px;height:130px;padding:2px;overflow:hidden" /></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group5" style="padding-top:5px;">
+                    <label for="Select_Image">Select Image</label>
+                    <div class="input-group1" style="margin:-3px 0 0 8px;">
+                        <span class="btn btn-file">
+                            <span class="glyphicon glyphicon-picture"></span>
+                            Browse &hellip;    <input type="file" accept="image/*" name="filesUpload" class="fileUplode" id="filesUpload" onchange="ValidateSize(this)">
+                        </span>
+                    </div>
+                    @*<p class="para">
+                            <img id="trash_badge" src="~/Content/images/trash.png" style="width:20px; height:20px;" class="imgTrash" title="Click to delete image" />
+                        </p>*@
+
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="form-group" style="padding-top:5px">
+                    @Html.Label("तपशील / Details")
+                    @Html.TextAreaFor(x => x.comment, new { @class = "form-control", style = "font-family:Arial, FontAwesome;min-height:104px" })
+                    <span class="text-danger" id="err_name"></span>
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                    <span class="help-block with-errors"></span>
+                </div>
+                <br /><br />
+                <div class="form-group" style="padding:0px 7px;height:auto;">
+                    <input type="submit" id="a1" value="Resolve" class="btn" />
+                    <input type="submit" id="a2" value="Reject" class="btn" />
+                    <input type="submit" id="a3" value="Processing" class="btn" />
+                    <input type="submit" id="otherBtn" value="Close" class="btn" data-dismiss="modal" />
+                </div>
+                <div style="display:inline-flex;margin:10px 8px;">
+                    <p id="submit_msg" class="text-warning"></p>
+                    <span>
+                        <img src="" id="loader_img" style="height:15px;width:15px;margin-left:10px;" />
+                    </span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+}
+
+@*@Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")*@
+@*<script src="~/Scripts/bootstrap.js"></script>*@
+@*<script src="~/Scripts/BootstrapValidator/validator.js"></script>
+    <script src="~/Content/css/alertify/js/alertify.min.js"></script>*@
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        if ($('#status').val() == "Processing") {
+
+            $('#a3').prop('disabled', true);
+        }
+        if ($('#status').val() == "Resolved") {
+
+            $('#status_description').prop('disabled', true);
+            $('#filesUpload').prop('disabled', true);
+            $('#a3').prop('disabled', true);
+            $('#a2').prop('disabled', true);
+            $('#a1').prop('disabled', true);
+        }
+        if ($('#status').val() == "Rejected") {
+
+            $('#status_description').prop('disabled', true);
+            $('#filesUpload').prop('disabled', true);
+            $('#a3').prop('disabled', true);
+            $('#a2').prop('disabled', true);
+            $('#a1').prop('disabled', true);
+        }
+
+        $('#a1').click(function () {
+
+            $('#a1').prop('disabled', true);
+            $('#a2').prop('disabled', true);
+            $('#a3').prop('disabled', true);
+            $('#otherBtn').prop('disabled', true);
+            jQuery("#submit_msg").text("Please wait...");
+            jQuery("#loader_img").attr('src', '/Content/images/loader.gif');
+
+            $('#status').val("Resolved");
+            this.form.submit();
+
+        });
+        $('#a2').click(function () {
+            $('#a1').prop('disabled', true);
+            $('#a2').prop('disabled', true);
+            $('#a3').prop('disabled', true);
+            $('#otherBtn').prop('disabled', true);
+            jQuery("#submit_msg").text("Please wait...");
+            jQuery("#loader_img").attr('src', '/Content/images/loader.gif');
+
+            $('#status').val("Rejected");
+            this.form.submit();
+
+        });
+
+        $('#a3').click(function () {
+            $('#a1').prop('disabled', true);
+            $('#a2').prop('disabled', true);
+            $('#a3').prop('disabled', true);
+            $('#otherBtn').prop('disabled', true);
+            jQuery("#submit_msg").text("Please wait...");
+            jQuery("#loader_img").attr('src', '/Content/images/loader.gif');
+
+            $('#status').val("Processing");
+            this.form.submit();
+        });
+                        $('#trash_badge').click(function () {
+                            $("#FileUpload_Preview").html("");
+                        });
+                        $('#filesUpload').change(function () {
+                            $("#FileUpload_Preview").html("");
+                            $("#FileUpload_Preview").show();
+                            $("#FileUpload_Preview").append("<img />");
+
+                            if (typeof (FileReader) != "undefined") {
+                                var reader = new FileReader();
+                                reader.onload = function (e) {
+                                    //-----------------------------------
+                                    // Preview image
+                                    //-----------------------------------
+                                    $("#FileUpload_Preview img").attr("src", e.target.result);
+                                    $("#FileUpload_Preview img").attr("width", "auto");
+                                    $("#FileUpload_Preview img").attr("height", "100%");
+                                }
+                                reader.readAsDataURL($(this)[0].files[0]);
+                            }
+                        });
+                    });
+</script>
+
+<script>
+
+
+
+</script>
+<script>
+$(document).ready(function () {
+    //called when key is pressed in textbox
+    $("#phoneNumber").keypress(function (e) {
+        //if the letter is not digit then display error and don't type anything
+        if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57) && e.which != 44) {
+            //display error message
+            $("#err_phone").html("केवल अंक | Digits Only").show().delay(1500).show().fadeOut('slow');
+            return false;
+        }
+    });
+});</script>
+<script>
+    var mob = /^(\d{10,11}|d{10,11})(,\d{10,11}|,d{10,11})*$/;
+    //$('#btnSubmit').click(function () {
+
+
+
+
+    //    return true;
+    //    //if (mob.test($.trim($('#phoneNumber').val())) == false) {
+    //    //    alertify.alert("Please enter valid mobile number.");
+    //    //    $('#phoneNumber').focus();
+    //    //    return false;
+    //    //}
+    //});
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#trash_badge').click(function () {
+            $("#FileUpload_Preview").html("");
+        });
+        $('#filesUpload').change(function () {
+            $("#FileUpload_Preview").html("");
+            $("#FileUpload_Preview").show();
+            $("#FileUpload_Preview").append("<img />");
+
+            if (typeof (FileReader) != "undefined") {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    //-----------------------------------
+                    // Preview image
+                    //-----------------------------------
+                    $("#FileUpload_Preview img").attr("src", e.target.result);
+                    $("#FileUpload_Preview img").attr("width", "150px");
+                    $("#FileUpload_Preview img").attr("height", "130px");
+                }
+                reader.readAsDataURL($(this)[0].files[0]);
+            }
+        });
+    });
+</script>

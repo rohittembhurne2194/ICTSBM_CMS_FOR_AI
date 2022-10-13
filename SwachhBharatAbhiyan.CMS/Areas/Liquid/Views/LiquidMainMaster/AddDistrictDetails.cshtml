@@ -1,0 +1,131 @@
+﻿@model SwachBharat.CMS.Bll.ViewModels.MainModel.AppDistrictVM
+
+@{
+    //ViewBag.Title = "जिल्हा तपशील सादर करा / Add District Details";
+    Layout = "";
+}
+<link rel="shortcut icon" href="~/Content/images/img/sba.png" />
+@Styles.Render("~/Content/AddEditCSS")
+@Scripts.Render("~/Scripts/AddEditScript")
+@Scripts.Render("~/bundles/modernizr")
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.districtId);
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-1">
+                <span class="backk">
+                    <a href="@Url.Action("DistrictIndex", "MainMaster")" id="btnBack" class="btn"><span class="glyphicon glyphicon-circle-arrow-left"></span>  Back</a>
+                </span>
+            </div>
+            <div class="col-sm-10">
+                <h1 class="add-edit-h1 title_change"></h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    @*@Html.Label("राज्य / State")*@
+                    @Html.Label("State")
+
+                   @Html.DropDownListFor(model => model.stateId, Model.StateList, new { placeholder = HttpUtility.HtmlDecode("&#xf039; Select State "), style = "font-family:Arial, FontAwesome", required = "required", @class = "form-control RequiredInput validate[required] RequiredInput" })
+                @Html.ValidationMessageFor(model => model.stateId, "", new { @class = "text-danger" })
+                    <span class="text-danger" id="err_state"></span>
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                    <span class="help-block with-errors"></span>
+                </div>
+
+            </div>
+            <div class="col-md-6">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @*@Html.Label("जिल्हा नाव / District Name")*@
+                    @Html.Label("District Name")
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.TextBoxFor(model => model.districtName, new { @class = "form-control", style = "font-family:Arial, FontAwesome", required = "required" })
+                    @Html.ValidationMessageFor(model => model.districtName, "", new { @class = "text-danger" })
+                    <span class="text-danger" id="err_district"></span>
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                    <span class="help-block with-errors"></span>
+                </div>
+            </div>
+            <div class="row">
+
+
+            </div>
+            @*<div class="col-md-6">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.Label("जिल्हा नाव मराठी / District Name Marathi")
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.TextBoxFor(model => model.districtNameMmar, new { @class = "form-control", style = "font-family:Arial, FontAwesome", required = "required" })
+                        @Html.ValidationMessageFor(model => model.districtNameMmar, "", new { @class = "text-danger" })
+                        <span class="text-danger" id="err_district_name_mar"></span>
+                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                        <span class="help-block with-errors"></span>
+                    </div>
+
+                </div>*@
+        </div>
+
+        <div class="row">
+            @*<div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                    </div>
+                </div>*@
+
+            <div class="form-group1">
+                <button type="submit" name="submit" class="btn" id="btnSubmit" onclick="return Validate()">
+                    <span class="glyphicon glyphicon-saved"></span>
+                    <span id="buttonName">Save</span>
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+}
+
+<script>
+    $(document).ready(function () {
+        var id = $('#districtId').val();
+        if (id > 0) {
+            $('#buttonName').text("Save Changes");
+            //$('.title_change').text("जिल्हा तपशील सादर बदला / Edit District Details");
+            $('.title_change').text("Edit District Details");
+        } else {
+            $('#buttonName').text("Save");
+            //$('.title_change').text("जिल्हा तपशील सादर करा / Add District Details ");
+            $('.title_change').text("Add District Details ");
+        }
+    });
+    $("#btnSubmit").click(function () {
+        //alert("aa");
+        if ($.trim($("#stateId").val()) == "-1" || $.trim($("#stateId").val()) == "0") {
+            //$("#err_state").html("राज्य नाव आवश्यक आहे /  State Name is Required").delay(1500).show().fadeOut('slow');
+            $("#err_state").html("State Name is Required").delay(1500).show().fadeOut('slow');
+            $('#stateId').focus();
+            return false;
+        }
+        if ($.trim($("#districtName").val()) == "") {
+            //$("#err_district").html("जिल्हा नाव आवश्यक आहे /  District Name is Required").delay(1500).show().fadeOut('slow');
+            $("#err_district").html("District Name is Required").delay(1500).show().fadeOut('slow');
+            $('#districtName').focus();
+            return false;
+        }
+        //if ($.trim($("#districtNameMmar").val()) == "") {
+        //    $("#err_district_name_mar").html("जिल्हा नाव मराठी आवश्यक आहे /  District Name Marathi is Required").delay(1500).show().fadeOut('slow');
+        //    $('#districtNameMmar').focus();
+        //    return false;
+        //}
+        return true;
+    });
+</script>

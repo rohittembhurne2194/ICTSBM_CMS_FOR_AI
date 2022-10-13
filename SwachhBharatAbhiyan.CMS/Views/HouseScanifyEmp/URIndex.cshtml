@@ -1,0 +1,316 @@
+﻿@model SwachBharat.CMS.Bll.ViewModels.ChildModel.Model.HSDashBoardVM
+
+
+
+@{
+    Layout = "";
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>@ViewBag.Title</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="all,follow">
+    @Styles.Render("~/Content/ThemeCss")
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    @*@Scripts.Render("~/bundles/modernizr")*@
+    @*@RenderSection("styles", required: false)*@
+    <link rel="shortcut icon" href="/Content/images/img/ictsbm2.png" />
+    @Scripts.Render("~/Scripts/IndexScript")
+
+    @Styles.Render("~/Content/IndexCSS")
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
+
+    @Scripts.Render("~/Scripts/IndexScript")
+    @*<script src="~/Content/DatatableGrid/HouseScanify.js"></script>*@
+
+    <script src="~/Content/DatatableGrid/URGridDetails.js"></script>
+
+</head>
+
+<body>
+    <input type="hidden" value="@ViewBag.AppId" id="appid" />
+
+
+    <div class="page">
+        <!-- Main Navbar-->
+        <header class="header">
+            <nav class="navbar">
+                <!-- Search Box-->
+                <div class="search-box">
+                    <button class="dismiss"><i class="icon-close"></i></button>
+                    <form id="searchForm" action="#" role="search">
+                        <input type="search" placeholder="What are you looking for..." class="form-control">
+                    </form>
+                </div>
+
+                <div class="container-fluid">
+                    <div class="navbar-holder d-flex align-items-center justify-content-between">
+                        <!-- Navbar Header-->
+                        <div class="navbar-header">
+                            <!-- Navbar Brand --><a href="#" class="navbar-brand">
+                                <div class="brand-text brand-big"><span><img style="height:40px;width:50px;" src="~/Content/images/img/house_icon.svg" /> </span><strong style="font-size:15px;margin-left:3%"> House / Liquid / Street Scanify</strong></div>
+                                <div class="brand-text brand-small"><strong><img style="height:40px;width:50px;" src="~/Content/images/img/house_icon.svg" /> </strong></div>
+                            </a>
+                            <!-- Toggle Button--><a id="toggle-btn" href="#" class="menu-btn active"><span></span><span></span><span></span></a>
+                        </div>
+                        <!-- Navbar Menu -->
+                        <!-- Logout    -->
+                        <li class="nav-item" style="list-style: none;"><a href="/houseScanifyemp/login" class="nav-link logout">Logout<i class="fa fa-sign-out"></i></a></li>
+
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <div class="page-content d-flex align-items-stretch">
+            <!-- Side Navbar -->
+            <nav class="side-navbar">
+                <!-- Sidebar Header-->
+                <ul>
+                    <li id='URbutton' class='' style='text-align: center;background-color: #189cdf;'><a href='URIndex' style='cursor: pointer'>User Right</a></li>
+                </ul>
+                <ul class="list-unstyled" style="max-height:700px;overflow-y:auto">
+                    <p id="img_ldr" style="display:block;position:absolute;top:40%;left:5%;">
+                        <img style="height:90px" class="" src="~/Content/images/img/loading.gif">
+                    </p>
+                </ul>
+                @*<span class="heading">Extras</span>*@
+
+            </nav>
+
+            <div class="content-inner">
+                <br />
+
+                <div class="container">
+                    <div><h3 id="hchange" class="text-center text-bold" style="margin-bottom:2%"></h3></div>
+
+                    <div class="row form" style="text-align: center; display: inline-flex;margin-left: 39%">
+                        <label class="check-container" style="font-size: 18px;">
+                            <input type="radio" checked="checked" value="0" name="radio">
+                            Active User
+
+
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="check-container" style="font-size: 18px;">
+                            <input type="radio"  value="1" name="radio">
+                            Non Active User
+
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                    <div class="row">
+                        <span class="backk" style="margin-left: 15px;">
+
+                            <a href="@Url.Action("MenuIndex", "HouseScanifyEmp")" id="btnBack" class="btn btn-sm btn-success filter-button-style"><span class="glyphicon glyphicon-circle-arrow-left"></span>  Back</a>
+
+                        </span>
+                        <span class="backks" style="margin-left: 68%;">
+                            <a href="AddUREmployeeDetails" class="btn btn-success btn-sm float-right mr-3" type="button">Add User</a>
+
+
+                            <label style="display:inline-flex;padding-right:5px" class="float-right">Search:&nbsp;<input type="text" id="s" class="form-control form-control-sm" onkeyup="Search()"></label>
+                        </span>
+                        <h4 id="ulb_name" class="text-center" style="padding-left:14px;width:80%"></h4>
+
+                    </div>
+                    <br />
+
+
+                </div>
+
+                <div class="container" style="overflow-y:auto">
+                    <br />
+                    <div style="width:100%; margin:0 auto;">
+                        @*<a href="AttendenceIndex" class="btn btn-success btn-sm float-right" type="button">Attendance</a>
+                            <a href="AddHSEmployeeDetails" class="btn btn-success btn-sm float-right" type="button">Add Employee</a>*@
+                        @*<label style="display:inline-flex;padding-right:5px" class="float-right">Search:&nbsp;<input type="text" id="s" class="form-control form-control-sm" onkeyup="Search()"></label>*@
+                        <table id="demoGrid" class="table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0" style="font-size:14px">
+
+                            <thead style="font-size:14px">
+
+
+                                <tr>
+                                    <th>Id</th>
+                                    <th> Date</th>
+                                    <th> User Name</th>
+                                    <th> User Role</th>
+                                    <th> Status</th>
+                                    <th> Action</th>
+                                </tr>
+                            </thead>
+
+
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=@Session["apikey"]&callback=myMap" type="text/javascript"></script>
+    <!-- Dashboard Header Section    -->
+
+    <script>
+
+        var date = new Date();
+
+        var day = date.getDate();
+        var month = date.getMonth() + 1;
+        var year = date.getFullYear();
+
+        if (month < 10) month = "0" + month;
+        if (day < 10) day = "0" + day;
+
+        var today = day + "/" + month + "/" + year;
+
+        document.getElementById('txt_fdate').value = today;
+        document.getElementById('txt_tdate').value = today;
+
+
+    </script>
+    <script src="~/Content/graph-assets/js/custom.js"></script>
+    <script src="~/Content/css/datepicker/js/datepicker.js"></script>
+    <script>
+
+
+        $(document).ready(function () {
+            // var ulb_menu=JSON.parse(window.localStorage.getItem("ulb_menu"));
+
+            var getthevalue = $(this).attr('id');
+            var appid = $('#appid').val();
+            $.get("/HouseScanifyEmp/GetURAppNames", null, house);
+            function house(data) {
+                var res = '';
+                //for (var i = 0; i < data.length; i++) {
+                //    res += "<li class=''><a style='cursor:pointer'class='li-hover' onclick='Edit(" + data[i].AppId + ")' id='" + data[i].AppId + "' >" + data[i].AppName + "</a></li>";
+                //}
+                var url_string = window.location.href; //window.location.href
+                var url = new URL(url_string);
+                var AppId_New = url.searchParams.get("AppId");
+
+
+                for (var i = 0; i < data.length; i++) {
+                    res += "<li class='' ><a style='cursor:pointer' class='li-hover' onclick='Edit(" + data[i].AppId + ")' id='" + data[i].AppId + "' >" + data[i].AppName + " ";
+                    if (data[i].TotalHouseUpdated_CurrentDay != 0 || data[i].TotalPointUpdated_CurrentDay != 0 || data[i].TotalDumpUpdated_CurrentDay != 0) {
+                        res += "<i class='fa fa-circle pull-right' style='color:#fe9428;font-size:12px;margin: 3% auto;'></i>";
+                    }
+                    //if (AppId_New == data[i].AppId) {
+                    //      res += "<i class='fa fa-circle pull-right' style='color:#fe9428;font-size:12px;margin: 3% auto;'></i>";
+                    //}
+                    res += "</a></li>";
+                }
+
+
+                $('.list-unstyled').html(res);
+                $('#img_ldr').css("display", "none");
+                $('#' + appid).parents('li').addClass('active');
+
+                $(".li-hover").hover(function () {
+                    $(this).css("color", "#fff");
+                }, function () {
+                    $(this).css("color", "#6c757d");
+                });
+                $(".active a").hover(function () {
+                    $(this).css("color", "#fff");
+                }, function () {
+                    $(this).css("color", "#fff");
+                });
+
+            }
+
+
+
+        });
+
+
+
+
+       
+       
+    </script>
+
+    <script type="text/javascript">
+        $('input[type=radio][name=radio]').change(function () {
+
+            
+
+            LoadGridC();
+        });
+     
+        function LoadGridC() {
+            var RadioValue = $("input[name='radio']:checked").val();
+            
+            if (RadioValue == 0) {
+                
+                $('#s').val('');
+                LoadAGrid();
+                $('#hchange').text('Active User');
+            
+            }
+            else if (RadioValue == 1) {
+                $('#s').val('');
+                LoadNGrid();
+                $('#hchange').text('Non Active User');
+                
+            }
+
+        }
+
+                    
+
+                    function Search() {
+                        
+                        var value = ",,," + $("#s").val();
+                        oTable = $('#demoGrid').DataTable();
+                        oTable.search(value).draw();
+                        oTable.search("");
+                        document.getElementById('USER_ID_FK').value = -1;
+                    }
+       
+    </script>
+
+
+   
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            
+            LoadGridC();
+
+        });
+
+
+    </script>
+    <script type="text/javascript">
+        $('.datepicker').datepicker({
+            format: 'dd/mm/yyyy',
+            weekStart: 1,
+            color: 'red',
+            pickTime: false
+        }).on('changeDate', function (e) {
+
+            $(this).datepicker('hide');
+
+        });
+        //hide  show on hover
+        $('#txt_fdate').focus(function () {
+            $('.dtpk_drpdwn').eq(1).hide();
+        });
+        $('#txt_tdate').focus(function () {
+            $('.dtpk_drpdwn').eq(0).hide();
+        });
+
+     
+    </script>
+
+
+</body>
+</html>

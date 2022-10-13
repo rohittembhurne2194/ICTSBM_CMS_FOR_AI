@@ -1,0 +1,196 @@
+﻿
+
+@{
+    Layout = "";
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>@ViewBag.Title</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="all,follow">
+    @Styles.Render("~/Content/ThemeCss")
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    @*@Scripts.Render("~/bundles/modernizr")*@
+    @*@RenderSection("styles", required: false)*@
+    <link rel="shortcut icon" href="~/Content/images/img/ictsbm2.png" />
+
+</head>
+<body>
+    <div class="page">
+        <!-- Main Navbar-->
+        <header class="header">
+            <nav class="navbar">
+                <!-- Search Box-->
+                <div class="search-box">
+                    <button class="dismiss"><i class="icon-close"></i></button>
+                    <form id="searchForm" action="#" role="search">
+                        <input type="search" placeholder="What are you looking for..." class="form-control">
+                    </form>
+                </div>
+
+                <div class="container-fluid">
+                    <div class="navbar-holder d-flex align-items-center justify-content-between">
+                        <!-- Navbar Header-->
+                        <div class="navbar-header">
+                            <!-- Navbar Brand --><a href="#" class="navbar-brand">
+                                <div class="brand-text brand-big"><span><img style="height:40px;width:50px;" src="~/Content/images/img/house_icon.svg" /> </span><strong style="font-size:15px;margin-left:3%">  House / Liquid / Street Scanify</strong></div>
+                                <div class="brand-text brand-small"><strong><img style="height:40px;width:50px;" src="~/Content/images/img/house_icon.svg" /> </strong></div>
+                            </a>
+                            <!-- Toggle Button--><a id="toggle-btn" href="#" class="menu-btn active"><span></span><span></span><span></span></a>
+                        </div>
+                        <!-- Navbar Menu -->
+                        <!-- Logout    -->
+                        <li class="nav-item" style="list-style: none;"><a href="/houseScanify/login" class="nav-link logout">Logout<i class="fa fa-sign-out"></i></a></li>
+
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <div class="page-content d-flex align-items-stretch">
+            <!-- Side Navbar -->
+            <nav class="side-navbar">
+                <!-- Sidebar Header-->
+
+                <ul class="list-unstyled"><p id="img_ldr" style="display:block;position:absolute;top:40%;left:5%;">
+                    <img style="height:90px" class="rotate_img" src="~/Content/images/img/loading.gif"></p>
+                </ul>
+                @*<span class="heading">Extras</span>*@
+
+            </nav>
+            <div class="content-inner">
+                <br />
+                <h3 style="margin-left:15px">Please Select ULB</h3>
+                <footer class="main-footer">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                @*<p>Appynitty &copy; 2017-2019</p>*@
+                                <p>All Rights Reserved © 2017-2022</p>
+                            </div>
+                            <div class="col-sm-6 text-right">
+                                <p>@*Design by <a href="https://bootstrapious.com/admin-templates" class="external">Bootstrapious</a>*@</p>
+                                <!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </div>
+
+
+    @Scripts.Render("~/Scripts/ThemeScripts")
+    <script>
+
+        function Edit(Id) {
+           // alert(Id);
+            if (Id != null) {
+                var url = "/HouseScanifyEmp/UserList?AppId=" + Id;
+                window.location.href = url;
+            }
+        };
+
+        $(document).ready(function () {
+
+            $.get("/houseScanify/GetAppNames", null, house);
+            
+            function house(data) {
+               // window.localStorage.setItem("ulb_menu", JSON.stringify(data));
+                var res = '';
+                var url_string = window.location.href; //window.location.href
+                var url = new URL(url_string);
+                var AppId_New = url.searchParams.get("AppId");
+
+                for (var i = 0; i < data.length; i++) {
+                    res += "<li class='' ><a style='cursor:pointer' class='li-hover' onclick='Edit(" + data[i].AppId + ")' id='" + data[i].AppId + "' >" + data[i].AppName + " ";
+                    if (data[i].TotalHouseUpdated_CurrentDay != 0 || data[i].TotalPointUpdated_CurrentDay != 0 || data[i].TotalDumpUpdated_CurrentDay != 0) {
+                      res += "<i class='fa fa-circle pull-right' style='color:#fe9428;font-size:12px;margin: 3% auto;'></i>";
+                    }
+                    //if (AppId_New == data[i].AppId) {
+                    //    res += "<i class='fa fa-circle pull-right' style='color:#fe9428;font-size:12px;margin: 3% auto;'></i>";
+                    //}
+                    res += "</a></li>";
+                }
+
+                $('.list-unstyled').html(res);
+                $('#img_ldr').css("display","none");
+                $(".li-hover").hover(function () {
+                    $(this).css("color", "#fff");
+                }, function () {
+                    $(this).css("color", "#6c757d");
+                });
+            }
+        });
+
+        $(document).ready(function () {
+
+            //if ($("#asdf").text() != "namratas@appynitty.com!") {
+            //    $("#complaint_menu").css("display", "none")
+            //    $("#report_menu").css("display", "none")
+            //}
+
+
+            $(document).on('click', '.nav', function (e) {
+                if (!$(e.target).is('a')) {
+                    $('.collapse').collapse('hide');
+                }
+            });
+
+            var pathname = window.location.pathname;
+            //alert(pathname);
+            if (pathname == "/GarbageCollection/MenuHouseGarbageIndex" || pathname == "/GarbageCollection/MenuPointGarbageIndex" || pathname == "/Location/MenuIndex" || pathname == "/Location/MenuMapIndex" || pathname == "/HouseMaster/MenuIndex" || pathname == "/GarbagePoint/MenuIndex" || pathname == "/Employee/MenuIndex" || pathname == "/MainMaster/MenuStateIndex" || pathname == "/MainMaster/MenuTalukaIndex" || pathname == "/MainMaster/MenuDistrictIndex" || pathname == "/MainMaster/MenuZoneIndex" || pathname == "/MainMaster/MenuWardIndex" || pathname == "/MainMaster/MenuAreaIndex" || pathname == "/MainMaster/MenuVehicleIndex" || pathname == "/HouseMaster/ReportIndex" || pathname == "/GarbageCollection/MenuEntryDetails" || pathname == "/GarbageCollection/MenuIdealtime") {
+
+                $('.collapse a').filter(function () {
+                    {
+                        return $(this).attr('href') == pathname
+                    }
+                }).addClass('active').closest('ul li a').parents().addClass('active show');
+                if (!$(e.target).is('a')) {
+                    $('.collapse').collapse('hide');
+                }
+            }
+            else {
+                $('a[href="' + this.location.pathname + '"]').parents('li,ul').addClass('active');
+            }
+
+
+
+        });
+
+        // Returns path only
+
+        $('#toggle-btn').on('click', function (e) {
+            e.preventDefault();
+            $(this).toggleClass('active');
+
+            $('.side-navbar').toggleClass('shrinked');
+            $('.content-inner').toggleClass('active');
+            $(document).trigger('sidebarChanged');
+
+            if ($(window).outerWidth() > 1183) {
+                if ($('#toggle-btn').hasClass('active')) {
+                    $('.navbar-header .brand-small').hide();
+                    $('.navbar-header .brand-big').show();
+                } else {
+                    $('.navbar-header .brand-small').show();
+                    $('.navbar-header .brand-big').hide();
+                }
+            }
+
+            if ($(window).outerWidth() < 1183) {
+                $('.navbar-header .brand-small').show();
+            }
+        });
+
+    </script>
+    <script src="~/Content/theme-assets/js/icons_load.js"></script>
+    @*@RenderSection("scripts", required: false)*@
+</body>
+</html>

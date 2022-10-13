@@ -1,0 +1,38 @@
+﻿@model IList<SwachBharat.CMS.Bll.ViewModels.SS2020Reports.OnePoint4VM>
+@{
+    Layout = "";
+}
+@Styles.Render("~/Content/IndexCSS")
+<link href='https://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
+@Styles.Render("~/Content/AddEditCSS")
+@Scripts.Render("~/Scripts/AddEditScript")
+@Scripts.Render("~/bundles/modernizr")
+@Scripts.Render("~/Scripts/IndexScript")
+<script src="~/Content/DatatableGrid/OnepointfourEditGrid.js"></script>
+<a href="@Url.Action("Modifypoint4Report", "Report")?INSERT_ID=@TempData["INSERT_ID"]" id="btnBack" class="btn"><span class="glyphicon glyphicon-circle-arrow-left"></span>  Back</a>
+ 
+<body>
+  
+    <div class="container">
+        <br />
+        <div style="width:100%; margin:0 auto;">
+
+            <table id="demoGrid" class="table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>ANS ID</th>
+                        <th>INSERT ID</th>
+                        <th>Q ID</th>
+                        <th>DATE</th>
+                        <th>COUNT</th>
+                        <th>EDIT</th>
+
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <input type="hidden" value=@TempData["INSERT_ID"] id="HIDDEN_INDEX_ID" /> 
+    </div>
+   
+</body>
+ 

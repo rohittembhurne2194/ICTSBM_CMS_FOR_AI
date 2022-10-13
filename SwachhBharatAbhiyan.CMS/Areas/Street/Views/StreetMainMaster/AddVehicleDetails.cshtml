@@ -1,0 +1,113 @@
+﻿@model SwachBharat.CMS.Bll.ViewModels.ChildModel.Model.VehicleTypeVM
+@{
+    //ViewBag.Title = "वाहन तपशील सादर करा / Add Vehicle Details";
+    Layout = "";
+}
+<link rel="shortcut icon" href="~/Content/images/img/sba.png" />
+@Styles.Render("~/Content/AddEditCSS")
+@Scripts.Render("~/Scripts/AddEditScript")
+@Scripts.Render("~/bundles/modernizr")
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model=>model.Id);
+
+
+    <div class="container">
+        <div class="row">
+            <span class="backk">
+
+                <a href="@Url.Action("VehicleIndex", "StreetMainMaster")" id="btnBack" class="btn"><span class="glyphicon glyphicon-circle-arrow-left"></span>  Back</a>
+            </span>
+            <h1 class="add-edit-h1 title_change"> </h1>
+            <div class="panel panel-warning col-sm-12 ">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @*@Html.Label("नाव / Name")*@
+                            @Html.Label("Name")
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.TextBoxFor(model => model.description, new { @class = "form-control", style = "font-family:Arial, FontAwesome", required = "required" })
+                            @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
+                            <span class="text-danger" id="err_description"></span>
+                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                            <span class="help-block with-errors"></span>
+                        </div>
+
+                    </div>
+                    <br />
+                    <br />
+                    @*<div class="col-md-6">
+                        <div class="form-group">
+                            @Html.Label("नाव मराठी / Name Marathi")
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.TextBoxFor(model => model.descriptionMar, new { @class = "form-control", style = "font-family:Arial, FontAwesome", required = "required" })
+                            @Html.ValidationMessageFor(model => model.descriptionMar, "", new { @class = "text-danger" })
+                            <span class="text-danger" id="err_descriptionMar"></span>
+                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                            <span class="help-block with-errors"></span>
+                        </div>
+
+                    </div>*@
+            <div class="col-md-2">
+                <div class="form-group" style="margin-top:-5px">
+                    <label>Is Active </label>
+                    @Html.CheckBox("isActive")
+                </div>
+            </div>
+                  
+                </div>
+                <div class="row">
+                  
+                </div>
+                <div class="row">
+                    @*<div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Create" class="btn btn-default" />
+                            </div>
+                        </div>*@
+
+                    <div class="form-group1">
+                        <button type="submit" name="submit" class="btn" id="btnSubmit" onclick="return Validate()">
+                            <span class="glyphicon glyphicon-saved"></span>
+                            <span id="buttonName">Save</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+}
+
+<script>
+    $(document).ready(function () {
+        var id = $('#Id').val();
+        if (id > 0) {
+            $('#buttonName').text("Save Changes");
+            //$('.title_change').text("वाहन तपशील सादर बदला / Edit Vehicle Details");
+            $('.title_change').text("Edit Vehicle Details");
+        } else {
+            $('#buttonName').text("Save");
+            //$('.title_change').text(" वाहन तपशील सादर करा / Add Vehicle Details ");
+            $('.title_change').text("Add Vehicle Details ");
+        }
+    });
+    $("#btnSubmit").click(function () {
+        //alert("aa");
+        if ($.trim($("#description").val()) == '') {
+            //$("#err_description").html("वाहन आवश्यक आहे / Vehicle is Required").delay(1500).show().fadeOut('slow');
+            $("#err_description").html("Vehicle is Required").delay(1500).show().fadeOut('slow');
+            $('#description').focus();
+            return false;
+        }
+        return true;
+    });
+</script>

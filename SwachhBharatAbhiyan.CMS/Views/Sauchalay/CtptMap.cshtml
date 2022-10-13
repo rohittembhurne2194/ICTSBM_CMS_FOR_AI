@@ -1,0 +1,248 @@
+﻿@model IEnumerable<SwachBharat.CMS.Bll.ViewModels.ChildModel.Model.SauchalayDetailsVM>
+
+@{
+    Layout = null;
+}
+<style>
+    /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+    #googleMap {
+        height: 100%;
+    }
+    /* Optional: Makes the sample page fill the window. */
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    #floating-panel {
+        position: absolute;
+        top: 0px;
+        left: 5%;
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+        text-align: center;
+        font-family: 'Roboto','sans-serif';
+        line-height: 30px;
+        padding-left: 10px;
+    }
+
+    #floating-panel {
+        margin-left: -10px;
+    }
+
+    .gm-style .gm-style-iw-c {
+        padding: 12px 12px 12px 18px;
+    }
+</style>
+
+
+<fieldset>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="~/Content/css/datepicker/css/datepicker.css" rel="stylesheet" />
+    <link href="~/Content/css/index_style.css" rel="stylesheet" />
+    <br />
+
+    <div class="container ">
+        <input type="hidden" value="@ViewBag.lat" id="deflat" />
+        <input type="hidden" value="@ViewBag.lang" id="deflang" />
+        <div class="row" style="position:relative; height:650px;">
+            <p id="wait" style="display:none;position:absolute;top:35%;left:50%;">
+                <img class="rotate_img" src="~/Content/images/img/marker24.png">
+            </p>
+            <div class="col-10 bg-white has-shadow" id="googleMap" style="width:auto; height:600px"></div>
+            <div class="col-sm-2"></div>
+        </div>
+    </div>
+
+    <script>
+
+        $(document).ready(function () {
+
+            var model = @Html.Raw(Json.Encode(Model));
+
+
+            //var markers = [{
+
+            //    "lat": $('.lati')
+            //}];
+
+
+           // console.log(markers);
+                $.ajax({
+                    type: "post",
+                    url: "/Location/UserList",
+                    data: { stateId: $('#ddlState').val() },
+                    datatype: "json",
+                    traditional: true,
+                    success: function (data) {
+                        district = '<option value="-1">Select Employee</option>';
+                        for (var i = 0; i < data.length; i++) {
+                            district = district + '<option value=' + data[i].Value + '>' + data[i].Text + '</option>';
+                        }
+                        //district = district + '</select>';
+                        $('#selectnumber').html(district);
+                    }
+                });
+            });
+                //User Wise Location
+            // All User On Map
+        function myMap() {
+            var model = @Html.Raw(Json.Encode(Model));
+            //for (i = 0; i < model.length; i++) {
+            //    console.log(model[i]);
+            //}
+                $("#wait").css("display", "block");
+                $("#googleMap").css("display", "none");
+
+
+                        $("#wait").css("display", "none");
+                        $("#googleMap").css("display", "block");
+                        if (model.length == 0)
+                        {
+                            var map = new google.maps.Map(document.getElementById('googleMap'), {
+                                zoom: 10,
+                                center: new google.maps.LatLng($('#deflat').val(), $('#deflang').val()),
+                                mapTypeId: google.maps.MapTypeId.ROADMAP
+                            });
+
+                        }
+                        var map = new google.maps.Map(document.getElementById('googleMap'), {
+
+                            center: new google.maps.LatLng(model[0].Lat, model[0].Long),
+                            mapTypeId: google.maps.MapTypeId.ROADMAP
+                        });
+
+                        var infowindow = new google.maps.InfoWindow();
+                        bounds = new google.maps.LatLngBounds();
+                        var marker, i;
+                        // Get Addres
+                        for (i = 0; i < model.length; i++) {
+                            marker = new google.maps.Marker({
+                                position: new google.maps.LatLng(model[i].Lat, model[i].Long),
+                                map: map,
+
+                                icon: {
+                                    labelOrigin: new google.maps.Point(16, 65),
+                                    url: "../Content/images/img/ctpt_marker.png"
+                                },
+                                label: {
+                                   // text: model[i].Lat,
+                                    color: "black",
+                                    fontWeight: "bold",
+                                    fontSize: "13px",
+                                    margin:"55px"
+                                }
+                            });
+
+                            loc = new google.maps.LatLng(model[i].Lat, model[i].Long),
+
+                            bounds.extend(loc);
+
+                            google.maps.event.addListener(marker, 'click', (function (marker, i) {
+                                return function () {
+                                    if ( model[i].Name == null) {
+                                        model[i].Name = '';
+                                    }
+                                    if ( model[i].Address == null) {
+                                        model[i].Address = '';
+                                    }
+
+                                    if ( model[i].Mobile == null) {
+                                        model[i].Mobile = '';
+                                    }
+
+
+                                    if ( model[i].QrImage == null) {
+                                        model[i].QrImage = '';
+
+                                    }
+
+                                    var  poptext ="";
+                                    if (model[i].Image != '') {
+                                          poptext = '<p><img src=" '+ model[i].Image +' " style="height:auto;max-width:205px" /></p>';
+                                    }
+                                     poptext =  poptext + '<div class=infowindow><h5><b>CTPT Details</b></h5><p><b>Id : </b>' + model[i].SauchalayID + '</p>'
+
+                                    if (model[i].Name != '') {
+                                        poptext = poptext + '<p><b>Name : </b>' + model[i].Name + '</p>';
+                                    }
+                                    if (model[i].Mobile != '') {
+                                        poptext = poptext + '<p><b>Mobile : </b>' + model[i].Mobile + '</p>';
+                                    }
+
+
+
+                                    if (model[i].Address != '') {
+                                        poptext = poptext + '<p style=" max-width:205px"><b>Address : </b>' + model[i].Address + '</p>';
+                                    }
+
+                                    if (model[i].QrImage != '') {
+                                        poptext = poptext + '<p  style="text-align:center"><img src=' + model[i].QrImage + ' style="height:100px;width:100px" /></p>';
+                                    }
+                                    poptext = poptext + '</div>'
+
+                                    infowindow.setContent(poptext);
+                                    infowindow.open(map, marker);
+                                }
+                            })(marker, i));
+
+
+                        }
+                        map.fitBounds(bounds);
+                        map.panToBounds(bounds);
+
+
+
+
+            }
+
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=@Session["apikey"]&callback=myMap" type="text/javascript"></script>
+</fieldset>
+<script src="~/Content/css/datepicker/js/datepicker.js"></script>
+<script>
+        var date = new Date();
+
+        var day = date.getDate();
+        var month = date.getMonth() + 1;
+        var year = date.getFullYear();
+
+        if (month < 10) month = "0" + month;
+        if (day < 10) day = "0" + day;
+
+     //var today = month+ "/" + day+ "/" + year;
+       var today = day + "/" + month + "/" + year;
+
+        document.getElementById('txt_fdate').value = today;
+
+
+
+</script>
+
+
+
+<script type="text/javascript">
+  $('.datepicker').datepicker({
+      format: 'dd/mm/yyyy',
+      weekStart: 1,
+      color: 'red',
+      pickTime: false
+  }).on('changeDate', function (e) {
+
+      $(this).datepicker('hide');
+
+  });
+  //hide  show on hover
+  $('#txt_fdate').focus(function () {
+      $('.dtpk_drpdwn').eq(1).hide();
+  });
+
+</script>

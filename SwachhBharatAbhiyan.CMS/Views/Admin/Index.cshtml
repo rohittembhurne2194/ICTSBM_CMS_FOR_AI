@@ -1,0 +1,84 @@
+﻿	
+
+@{
+    Layout = "";
+}
+
+@Styles.Render("~/Content/IndexCSS")
+<link href='https://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
+
+@Scripts.Render("~/Scripts/IndexScript")
+<script src="~/Content/DatatableGrid/AdminCount.js"></script>
+
+<body>
+
+    <div class="container" style="max-height:100%;overflow-y:auto">
+        <br />
+        <div style="width:100%; margin:0 auto;">
+            @*<label style="display:inline-flex;padding-right:5px" class="float-right">Search:&nbsp;<input type="text" id="s" class="form-control form-control-sm" onkeyup="Search()"></label>*@
+            <table id="demoGrid" class="table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0" style="font-size:14px">
+
+                <thead style="font-size:14px">
+                   @*<tr>
+                        <th> यु.एल.बी नाव </th>
+                        <th> कर्मचारी उपस्थिती </th>
+                        <th> घर संकलन </th>
+                        <th> मिश्र कचरा संकलन </th>
+                        <th> वर्गीकृत कचरा संकलन</th>
+                        <th> कचरा प्राप्त झाला नाही </th>
+
+                    </tr>*@
+
+                    <tr>
+                        <th> U.L.B Name </th>
+                        <th> Employee Attendance </th>
+                        <th> House Selection </th>
+                        <th> Mixed Garbage </th>
+                        <th> Segregated Garbage</th>
+                        <th> Garbage not received </th>
+                        <th> Garbage not specified </th>
+                        <th> Total Liquid Count </th>
+                        <th> Total Street Count </th>
+                    </tr>
+                </thead>
+
+
+            </table>
+        </div>
+    </div>
+    <br />
+    <section class="dashboard-counts no-padding-bottom" style="padding:0px;" hidden>
+
+        <div class="container-fluid" onload="myMap()">
+            <div class="row bg-white has-shadow" style="position:relative; height:600px;">
+
+                <p id="wait" style="display:none;position:absolute;top:35%;left:50%;">
+                    <img class="rotate_img" src="~/Content/images/img/marker24.png">
+                </p>
+
+                <div class="col-sm-11"><h3 class="no-margin-bottom"> Map </h3></div>
+                <input type="hidden" value="@ViewBag.lat" id="deflat" />
+                <input type="hidden" value="@ViewBag.lang" id="deflang" />
+                <div class="col-sm-1">
+                    @*<input type="button" style="margin-bottom:10px" class="btn btn-success btn-sm" id="refresh" value="Show" />*@
+                </div>
+
+                <div class="col-12 bg-white has-shadow" id="googleMap" style="width:1200px; height:600px;">
+                </div>
+            </div>
+        </div>
+    </section>
+    <br />
+
+
+
+
+
+    <div id="snackbar">Image not uploaded...</div>
+</body>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=@Session["apikey"]&callback=myMap" type="text/javascript"></script>
+<!-- Dashboard Header Section    -->
+
+<script type="text/javascript">
+    //setInterval('window.location.reload()', 60000);
+</script>

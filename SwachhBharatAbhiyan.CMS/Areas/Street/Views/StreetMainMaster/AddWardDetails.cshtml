@@ -1,0 +1,163 @@
+﻿@model SwachBharat.CMS.Bll.ViewModels.ChildModel.Model.WardNumberVM
+
+@{
+    //ViewBag.Title = "Add Ward Details";
+    Layout = "";
+}
+<link rel="shortcut icon" href="~/Content/images/img/sba.png" />
+@Styles.Render("~/Content/AddEditCSS")
+@Scripts.Render("~/Scripts/AddEditScript")
+@Scripts.Render("~/bundles/modernizr")
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.SSId);
+
+    <div class="container">
+        <div class="row">
+            <span class="backk">
+
+                <a href="@Url.Action("WardIndex", "StreetMainMaster")" id="btnBack" class="btn"><span class="glyphicon glyphicon-circle-arrow-left"></span>  Back</a>
+            </span>
+            <h1 class="add-edit-h1 title_change"> </h1>
+
+        </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @*@Html.Label("झोन  / Zone")*@
+                            @Html.Label("Zone")
+                            @*<a class="pull-right add_popup_clear" style="color:#3ab59e;text-decoration:underline!important;cursor:pointer" onclick="PopZone()"> + Add Zone </a>*@
+                            @Html.DropDownListFor(model => model.SSzoneId, Model.ZoneList, new { style = "font-family:Arial, FontAwesome", required = "required", @class = "form-control RequiredInput validate[required] RequiredInput" })
+                            @Html.ValidationMessageFor(model => model.SSzoneId, "", new { @class = "text-danger" })
+                            <span class="text-danger" id="err_zone"></span>
+                            <span class="help-block with-errors"></span>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="col-md-6">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @*@Html.Label("वार्ड क्रमांक / Ward Number")*@
+                            @Html.Label("Ward / Prabhag Name")
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.TextBoxFor(model => model.SSWardNo, new { @class = "form-control", style = "font-family:Arial, FontAwesome", required = "required" })
+                            @Html.ValidationMessageFor(model => model.SSWardNo, "", new { @class = "text-danger" })
+                            <span class="text-danger" id="err_ward"></span>
+                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                            <span class="help-block with-errors"></span>
+                        </div>
+                    </div>
+                </div>
+           
+
+            <div class="row">
+                @*<div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Create" class="btn btn-default" />
+                        </div>
+                    </div>*@
+
+                <div class="form-group1">
+                    <button type="submit" name="submit" class="btn" id="btnSubmit" onclick="return Validate()">
+                        <span class="glyphicon glyphicon-saved"></span>
+                        <span id="buttonName">Save</span>
+                    </button>
+                </div>
+            </div>
+    </div>
+
+
+
+
+
+}
+
+<div class="modal" id="zoneModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Add Zone</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div id="searchResults">
+
+
+                    <div class="form-group">
+                        @*@Html.Label("वार्ड क्रमांक / Ward Number")*@
+                        @Html.Label("Ward / Prabhag Name")
+                        <input type="text" class="form-control" id="txtZone" placeholder="Ward no." / >
+                        <span class="text-danger" id="err_zone_pop"></span>
+                        <br /><br />
+                        <button type="button" class="btn pull-right" data-dismiss="modal">Close</button>
+                        <input type="button" style="margin-right:5px" class="btn pull-right" id="btnZone" value="Save" / >
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        var id = $('#SSId').val();
+        if (id > 0) {
+            $('#buttonName').text("Save Changes");
+            //$('.title_change').text("वार्ड तपशील सादर बदला / Edit Ward Details");
+            $('.title_change').text("Edit Ward / Prabhag Details");
+        } else {
+            $('#buttonName').text("Save");
+            //$('.title_change').text(" वार्ड तपशील सादर करा / Add Ward Details ");
+            $('.title_change').text("Add Ward / Prabhag Details ");
+        }
+
+        $("#SSWardNo").keyup(function () {
+            debugger;
+
+            var Name = $("#SSWardNo").val();
+            $.ajax({
+                url: "/MainMaster/CheckWardName?Name=" + Name,
+                type: "POST",
+                data: { Name: Name }
+            })
+                .done(function (msg) {
+                    if (msg == 1) {
+                        $('#err_ward').text('Name already exists!');
+                    } else {
+                        $('#err_ward').text('');
+                    }
+                });
+        });
+    });
+    $("#btnSubmit").click(function () {
+        //alert("aa");
+
+        if ($.trim($("#SSzoneId").val()) == "-1" || $.trim($("#SSzoneId").val()) == "0") {
+            //$("#err_zone").html("झोन आवश्यक आहे / Zone is Required").delay(1500).show().fadeOut('slow');
+            $("#err_zone").html("Zone is Required").delay(1500).show().fadeOut('slow');
+            $('#selectnumber').focus();
+            return false;
+        }
+        if ($.trim($("#SSWardNo").val()) == '') {
+            //$("#err_ward").html("वार्ड क्रमांक आवश्यक आहे / Ward number is Required").delay(1500).show().fadeOut('slow');
+            $("#err_ward").html("Ward / Prabhag Name is Required").delay(1500).show().fadeOut('slow');
+            $('#SSWardNo').focus();
+            return false;
+        }
+        return true;
+    });
+</script>
+

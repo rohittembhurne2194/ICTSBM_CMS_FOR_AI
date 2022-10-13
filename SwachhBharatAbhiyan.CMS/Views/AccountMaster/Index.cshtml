@@ -1,0 +1,137 @@
+﻿
+@{
+    Layout = "";
+}
+@Styles.Render("~/Content/IndexCSS")
+<link href='https://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
+
+@Scripts.Render("~/Scripts/IndexScript")
+<script src="~/Content/DatatableGrid/AURGridDetails.js"></script>
+
+<body>
+    <div class="container">
+        <br />
+        
+        <div class="content-inner">
+            <input type="hidden" value="0" id="appid" />
+            <div><h3 id="hchange" class="text-center text-bold" style="margin-bottom:2%"></h3></div>
+
+            <div class="row form" style="text-align: center; display: inline-flex;margin-left: 39%">
+                <label class="check-container" style="font-size: 18px;">
+                    <input type="radio" checked="checked" value="0" name="radio">
+                    Active User
+
+
+                    <span class="checkmark"></span>
+                </label>
+                <label class="check-container" style="font-size: 18px;">
+                    <input type="radio" value="1" name="radio">
+                    Non Active User
+
+                    <span class="checkmark"></span>
+                </label>
+            </div>
+            <div class="row">
+                <span class="backk" style="margin-left: 15px;">
+
+                    <a href="@Url.Action("Index", "AccountMaster")" id="btnBack" class="btn btn-sm btn-primary filter-button-style"><span class="glyphicon glyphicon-circle-arrow-left"></span>  Back</a>
+
+                </span>
+                <span class="backks" style="margin-left: 68%;">
+                    <a href="AddAUREmployeeDetails" class="btn btn-primary btn-sm float-right mr-3" type="button">Add User</a>
+
+
+                    <label style="display:inline-flex;padding-right:5px" class="float-right">Search:&nbsp;<input type="text" id="s" class="form-control form-control-sm" onkeyup="Search()"></label>
+                </span>
+                <h4 id="ulb_name" class="text-center" style="padding-left:14px;width:80%"></h4>
+
+            </div>
+            <br />
+
+
+        </div>
+
+        <div class="content-inner" style="overflow-y:auto">
+            <br />
+            <div style="width:100%; margin:0 auto;">
+                @*<a href="AttendenceIndex" class="btn btn-success btn-sm float-right" type="button">Attendance</a>
+                <a href="AddHSEmployeeDetails" class="btn btn-success btn-sm float-right" type="button">Add Employee</a>*@
+                @*<label style="display:inline-flex;padding-right:5px" class="float-right">Search:&nbsp;<input type="text" id="s" class="form-control form-control-sm" onkeyup="Search()"></label>*@
+                <table id="demoGrid" class="table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0" style="font-size:14px">
+
+                    <thead style="font-size:14px">
+
+
+                        <tr>
+                            <th>Id</th>
+                            <th> Date</th>
+                            <th> User Name</th>
+                            <th> Mobile Number</th>
+                            <th> User Role</th>
+                            <th> Status</th>
+                            <th> Action</th>
+                        </tr>
+                    </thead>
+
+
+                </table>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+<script type="text/javascript">
+
+    
+    $('input[type=radio][name=radio]').change(function () {
+
+        
+
+        LoadGridC();
+    });
+
+    function LoadGridC() {
+        var RadioValue = $("input[name='radio']:checked").val();
+        
+        if (RadioValue == 0) {
+            
+            $('#s').val('');
+            LoadAGrid();
+            $('#hchange').text('Active User');
+
+        }
+        else if (RadioValue == 1) {
+            $('#s').val('');
+            LoadNGrid();
+            $('#hchange').text('Non Active User');
+
+        }
+
+    }
+
+
+
+    function Search() {
+        
+        var value = ",,," + $("#s").val();
+        oTable = $('#demoGrid').DataTable();
+        oTable.search(value).draw();
+        oTable.search("");
+        document.getElementById('USER_ID_FK').value = -1;
+    }
+
+</script>
+
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        
+        LoadGridC();
+
+    });
+
+
+</script>

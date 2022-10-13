@@ -1,0 +1,303 @@
+﻿@model SwachBharat.CMS.Bll.ViewModels.ChildModel.Model.HouseScanifyEmployeeDetailsVM
+
+
+@{
+    Layout = "";
+}
+
+<link rel="shortcut icon" href="~/Content/images/img/sba.png" />
+@Styles.Render("~/Content/AddEditCSS")
+
+@Scripts.Render("~/Scripts/AddEditScript")
+@Scripts.Render("~/bundles/modernizr")
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+
+@using (Html.BeginForm("AddHSEmployeeDetails", "HouseScanify", FormMethod.Post, new { enctype = "multipart/form-data", data_toggle = "validator", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.qrEmpId);
+
+
+    <div class="container">
+        <div class="row">
+            <span class="backk">
+
+                <a href="@Url.Action("Index", "HouseScanify")" id="btnBack" class="btn"><span class="glyphicon glyphicon-circle-arrow-left"></span>  Back</a>
+            </span>
+            <h1 class="add-edit-h1 title_change"></h1>
+            <div class="row">@Html.ValidationSummary(true, "", new { @class = "text-danger" }) </div>
+            <div class="panel panel-warning col-sm-12 ">
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @*@Html.Label("नाव / Name")*@
+                            @Html.Label("Name")
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.TextBoxFor(model => model.qrEmpName, new { @class = "form-control", style = "font-family:Arial, FontAwesome", required = "required" })
+                            @Html.ValidationMessageFor(model => model.qrEmpName, "", new { @class = "text-danger" })
+                            <span class="text-danger" id="err_name"></span>
+                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                            <span class="help-block with-errors"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @*@Html.Label("रक्त गट / Blood Group ")*@
+                            @Html.Label("Blood Group ")
+                            @{  var RlistItems = new List<SelectListItem>();
+
+                RlistItems.Add(new SelectListItem { Text = "Select Blood Group", Value = "0" });
+                RlistItems.Add(new SelectListItem { Text = "A+ve", Value = "A+ve" });
+                RlistItems.Add(new SelectListItem { Text = "A-ve", Value = "A-ve" });
+                RlistItems.Add(new SelectListItem { Text = "B+ve", Value = "B+ve" });
+                RlistItems.Add(new SelectListItem { Text = "B-ve", Value = "B-ve" });
+                RlistItems.Add(new SelectListItem { Text = "O+ve", Value = "O+ve" });
+                RlistItems.Add(new SelectListItem { Text = "O-ve", Value = "O-ve" });
+                RlistItems.Add(new SelectListItem { Text = "AB+ve", Value = "AB+ve" });
+                RlistItems.Add(new SelectListItem { Text = "AB-ve", Value = "AB-ve" });
+                            }
+                            @Html.DropDownListFor(model => model.bloodGroup, RlistItems, new { style = "font-family:Arial, FontAwesome", required = "required", @class = "form-control RequiredInput validate[required] RequiredInput" })
+
+
+                            <span class="text-danger" id="err_pw"></span>
+                            <span class="help-block with-errors"></span>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @*@Html.Label("पत्ता / Address")*@
+                            @Html.Label("Address")
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.TextBoxFor(model => model.qrEmpAddress, new { @class = "form-control", style = "font-family:Arial, FontAwesome", required = "required" })
+                            @Html.ValidationMessageFor(model => model.qrEmpAddress, "", new { @class = "text-danger" })
+                            <span class="text-danger" id="err_address"></span>
+                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                            <span class="help-block with-errors"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @*@Html.Label("मोबाइल / Mobile")*@
+                            @Html.Label("Mobile")
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.TextBoxFor(model => model.qrEmpMobileNumber, new { @class = "form-control", style = "font-family:Arial, FontAwesome", minlength = "10", maxlength = "10", required = "required" })
+                            @Html.ValidationMessageFor(model => model.qrEmpMobileNumber, "", new { @class = "text-danger" })
+                            <span class="text-danger" id="err_mobile"></span>
+                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                            <span class="help-block with-errors"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @*@Html.Label("लॉगिन आई डी / Login ID")*@
+                            @Html.Label("Login ID")
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.TextBoxFor(model => model.qrEmpLoginId, new { @class = "form-control", style = "font-family:Arial, FontAwesome", required = "required" })
+                            @Html.ValidationMessageFor(model => model.qrEmpLoginId, "", new { @class = "text-danger" })
+                            <span class="text-danger" id="err_login"></span>
+                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                            <span class="help-block with-errors"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @*@Html.Label("पासवर्ड / Password")*@
+                            @Html.Label("Password")
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.TextBoxFor(model => model.qrEmpPassword, new { @class = "form-control", style = "font-family:Arial, FontAwesome", required = "required" })
+                            @Html.ValidationMessageFor(model => model.qrEmpPassword, "", new { @class = "text-danger" })
+                            <span class="text-danger" id="err_pw"></span>
+                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                            <span class="help-block with-errors"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @*@Html.Label("आयएमईआय संख्या / Login Number ")*@
+                            @Html.Label("Login Number ")
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.TextBoxFor(model => model.imoNo, new { @readonly = "readonly", @class = "form-control", style = "font-family:Arial, FontAwesome;color:#999;" })
+                            <span class="text-danger" id="err_pw"></span>
+                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                            <span class="help-block with-errors"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <br />
+                        <div class="form-group" style="margin-top:10px">
+
+                            <label>Clear Login </label>   <input type="checkbox" id="check" />
+                        </div>
+                    </div>
+
+          
+                    <div class="col-md-2">
+                        <br />
+                        <div class="form-group" style="margin-top:10px">
+                            <label>Is Active </label>
+                            @Html.CheckBox("isActive")
+                        </div>
+
+                    </div>
+
+                </div>
+                <br />
+
+
+                <div class="row">
+                    <center><span class="text-danger" id="err_generate"></span></center>
+                    <div class="form-group1">
+                        <button type="submit" name="submit" class="btn" id="btnSubmit" onclick="return Validate()">
+
+                            <span class="glyphicon glyphicon-saved"></span>
+                            <span id="buttonName">Save Changes</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+                                }
+
+<script>
+    document.getElementById("qrEmpName").addEventListener("input", forceLower);
+
+    // Event handling functions are automatically passed a reference to the
+    // event that triggered them as the first argument (evt)
+    function forceLower(evt) {
+        // Get an array of all the words (in all lower case)
+        var words = evt.target.value.toLowerCase().split(/\s+/g);
+
+        // Loop through the array and replace the first letter with a cap
+        var newWords = words.map(function (element) {
+            // As long as we're not dealing with an empty array element, return the first letter
+            // of the word, converted to upper case and add the rest of the letters from this word.
+            // Return the final word to a new array
+            return element !== "" ? element[0].toUpperCase() + element.substr(1, element.length) : "";
+        });
+
+        // Replace the original value with the updated array of capitalized words.
+        evt.target.value = newWords.join(" ");
+    }
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#qrEmpLoginId').keypress(function (e) {
+            if (e.which === 32)
+                return false;
+        });
+        $('#qrEmpPassword').keypress(function (e) {
+            if (e.which === 32)
+                return false;
+        });
+        var id = $('#qrEmpId').val();
+        if (id > 0) {
+            $('#buttonName').text("Save Changes");
+            //$('.title_change').text("कर्मचारी तपशील सादर बदला / Edit Employee Details");
+            $('.title_change').text("Edit Employee Details");
+        } else {
+            $('#buttonName').text("Save");
+            //$('.title_change').text("कर्मचारी तपशील सादर करा / Add  Employee Details");
+            $('.title_change').text("Add  Employee Details");
+        }
+
+
+
+        //imei Validation and clear login validation
+
+        if ($("#imoNo").val().trim() != "") {
+            $('#check').not(this).prop('checked', false);
+        }
+        else {
+
+            $('#check').not(this).prop('checked', true);
+        }
+
+        $('#check').change(function () {
+            if ($(this).is(':checked')) {
+                // Do something...
+                $("#imoNo").val("");
+            };
+
+        });
+
+        /////////
+
+
+        //input Validations
+
+        $("#qrEmpMobileNumber").keypress(function (e) {
+            //if the letter is not digit then display error and don't type anything
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57) && e.which != 44) {
+                //display error message
+                //$("#err_mobile").html("केवल अंक | Digits Only").show().delay(1500).show().fadeOut('slow');
+                $("#err_mobile").html("Digits Only").show().delay(1500).show().fadeOut('slow');
+                return false;
+            }
+        });
+
+
+
+
+
+        $("#btnSubmit").click(function () {
+            $('#qrEmpLoginId').val($.trim($("#qrEmpLoginId").val()).replace(/\s/g, ''));
+            $('#qrEmpPassword').val($.trim($("#qrEmpPassword").val()).replace(/\s/g, ''));
+            if ($.trim($("#qrEmpName").val()) == '') {
+                //$("#err_name").html("नाव आवश्यक आहे / Name is Required").delay(1500).show().fadeOut('slow');
+                $("#err_name").html("Name is Required").delay(1500).show().fadeOut('slow');
+                $('#qrEmpName').focus();
+                return false;
+            }
+            if ($.trim($("#qrEmpAddress").val()) == '') {
+                //$("#err_address").html("पत्ता  आवश्यक आहे / Address is Required").delay(1500).show().fadeOut('slow');
+                $("#err_address").html("Address is Required").delay(1500).show().fadeOut('slow');
+                $('#qrEmpAddress').focus();
+                return false;
+            }
+
+            if ($.trim($("#qrEmpMobileNumber").val()) == '') {
+                //$("#err_mobile").html("मोबाइल नंबर आवश्यक आहे / Mobile Number is Required").delay(1500).show().fadeOut('slow');
+                $("#err_mobile").html("Mobile Number is Required").delay(1500).show().fadeOut('slow');
+                $('#qrEmpMobileNumber').focus();
+                return false;
+            }
+
+            if ($.trim($("#qrEmpLoginId").val()) == '') {
+                //$("#err_login").html("लॉगिन आईडी आवश्यक आहे / Login ID is Required").delay(1500).show().fadeOut('slow');
+                $("#err_login").html("Login ID is Required").delay(1500).show().fadeOut('slow');
+                $('#qrEmpLoginId').focus();
+                return false;
+            }
+
+            if ($.trim($("#qrEmpPassword").val()) == '') {
+                //$("#err_pw").html("पासवर्डआवश्यक आहे / Password is Required").delay(1500).show().fadeOut('slow');
+                $("#err_pw").html("Password is Required").delay(1500).show().fadeOut('slow');
+                $('#qrEmpPassword').focus();
+                return false;
+            }
+
+
+
+            return true;
+        });
+    });
+
+
+</script>

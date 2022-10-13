@@ -1,0 +1,1499 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DevSwachhBharatMainModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AD_USER_MST_LIQUID">
+          <Key>
+            <PropertyRef Name="ADUM_USER_CODE" />
+          </Key>
+          <Property Name="ADUM_USER_CODE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SERVER_ID" Type="tinyint" />
+          <Property Name="APP_ID" Type="int" Nullable="false" />
+          <Property Name="ADUM_USER_ID" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ADUM_USER_NAME" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="ADUM_LOGIN_ID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ADUM_PASSWORD" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ADUM_EMPLOYEE_ID" Type="nvarchar" MaxLength="50" />
+          <Property Name="ADUM_DESIGNATION" Type="varchar" MaxLength="50" />
+          <Property Name="ADUM_MOBILE" Type="varchar" MaxLength="15" />
+          <Property Name="ADUM_EMAIL" Type="varchar" MaxLength="200" />
+          <Property Name="LOCAL_USER_NAME" Type="varchar" MaxLength="200" />
+          <Property Name="PROFILE_IMAGE" Type="nvarchar" MaxLength="100" />
+          <Property Name="ADUM_FRDT" Type="datetime" />
+          <Property Name="ADUM_TODT" Type="datetime" />
+          <Property Name="ADUM_STATUS" Type="bit" />
+          <Property Name="UPDATE_FLAG" Type="bit" />
+          <Property Name="LAST_UPDATE" Type="smalldatetime" />
+          <Property Name="AD_USER_TYPE_ID" Type="int" />
+          <Property Name="MOBILE_ID" Type="nvarchar" MaxLength="100" />
+          <Property Name="IS_ACTIVE" Type="bit" />
+          <Property Name="IMO_NO" Type="nvarchar" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="AD_USER_MST_STREET">
+          <Key>
+            <PropertyRef Name="ADUM_USER_CODE" />
+          </Key>
+          <Property Name="ADUM_USER_CODE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SERVER_ID" Type="tinyint" />
+          <Property Name="APP_ID" Type="int" Nullable="false" />
+          <Property Name="ADUM_USER_ID" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ADUM_USER_NAME" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="ADUM_LOGIN_ID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ADUM_PASSWORD" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ADUM_EMPLOYEE_ID" Type="nvarchar" MaxLength="50" />
+          <Property Name="ADUM_DESIGNATION" Type="varchar" MaxLength="50" />
+          <Property Name="ADUM_MOBILE" Type="varchar" MaxLength="15" />
+          <Property Name="ADUM_EMAIL" Type="varchar" MaxLength="200" />
+          <Property Name="LOCAL_USER_NAME" Type="varchar" MaxLength="200" />
+          <Property Name="PROFILE_IMAGE" Type="nvarchar" MaxLength="100" />
+          <Property Name="ADUM_FRDT" Type="datetime" />
+          <Property Name="ADUM_TODT" Type="datetime" />
+          <Property Name="ADUM_STATUS" Type="bit" />
+          <Property Name="UPDATE_FLAG" Type="bit" />
+          <Property Name="LAST_UPDATE" Type="smalldatetime" />
+          <Property Name="AD_USER_TYPE_ID" Type="int" />
+          <Property Name="MOBILE_ID" Type="nvarchar" MaxLength="100" />
+          <Property Name="IS_ACTIVE" Type="bit" />
+          <Property Name="IMO_NO" Type="nvarchar" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="AEmployeeMaster">
+          <Key>
+            <PropertyRef Name="EmpId" />
+          </Key>
+          <Property Name="EmpId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmpName" Type="nvarchar" MaxLength="500" />
+          <Property Name="EmpNameMar" Type="nvarchar" MaxLength="200" />
+          <Property Name="LoginId" Type="nvarchar" MaxLength="200" />
+          <Property Name="Password" Type="nvarchar" MaxLength="100" />
+          <Property Name="EmpMobileNumber" Type="nvarchar" MaxLength="20" />
+          <Property Name="EmpAddress" Type="nvarchar" MaxLength="200" />
+          <Property Name="type" Type="nvarchar" MaxLength="50" />
+          <Property Name="isActive" Type="bit" />
+          <Property Name="StateId" Type="int" />
+          <Property Name="DivisionId" Type="int" />
+          <Property Name="DistictId" Type="int" />
+          <Property Name="isActiveULB" Type="nvarchar(max)" />
+          <Property Name="lastModifyDateEntry" Type="datetime" />
+        </EntityType>
+        <EntityType Name="AppConnection">
+          <Key>
+            <PropertyRef Name="AppConnectionId" />
+          </Key>
+          <Property Name="AppConnectionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AppId" Type="int" Nullable="false" />
+          <Property Name="DataSource" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="InitialCatalog" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="UserId" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AppDetails">
+          <Key>
+            <PropertyRef Name="AppId" />
+          </Key>
+          <Property Name="AppId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AppName" Type="nvarchar" MaxLength="100" />
+          <Property Name="AppName_mar" Type="nvarchar" MaxLength="100" />
+          <Property Name="State" Type="int" />
+          <Property Name="Tehsil" Type="int" />
+          <Property Name="District" Type="int" />
+          <Property Name="EmailId" Type="nvarchar" MaxLength="100" />
+          <Property Name="website" Type="nvarchar" MaxLength="100" />
+          <Property Name="Android_GCM_pushNotification_Key" Type="varchar" MaxLength="150" />
+          <Property Name="IsProduction" Type="bit" />
+          <Property Name="baseImageUrlCMS" Type="nvarchar" MaxLength="255" />
+          <Property Name="baseImageUrl" Type="nvarchar" MaxLength="255" />
+          <Property Name="AboutThumbnailURL" Type="nvarchar" MaxLength="1000" />
+          <Property Name="AboutAppynity" Type="nvarchar" MaxLength="50" />
+          <Property Name="AboutTeamDetail" Type="nvarchar" MaxLength="50" />
+          <Property Name="ContactUsTeamMember" Type="nvarchar" MaxLength="50" />
+          <Property Name="HomeSplash" Type="nvarchar" MaxLength="50" />
+          <Property Name="FAQ" Type="nvarchar" MaxLength="50" />
+          <Property Name="ContactUs" Type="nvarchar" MaxLength="50" />
+          <Property Name="basePath" Type="nvarchar" MaxLength="40" />
+          <Property Name="yoccContact" Type="nvarchar(max)" />
+          <Property Name="Type" Type="nchar" MaxLength="20" />
+          <Property Name="Logo" Type="nvarchar(max)" />
+          <Property Name="Latitude" Type="nvarchar(max)" />
+          <Property Name="Logitude" Type="nvarchar(max)" />
+          <Property Name="UserProfile" Type="nvarchar" MaxLength="200" />
+          <Property Name="Collection" Type="nvarchar" MaxLength="200" />
+          <Property Name="HouseQRCode" Type="nvarchar" MaxLength="220" />
+          <Property Name="PointQRCode" Type="nvarchar" MaxLength="220" />
+          <Property Name="HousePDF" Type="nvarchar" MaxLength="550" />
+          <Property Name="PointPDF" Type="nvarchar" MaxLength="550" />
+          <Property Name="Grampanchayat_Pro" Type="nvarchar(max)" />
+          <Property Name="AppVersion" Type="nvarchar" MaxLength="500" />
+          <Property Name="ForceUpdate" Type="bit" />
+          <Property Name="APIHit" Type="int" />
+          <Property Name="NewFeatures" Type="bit" />
+          <Property Name="ReportEnable" Type="bit" />
+          <Property Name="DumpYardQRCode" Type="nvarchar" MaxLength="250" />
+          <Property Name="DumpYardPDF" Type="nvarchar" MaxLength="250" />
+          <Property Name="GramPanchyatAppID" Type="int" />
+          <Property Name="YoccClientID" Type="int" />
+          <Property Name="YoccFeddbackLink" Type="nvarchar" MaxLength="250" />
+          <Property Name="YoccDndLink" Type="nvarchar" MaxLength="250" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="LanguageId" Type="int" />
+          <Property Name="MsgForBroadcast" Type="nvarchar" MaxLength="1000" />
+          <Property Name="MsgForNotSpecified" Type="nvarchar" MaxLength="1000" />
+          <Property Name="MsgForMixed" Type="nvarchar" MaxLength="1000" />
+          <Property Name="MsgForNotReceived" Type="nvarchar" MaxLength="1000" />
+          <Property Name="MsgForSegregated" Type="nvarchar" MaxLength="1000" />
+          <Property Name="IsScanNear" Type="bit" />
+          <Property Name="LiquidQRCode" Type="varchar" MaxLength="50" />
+          <Property Name="StreetQRCode" Type="varchar" MaxLength="50" />
+          <Property Name="CommercialQRCode" Type="nvarchar" MaxLength="100" />
+          <Property Name="CTPTQRCode" Type="nvarchar" MaxLength="100" />
+          <Property Name="SWMQRCode" Type="nvarchar" MaxLength="100" />
+          <Property Name="ulb_property" Type="int" />
+          <Property Name="Add_Ulb_Property" Type="int" />
+          <Property Name="Today_Waste_Status" Type="bit" />
+          <Property Name="Today_Liquid_Status" Type="bit" />
+          <Property Name="Today_Street_Status" Type="bit" />
+          <Property Name="Status" Type="bit" />
+          <Property Name="VehicalQRCode" Type="nvarchar" MaxLength="250" />
+          <Property Name="AppAreaLatLong" Type="nvarchar(max)" />
+          <Property Name="IsAreaActive" Type="bit" />
+          <Property Name="Today_HouseScanCount" Type="int" />
+          <Property Name="Today_LiquidScanCount" Type="int" />
+          <Property Name="Today_StreetScanCount" Type="int" />
+          <Property Name="Total_HouseCount" Type="int" />
+          <Property Name="Total_LiquidCount" Type="int" />
+          <Property Name="Total_StreetCount" Type="int" />
+          <Property Name="Today_DumpScanCount" Type="int" />
+          <Property Name="Total_DumpCount" Type="int" />
+          <Property Name="AppLink" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Loginuser" Type="nvarchar" MaxLength="256" />
+          <Property Name="PasswordString" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="CheckAppD">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="App_Name" Type="varchar" MaxLength="100" />
+          <Property Name="IsCheked" Type="bit" Nullable="false" />
+          <Property Name="AppId" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="country_states">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="country_name" Type="nvarchar" MaxLength="90" />
+          <Property Name="state_name" Type="nvarchar" MaxLength="250" />
+          <Property Name="state_name_mar" Type="nvarchar" MaxLength="250" />
+          <Property Name="state_3_code" Type="nvarchar" MaxLength="3" />
+          <Property Name="state_2_code" Type="nvarchar" MaxLength="2" />
+        </EntityType>
+        <EntityType Name="EmployeeMaster">
+          <Key>
+            <PropertyRef Name="EmpId" />
+          </Key>
+          <Property Name="EmpId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmpName" Type="nvarchar" MaxLength="500" />
+          <Property Name="EmpNameMar" Type="nvarchar" MaxLength="200" />
+          <Property Name="LoginId" Type="nvarchar" MaxLength="200" />
+          <Property Name="Password" Type="nvarchar" MaxLength="100" />
+          <Property Name="EmpMobileNumber" Type="nvarchar" MaxLength="20" />
+          <Property Name="EmpAddress" Type="nvarchar" MaxLength="200" />
+          <Property Name="type" Type="nvarchar" MaxLength="50" />
+          <Property Name="isActive" Type="bit" />
+          <Property Name="isActiveULB" Type="nvarchar(max)" />
+          <Property Name="lastModifyDateEntry" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Game_AnswerType">
+          <Key>
+            <PropertyRef Name="AnswerTypeId" />
+          </Key>
+          <Property Name="AnswerTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AnswerType" Type="nvarchar" MaxLength="50" />
+          <Property Name="AnswerTypeMar" Type="nvarchar" MaxLength="50" />
+          <Property Name="AnswerTypeHindi" Type="nvarchar" MaxLength="50" />
+          <Property Name="GameMasterID" Type="int" />
+        </EntityType>
+        <EntityType Name="Game_Slogan">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Slogan" Type="nvarchar" MaxLength="500" />
+          <Property Name="SloganMar" Type="nvarchar" MaxLength="500" />
+          <Property Name="SloganHindi" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="GameDetails">
+          <Key>
+            <PropertyRef Name="GameDetailsID" />
+          </Key>
+          <Property Name="GameDetailsID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ImageUrl" Type="nvarchar" MaxLength="500" />
+          <Property Name="RightAnswerID" Type="int" />
+          <Property Name="Point" Type="int" />
+          <Property Name="GameMasterID" Type="int" />
+          <Property Name="SloganID" Type="int" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="Created" Type="datetime" />
+        </EntityType>
+        <EntityType Name="GameMaster">
+          <Key>
+            <PropertyRef Name="GameId" />
+          </Key>
+          <Property Name="GameId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GameName" Type="nvarchar" MaxLength="100" />
+          <Property Name="GameNameMar" Type="nvarchar" MaxLength="100" />
+          <Property Name="GameNameHindi" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="GamePlayerDetails">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PlayerId" Type="nvarchar" MaxLength="50" />
+          <Property Name="GameId" Type="int" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Mobile" Type="nvarchar" MaxLength="50" />
+          <Property Name="Score" Type="int" />
+          <Property Name="DeviceId" Type="nvarchar" MaxLength="500" />
+          <Property Name="Created" Type="datetime" />
+        </EntityType>
+        <EntityType Name="GoogleAPIDetails">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="GoogleAPI" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="HSUR_Daily_Attendance">
+          <Key>
+            <PropertyRef Name="daID" />
+          </Key>
+          <Property Name="daID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userId" Type="int" />
+          <Property Name="startLat" Type="nvarchar" MaxLength="500" />
+          <Property Name="startLong" Type="nvarchar" MaxLength="500" />
+          <Property Name="endLat" Type="nchar" MaxLength="10" />
+          <Property Name="endLong" Type="nchar" MaxLength="10" />
+          <Property Name="startTime" Type="nvarchar" MaxLength="200" />
+          <Property Name="endTime" Type="nvarchar" MaxLength="200" />
+          <Property Name="daDate" Type="date" />
+          <Property Name="daEndDate" Type="date" />
+          <Property Name="batteryStatus" Type="varchar" MaxLength="20" />
+          <Property Name="OutbatteryStatus" Type="varchar" MaxLength="20" />
+          <Property Name="EmployeeType" Type="varchar" MaxLength="10" />
+          <Property Name="ip_address" Type="nvarchar(max)" />
+          <Property Name="login_device" Type="nvarchar(max)" />
+          <Property Name="HostName" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Sauchalay_feedback">
+          <Key>
+            <PropertyRef Name="SauchalayFeedback_ID" />
+          </Key>
+          <Property Name="SauchalayFeedback_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ULB" Type="varchar" MaxLength="50" />
+          <Property Name="SauchalayID" Type="nvarchar" MaxLength="50" />
+          <Property Name="AppId" Type="int" />
+          <Property Name="Fullname" Type="nvarchar(max)" />
+          <Property Name="MobileNo" Type="nvarchar(max)" />
+          <Property Name="que1" Type="nvarchar" MaxLength="50" />
+          <Property Name="que2" Type="nvarchar" MaxLength="50" />
+          <Property Name="que3" Type="nvarchar" MaxLength="50" />
+          <Property Name="Rating" Type="nvarchar" MaxLength="50" />
+          <Property Name="Feedback" Type="nvarchar(max)" />
+          <Property Name="Date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="state_districts">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="state_id" Type="int" Nullable="false" />
+          <Property Name="district_name" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="district_name_mar" Type="nvarchar" MaxLength="450" />
+        </EntityType>
+        <EntityType Name="Subscriptions">
+          <Key>
+            <PropertyRef Name="subscriptionId" />
+          </Key>
+          <Property Name="subscriptionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="subscriptionName" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tehsil">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="250" />
+          <Property Name="name_mar" Type="nvarchar" MaxLength="250" />
+          <Property Name="latitude" Type="nvarchar" MaxLength="20" />
+          <Property Name="longitude" Type="nvarchar" MaxLength="20" />
+          <Property Name="state" Type="int" />
+          <Property Name="district" Type="int" />
+        </EntityType>
+        <EntityType Name="UR_Location">
+          <Key>
+            <PropertyRef Name="locId" />
+          </Key>
+          <Property Name="locId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="empId" Type="int" />
+          <Property Name="datetime" Type="datetime" />
+          <Property Name="lat" Type="nvarchar" MaxLength="500" />
+          <Property Name="long" Type="nvarchar" MaxLength="500" />
+          <Property Name="address" Type="nvarchar(max)" />
+          <Property Name="area" Type="nvarchar" MaxLength="500" />
+          <Property Name="type" Type="int" />
+          <Property Name="batteryStatus" Type="varchar" MaxLength="20" />
+          <Property Name="Distnace" Type="decimal" Precision="6" Scale="2" />
+          <Property Name="IsOffline" Type="bit" />
+          <Property Name="ReferanceID" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="UserInApps">
+          <Key>
+            <PropertyRef Name="UserInAppsID" />
+          </Key>
+          <Property Name="UserInAppsID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="AppId" Type="int" Nullable="false" />
+          <Property Name="subscriptionId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="SP_Admin_table" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_Admin2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_ULBADMIN" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DivisionIdIn" Type="int" Mode="In" />
+          <Parameter Name="DistrictIdIn" Type="int" Mode="In" />
+          <Parameter Name="AppIdIN" Type="int" Mode="In" />
+          <Parameter Name="UserId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_ULBADMINSTATUS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DivisionIdIn" Type="int" Mode="In" />
+          <Parameter Name="DistrictIdIn" Type="int" Mode="In" />
+          <Parameter Name="AppIdIN" Type="int" Mode="In" />
+          <Parameter Name="UserId" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="DevSwachhBharatMainModelStoreContainer">
+          <EntitySet Name="AD_USER_MST_LIQUID" EntityType="Self.AD_USER_MST_LIQUID" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AD_USER_MST_STREET" EntityType="Self.AD_USER_MST_STREET" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AEmployeeMaster" EntityType="Self.AEmployeeMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AppConnection" EntityType="Self.AppConnection" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AppDetails" EntityType="Self.AppDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CheckAppD" EntityType="Self.CheckAppD" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="country_states" EntityType="Self.country_states" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployeeMaster" EntityType="Self.EmployeeMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Game_AnswerType" EntityType="Self.Game_AnswerType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Game_Slogan" EntityType="Self.Game_Slogan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GameDetails" EntityType="Self.GameDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GameMaster" EntityType="Self.GameMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GamePlayerDetails" EntityType="Self.GamePlayerDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GoogleAPIDetails" EntityType="Self.GoogleAPIDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HSUR_Daily_Attendance" EntityType="Self.HSUR_Daily_Attendance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sauchalay_feedback" EntityType="Self.Sauchalay_feedback" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="state_districts" EntityType="Self.state_districts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Subscriptions" EntityType="Self.Subscriptions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tehsil" EntityType="Self.tehsil" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UR_Location" EntityType="Self.UR_Location" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserInApps" EntityType="Self.UserInApps" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DevSwachhBharatMainModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AppConnection">
+          <Key>
+            <PropertyRef Name="AppConnectionId" />
+          </Key>
+          <Property Name="AppConnectionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AppId" Type="Int32" Nullable="false" />
+          <Property Name="DataSource" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="InitialCatalog" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserId" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaim">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="DevSwachhBharatMainModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaim" ToRole="AspNetUser" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogin">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="DevSwachhBharatMainModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogin" ToRole="AspNetUser" />
+        </EntityType>
+        <EntityType Name="country_states">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="country_name" Type="String" MaxLength="90" FixedLength="false" Unicode="true" />
+          <Property Name="state_name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="state_name_mar" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="state_3_code" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="state_2_code" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="state_districts">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="state_id" Type="Int32" Nullable="false" />
+          <Property Name="district_name" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="district_name_mar" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Subscription">
+          <Key>
+            <PropertyRef Name="subscriptionId" />
+          </Key>
+          <Property Name="subscriptionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="subscriptionName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserInApp">
+          <Key>
+            <PropertyRef Name="UserInAppsID" />
+          </Key>
+          <Property Name="UserInAppsID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AppId" Type="Int32" Nullable="false" />
+          <Property Name="subscriptionId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="DevSwachhBharatMainEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AppConnections" EntityType="Self.AppConnection" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
+          <EntitySet Name="country_states" EntityType="Self.country_states" />
+          <EntitySet Name="state_districts" EntityType="Self.state_districts" />
+          <EntitySet Name="Subscriptions" EntityType="Self.Subscription" />
+          <EntitySet Name="UserInApps" EntityType="Self.UserInApp" />
+          <FunctionImport Name="SP_Admin_table" />
+          <EntitySet Name="Sauchalay_feedback" EntityType="DevSwachhBharatMainModel.Sauchalay_feedback" />
+          <EntitySet Name="Game_AnswerType" EntityType="DevSwachhBharatMainModel.Game_AnswerType" />
+          <EntitySet Name="Game_Slogan" EntityType="DevSwachhBharatMainModel.Game_Slogan" />
+          <EntitySet Name="GameDetails" EntityType="DevSwachhBharatMainModel.GameDetail" />
+          <EntitySet Name="GameMasters" EntityType="DevSwachhBharatMainModel.GameMaster" />
+          <EntitySet Name="GamePlayerDetails" EntityType="DevSwachhBharatMainModel.GamePlayerDetail" />
+          <FunctionImport Name="SP_Admin2" ReturnType="Collection(DevSwachhBharatMainModel.SP_Admin2_Result)" />
+          <EntitySet Name="EmployeeMasters" EntityType="DevSwachhBharatMainModel.EmployeeMaster" />
+          <EntitySet Name="AEmployeeMasters" EntityType="DevSwachhBharatMainModel.AEmployeeMaster" />
+          <FunctionImport Name="SP_ULBADMINSTATUS" ReturnType="Collection(DevSwachhBharatMainModel.SP_ULBADMINSTATUS_Result)">
+            <Parameter Name="DivisionIdIn" Mode="In" Type="Int32" />
+            <Parameter Name="DistrictIdIn" Mode="In" Type="Int32" />
+            <Parameter Name="AppIdIN" Mode="In" Type="Int32" />
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_ULBADMIN" ReturnType="Collection(DevSwachhBharatMainModel.SP_ULBADMIN_Result)">
+            <Parameter Name="DivisionIdIn" Mode="In" Type="Int32" />
+            <Parameter Name="DistrictIdIn" Mode="In" Type="Int32" />
+            <Parameter Name="AppIdIN" Mode="In" Type="Int32" />
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="AspNetUsers" EntityType="DevSwachhBharatMainModel.AspNetUser" />
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="DevSwachhBharatMainModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="DevSwachhBharatMainModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogin" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <EntitySet Name="AppDetails" EntityType="DevSwachhBharatMainModel.AppDetail" />
+          <EntitySet Name="UR_Location" EntityType="DevSwachhBharatMainModel.UR_Location" />
+          <EntitySet Name="HSUR_Daily_Attendance" EntityType="DevSwachhBharatMainModel.HSUR_Daily_Attendance" />
+          <EntitySet Name="GoogleAPIDetails" EntityType="DevSwachhBharatMainModel.GoogleAPIDetail" />
+          <EntitySet Name="tehsils" EntityType="DevSwachhBharatMainModel.tehsil" />
+          <EntitySet Name="AD_USER_MST_LIQUID" EntityType="DevSwachhBharatMainModel.AD_USER_MST_LIQUID" />
+          <EntitySet Name="AD_USER_MST_STREET" EntityType="DevSwachhBharatMainModel.AD_USER_MST_STREET" />
+          <EntitySet Name="CheckAppDs" EntityType="DevSwachhBharatMainModel.CheckAppD" />
+        </EntityContainer>
+        <EntityType Name="Sauchalay_feedback">
+          <Key>
+            <PropertyRef Name="SauchalayFeedback_ID" />
+          </Key>
+          <Property Name="SauchalayFeedback_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ULB" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SauchalayID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AppId" Type="Int32" />
+          <Property Name="Fullname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MobileNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="que1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="que2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="que3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Rating" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Feedback" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Game_AnswerType">
+          <Key>
+            <PropertyRef Name="AnswerTypeId" />
+          </Key>
+          <Property Name="AnswerTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AnswerType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AnswerTypeMar" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GameMasterID" Type="Int32" />
+          <Property Name="AnswerTypeHindi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Game_Slogan">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Slogan" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="SloganMar" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="SloganHindi" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="GameDetail">
+          <Key>
+            <PropertyRef Name="GameDetailsID" />
+          </Key>
+          <Property Name="GameDetailsID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ImageUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="RightAnswerID" Type="Int32" />
+          <Property Name="Point" Type="Int32" />
+          <Property Name="GameMasterID" Type="Int32" />
+          <Property Name="SloganID" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Created" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="GameMaster">
+          <Key>
+            <PropertyRef Name="GameId" />
+          </Key>
+          <Property Name="GameId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GameName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="GameNameMar" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="GameNameHindi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="GamePlayerDetail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PlayerId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GameId" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Score" Type="Int32" />
+          <Property Name="DeviceId" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Created" Type="DateTime" Precision="3" />
+        </EntityType>
+        <ComplexType Name="SP_Admin2_Result">
+          <Property Type="String" Name="appName" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="userId" Nullable="true" />
+          <Property Type="Int32" Name="attenUser" Nullable="true" />
+          <Property Type="Int32" Name="collectionCount" Nullable="true" />
+          <Property Type="Int32" Name="notspecified" Nullable="true" />
+          <Property Type="Int32" Name="notrecviedCollection" Nullable="true" />
+          <Property Type="Int32" Name="byfurgetcol" Nullable="true" />
+          <Property Type="Int32" Name="mixedcolle" Nullable="true" />
+          <Property Type="Int32" Name="TotalLiquidCount" Nullable="true" />
+          <Property Type="Int32" Name="TotalStreetCount" Nullable="true" />
+          <Property Type="String" Name="Datasource" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="EmployeeMaster">
+          <Key>
+            <PropertyRef Name="EmpId" />
+          </Key>
+          <Property Name="EmpId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmpName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="EmpNameMar" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="LoginId" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="EmpMobileNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="EmpAddress" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="isActive" Type="Boolean" />
+          <Property Name="isActiveULB" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="lastModifyDateEntry" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="AEmployeeMaster">
+          <Key>
+            <PropertyRef Name="EmpId" />
+          </Key>
+          <Property Name="EmpId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmpName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="EmpNameMar" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="LoginId" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="EmpMobileNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="EmpAddress" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="isActive" Type="Boolean" />
+          <Property Name="StateId" Type="Int32" />
+          <Property Name="DivisionId" Type="Int32" />
+          <Property Name="DistictId" Type="Int32" />
+          <Property Name="isActiveULB" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="lastModifyDateEntry" Type="DateTime" Precision="3" />
+        </EntityType>
+        <ComplexType Name="SP_ULBADMINSTATUS_Result">
+          <Property Type="Int32" Name="AppId" Nullable="false" />
+          <Property Type="String" Name="appName" Nullable="true" MaxLength="100" />
+          <Property Type="Boolean" Name="Status" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SP_ULBADMIN_Result">
+          <Property Type="String" Name="ParentULB" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="ULBName" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="ULBId" Nullable="true" />
+          <Property Type="Int32" Name="TotalHouse" Nullable="true" />
+          <Property Type="Int32" Name="TotalHouseScan" Nullable="true" />
+          <Property Type="Int32" Name="TotalSeg" Nullable="true" />
+          <Property Type="Int32" Name="TotalMix" Nullable="true" />
+          <Property Type="Int32" Name="TotalNotReceived" Nullable="true" />
+          <Property Type="Int32" Name="ULBCount" Nullable="true" />
+          <Property Type="Int32" Name="TotalActiveEmp" Nullable="true" />
+          <Property Type="Int32" Name="TotalOnDutyEmp" Nullable="true" />
+          <Property Type="Int32" Name="TotalOffDutyEmp" Nullable="true" />
+          <Property Type="Int32" Name="InprogressULB" Nullable="true" />
+          <Property Type="Int32" Name="CompleteULB" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="AspNetUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Loginuser" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordString" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="DevSwachhBharatMainModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="DevSwachhBharatMainModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
+        </EntityType>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Type="DevSwachhBharatMainModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DevSwachhBharatMainModel.AspNetUserClaim" Role="AspNetUserClaim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaim">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Type="DevSwachhBharatMainModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DevSwachhBharatMainModel.AspNetUserLogin" Role="AspNetUserLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogin">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="AppDetail">
+          <Key>
+            <PropertyRef Name="AppId" />
+          </Key>
+          <Property Name="AppId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AppName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="AppName_mar" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="Int32" />
+          <Property Name="Tehsil" Type="Int32" />
+          <Property Name="District" Type="Int32" />
+          <Property Name="EmailId" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="website" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Android_GCM_pushNotification_Key" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="IsProduction" Type="Boolean" />
+          <Property Name="baseImageUrlCMS" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="baseImageUrl" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="AboutThumbnailURL" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="AboutAppynity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AboutTeamDetail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ContactUsTeamMember" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HomeSplash" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FAQ" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ContactUs" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="basePath" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="yoccContact" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="Logo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Latitude" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Logitude" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserProfile" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Collection" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="HouseQRCode" Type="String" MaxLength="220" FixedLength="false" Unicode="true" />
+          <Property Name="PointQRCode" Type="String" MaxLength="220" FixedLength="false" Unicode="true" />
+          <Property Name="HousePDF" Type="String" MaxLength="550" FixedLength="false" Unicode="true" />
+          <Property Name="PointPDF" Type="String" MaxLength="550" FixedLength="false" Unicode="true" />
+          <Property Name="Grampanchayat_Pro" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AppVersion" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ForceUpdate" Type="Boolean" />
+          <Property Name="APIHit" Type="Int32" />
+          <Property Name="NewFeatures" Type="Boolean" />
+          <Property Name="ReportEnable" Type="Boolean" />
+          <Property Name="DumpYardQRCode" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="DumpYardPDF" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="GramPanchyatAppID" Type="Int32" />
+          <Property Name="YoccClientID" Type="Int32" />
+          <Property Name="YoccFeddbackLink" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="YoccDndLink" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="LanguageId" Type="Int32" />
+          <Property Name="MsgForBroadcast" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="MsgForNotSpecified" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="MsgForMixed" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="MsgForNotReceived" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="MsgForSegregated" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="IsScanNear" Type="Boolean" />
+          <Property Name="LiquidQRCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="StreetQRCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CommercialQRCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CTPTQRCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SWMQRCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Today_Waste_Status" Type="Boolean" />
+          <Property Name="Today_Liquid_Status" Type="Boolean" />
+          <Property Name="Today_Street_Status" Type="Boolean" />
+          <Property Name="ulb_property" Type="Int32" />
+          <Property Name="Add_Ulb_Property" Type="Int32" />
+          <Property Name="Status" Type="Boolean" />
+          <Property Name="VehicalQRCode" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="AppAreaLatLong" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsAreaActive" Type="Boolean" />
+          <Property Name="Today_HouseScanCount" Type="Int32" />
+          <Property Name="Today_LiquidScanCount" Type="Int32" />
+          <Property Name="Today_StreetScanCount" Type="Int32" />
+          <Property Name="Total_HouseCount" Type="Int32" />
+          <Property Name="Total_LiquidCount" Type="Int32" />
+          <Property Name="Total_StreetCount" Type="Int32" />
+          <Property Name="Today_DumpScanCount" Type="Int32" />
+          <Property Name="Total_DumpCount" Type="Int32" />
+          <Property Name="AppLink" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="UR_Location">
+          <Key>
+            <PropertyRef Name="locId" />
+          </Key>
+          <Property Name="locId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="empId" Type="Int32" />
+          <Property Name="datetime" Type="DateTime" Precision="3" />
+          <Property Name="lat" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="long" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="area" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="type" Type="Int32" />
+          <Property Name="batteryStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Distnace" Type="Decimal" Precision="6" Scale="2" />
+          <Property Name="IsOffline" Type="Boolean" />
+          <Property Name="ReferanceID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="HSUR_Daily_Attendance">
+          <Key>
+            <PropertyRef Name="daID" />
+          </Key>
+          <Property Name="daID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userId" Type="Int32" />
+          <Property Name="startLat" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="startLong" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="endLat" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="endLong" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="startTime" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="endTime" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="daDate" Type="DateTime" Precision="0" />
+          <Property Name="daEndDate" Type="DateTime" Precision="0" />
+          <Property Name="batteryStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="OutbatteryStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ip_address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="login_device" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HostName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="GoogleAPIDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="GoogleAPI" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tehsil">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="name_mar" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="latitude" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="longitude" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="state" Type="Int32" />
+          <Property Name="district" Type="Int32" />
+        </EntityType>
+        <EntityType Name="AD_USER_MST_LIQUID">
+          <Key>
+            <PropertyRef Name="ADUM_USER_CODE" />
+          </Key>
+          <Property Name="ADUM_USER_CODE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SERVER_ID" Type="Byte" />
+          <Property Name="APP_ID" Type="Int32" Nullable="false" />
+          <Property Name="ADUM_USER_ID" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ADUM_USER_NAME" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ADUM_LOGIN_ID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ADUM_PASSWORD" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ADUM_EMPLOYEE_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ADUM_DESIGNATION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ADUM_MOBILE" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="ADUM_EMAIL" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="LOCAL_USER_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="PROFILE_IMAGE" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ADUM_FRDT" Type="DateTime" Precision="3" />
+          <Property Name="ADUM_TODT" Type="DateTime" Precision="3" />
+          <Property Name="ADUM_STATUS" Type="Boolean" />
+          <Property Name="UPDATE_FLAG" Type="Boolean" />
+          <Property Name="LAST_UPDATE" Type="DateTime" Precision="0" />
+          <Property Name="AD_USER_TYPE_ID" Type="Int32" />
+          <Property Name="MOBILE_ID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IS_ACTIVE" Type="Boolean" />
+          <Property Name="IMO_NO" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="AD_USER_MST_STREET">
+          <Key>
+            <PropertyRef Name="ADUM_USER_CODE" />
+          </Key>
+          <Property Name="ADUM_USER_CODE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SERVER_ID" Type="Byte" />
+          <Property Name="APP_ID" Type="Int32" Nullable="false" />
+          <Property Name="ADUM_USER_ID" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ADUM_USER_NAME" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ADUM_LOGIN_ID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ADUM_PASSWORD" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ADUM_EMPLOYEE_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ADUM_DESIGNATION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ADUM_MOBILE" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="ADUM_EMAIL" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="LOCAL_USER_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="PROFILE_IMAGE" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ADUM_FRDT" Type="DateTime" Precision="3" />
+          <Property Name="ADUM_TODT" Type="DateTime" Precision="3" />
+          <Property Name="ADUM_STATUS" Type="Boolean" />
+          <Property Name="UPDATE_FLAG" Type="Boolean" />
+          <Property Name="LAST_UPDATE" Type="DateTime" Precision="0" />
+          <Property Name="AD_USER_TYPE_ID" Type="Int32" />
+          <Property Name="MOBILE_ID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IS_ACTIVE" Type="Boolean" />
+          <Property Name="IMO_NO" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CheckAppD">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="App_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IsCheked" Type="Boolean" Nullable="false" />
+          <Property Name="AppId" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DevSwachhBharatMainModelStoreContainer" CdmEntityContainer="DevSwachhBharatMainEntities">
+          <EntitySetMapping Name="AppConnections">
+            <EntityTypeMapping TypeName="DevSwachhBharatMainModel.AppConnection">
+              <MappingFragment StoreEntitySet="AppConnection">
+                <ScalarProperty Name="AppConnectionId" ColumnName="AppConnectionId" />
+                <ScalarProperty Name="AppId" ColumnName="AppId" />
+                <ScalarProperty Name="DataSource" ColumnName="DataSource" />
+                <ScalarProperty Name="InitialCatalog" ColumnName="InitialCatalog" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="DevSwachhBharatMainModel.AspNetRole">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserClaims">
+            <EntityTypeMapping TypeName="DevSwachhBharatMainModel.AspNetUserClaim">
+              <MappingFragment StoreEntitySet="AspNetUserClaims">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="DevSwachhBharatMainModel.AspNetUserLogin">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="country_states">
+            <EntityTypeMapping TypeName="DevSwachhBharatMainModel.country_states">
+              <MappingFragment StoreEntitySet="country_states">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="country_name" ColumnName="country_name" />
+                <ScalarProperty Name="state_name" ColumnName="state_name" />
+                <ScalarProperty Name="state_name_mar" ColumnName="state_name_mar" />
+                <ScalarProperty Name="state_3_code" ColumnName="state_3_code" />
+                <ScalarProperty Name="state_2_code" ColumnName="state_2_code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="state_districts">
+            <EntityTypeMapping TypeName="DevSwachhBharatMainModel.state_districts">
+              <MappingFragment StoreEntitySet="state_districts">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="state_id" ColumnName="state_id" />
+                <ScalarProperty Name="district_name" ColumnName="district_name" />
+                <ScalarProperty Name="district_name_mar" ColumnName="district_name_mar" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Subscriptions">
+            <EntityTypeMapping TypeName="DevSwachhBharatMainModel.Subscription">
+              <MappingFragment StoreEntitySet="Subscriptions">
+                <ScalarProperty Name="subscriptionId" ColumnName="subscriptionId" />
+                <ScalarProperty Name="subscriptionName" ColumnName="subscriptionName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserInApps">
+            <EntityTypeMapping TypeName="DevSwachhBharatMainModel.UserInApp">
+              <MappingFragment StoreEntitySet="UserInApps">
+                <ScalarProperty Name="UserInAppsID" ColumnName="UserInAppsID" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="AppId" ColumnName="AppId" />
+                <ScalarProperty Name="subscriptionId" ColumnName="subscriptionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_Admin_table" FunctionName="DevSwachhBharatMainModel.Store.SP_Admin_table" />
+          <EntitySetMapping Name="Sauchalay_feedback">
+            <EntityTypeMapping TypeName="DevSwachhBharatMainModel.Sauchalay_feedback">
+              <MappingFragment StoreEntitySet="Sauchalay_feedback">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Feedback" ColumnName="Feedback" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="que3" ColumnName="que3" />
+                <ScalarProperty Name="que2" ColumnName="que2" />
+                <ScalarProperty Name="que1" ColumnName="que1" />
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+                <ScalarProperty Name="Fullname" ColumnName="Fullname" />
+                <ScalarProperty Name="AppId" ColumnName="AppId" />
+                <ScalarProperty Name="SauchalayID" ColumnName="SauchalayID" />
+                <ScalarProperty Name="ULB" ColumnName="ULB" />
+                <ScalarProperty Name="SauchalayFeedback_ID" ColumnName="SauchalayFeedback_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Game_AnswerType">
+            <EntityTypeMapping TypeName="DevSwachhBharatMainModel.Game_AnswerType">
+              <MappingFragment StoreEntitySet="Game_AnswerType">
+                <ScalarProperty Name="AnswerTypeHindi" ColumnName="AnswerTypeHindi" />
+                <ScalarProperty Name="GameMasterID" ColumnName="GameMasterID" />
+                <ScalarProperty Name="AnswerTypeMar" ColumnName="AnswerTypeMar" />
+                <ScalarProperty Name="AnswerType" ColumnName="AnswerType" />
+                <ScalarProperty Name="AnswerTypeId" ColumnName="AnswerTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Game_Slogan">
+            <EntityTypeMapping TypeName="DevSwachhBharatMainModel.Game_Slogan">
+              <MappingFragment StoreEntitySet="Game_Slogan">
+                <ScalarProperty Name="SloganHindi" ColumnName="SloganHindi" />
+                <ScalarProperty Name="SloganMar" ColumnName="SloganMar" />
+                <ScalarProperty Name="Slogan" ColumnName="Slogan" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GameDetails">
+            <EntityTypeMapping TypeName="DevSwachhBharatMainModel.GameDetail">
+              <MappingFragment StoreEntitySet="GameDetails">
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="SloganID" ColumnName="SloganID" />
+                <ScalarProperty Name="GameMasterID" ColumnName="GameMasterID" />
+                <ScalarProperty Name="Point" ColumnName="Point" />
+                <ScalarProperty Name="RightAnswerID" ColumnName="RightAnswerID" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="GameDetailsID" ColumnName="GameDetailsID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GameMasters">
+            <EntityTypeMapping TypeName="DevSwachhBharatMainModel.GameMaster">
+              <MappingFragment StoreEntitySet="GameMaster">
+                <ScalarProperty Name="GameNameHindi" ColumnName="GameNameHindi" />
+                <ScalarProperty Name="GameNameMar" ColumnName="GameNameMar" />
+                <ScalarProperty Name="GameName" ColumnName="GameName" />
+                <ScalarProperty Name="GameId" ColumnName="GameId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GamePlayerDetails">
+            <EntityTypeMapping TypeName="DevSwachhBharatMainModel.GamePlayerDetail">
+              <MappingFragment StoreEntitySet="GamePlayerDetails">
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="GameId" ColumnName="GameId" />
+                <ScalarProperty Name="PlayerId" ColumnName="PlayerId" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_Admin2" FunctionName="DevSwachhBharatMainModel.Store.SP_Admin2">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevSwachhBharatMainModel.SP_Admin2_Result">
+                <ScalarProperty Name="appName" ColumnName="appName" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="attenUser" ColumnName="attenUser" />
+                <ScalarProperty Name="collectionCount" ColumnName="collectionCount" />
+                <ScalarProperty Name="notspecified" ColumnName="notspecified" />
+                <ScalarProperty Name="notrecviedCollection" ColumnName="notrecviedCollection" />
+                <ScalarProperty Name="byfurgetcol" ColumnName="byfurgetcol" />
+                <ScalarProperty Name="mixedcolle" ColumnName="mixedcolle" />
+                <ScalarProperty Name="TotalLiquidCount" ColumnName="TotalLiquidCount" />
+                <ScalarProperty Name="TotalStreetCount" ColumnName="TotalStreetCount" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="EmployeeMasters">
+            <EntityTypeMapping TypeName="DevSwachhBharatMainModel.EmployeeMaster">
+              <MappingFragment StoreEntitySet="EmployeeMaster">
+                <ScalarProperty Name="lastModifyDateEntry" ColumnName="lastModifyDateEntry" />
+                <ScalarProperty Name="isActiveULB" ColumnName="isActiveULB" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="EmpAddress" ColumnName="EmpAddress" />
+                <ScalarProperty Name="EmpMobileNumber" ColumnName="EmpMobileNumber" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="LoginId" ColumnName="LoginId" />
+                <ScalarProperty Name="EmpNameMar" ColumnName="EmpNameMar" />
+                <ScalarProperty Name="EmpName" ColumnName="EmpName" />
+                <ScalarProperty Name="EmpId" ColumnName="EmpId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AEmployeeMasters">
+            <EntityTypeMapping TypeName="DevSwachhBharatMainModel.AEmployeeMaster">
+              <MappingFragment StoreEntitySet="AEmployeeMaster">
+                <ScalarProperty Name="lastModifyDateEntry" ColumnName="lastModifyDateEntry" />
+                <ScalarProperty Name="isActiveULB" ColumnName="isActiveULB" />
+                <ScalarProperty Name="DistictId" ColumnName="DistictId" />
+                <ScalarProperty Name="DivisionId" ColumnName="DivisionId" />
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="EmpAddress" ColumnName="EmpAddress" />
+                <ScalarProperty Name="EmpMobileNumber" ColumnName="EmpMobileNumber" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="LoginId" ColumnName="LoginId" />
+                <ScalarProperty Name="EmpNameMar" ColumnName="EmpNameMar" />
+                <ScalarProperty Name="EmpName" ColumnName="EmpName" />
+                <ScalarProperty Name="EmpId" ColumnName="EmpId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_ULBADMINSTATUS" FunctionName="DevSwachhBharatMainModel.Store.SP_ULBADMINSTATUS">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevSwachhBharatMainModel.SP_ULBADMINSTATUS_Result">
+                <ScalarProperty Name="AppId" ColumnName="AppId" />
+                <ScalarProperty Name="appName" ColumnName="appName" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_ULBADMIN" FunctionName="DevSwachhBharatMainModel.Store.SP_ULBADMIN">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevSwachhBharatMainModel.SP_ULBADMIN_Result">
+                <ScalarProperty Name="ParentULB" ColumnName="ParentULB" />
+                <ScalarProperty Name="ULBName" ColumnName="ULBName" />
+                <ScalarProperty Name="ULBId" ColumnName="ULBId" />
+                <ScalarProperty Name="TotalHouse" ColumnName="TotalHouse" />
+                <ScalarProperty Name="TotalHouseScan" ColumnName="TotalHouseScan" />
+                <ScalarProperty Name="TotalSeg" ColumnName="TotalSeg" />
+                <ScalarProperty Name="TotalMix" ColumnName="TotalMix" />
+                <ScalarProperty Name="TotalNotReceived" ColumnName="TotalNotReceived" />
+                <ScalarProperty Name="ULBCount" ColumnName="ULBCount" />
+                <ScalarProperty Name="TotalActiveEmp" ColumnName="TotalActiveEmp" />
+                <ScalarProperty Name="TotalOnDutyEmp" ColumnName="TotalOnDutyEmp" />
+                <ScalarProperty Name="TotalOffDutyEmp" ColumnName="TotalOffDutyEmp" />
+                <ScalarProperty Name="InprogressULB" ColumnName="InprogressULB" />
+                <ScalarProperty Name="CompleteULB" ColumnName="CompleteULB" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="DevSwachhBharatMainModel.AspNetUser">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="PasswordString" ColumnName="PasswordString" />
+                <ScalarProperty Name="Loginuser" ColumnName="Loginuser" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AppDetails">
+            <EntityTypeMapping TypeName="DevSwachhBharatMainModel.AppDetail">
+              <MappingFragment StoreEntitySet="AppDetails">
+                <ScalarProperty Name="AppLink" ColumnName="AppLink" />
+                <ScalarProperty Name="Total_DumpCount" ColumnName="Total_DumpCount" />
+                <ScalarProperty Name="Today_DumpScanCount" ColumnName="Today_DumpScanCount" />
+                <ScalarProperty Name="Total_StreetCount" ColumnName="Total_StreetCount" />
+                <ScalarProperty Name="Total_LiquidCount" ColumnName="Total_LiquidCount" />
+                <ScalarProperty Name="Total_HouseCount" ColumnName="Total_HouseCount" />
+                <ScalarProperty Name="Today_StreetScanCount" ColumnName="Today_StreetScanCount" />
+                <ScalarProperty Name="Today_LiquidScanCount" ColumnName="Today_LiquidScanCount" />
+                <ScalarProperty Name="Today_HouseScanCount" ColumnName="Today_HouseScanCount" />
+                <ScalarProperty Name="IsAreaActive" ColumnName="IsAreaActive" />
+                <ScalarProperty Name="AppAreaLatLong" ColumnName="AppAreaLatLong" />
+                <ScalarProperty Name="VehicalQRCode" ColumnName="VehicalQRCode" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Add_Ulb_Property" ColumnName="Add_Ulb_Property" />
+                <ScalarProperty Name="ulb_property" ColumnName="ulb_property" />
+                <ScalarProperty Name="Today_Street_Status" ColumnName="Today_Street_Status" />
+                <ScalarProperty Name="Today_Liquid_Status" ColumnName="Today_Liquid_Status" />
+                <ScalarProperty Name="Today_Waste_Status" ColumnName="Today_Waste_Status" />
+                <ScalarProperty Name="SWMQRCode" ColumnName="SWMQRCode" />
+                <ScalarProperty Name="CTPTQRCode" ColumnName="CTPTQRCode" />
+                <ScalarProperty Name="CommercialQRCode" ColumnName="CommercialQRCode" />
+                <ScalarProperty Name="StreetQRCode" ColumnName="StreetQRCode" />
+                <ScalarProperty Name="LiquidQRCode" ColumnName="LiquidQRCode" />
+                <ScalarProperty Name="IsScanNear" ColumnName="IsScanNear" />
+                <ScalarProperty Name="MsgForSegregated" ColumnName="MsgForSegregated" />
+                <ScalarProperty Name="MsgForNotReceived" ColumnName="MsgForNotReceived" />
+                <ScalarProperty Name="MsgForMixed" ColumnName="MsgForMixed" />
+                <ScalarProperty Name="MsgForNotSpecified" ColumnName="MsgForNotSpecified" />
+                <ScalarProperty Name="MsgForBroadcast" ColumnName="MsgForBroadcast" />
+                <ScalarProperty Name="LanguageId" ColumnName="LanguageId" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="YoccDndLink" ColumnName="YoccDndLink" />
+                <ScalarProperty Name="YoccFeddbackLink" ColumnName="YoccFeddbackLink" />
+                <ScalarProperty Name="YoccClientID" ColumnName="YoccClientID" />
+                <ScalarProperty Name="GramPanchyatAppID" ColumnName="GramPanchyatAppID" />
+                <ScalarProperty Name="DumpYardPDF" ColumnName="DumpYardPDF" />
+                <ScalarProperty Name="DumpYardQRCode" ColumnName="DumpYardQRCode" />
+                <ScalarProperty Name="ReportEnable" ColumnName="ReportEnable" />
+                <ScalarProperty Name="NewFeatures" ColumnName="NewFeatures" />
+                <ScalarProperty Name="APIHit" ColumnName="APIHit" />
+                <ScalarProperty Name="ForceUpdate" ColumnName="ForceUpdate" />
+                <ScalarProperty Name="AppVersion" ColumnName="AppVersion" />
+                <ScalarProperty Name="Grampanchayat_Pro" ColumnName="Grampanchayat_Pro" />
+                <ScalarProperty Name="PointPDF" ColumnName="PointPDF" />
+                <ScalarProperty Name="HousePDF" ColumnName="HousePDF" />
+                <ScalarProperty Name="PointQRCode" ColumnName="PointQRCode" />
+                <ScalarProperty Name="HouseQRCode" ColumnName="HouseQRCode" />
+                <ScalarProperty Name="Collection" ColumnName="Collection" />
+                <ScalarProperty Name="UserProfile" ColumnName="UserProfile" />
+                <ScalarProperty Name="Logitude" ColumnName="Logitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Logo" ColumnName="Logo" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="yoccContact" ColumnName="yoccContact" />
+                <ScalarProperty Name="basePath" ColumnName="basePath" />
+                <ScalarProperty Name="ContactUs" ColumnName="ContactUs" />
+                <ScalarProperty Name="FAQ" ColumnName="FAQ" />
+                <ScalarProperty Name="HomeSplash" ColumnName="HomeSplash" />
+                <ScalarProperty Name="ContactUsTeamMember" ColumnName="ContactUsTeamMember" />
+                <ScalarProperty Name="AboutTeamDetail" ColumnName="AboutTeamDetail" />
+                <ScalarProperty Name="AboutAppynity" ColumnName="AboutAppynity" />
+                <ScalarProperty Name="AboutThumbnailURL" ColumnName="AboutThumbnailURL" />
+                <ScalarProperty Name="baseImageUrl" ColumnName="baseImageUrl" />
+                <ScalarProperty Name="baseImageUrlCMS" ColumnName="baseImageUrlCMS" />
+                <ScalarProperty Name="IsProduction" ColumnName="IsProduction" />
+                <ScalarProperty Name="Android_GCM_pushNotification_Key" ColumnName="Android_GCM_pushNotification_Key" />
+                <ScalarProperty Name="website" ColumnName="website" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="District" ColumnName="District" />
+                <ScalarProperty Name="Tehsil" ColumnName="Tehsil" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="AppName_mar" ColumnName="AppName_mar" />
+                <ScalarProperty Name="AppName" ColumnName="AppName" />
+                <ScalarProperty Name="AppId" ColumnName="AppId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UR_Location">
+            <EntityTypeMapping TypeName="DevSwachhBharatMainModel.UR_Location">
+              <MappingFragment StoreEntitySet="UR_Location">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ReferanceID" ColumnName="ReferanceID" />
+                <ScalarProperty Name="IsOffline" ColumnName="IsOffline" />
+                <ScalarProperty Name="Distnace" ColumnName="Distnace" />
+                <ScalarProperty Name="batteryStatus" ColumnName="batteryStatus" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="area" ColumnName="area" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="long" ColumnName="long" />
+                <ScalarProperty Name="lat" ColumnName="lat" />
+                <ScalarProperty Name="datetime" ColumnName="datetime" />
+                <ScalarProperty Name="empId" ColumnName="empId" />
+                <ScalarProperty Name="locId" ColumnName="locId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HSUR_Daily_Attendance">
+            <EntityTypeMapping TypeName="DevSwachhBharatMainModel.HSUR_Daily_Attendance">
+              <MappingFragment StoreEntitySet="HSUR_Daily_Attendance">
+                <ScalarProperty Name="HostName" ColumnName="HostName" />
+                <ScalarProperty Name="login_device" ColumnName="login_device" />
+                <ScalarProperty Name="ip_address" ColumnName="ip_address" />
+                <ScalarProperty Name="EmployeeType" ColumnName="EmployeeType" />
+                <ScalarProperty Name="OutbatteryStatus" ColumnName="OutbatteryStatus" />
+                <ScalarProperty Name="batteryStatus" ColumnName="batteryStatus" />
+                <ScalarProperty Name="daEndDate" ColumnName="daEndDate" />
+                <ScalarProperty Name="daDate" ColumnName="daDate" />
+                <ScalarProperty Name="endTime" ColumnName="endTime" />
+                <ScalarProperty Name="startTime" ColumnName="startTime" />
+                <ScalarProperty Name="endLong" ColumnName="endLong" />
+                <ScalarProperty Name="endLat" ColumnName="endLat" />
+                <ScalarProperty Name="startLong" ColumnName="startLong" />
+                <ScalarProperty Name="startLat" ColumnName="startLat" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="daID" ColumnName="daID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GoogleAPIDetails">
+            <EntityTypeMapping TypeName="DevSwachhBharatMainModel.GoogleAPIDetail">
+              <MappingFragment StoreEntitySet="GoogleAPIDetails">
+                <ScalarProperty Name="GoogleAPI" ColumnName="GoogleAPI" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tehsils">
+            <EntityTypeMapping TypeName="DevSwachhBharatMainModel.tehsil">
+              <MappingFragment StoreEntitySet="tehsil">
+                <ScalarProperty Name="district" ColumnName="district" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="longitude" ColumnName="longitude" />
+                <ScalarProperty Name="latitude" ColumnName="latitude" />
+                <ScalarProperty Name="name_mar" ColumnName="name_mar" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AD_USER_MST_LIQUID">
+            <EntityTypeMapping TypeName="DevSwachhBharatMainModel.AD_USER_MST_LIQUID">
+              <MappingFragment StoreEntitySet="AD_USER_MST_LIQUID">
+                <ScalarProperty Name="IMO_NO" ColumnName="IMO_NO" />
+                <ScalarProperty Name="IS_ACTIVE" ColumnName="IS_ACTIVE" />
+                <ScalarProperty Name="MOBILE_ID" ColumnName="MOBILE_ID" />
+                <ScalarProperty Name="AD_USER_TYPE_ID" ColumnName="AD_USER_TYPE_ID" />
+                <ScalarProperty Name="LAST_UPDATE" ColumnName="LAST_UPDATE" />
+                <ScalarProperty Name="UPDATE_FLAG" ColumnName="UPDATE_FLAG" />
+                <ScalarProperty Name="ADUM_STATUS" ColumnName="ADUM_STATUS" />
+                <ScalarProperty Name="ADUM_TODT" ColumnName="ADUM_TODT" />
+                <ScalarProperty Name="ADUM_FRDT" ColumnName="ADUM_FRDT" />
+                <ScalarProperty Name="PROFILE_IMAGE" ColumnName="PROFILE_IMAGE" />
+                <ScalarProperty Name="LOCAL_USER_NAME" ColumnName="LOCAL_USER_NAME" />
+                <ScalarProperty Name="ADUM_EMAIL" ColumnName="ADUM_EMAIL" />
+                <ScalarProperty Name="ADUM_MOBILE" ColumnName="ADUM_MOBILE" />
+                <ScalarProperty Name="ADUM_DESIGNATION" ColumnName="ADUM_DESIGNATION" />
+                <ScalarProperty Name="ADUM_EMPLOYEE_ID" ColumnName="ADUM_EMPLOYEE_ID" />
+                <ScalarProperty Name="ADUM_PASSWORD" ColumnName="ADUM_PASSWORD" />
+                <ScalarProperty Name="ADUM_LOGIN_ID" ColumnName="ADUM_LOGIN_ID" />
+                <ScalarProperty Name="ADUM_USER_NAME" ColumnName="ADUM_USER_NAME" />
+                <ScalarProperty Name="ADUM_USER_ID" ColumnName="ADUM_USER_ID" />
+                <ScalarProperty Name="APP_ID" ColumnName="APP_ID" />
+                <ScalarProperty Name="SERVER_ID" ColumnName="SERVER_ID" />
+                <ScalarProperty Name="ADUM_USER_CODE" ColumnName="ADUM_USER_CODE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AD_USER_MST_STREET">
+            <EntityTypeMapping TypeName="DevSwachhBharatMainModel.AD_USER_MST_STREET">
+              <MappingFragment StoreEntitySet="AD_USER_MST_STREET">
+                <ScalarProperty Name="IMO_NO" ColumnName="IMO_NO" />
+                <ScalarProperty Name="IS_ACTIVE" ColumnName="IS_ACTIVE" />
+                <ScalarProperty Name="MOBILE_ID" ColumnName="MOBILE_ID" />
+                <ScalarProperty Name="AD_USER_TYPE_ID" ColumnName="AD_USER_TYPE_ID" />
+                <ScalarProperty Name="LAST_UPDATE" ColumnName="LAST_UPDATE" />
+                <ScalarProperty Name="UPDATE_FLAG" ColumnName="UPDATE_FLAG" />
+                <ScalarProperty Name="ADUM_STATUS" ColumnName="ADUM_STATUS" />
+                <ScalarProperty Name="ADUM_TODT" ColumnName="ADUM_TODT" />
+                <ScalarProperty Name="ADUM_FRDT" ColumnName="ADUM_FRDT" />
+                <ScalarProperty Name="PROFILE_IMAGE" ColumnName="PROFILE_IMAGE" />
+                <ScalarProperty Name="LOCAL_USER_NAME" ColumnName="LOCAL_USER_NAME" />
+                <ScalarProperty Name="ADUM_EMAIL" ColumnName="ADUM_EMAIL" />
+                <ScalarProperty Name="ADUM_MOBILE" ColumnName="ADUM_MOBILE" />
+                <ScalarProperty Name="ADUM_DESIGNATION" ColumnName="ADUM_DESIGNATION" />
+                <ScalarProperty Name="ADUM_EMPLOYEE_ID" ColumnName="ADUM_EMPLOYEE_ID" />
+                <ScalarProperty Name="ADUM_PASSWORD" ColumnName="ADUM_PASSWORD" />
+                <ScalarProperty Name="ADUM_LOGIN_ID" ColumnName="ADUM_LOGIN_ID" />
+                <ScalarProperty Name="ADUM_USER_NAME" ColumnName="ADUM_USER_NAME" />
+                <ScalarProperty Name="ADUM_USER_ID" ColumnName="ADUM_USER_ID" />
+                <ScalarProperty Name="APP_ID" ColumnName="APP_ID" />
+                <ScalarProperty Name="SERVER_ID" ColumnName="SERVER_ID" />
+                <ScalarProperty Name="ADUM_USER_CODE" ColumnName="ADUM_USER_CODE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CheckAppDs">
+            <EntityTypeMapping TypeName="DevSwachhBharatMainModel.CheckAppD">
+              <MappingFragment StoreEntitySet="CheckAppD">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="AppId" ColumnName="AppId" />
+                <ScalarProperty Name="IsCheked" ColumnName="IsCheked" />
+                <ScalarProperty Name="App_Name" ColumnName="App_Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

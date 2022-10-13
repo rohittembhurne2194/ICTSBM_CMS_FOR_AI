@@ -1,0 +1,66 @@
+﻿
+@{
+    Layout = "";
+}
+@Styles.Render("~/Content/IndexCSS")
+<link href='https://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
+
+@Scripts.Render("~/Scripts/IndexScript")
+<script src="~/Areas/Liquid/Content/Script/DatatableGrid/LiquidWasteGrid.js"></script>
+
+<body>
+    <div class="container">
+        <br />
+        <div style="width:100%; margin:0 auto;">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-4"> </div>
+                    <div class="col-lg-4">
+                        <div class="card text-center">
+                            <div class="card-header">
+                                Android App
+                            </div>
+                            <div class="card-body">
+                                <img src="~/Areas/Liquid/Content/theme-assets/img/android.svg" />
+                                @if (@TempData["status"] == "Success")
+                                {
+                                    <span style="display:none;"> @Html.ActionLink(@TempData["ADUM_USER_NAME"] + "!", "Index", "Home", routeValues: null, htmlAttributes: new { title = "Manage", @id = "asdf" })</span>
+                                   
+                                }
+                                else
+                                {
+                                    <span>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</span>
+                                }
+                            </div>
+                            <div class="card-footer">
+                                @*<span><input type="button" style="margin-bottom:10px" class="btn btn-success btn-sm" id="refresh" value="Download"></span>*@
+                                <span id="nagpur"><a href="~/Content/AndroidApplication/NagpurMNP.apk">Download</a> </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4"> </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            debugger
+            var x = document.getElementById("asdf").innerHTML;
+            if (x == "liquidnagpur@mp.com!") {
+                $("#nagpur").css("display", "block");
+
+            }
+            if (x == "deoli@ulb.com!") {
+                $("#nagpur").css("display", "none");
+            }
+        });
+    </script>
+   
+</body>

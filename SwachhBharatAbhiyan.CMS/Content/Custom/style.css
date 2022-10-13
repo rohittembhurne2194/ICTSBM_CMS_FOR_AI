@@ -1,0 +1,106 @@
+﻿.form-group {
+	padding: 3% 1%;width:100%;
+}
+
+.form-control {
+	background-color: #eee;max-width: 100%;
+background: rgba(61,185,183,0.01);
+	border: 1px solid #ddd;border-radius: 0px;
+	border: 1px solid rgba(61,185,183,0.3);
+}
+.form-control:hover {
+	border-color: rgba(86,61,124,.8) !important;}
+.form-control:focus {
+border-color: #3db9b7;
+outline: 0;
+-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(210,214,214,1);
+	color: #000;
+	transition: 0.5s;
+}.col-sm-3.control-label {
+	margin-top: 6px;
+}
+.panel-body {background-color: rgb(247, 247, 249);
+border: 0px solid rgb(225, 225, 232);
+border-radius: 0px;
+-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(86,61,124,.8);
+box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.075) inset, 1px 0px 3px 2px rgba(0, 0, 0, 0.15);}
+.btn-success {
+	color: #fff;
+	background-color: #5cb85c;
+	border-color: rgba(61,185,183,1) !important;
+	background: #fff !important;
+	color: #000 !important;
+	border-radius: 0px !important;
+	transition: 0.5s;
+}
+.btn-success:hover {
+	color: #fff !important;
+background-color: rgba(61,185,183,1) !important;
+border-color: rgba(61,185,183,1) !important;
+}
+.panel.customPanel {
+    color: #000;
+    background-color: #fff;
+    border: 0px solid #e1e1e8;
+    border-radius: 0px;
+    box-shadow: none;
+
+}
+.col-sm-3.control-label {
+	margin-top: 6px;
+color: #727272;
+}
+.glyphicon {
+	position: relative;
+	top: 1px;
+	display: inline-block;
+	font-family: 'Glyphicons Halflings';
+	-webkit-font-smoothing: antialiased;
+	font-style: normal;
+	font-weight: normal;
+	line-height: 1;
+}
+#btnSave {
+	max-width: 100%;
+	width: 225px;
+	height: 44px;
+}
+.btn.btn-success.btn-block{
+	max-width: 100%;
+width: 231px;
+	height: 44px;padding:0;font-size: 19px;
+}.input-group-addon{color: #fff;
+background-color: #3db9b7;
+font-size: 17px;
+font-weight: 600;
+border: 0px solid #ccc;
+border-radius: 0px;}
+ .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+background: rgba(61,185,183,0.12);
+
+}
+ /* Large desktops and laptops */
+@media (min-width: 1200px) {
+
+}
+
+/* Landscape tablets and medium desktops */
+@media (min-width: 992px) and (max-width: 1199px) {
+
+}
+
+/* Portrait tablets and small desktops */
+@media (min-width: 768px) and (max-width: 991px) {
+
+}
+
+/* Landscape phones and portrait tablets */
+@media (max-width: 767px) {
+
+}
+
+/* Portrait phones and smaller */
+@media (max-width: 480px) {
+ .col-lg-4{margin-left:0px !important;margin: 0 0% 5%;}
+}

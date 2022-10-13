@@ -1,0 +1,557 @@
+﻿
+@model SwachBharat.CMS.Bll.ViewModels.ChildModel.Model.VehicalRegDetailsVM
+
+@{
+    //ViewBag.Title = "घर तपशील जोडा / Add Vehical Registration Details";
+    ViewBag.Title = "Add Vehical Registration Details";
+    Layout = "";
+}
+<link rel="shortcut icon" href="~/Content/images/img/sba.png" />
+@Styles.Render("~/Content/ThemeCss")
+@Styles.Render("~/Content/AddEditCSS")
+@Scripts.Render("~/Scripts/AddEditScript")
+@Scripts.Render("~/bundles/modernizr")
+<style>
+    .modal-dialog {
+        left: 0% !important;
+    }
+
+    .glyphicon {
+        position: relative;
+        top: -1px;
+        right: 5px;
+    }
+</style>
+@*<title class="title_change"></title>*@
+@using (Html.BeginForm("AddVehicalRegDetails", "MainMaster", FormMethod.Post, new { enctype = "multipart/form-data", data_toggle = "validator", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.vqrId);
+    @Html.HiddenFor(model => model.vehicalQRCode);
+
+
+
+
+    <div class="container">
+        @*<a onclick="location.reload();" style="color:#3ab59e;margin-right:7%;cursor:pointer" class="pull-right">Refresh</a>*@
+        <div class="row">
+            <div class="col-sm-1">
+                <span class="backk">
+
+                    <a href="@Url.Action("VehicalRegistrationIndex", "MainMaster")" id="btnBack" class="btn"><span class="glyphicon glyphicon-circle-arrow-left"></span>  Back</a>
+
+                </span>
+            </div>
+            <div class="col-sm-10">
+                <h1 class="add-edit-h1 title_change" style=""></h1>
+            </div>
+
+        </div>
+        <div class="row">
+
+
+            <div class="panel panel-warning col-sm-12 ">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+              
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @*@Html.Label("रेफरेन्स आई डी / Reference Id")*@
+                            @Html.Label("Reference Id")
+                            <input type="text" value="@Model.ReferanceId" id="n" readonly="readonly" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @*@Html.Label("झोन / Zone")*@
+                            @Html.Label("Vehicle Type")
+                            @*<a class="pull-right add_popup_clear" style="color:#3ab59e;text-decoration:underline!important;cursor:pointer" onclick="PopZone()"> + Add Zone </a>*@
+                            @Html.DropDownListFor(model => model.Vehical_Type, Model.VehicleList, new { style = "font-family:Arial, FontAwesome", required = "required", @class = "form-control RequiredInput validate[required] RequiredInput" })
+                            <span class="text-danger" id="err_vtype"></span>
+                            <span class="help-block with-errors"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @*@Html.Label("घर क्रमांक / House Number")*@
+                            @Html.Label("Vehical Number")
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.TextBoxFor(model => model.Vehican_No, new { @class = "form-control",@placeholder="MH40AB1010", style = "font-family:Arial, FontAwesome" })
+                            @Html.ValidationMessageFor(model => model.Vehican_No, "", new { @class = "text-danger" })
+                            <span class="text-danger" id="err_vnumber"></span>
+                            <span class="text-success" id="cor_vnumber"></span>
+                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                            <span class="help-block with-errors"></span>
+                        </div>
+                    </div>
+                </div>
+              
+                <div class="row justify-content-between">
+
+                    <div class="col-md-4">
+                        <div class="form-group" style="padding-left:15%">
+                            @*<label for="Select_Image">क्यु आर  कोड  / QR-Code Image</label>*@
+                            @*@Html.Label("स्कॅनिफाय कोड  / Scaniffy Code")*@
+                            @Html.Label("Scaniffy Code")
+                            <div class="form-group textarea">
+                                <div style="width: auto;padding: 6px;margin: 0px 10px;height: auto;">
+                                    <div id="FileUpload_Preview" style="display:inline-flex">
+                                        <a href="JavaScript:Void(0);" data-lightbox="example-1"><img src="@Model.vehicalQRCode" class="add-image" style="width:120px;height:auto;padding:2px;overflow:hidden" /></a>
+                                        <span>
+                                            <input class="btn-link" type="button" id="Download1" value="Download" style="display:none;margin:20px 0px 0px 20px;text-decoration:underline;" /><br />
+                                            <input class="btn-link" type="button" id="send_link" value="Send link" style="display:none;margin:7px 0px 0px 20px;text-decoration:underline;" />
+
+                                        </span>
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="">
+                                <div class="form-group" style="margin-top:-25px;">
+
+                                    <input class="btn" type="button" id="QRCOdeGenrate" value="Generate Scaniffy Code" />
+
+                                    <div class="progress" id="prog_bar" style="margin-top:10px;width: 57%;background-color:#dd8680; display:none;">
+                                        <div id="myBar" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="background-color:#349B98;width:50%">
+                                            50%
+                                        </div>
+                                    </div>
+
+
+                                    <span class="text-danger" id="err_img"></span>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+
+                    @Html.HiddenFor(c => c.ReferanceId)
+
+
+                    <div class="col-md-4" style="padding-top:10%">
+                        <center><span class="text-danger" id="err_generate"></span></center>
+                        <div class="form-group1">
+                            <button type="submit" name="submit" class="btn" id="btnSubmit" onclick="return Validate()">
+
+                                <span class="glyphicon glyphicon-saved"></span>
+                                <span id="buttonName">Save</span>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+
+              <br /><br /><br />
+
+            </div>
+        </div>
+    </div>
+
+
+}
+
+<div class="modal" id="zoneModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                @*<h4 class="modal-title">झोन सादर करा / Add Zone</h4>*@
+                <h4 class="modal-title">Add Zone</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div id="searchResults">
+
+
+                    <div class="form-group">
+                        @*@Html.Label("झोन / Zone")*@
+                        @Html.Label("Zone")
+                        <input type="text" class="form-control" id="txtZName" required />
+                        <span class="text-danger" id="err_zname_pop"></span>
+
+                        <br /><br />
+                        <button type="button" class="btn pull-right" data-dismiss="modal">Close</button>
+                        <input type="button" style="margin-right:5px" class="btn pull-right" id="btnZone" value="Save" />
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Modal footer -->
+            @*<div class="modal-footer">
+                    <button type="button" class="btn" data-dismiss="modal">Close</button>
+                </div>*@
+
+        </div>
+    </div>
+</div>
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                @*<h4 class="modal-title">क्षेत्र सादर करा / Add Area</h4>*@
+                <h4 class="modal-title">Add Area</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div id="searchResults">
+
+
+                    <div class="form-group">
+
+                        @*@Html.Label("वार्ड निवडा / Select Ward")*@
+                        @Html.Label("Select Ward")
+                        <select id="selectward" class="form-control minimal-form  RequiredInput validate[required] RequiredInput"></select><span class="text-danger" id="err_pop_ward"></span><br /><br />
+                        @*@Html.Label("नाव / Name")*@
+                        @Html.Label("Name")
+                        <input type="text" class="form-control" id="txtName" required />
+                        <span class="text-danger" id="err_name_pop"></span>
+                        <br /><br />
+                        @*@Html.Label("नाव मराठी / Name Marathi")*@
+                        @Html.Label("Name Marathi")
+                        <input type="text" class="form-control" id="txtDesignation" required />
+                        <span class="text-danger" id="err_name_mar_pop"></span>
+
+
+                        <br /><br />
+                        <button type="button" class="btn pull-right" data-dismiss="modal">Close</button>
+                        <input type="button" style="margin-right:5px" class="btn pull-right" id="btnPost" value="Save" />
+
+
+
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Modal footer -->
+            @*<div class="modal-footer">
+                    <button type="button" class="btn" data-dismiss="modal">Close</button>
+                </div>*@
+
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="wardModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                @*<h4 class="modal-title">वार्ड सादर करा / Add Ward</h4>*@
+                <h4 class="modal-title">Add Ward</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div id="searchResults">
+
+
+                    <div class="form-group">
+                        @*@Html.Label("झोन निवडा / Select Zone")*@
+                        @Html.Label("Select Zone")
+                        <select id="selectzone" class="form-control minimal-form  RequiredInput validate[required] RequiredInput"></select><span class="text-danger" id="err_pop_zone"></span>
+
+                        <br /><br />
+
+                        @*@Html.Label("वार्ड क्रमांक / Ward Number")*@
+                        @Html.Label("Ward Number")
+                        <input type="text" class="form-control" id="txtWard" />
+                        <span class="text-danger" id="err_ward_pop"></span>
+                        <br /><br />
+                        <button type="button" class="btn pull-right" data-dismiss="modal">Close</button>
+                        <input type="button" style="margin-right:5px" class="btn pull-right" id="btnWard" value="Save" />
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Modal footer -->
+            @*<div class="modal-footer">
+                    <button type="button" class="btn" data-dismiss="modal">Close</button>
+                </div>*@
+
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="sendlink_pop">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            @*<div class="modal-header">
+                    <h4 class="modal-title">संदेश पाठवित आहे / Sending Message...</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>*@
+            <!-- Modal body -->
+            <div class="modal-body" style="padding:5px;">
+                <div class="form-group" style="height:auto;margin:0px;">
+                    <p id="send_msg" style="margin:0px;font-size:14px"></p>
+
+                </div>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer" style="padding:0px 0px 8px 0px;border-top:none;justify-content:center;margin:0px;">
+                <button type="button" class="btn" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById("ownerName").addEventListener("input", forceLower);
+
+    // Event handling functions are automatically passed a reference to the
+    // event that triggered them as the first argument (evt)
+    function forceLower(evt) {
+        // Get an array of all the words (in all lower case)
+        var words = evt.target.value.toLowerCase().split(/\s+/g);
+
+        // Loop through the array and replace the first letter with a cap
+        var newWords = words.map(function (element) {
+            // As long as we're not dealing with an empty array element, return the first letter
+            // of the word, converted to upper case and add the rest of the letters from this word.
+            // Return the final word to a new array
+            return element !== "" ? element[0].toUpperCase() + element.substr(1, element.length) : "";
+        });
+
+        // Replace the original value with the updated array of capitalized words.
+        evt.target.value = newWords.join(" ");
+    }
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('form').each(function () { this.reset() });
+
+
+   
+
+
+
+        var id = $('#vqrId').val();
+        if (id > 0) {
+            $('#Download1').show();
+            $('#send_link').show();
+         
+            $('#buttonName').text("Save Changes");
+            //$('.title_change').text("घर तपशील सादर बदला / Edit House Details");
+            $('.title_change').text("Edit Vehical Details");
+        } else {
+            $('#buttonName').text("Save");
+            //$('.title_change').text("घर तपशील सादर करा / Add House Details");
+            $('.title_change').text("Add Vehical Details");
+        }
+    });
+
+</script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#Vehican_No').keyup(function () {
+            $(this).val($(this).val().toUpperCase());
+            debugger;
+            str = $("#Vehican_No").val();
+            var pattern = /[A-Z][A-Z][0-9][0-9][A-Z][A-Z][0-9][0-9][0-9][0-9]$/i;
+           // var pattern = /[A-Za-z][A-Za-z]\/[0-9][0-9]\/[A-Za-z ][a-z]\/[0-9][0-9][0-9][0-9]$/;
+            var result = str.match(pattern);
+            console.log(result);
+            if (result == null) {
+                $("#err_vnumber").html("Incorrect Vehical Number").delay(1500).show().fadeOut('slow');
+                $('#Vehican_No').focus();
+                return false;
+            }
+            else {
+                $("#cor_vnumber").html("Correct Vehical Number").delay(1500).show().fadeOut('slow');
+                $('#Vehican_No').focus();
+                return true;
+            }
+        });
+    });
+
+    $(document).ready(function () {
+  
+     
+
+        $('#trash_badge').click(function () {
+            $("#FileUpload_Preview").html("");
+        });
+        $('#filesUpload').change(function () {
+            $("#FileUpload_Preview").html("");
+            $("#FileUpload_Preview").show();
+            $("#FileUpload_Preview").append("<img />");
+
+            if (typeof (FileReader) != "undefined") {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    //-----------------------------------
+                    // Preview image
+                    //-----------------------------------
+                    $("#FileUpload_Preview img").attr("src", e.target.result);
+                    debugger
+                    $("#FileUpload_Preview img").attr("width", "auto");
+                    $("#FileUpload_Preview img").attr("height", "100%");
+                }
+                reader.readAsDataURL($(this)[0].files[0]);
+            }
+        });
+
+
+    });
+
+
+
+
+</script>
+<script type="text/javascript">
+    
+
+    $("#btnSubmit").click(function () {
+        //alert("aa");
+        if ($.trim($("#Vehican_No").val()) == '') {
+            //$("#err_description").html("वाहन आवश्यक आहे / Vehicle is Required").delay(1500).show().fadeOut('slow');
+            $("#err_vnumber").html("Vehicle No is Required").delay(1500).show().fadeOut('slow');
+            $('#Vehican_No').focus();
+            return false;
+        }
+        else if ($.trim($("#Vehican_No").val()) != '') {
+            debugger;
+            str = $("#Vehican_No").val();
+            var pattern = /[A-Z][A-Z][0-9][0-9][A-Z][A-Z][0-9][0-9][0-9][0-9]$/i;
+            var result = str.match(pattern);
+            console.log(result);
+            if (result == null) {
+                $("#err_vnumber").html("Incorrect Vehical Number").delay(1500).show().fadeOut('slow');
+                $('#Vehican_No').focus();
+                return false;
+            }
+           
+        }
+        if ($.trim($("#Vehical_Type").val()) == '0') {
+            //$("#err_description").html("वाहन आवश्यक आहे / Vehicle is Required").delay(1500).show().fadeOut('slow');
+            $("#err_vtype").html("Vehicle Type is Required").delay(1500).show().fadeOut('slow');
+            $('#Vehical_Type').focus();
+            return false;
+        }
+       
+        return true;
+    });
+ 
+    $("#QRCOdeGenrate").click(function () {
+        debugger;
+        //var bool = validation();
+        var bool = true;
+        if (bool == true) {
+            //$("#err_generate").html("स्कॅनिफाय कोड व्युत्पन्न करा नंतर सेव करा / Generate Scaniffy code then save").delay(1).show().fadeOut('slow');
+            $("#err_generate").html("Generate Scaniffy code then save").delay(1).show().fadeOut('slow');
+            $('#prog_bar').css("display", "block");
+            $("#prog_bar").delay(3000).show().fadeOut('slow');
+
+            //genrate QRCode image
+            var a = $('#n').val();
+            if (a != null && a != "") {
+                /* var src_qr = 'https://api.qrserver.com/v1/create-qr-code/?data=' + a*/
+                var src_qr = 'https://chart.googleapis.com/chart?cht=qr&chl=' + a + "&chs=160x160&chld=L|0"
+
+
+                $("#FileUpload_Preview img").attr("src", src_qr);
+                $("input #filesUpload").attr("src", src_qr);
+                // alert($("#FileUpload_Preview img").attr('src'));
+
+
+                // cpde end
+                $('#btnSubmit').prop('disabled', false);
+                //   $('#QRCOdeGenrate').css('display', 'none');
+                $('#Download1').show();
+                $('#send_link').show();
+                move();
+            }
+        }
+
+
+    });
+
+
+
+</script>
+<script>
+    $(document).ready(function () {
+        $('#Download1').click(function () {
+
+            //alert("ff");
+            if ($.trim($("#houseOwner").val()) != '' && $.trim($("#houseNumber").val()) != '') {
+                var area = $("#AreaId").val();
+                var ward = $("#WardNo").val();
+                var name = $("#houseOwner").val();
+                var Refid = $("#n").val();
+                var Number = $("#houseNumber").val();
+                window.location.href = "/HouseMaster/GenratePDF?name=" + name + "&number=" + Number + "&ReferanceId=" + Refid + "&Area=" + area + "&Ward=" + ward;
+            }
+            else {
+                var area = $("#AreaId").val();
+                var ward = $("#WardNo").val();
+                var name = $("#houseOwner").val();
+                var Refid = $("#n").val();
+                var Number = $("#houseNumber").val();
+                //   alert(Number);
+                window.location.href = "/HouseMaster/GenratePDF?name=" + name + "&number=" + Number + "&ReferanceId=" + Refid + "&Area=" + area + "&Ward=" + ward;
+            }
+        })
+
+
+
+
+
+
+        $('#send_link').click(function (e) {
+            var area = $("#AreaId").val();
+            var ward = $("#WardNo").val();
+            var name = $("#houseOwner").val();
+            var Refid = $("#n").val();
+            var Number = $("#houseNumber").val();
+            var mob = $("#houseMobile").val();
+            //alert(name);
+            $('#sendlink_pop').modal('toggle');
+            $("#send_msg").css('color', 'red');
+            //$('#send_msg').html('कृपया थांबा / Please Wait...');
+            $('#send_msg').html('Please Wait...');
+
+
+            var UserId = $('#AreaId').val();
+            $.ajax({
+                type: "post",
+                url: "/HouseMaster/Save2?name=" + name + "&number=" + Number + "&ReferanceId=" + Refid + "&mobile=" + mob + "&Area=" + area + "&Ward=" + ward,
+                data: { userId: UserId },
+                datatype: "json",
+                traditional: true,
+                success: function (data) {
+                    //alert("Send Successfully");
+                    //$('#send_msg').html('आपला संदेश पाठवला गेला आहे / Your message has been sent...');
+                    $('#send_msg').html('Your message has been sent...');
+                    $("#send_msg").css('color', 'green');
+
+                }
+            });
+
+
+        });
+    });
+</script>
+@Scripts.Render("~/Scripts/ThemeScripts")
+
+
+

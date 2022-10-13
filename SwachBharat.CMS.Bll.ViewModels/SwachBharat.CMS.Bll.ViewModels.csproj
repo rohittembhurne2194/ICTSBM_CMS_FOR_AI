@@ -1,0 +1,206 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{76F2F2D5-76B4-4946-B90D-CFD7259C4B60}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SwachBharat.CMS.Bll.ViewModels</RootNamespace>
+    <AssemblyName>SwachBharat.CMS.Bll.ViewModels</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\25-10-2018GramPanvhayatCMS\GramPanchayatCMS\GramPanchayat.CMS.Bll.Repository\bin\Debug\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web.Mvc">
+      <HintPath>D:\CompanyProject\RestroAppy\RestroAppy_CMS\AppyPlatter.CMS.Bll.ViewModels\bin\Debug\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ChildModel\Model\ComplaintVM.cs" />
+    <Compile Include="ChildModel\Model\DashBoardVM.cs" />
+    <Compile Include="ChildModel\Model\DumpYardDetailsVM.cs" />
+    <Compile Include="ChildModel\Model\EmpBeatMapVM.cs" />
+    <Compile Include="ChildModel\Model\EmployeeDetailsVM.cs" />
+    <Compile Include="ChildModel\Model\EmployeeHouseCollectionInnerOuter.cs" />
+    <Compile Include="ChildModel\Model\EmployeeHouseCollectionTime.cs" />
+    <Compile Include="ChildModel\Model\EmployeeHouseCollectionType.cs" />
+    <Compile Include="ChildModel\Model\EmployeeLiquidCollectionType.cs" />
+    <Compile Include="ChildModel\Model\EmployeeStreetCollectionType.cs" />
+    <Compile Include="ChildModel\Model\EmployeeVM.cs" />
+    <Compile Include="ChildModel\Model\EmpShiftVM.cs" />
+    <Compile Include="ChildModel\Model\GarbageCollectionVM.cs" />
+    <Compile Include="ChildModel\Model\GarbagePointDetailsVM.cs" />
+    <Compile Include="ChildModel\Model\GetEmpWiseHouseScan.cs" />
+    <Compile Include="ChildModel\Model\HouseQRBunchVM.cs" />
+    <Compile Include="ChildModel\Model\HouseScanifyEmployeeDetailsVM.cs" />
+    <Compile Include="ChildModel\Model\HSUR_Daily_AttendanceVM.cs" />
+    <Compile Include="ChildModel\Model\InfotainmentDetailsVW.cs" />
+    <Compile Include="ChildModel\Model\LiquidWasteVM.cs" />
+    <Compile Include="ChildModel\Model\LocationVM.cs" />
+    <Compile Include="ChildModel\Model\AreaVM.cs" />
+    <Compile Include="ChildModel\Model\BaseVM.cs" />
+    <Compile Include="ChildModel\Model\HouseDetailsVM.cs" />
+    <Compile Include="ChildModel\Model\LogVM.cs" />
+    <Compile Include="ChildModel\Model\MasterQRDetailsVM.cs" />
+    <Compile Include="ChildModel\Model\Result.cs" />
+    <Compile Include="ChildModel\Model\SauchalayDetailsVM.cs" />
+    <Compile Include="ChildModel\Model\SBAHSUREmpLocationMapView.cs" />
+    <Compile Include="ChildModel\Model\SBALHouseLocationMapView.cs" />
+    <Compile Include="ChildModel\Model\SBALHSUserLocationMapView.cs" />
+    <Compile Include="ChildModel\Model\SBALUserLocationMapView.cs" />
+    <Compile Include="ChildModel\Model\StreetSweepingVM.cs" />
+    <Compile Include="ChildModel\Model\StreetSweepVM.cs" />
+    <Compile Include="ChildModel\Model\UREmployeeDetailsVM.cs" />
+    <Compile Include="ChildModel\Model\UserMasterVM.cs" />
+    <Compile Include="ChildModel\Model\VehicalRegDetailsVM.cs" />
+    <Compile Include="ChildModel\Model\VehicleRegVM.cs" />
+    <Compile Include="ChildModel\Model\VehicleTypeVM.cs" />
+    <Compile Include="ChildModel\Model\WardNumberVM.cs" />
+    <Compile Include="ChildModel\Model\WasteDetailsVM.cs" />
+    <Compile Include="ChildModel\Model\ZoneVM.cs" />
+    <Compile Include="Grid\AdminULBDetails.cs" />
+    <Compile Include="Grid\AdminULBStatusDetails.cs" />
+    <Compile Include="Grid\AdsClassificationGridRow.cs" />
+    <Compile Include="Grid\ComplaintGrid.cs" />
+    <Compile Include="Grid\ContactUsMemberGridRow.cs" />
+    <Compile Include="Grid\GPLeagueGridRow.cs" />
+    <Compile Include="Grid\HSUREmployeeAttendanceDetails.cs" />
+    <Compile Include="Grid\InfotainmentDetailsGridRow.cs" />
+    <Compile Include="Grid\InfotainmentPlayerDetailsGridRow.cs" />
+    <Compile Include="Grid\OnePointfourGridRow.cs" />
+    <Compile Include="Grid\SauchalayRegistrationGridRow.cs" />
+    <Compile Include="Grid\SBAAdminCountGrid.cs" />
+    <Compile Include="Grid\SBAAppAreaMapGridRow.cs" />
+    <Compile Include="Grid\SBAAttendenceSettingsGridRow.cs" />
+    <Compile Include="Grid\SBADumpYardDetailsGridRow.cs" />
+    <Compile Include="Grid\SBAEmpBeatMapGridRow.cs" />
+    <Compile Include="Grid\SBAEmplyeeIdelGrid.cs" />
+    <Compile Include="Grid\SBAEmpolyeeSummaryGrid.cs" />
+    <Compile Include="Grid\SBAEmpShiftGridRow.cs" />
+    <Compile Include="Grid\SBAGarbageCountDetails.cs" />
+    <Compile Include="Grid\SBAGarbagePointDetailsGridRow.cs" />
+    <Compile Include="Grid\SBAHouseBunchGridRow.cs" />
+    <Compile Include="Grid\SBAHouseScanifyDetailsGridRow.cs" />
+    <Compile Include="Grid\SBAHSAttendanceGrid.cs" />
+    <Compile Include="Grid\SBAHSDumpyardDetailsGrid.cs" />
+    <Compile Include="Grid\SBAHSHouseDetailsGrid.cs" />
+    <Compile Include="Grid\SBAHSLiquidDetailsGrid.cs" />
+    <Compile Include="Grid\SBAHSStreetDetailsGrid.cs" />
+    <Compile Include="Grid\SBALiquidWasteGridRow.cs" />
+    <Compile Include="Grid\SBALocationGridRow.cs" />
+    <Compile Include="Grid\SBASauchalayDetailsGridRow.cs" />
+    <Compile Include="Grid\SBAStreeSweepBeatDetailsGridRow.cs" />
+    <Compile Include="Grid\SBAStreeSweepDetailsGridRow.cs" />
+    <Compile Include="Grid\SBAStreetSweepBeatDetailsGridRow.cs" />
+    <Compile Include="Grid\SBAVehicalRegDetailsGridRow.cs" />
+    <Compile Include="Grid\SBAVehicleRegGridRow.cs" />
+    <Compile Include="Grid\SBAVehicleTypeGridRow.cs" />
+    <Compile Include="Grid\GPBussniessDetailsGridRow.cs" />
+    <Compile Include="Grid\SBAWardNumberGridRow.cs" />
+    <Compile Include="Grid\SBAEmployeeDetailsGridRow.cs" />
+    <Compile Include="Grid\GPGramBandhKamCompliantGridRow.cs" />
+    <Compile Include="Grid\GPGramBookingSamajBhawanGridRow.cs" />
+    <Compile Include="Grid\GPGramPanchayatEventGridRow.cs" />
+    <Compile Include="Grid\GPImageGroupGridRow.cs" />
+    <Compile Include="Grid\SBAGrabageCollectionGridRow.cs" />
+    <Compile Include="Grid\GPLightComplaintGridRow.cs" />
+    <Compile Include="Grid\GPMantananceComplaintGridRow.cs" />
+    <Compile Include="Grid\GPPhotoGalleryImageGridRow.cs" />
+    <Compile Include="Grid\GPPhotoGalleryVideoGridRow.cs" />
+    <Compile Include="Grid\GPSchemesGridRow.cs" />
+    <Compile Include="Grid\GPTankerBookingGridRow.cs" />
+    <Compile Include="Grid\SBAHouseDetailsGridRow.cs" />
+    <Compile Include="Grid\SBADistrictGridRow.cs" />
+    <Compile Include="Grid\SBATalukaGridRow.cs" />
+    <Compile Include="Grid\SBAAreaGridRow.cs" />
+    <Compile Include="Grid\HomeSplashGridRow.cs" />
+    <Compile Include="Grid\SBAStateGridRow.cs" />
+    <Compile Include="Grid\SBAZoneGridRow.cs" />
+    <Compile Include="Grid\UREmployeeDetails.cs" />
+    <Compile Include="Grid\WM_WasteDetailsGridRow.cs" />
+    <Compile Include="HSDashBoardVM.cs" />
+    <Compile Include="MainModel\AEmployeeDetailVM.cs" />
+    <Compile Include="MainModel\AppConnectionVM.cs" />
+    <Compile Include="MainModel\AppDetailsVM.cs" />
+    <Compile Include="MainModel\AppDistrictVM.cs" />
+    <Compile Include="MainModel\AppStateVM.cs" />
+    <Compile Include="MainModel\AppTalukaVM.cs" />
+    <Compile Include="MainModel\MenuItem.cs" />
+    <Compile Include="MainModel\VMApplication.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SS2020Reports\1Point4VM.cs" />
+    <Compile Include="SS2020Reports\1Point5VM.cs" />
+    <Compile Include="SS2020Reports\1Point7QuestionVM.cs" />
+    <Compile Include="SS2020Reports\1Point7VM.cs" />
+    <Compile Include="SS2020Reports\onePoint4ListVM.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SwachBharat.CMS.Dal.DataContexts\SwachBharat.CMS.Dal.DataContexts.csproj">
+      <Project>{234c7af9-98c5-481f-8c64-bedd89226605}</Project>
+      <Name>SwachBharat.CMS.Dal.DataContexts</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

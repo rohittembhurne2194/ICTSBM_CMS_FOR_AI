@@ -1,0 +1,145 @@
+﻿@{
+    ViewBag.Title = "HSHousesListDownload";
+    Layout = "~/Views/Shared/_HSLayout.cshtml";
+}
+@*@Styles.Render("~/Content/IndexCSS")*@
+<link href='https://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
+
+@Scripts.Render("~/Scripts/IndexScript")
+
+<header class="page-header">
+    <div class="container-fluid">
+        <h2 class="no-margin-bottom">Download Houses List</h2>
+    </div>
+</header>
+<div class="container mt-2">
+    <div class="row mt-4">
+        <div class="col-sm-3 mx-5">
+            <input type="hidden" value="-1" id="hdAppId" />
+            <input type="hidden" value="" id="hdAppName" />
+            <div id="divAppList">
+                <label>Select App Name</label>
+                <select id="selectApp" class="form-control minimal-form  RequiredInput validate[required] RequiredInput"></select>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="check-container">
+                <input type="radio" checked="checked" value="0" name="rdDownloadType">
+                <span class="checkmark"></span>
+                Houses
+
+            </div>
+            <div class="check-container">
+                <input type="radio" value="1" name="rdDownloadType">
+                <span class="checkmark"></span>
+                Street
+
+            </div>
+            <div class="check-container">
+                <input type="radio" value="2" name="rdDownloadType">
+                <span class="checkmark"></span>
+                Liquid
+
+            </div>
+            <div class="check-container">
+                <input type="radio" value="3" name="rdDownloadType">
+                <span class="checkmark"></span>
+                Dumpyard
+
+            </div>
+
+        </div>
+
+        <div class="col-sm-3">
+            <div class="check-container">
+                <input type="radio" checked="checked" value="0" name="rdDownloadOption">
+                <span class="checkmark"></span>
+                All 
+
+            </div>
+            <div class="check-container">
+                <input type="radio" value="1" name="rdDownloadOption">
+                <span class="checkmark"></span>
+               with Lat/Long no data entry
+
+            </div>
+            <div class="check-container">
+                <input type="radio" value="2" name="rdDownloadOption">
+                <span class="checkmark"></span>
+                with data entry
+
+            </div>
+
+
+        </div>
+        <div class="col-sm-3">
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3"></div>
+        <div class="col-md-6">
+            <div>
+                <button type="button" class="btn btn-primary save mr-5" id="btnDownloadPDF" style="margin-top:25px">Download PDF</button>
+                <button type="button" class="btn btn-primary save" id="btnDownloadExcel" style="margin-top:25px">Download EXCEL</button>
+            </div>
+
+        </div>
+        <div class="col-sm-3">
+
+        </div>
+    </div>
+    <div>
+        <p class="text-center"><b><span class="text-danger" id="BeatMaap_pop"></span></b></p>
+    </div>
+</div>
+<script>
+        $(document).ready(function () {
+            $.ajax({
+                type: "get",
+                url: "/HouseScanifyEmp/ListAllApp",
+                contentType: 'application/json;',
+                dataType: 'json',
+                //traditional: true,
+                success: function (data) {
+                    district = '<option value="-1">Select App Name</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        district = district + '<option value=' + data[i].Value + '>' + data[i].Text + '</option>';
+                    }
+                    //district = district + '</select>';
+                    $('#selectApp').html(district);
+                }
+            });
+            //runMaps();
+        });
+
+        $('#selectApp').on('change', function () {
+
+            $('#hdAppId').val((this.value));
+            $('#hdAppName').val(($(this).find("option:selected").text()));
+
+        });
+    $("#btnDownloadPDF").click(function () {
+
+        if ($('#hdAppId').val() == '-1') {
+            $("#BeatMaap_pop").html("Please Select App Name...").delay(2000).show().fadeOut('slow');
+            return false;
+        }
+        var rdDownloadOption = $("input[name='rdDownloadOption']:checked").val();
+        var rdDownloadType = $("input[name='rdDownloadType']:checked").val();
+
+        window.location.href = "/HouseScanifyEmp/ExportHouseListPDF?appId=" + $('#hdAppId').val() + "&appName=" + $('#hdAppName').val() + "&option=" + rdDownloadOption + "&type=" + rdDownloadType;
+    });
+
+    $("#btnDownloadExcel").click(function () {
+
+        if ($('#hdAppId').val() == '-1') {
+            $("#BeatMaap_pop").html("Please Select App Name...").delay(2000).show().fadeOut('slow');
+            return false;
+        }
+        var rdDownloadOption = $("input[name='rdDownloadOption']:checked").val();
+        var rdDownloadType = $("input[name='rdDownloadType']:checked").val();
+
+        window.location.href = "/HouseScanifyEmp/ExportHouseListExcel?appId=" + $('#hdAppId').val() + "&appName=" + $('#hdAppName').val() + "&option=" + rdDownloadOption + "&type=" + rdDownloadType;
+    });
+</script>

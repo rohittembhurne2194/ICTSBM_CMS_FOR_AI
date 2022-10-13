@@ -1,0 +1,94 @@
+﻿@model IList<SwachBharat.CMS.Bll.ViewModels.SS2020Reports.OnePoint7QuestionVM>
+@{
+    ViewBag.Title = "1.7";
+    Layout = null;
+}
+@{
+
+}
+<link rel="shortcut icon" href="~/Content/images/img/sba.png" />
+@Styles.Render("~/Content/AddEditCSS")
+@Scripts.Render("~/Scripts/AddEditScript")
+@Scripts.Render("~/bundles/modernizr")
+<a href="@Url.Action("Modifypoint7Report", "Report")?INSERT_ID=@TempData["INSERT_ID"]" id="btnBack" class="btn"><span class="glyphicon glyphicon-circle-arrow-left"></span>  Back</a>
+ 
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="container">
+        <h4> Edit..</h4>
+
+        <div style="background-color:#fff;">
+
+          
+
+            <table class="table table-bordered table-responsive table-hover" style="font-size:smaller">
+                <tr>
+                    <th style="display:none;">ID </th>
+                    <th style="width:200px">Ward </th>
+                    <th>Water Bodies</th>
+                    <th>Storm Water</th>
+                    <th>Locations</th>
+                    <th>Outlets</th>
+                    <th style="display:none;">INSERT_ID </th>
+
+                </tr>
+                @if (Model != null)
+                {
+                    for (var i = 0; i < Model.Count - 0; i++)
+                    {
+                        <tr>
+                            <td style="display:none;">@Html.TextBoxFor(m => Model[i].Id)</td>
+                            <td style="width:200px;"><label for="Area"> @Model[i].Area</label></td>
+                            <td>@Html.TextBoxFor(m => Model[i].No_Water_Bodies , new { Style = "font-size:small" })</td>
+                            <td>@Html.TextBoxFor(m => Model[i].No_drain_nallas)</td>
+                            <td>@Html.TextBoxFor(m => Model[i].No_locations)</td>
+                            <td>@Html.TextBoxFor(m => Model[i].No_outlets)</td>
+                            <td style="display:none;">@Html.TextBoxFor(m => Model[i].INSERT_ID)</td>
+                        </tr>
+                    }
+                }
+            </table>
+
+           
+            <div class="" style="margin-left:50px;text-align:center" >
+                @*<a class="btn" href="/Report/MenuonepointSevenIndex">Modify</a>*@
+                <button type="submit" name="submit" class="btn" id="btnSubmit">
+                    <span class="glyphicon glyphicon-saved"></span>
+                    <span id="buttonName">Edit</span>
+                </button> &nbsp;
+                @*@if (TempData["Message"] != null)
+                {
+                    <a class="btn" href="/Report/Show1point4Report">Generate report</a>
+
+                }
+                else if (TempData["Message1"] != null)
+                {
+                    <a class="disabled btn" href="/Report/Show1point4Report">Generate report</a>
+                }*@
+
+                @*@if (TempData["Message2"] != null)
+                {
+                    <script type="text/javascript">
+                           alert(@Html.Raw(Json.Encode(TempData["Message2"])));
+                    </script>
+                }*@
+            </div>
+        </div>
+    </div>
+
+}
+
+<script>
+
+    $("#btnSubmit").click(function () {
+
+    });
+</script>
+
+
+
+
+
+
+

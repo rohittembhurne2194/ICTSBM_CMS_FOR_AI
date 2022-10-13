@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewBag.Title = "AIFile_Test";
+}
+
+<h2>AIFile_Test</h2>
+
+<link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+<script defer src="https://pyscript.net/latest/pyscript.js"></script>
+
+<div class="container">
+    <br />
+    <div style="width:100%; margin:0 auto;">
+        <div class="p-2 bd-highlight" style="margin:auto;" id="docupload">
+          
+                @*<embed src="~\D:\Publish\AI\Test3.png" id="Sketchdiagram2" height="500px" width="950px" style="border:solid" />*@
+           <img src="~/Images/AI/Test3.png" />
+        </div>
+    </div>
+</div>
+
+@*<py-env>
+        - numpy
+        - matplotlib
+    </py-env>
+
+    <div class="container">
+        <div id="plot">
+
+        </div>
+    </div>
+
+    <py-script output="plot">
+
+        import matplotlib.pyplot as plt
+        import numpy as np
+
+        np.random.seed(42)
+
+        rv = np.random.standard_normal(1000)
+
+        fig, Ax = plt.subplots()
+        Ax.hist(rv, bins=30)
+        fig
+    </py-script>*@

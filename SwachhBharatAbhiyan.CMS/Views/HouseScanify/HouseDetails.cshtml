@@ -1,0 +1,589 @@
+﻿@model SwachBharat.CMS.Bll.ViewModels.ChildModel.Model.HSDashBoardVM
+
+@{
+    Layout = "";
+}
+
+@Styles.Render("~/Content/IndexCSS")
+<link href='https://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
+
+@Scripts.Render("~/Scripts/IndexScript")
+<style>
+
+    /* The container */
+    .check-container {
+        display: block;
+        position: relative;
+        padding-left: 25px;
+        padding-right: 15px;
+        margin-bottom: 12px;
+        cursor: pointer;
+        font-size: 16px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+        /* Hide the browser's default radio button */
+        .check-container input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+    /* Create a custom radio button */
+    .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 20px;
+        width: 20px;
+        background-color: #ccc;
+        border-radius: 50%;
+    }
+
+    /* On mouse-over, add a grey background color */
+    .check-container:hover input ~ .checkmark {
+        background-color: #999;
+    }
+
+    /* When the radio button is checked, add a blue background */
+    .check-container input:checked ~ .checkmark {
+        background-color: #189cdf;
+       
+    }
+
+    /* Create the indicator (the dot/circle - hidden when not checked) */
+    .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+    }
+
+    /* Show the indicator (dot/circle) when checked */
+    .check-container input:checked ~ .checkmark:after {
+        display: block;
+    }
+
+    .check-container input ~ .checkmark:after {
+        display: block;
+    }
+
+    /* Style the indicator (dot/circle) */
+    .check-container .checkmark:after {
+        top: 6px;
+        left: 6px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: white;
+    }
+    #demoGrid_filter {
+        display: none;
+    }
+    #demoGrid1_filter {
+        display: none;
+    }
+    #demoGrid2_filter {
+        display: none;
+    }
+    #demoGrid3_filter {
+        display: none;
+    }
+</style>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.bootstrap4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.colVis.min.js"></script>
+<script src="~/Content/DatatableGrid/HSHouseDetailsGrid.js"></script>
+<script src="~/Content/DatatableGrid/HSDumpyardDetailsGrid.js"></script>
+<script src="~/Content/DatatableGrid/HSLiquidDetailsGrid.js"></script>
+<script src="~/Content/DatatableGrid/HSStreetDetailsGrid.js"></script>
+
+<body>
+    <input type="hidden" value="@ViewBag.AppId" id="appid" />
+
+    <div class="content-inner">
+        <br />
+
+        <div class="container">
+            <div class="row">
+                <span class="backk" style="margin-left: 15px;">
+
+                    <a href="@Url.Action("Index", "HouseScanify")" id="btnBack" class="btn btn-sm btn-primary filter-button-style"><span class="glyphicon glyphicon-circle-arrow-left"></span>  Back</a>
+                </span>
+                <h4 id="ulb_name" class="text-center" style="padding-left:14px;width:80%"></h4>
+            </div>
+            <br />
+            @*<div class="row">
+                    <div class="col-sm-3">
+                        <div class="controls">
+                            <label>From Date</label>
+                            <input id="txt_fdate" class="datepicker form-control form-control-sm" type="text" />
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="controls">
+                            <label>To Date</label>
+                            <input id="txt_tdate" class="datepicker form-control form-control-sm" type="text" />
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <label>Select Employee</label>
+                        <select id="selectnumber" class="form-control form-control form-control-sm"></select>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="controls">
+                            <input data-background-color="filter-button-box-color" style="margin-top:28px;" class="btn btn-sm btn-primary filter-button-style" type="button" value="Filter Records" id="filter" onclick="Search()" />
+                        </div>
+                    </div>
+                </div>*@
+            <div class="row form" style="text-align:center;display:inline-flex">
+                <label class="check-container">
+                    Houses
+                    <input type="radio" checked="checked" value="0" name="radio">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="check-container">
+                    Dumpyard
+                    <input type="radio" value="1" name="radio">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="check-container">
+                    Liquid
+                    <input type="radio" value="2" name="radio">
+                    <span class="checkmark"></span>
+                </label>
+
+                <label class="check-container">
+                    Street
+                    <input type="radio" value="3" name="radio">
+                    <span class="checkmark"></span>
+                </label>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="controls">
+                        <label>From Date</label>
+                        <input id="txt_fdate" class="datepicker form-control form-control-sm" type="text" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="controls">
+                        <label>To Date</label>
+                        <input id="txt_tdate" class="datepicker form-control form-control-sm" type="text" />
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <label>Select Employee</label>
+                    <select id="selectnumber" class="form-control form-control form-control-sm"></select>
+                </div>
+                <div class="col-sm-2">
+                    <div class="controls">
+                        <input data-background-color="filter-button-box-color" style="margin-top:28px;" class="btn btn-sm btn-primary filter-button-style" type="button" value="Filter Records" id="filter" onclick="Filter()" />
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="controls">
+                        <input data-background-color="filter-button-box-color" style="margin-top:28px;" class="btn btn-sm btn-primery filter-button-style" type="button" value="Download" id="filter" onclick="DownloadQRCode()" />
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="container" style="overflow-y:auto;display:none" id="divHouse">
+            <br />
+            <div style="width:100%; margin:0 auto;">
+                <label style="display:inline-flex;padding-right:5px" class="float-right">Search:&nbsp;<input type="text" id="sHouse" class="form-control form-control-sm" onkeyup="SearchHouse()"></label>
+                <table id="demoGrid" class="table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0" style="font-size:14px">
+                    <thead style="font-size:14px">
+                        <tr>
+                            <th>Id</th>
+                            <th>Date Time</th>
+                            <th> House ID</th>
+                            <th> Employee Name</th>
+                            <th> Latiude</th>
+                            <th> Longitude</th>
+                            <th> Photo</th>
+                            @*<th> Action</th>*@
+                        </tr>
+                    </thead>
+
+
+                </table>
+            </div>
+        </div>
+        <div class="container" style="overflow-y:auto;display:none" id="divDump">
+            <br />
+            <div style="width:100%; margin:0 auto;">
+                <label style="display:inline-flex;padding-right:5px" class="float-right">Search:&nbsp;<input type="text" id="sDump" class="form-control form-control-sm" onkeyup="SearchDump()"></label>
+                <table id="demoGrid1" class="table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0" style="font-size:14px">
+                    <thead style="font-size:14px">
+                        <tr>
+                            <th>Id</th>
+                            <th>Date Time</th>
+                            <th> Dumpyard ID</th>
+                            <th> Employee Name</th>
+                            <th> Latiude</th>
+                            <th> Longitude</th>
+                            <th> Photo</th>
+                            @*<th> Action</th>*@
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+        <div class="container" style="overflow-y:auto;display:none" id="divLiquid">
+            <br />
+            <div style="width:100%; margin:0 auto;">
+                <label style="display:inline-flex;padding-right:5px" class="float-right">Search:&nbsp;<input type="text" id="sLiquid" class="form-control form-control-sm" onkeyup="SearchLiquid()"></label>
+                <table id="demoGrid2" class="table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0" style="font-size:14px">
+                    <thead style="font-size:14px">
+                        <tr>
+                            <th>Id</th>
+                            <th>Date Time</th>
+                            <th> Liquid ID</th>
+                            <th> Employee Name</th>
+                            <th> Latiude</th>
+                            <th> Longitude</th>
+                            <th> Photo</th>
+                            @*<th> Action</th>*@
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+        <div class="container" style="overflow-y:auto;display:none" id="divStreet">
+            <br />
+            <div style="width:100%; margin:0 auto;">
+                <label style="display:inline-flex;padding-right:5px" class="float-right">Search:&nbsp;<input type="text" id="sStreet" class="form-control form-control-sm" onkeyup="SearchStreet()"></label>
+                <table id="demoGrid3" class="table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0" style="font-size:14px">
+                    <thead style="font-size:14px">
+                        <tr>
+                            <th>Id</th>
+                            <th>Date Time</th>
+                            <th> Street ID</th>
+                            <th> Employee Name</th>
+                            <th> Latiude</th>
+                            <th> Longitude</th>
+                            <th> Photo</th>
+                            @*<th> Action</th>*@
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div id="myModal_Image" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 id="header_data" class="modal-title"></h4>
+                </div>
+
+                <div class="modal-body">
+                    <center>
+                        <img class="img-responsive" id="imggg" alt="Photo Not Found">
+                        <br />
+                        <p> <b id="hide_date">Employee Name: </b><span id="dateData"></span></p>
+                        <p> <b id="hide_add">House Id: </b><span id="latlongData"></span></p>
+                        <p> <b id="hide_add1">Date And Time: </b><span id="date1"></span></p>
+
+                        <p> <b id="hide_add2">Lat: </b><span id="lat"></span> <b id="hide_add3">Long: </b><span id="long"></span></p>
+                        <p> </p>
+                    </center>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn" data-dismiss="modal">Close</button>
+                        @*<a href="~/Images/Nagpur/Job/download.pdf" class="btn btn-default" download>Download</a>*@
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="snackbar">Image not uploaded...</div>
+</body>
+
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.bootstrap4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.colVis.min.js"></script>
+@*<script async defer src="https://maps.googleapis.com/maps/api/js?key=@Session["apikey"]&callback=myMap" type="text/javascript"></script>*@
+<!-- Dashboard Header Section    -->
+<script type="text/javascript">
+    function PopImages(cel) {
+       // debugger
+        $('#myModal_Image').modal('toggle');
+        var d1 = $(cel).find('.date_time').text();
+        var addr = $(cel).find('.addr-length').text();
+        var date = $(cel).find('.li_date').text();
+        var imgsrc = $(cel).find('img').attr('src');
+        var head = $(cel).find('.li_title').text();
+
+        var lat = $(cel).find('.li_lat').text();
+        var long = $(cel).find('.li_long').text();
+        
+        jQuery("#date1").text(d1);
+        jQuery("#latlongData").text(addr);
+        jQuery("#dateData").text(date);
+        jQuery("#imggg").attr('src', imgsrc);
+        //jQuery("#latlongData").text(cellValue);
+        jQuery("#header_data").html(head);
+        jQuery("#lat").text(lat);
+        jQuery("#long").text(long);
+
+    }
+
+    $(document).ready(function () {
+        
+       
+
+        $.get("/houseScanify/GetAppNames", null, house);
+
+        function house(data) {
+            var qqq = $('#appid').val();
+            for (var i = 0; i < data.length; i++) {
+
+                if (data[i].AppId == qqq) {
+                    $('#ulb_name').html(data[i].AppName);
+                }
+            }
+
+        }
+
+    });
+</script>
+<script type="text/javascript">
+    $('input[type=radio][name=radio]').change(function () {
+        var date = new Date();
+
+        var day = date.getDate();
+        var month = date.getMonth() + 1;
+        var year = date.getFullYear();
+
+        if (month < 10) month = "0" + month;
+        if (day < 10) day = "0" + day;
+
+        var today = day + "/" + month + "/" + year;
+
+        document.getElementById('txt_fdate').value = today;
+        document.getElementById('txt_tdate').value = today;
+
+        document.getElementById('sHouse').value = '';
+        document.getElementById('sDump').value = '';
+        document.getElementById('sLiquid').value = '';
+        document.getElementById('sStreet').value = '';
+
+        
+        LoadUserList();
+
+    });
+    var CheckHouse = '0';
+    var CheckCommercial = '0';
+    var CheckLiquid = '0';
+    var CheckStreet = '0';
+    var Checkdump = '0';
+
+    function LoadGrid() {
+        var RadioValue = $("input[name='radio']:checked").val();
+        
+        if (RadioValue == 0) {
+            
+            $("#divDump").hide();
+            $("#divLiquid").hide();
+            $("#divStreet").hide();
+            $("#divHouse").show();
+            if (CheckHouse == '0') {
+                loadGridHouse();
+                CheckHouse = '1';
+            }
+            else {
+
+                
+                SearchHouse();
+            }
+        }
+        else if (RadioValue == 1) {
+            $("#divHouse").hide();
+            $("#divLiquid").hide();
+            $("#divStreet").hide();
+            $("#divDump").show();
+            if (Checkdump == '0') {
+                loadGridDump();
+                Checkdump = '1';
+            }
+            else {
+
+                SearchDump();
+            }
+        }
+        else if (RadioValue == 2) {
+            $("#divHouse").hide();
+            $("#divDump").hide();
+            $("#divStreet").hide();
+            $("#divLiquid").show();
+            if (CheckLiquid == '0') {
+                loadGridLiquid();
+                CheckLiquid = '1';
+            }
+            else {
+
+                SearchLiquid();
+            }
+        }
+        else if (RadioValue == 3) {
+            $("#divHouse").hide();
+            $("#divDump").hide();
+            $("#divLiquid").hide();
+            $("#divStreet").show();
+
+            if (CheckStreet == '0') {
+                loadGridStreet();
+                CheckStreet = '1';
+            }
+            else {
+
+                SearchStreet();
+            }
+        }
+    }
+
+    function LoadUserList() {
+        //var UserId = $('#selectnumber').val();
+        var UserId = $('#appid').val();
+        // alert(UserId);
+        $.ajax({
+            type: "post",
+            url: "/HouseScanify/UserListByAppId?AppId=" + UserId,
+            data: { userId: UserId },
+            datatype: "json",
+            traditional: true,
+            success: function (data) {
+                district = '<option value="-1">Select Employee</option>';
+                console.log(data);
+                for (var i = 0; i < data.length; i++) {
+                    district = district + '<option value=' + data[i].qrEmpId + '>' + data[i].qrEmpName + '</option>';
+                }
+                //district = district + '</select>';
+                $('#selectnumber').html(district);
+                LoadGrid();
+            }
+        });
+
+    }
+    function Filter() {
+        
+        var RadioValue = $("input[name='radio']:checked").val();
+        if (RadioValue == 0) {
+            $("#divDump").hide();
+            $("#divLiquid").hide();
+            $("#divStreet").hide();
+            $("#divHouse").show();
+            //loadGridHouse();
+            SearchHouse();
+        }
+        else if (RadioValue == 1) {
+            $("#divHouse").hide();
+            $("#divLiquid").hide();
+            $("#divStreet").hide();
+            $("#divDump").show();
+            //loadGridDump();
+            SearchDump();
+        }
+        else if (RadioValue == 2) {
+            $("#divHouse").hide();
+            $("#divDump").hide();
+            $("#divStreet").hide();
+            $("#divLiquid").show();
+            //loadGridLiquid();
+            SearchLiquid();
+        }
+        else if (RadioValue == 3) {
+            $("#divHouse").hide();
+            $("#divDump").hide();
+            $("#divLiquid").hide();
+            $("#divStreet").show();
+            //loadGridStreet();
+            SearchStreet();
+        }
+    }
+</script>
+<script type="text/javascript">
+    function DownloadQRCode() {
+        var RadioValue = $("input[name='radio']:checked").val();
+        var txt_fdate, txt_tdate, Client, UserId;
+        //var name = [];
+        //var arr = [$('#txt_fdate').val(), $('#txt_tdate').val()];
+
+        //for (var i = 0; i <= arr.length - 1; i++) {
+        //    name = arr[i].split("/");
+        //    arr[i] = name[1] + "/" + name[0] + "/" + name[2];
+        //}
+        UserId = $('#selectnumber').val();
+        txt_fdate = $('#txt_fdate').val();
+        txt_tdate = $('#txt_tdate').val();
+        window.location.href = "/HouseScanify/Export?type=" + RadioValue + "&UserId=" + UserId + "&fdate=" + txt_fdate + "&tdate=" + txt_tdate;
+
+    }
+    $(document).ready(function () {
+        
+        LoadUserList();
+
+    });
+
+
+</script>
+<script>
+
+    var date = new Date();
+
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
+    var year = date.getFullYear();
+
+    if (month < 10) month = "0" + month;
+    if (day < 10) day = "0" + day;
+
+    var today = day + "/" + month + "/" + year;
+
+    document.getElementById('txt_fdate').value = today;
+    document.getElementById('txt_tdate').value = today;
+
+
+</script>
+<script src="~/Content/graph-assets/js/custom.js"></script>
+<script src="~/Content/css/datepicker/js/datepicker.js"></script>
+
+<script type="text/javascript">
+    $('.datepicker').datepicker({
+        format: 'dd/mm/yyyy',
+        weekStart: 1,
+        color: 'red',
+        pickTime: false
+    }).on('changeDate', function (e) {
+
+        $(this).datepicker('hide');
+
+    });
+    //hide  show on hover
+    $('#txt_fdate').focus(function () {
+        $('.dtpk_drpdwn').eq(1).hide();
+    });
+    $('#txt_tdate').focus(function () {
+        $('.dtpk_drpdwn').eq(0).hide();
+    });
+</script>

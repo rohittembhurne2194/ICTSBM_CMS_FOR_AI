@@ -1,0 +1,106 @@
+﻿
+body {
+
+	background-color: #3CBABA !important;
+}
+    .form-signin input[type="text"] {
+        margin-bottom: 5px;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+    .form-signin input[type="password"] {
+        margin-bottom: 10px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+    .form-signin .form-control {
+        position: relative;
+        font-size: 16px;
+        font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+        height: auto;
+        padding: 10px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+    .vertical-offset-100 {
+    padding-top: 0px;
+    }
+    .img-responsive {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+    }
+.panel {
+    margin-bottom: 20px;
+    background: url(../images/22.png);
+    border: 0px solid transparent !important;
+    border-radius: 0px !important;
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+    box-shadow: none !important;
+    background-color: transparent !important;
+    background-repeat: no-repeat;
+background-size: 98% 100%;
+width: 100%;
+background-position: 0% 12%;
+height: 640px;
+}
+.row-fluid.user-row {
+	margin-top: 35%;
+}
+.img-responsive, .thumbnail > img, .thumbnail a > img, .carousel-inner > .item > img, .carousel-inner > .item > a > img {
+	display: block;
+	max-width: 90% !important;
+	height: auto;
+}
+.panel-body {
+	padding:10px 48px 10px 48px !important;
+}
+.input-group {
+	position: relative;
+	display: table;
+	border-collapse: separate;
+	margin-top: 25px;
+}
+input.btn-block[type="submit"], input.btn-block[type="reset"], input.btn-block[type="button"] {
+	width: 100%;
+	margin-top: 30px;
+	margin-bottom: 0px;
+}
+.panel-default > .panel-heading {
+	color: #333;
+	background-color: transparent !important;
+	border-color: transparent !important;
+}
+.btn-success {
+	border-color: #ddd;
+	position: relative;
+	overflow: hidden;
+	display: inline-block;
+}
+.btn-success:hover {
+transition: .5s;
+background: #449d44;
+background: linear-gradient( to right, rgba(255, 255, 255, 0.13) 0%, rgba(255, 255, 255, 0.13) 77%, rgba(255, 255, 255, 0.5) 92%, rgba(255, 255, 255, 0.0) 100% );
+color: #000;
+}
+
+.btn-info:hover{
+transition: .5s;
+background-color: #31b0d5;color:#000;
+    background: linear-gradient( to right, rgba(255, 255, 255, 0.13) 0%, rgba(255, 255, 255, 0.13) 77%, rgba(255, 255, 255, 0.5) 92%, rgba(255, 255, 255, 0.0) 100% );
+}.input-group-addon:not(:first-child):not(:last-child), .input-group-btn:not(:first-child):not(:last-child), .input-group .form-control:not(:first-child):not(:last-child) {
+	border-radius: 0px 6px 6px 0px;
+}
+ .form-group {
+	margin-bottom: 0px;
+}
+ #forgotpass {
+	margin-bottom: 13px;
+}
+ .aa{padding: 0% 0% 0% 32%;text-decoration: none;}
+ a{color:#000;text-decoration: none !important; }
+ a:hover {
+	color: red;
+}

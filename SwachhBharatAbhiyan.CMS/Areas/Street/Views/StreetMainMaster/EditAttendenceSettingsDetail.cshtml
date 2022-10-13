@@ -1,0 +1,177 @@
+﻿
+
+
+@model SwachBharat.CMS.Bll.ViewModels.Grid.SBAAttendenceSettingsGridRow
+
+@{
+    Layout = "";
+}
+<link rel="shortcut icon" href="~/Content/images/img/sba.png" />
+@Styles.Render("~/Content/AddEditCSS")
+
+@Scripts.Render("~/Scripts/AddEditScript")
+@Scripts.Render("~/bundles/modernizr")
+
+
+@using (Html.BeginForm("EditAttendenceSettingsDetail", "MainMaster", FormMethod.Post, new { enctype = "multipart/form-data", data_toggle = "validator", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.userId);
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-sm-1">
+                <span class="backk">
+                    <a href="@Url.Action("AttendenceSettingsDetail", "MainMaster")" id="btnBack" class="btn"><span class="glyphicon glyphicon-circle-arrow-left"></span>  Back</a>
+                </span>
+            </div>
+
+            <div class="col-sm-10">
+                <h1 class="add-edit-h1 title_change"></h1>
+            </div>
+            <div class="panel panel-warning col-sm-12 ">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    @*@Html.Label("नाव / Name")*@
+                    @Html.Label("Name")
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.TextBoxFor(model => model.userName, new { @class = "form-control", style = "font-family:Arial, FontAwesome", required = "required" })
+                    @Html.ValidationMessageFor(model => model.userName, "", new { @class = "text-danger" })
+                    <span class="text-danger" id="err_name"></span>
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                    <span class="help-block with-errors"></span>
+                </div>
+            
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    @*@Html.Label("एम्प्लॉयमेंट आयडी / Employment ID ")*@
+                    @Html.Label("In Time")
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.TextBoxFor(model => model.startTime, new { @class = "form-control", style = "font-family:Arial, FontAwesome" })
+                    @Html.ValidationMessageFor(model => model.startTime, "", new { @class = "text-danger" })
+                    <span class="text-danger" id="err_empidd"></span>
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                    <span class="help-block with-errors"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    @*@Html.Label("पत्ता / Address")*@
+                    @Html.Label("Notification Time")
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.TextBoxFor(model => model.NotificationTime, new { @class = "form-control", style = "font-family:Arial, FontAwesome", required = "required" })
+                    @Html.ValidationMessageFor(model => model.NotificationTime, "", new { @class = "text-danger" })
+                    <span class="text-danger" id="err_address"></span>
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                    <span class="help-block with-errors"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    @*@Html.Label("मोबाइल / Mobile")*@
+                    @Html.Label("Notification Mobile Number")
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.TextBoxFor(model => model.NotificationMobileNumber, new { @class = "form-control", style = "font-family:Arial, FontAwesome", minlength = "10", maxlength = "10", required = "required" })
+                    @Html.ValidationMessageFor(model => model.NotificationMobileNumber, "", new { @class = "text-danger" })
+                    <span class="text-danger" id="err_mobile"></span>
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                    <span class="help-block with-errors"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <center><span class="text-danger" id="err_generate"></span></center>
+            <div class="form-group1">
+                <button type="submit" name="submit" class="btn" id="btnSubmit" onclick="return Validate()">
+
+                    <span class="glyphicon glyphicon-saved"></span>
+                    <span id="buttonName">Save Changes</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+   
+
+        var id = $('#userId').val();
+        if (id > 0) {
+            $('#buttonName').text("Save Changes");
+            //$('.title_change').text("कर्मचारी तपशील सादर बदला / Edit Employee Details");
+            $('.title_change').text("Edit Attendance Settings Details");
+        } else {
+            $('#buttonName').text("Save");
+            //$('.title_change').text("कर्मचारी तपशील सादर करा / Add  Employee Details");
+            $('.title_change').text("Attendance Settings Details");
+        }
+    });
+
+
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+     
+    });
+</script>
+<script type="text/javascript">
+        $(document).ready(function () {
+            $("#NotificationMobileNumber").keypress(function (e) {
+                //if the letter is not digit then display error and don't type anything
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57) && e.which != 44) {
+                    //display error message
+                    //$("#err_mobile").html("केवल अंक | Digits Only").show().delay(1500).show().fadeOut('slow');
+                    $("#err_mobile").html("Digits Only").show().delay(1500).show().fadeOut('slow');
+                    return false;
+                }
+            });
+        });
+
+        $("#userName").keypress(function (e) {
+            //if the letter is not digit then display error and don't type anything
+            if (!(e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57) && e.which != 44)) {
+                //display error message
+                //$("#err_phone").html("केवल अंक | Digits Only").show().delay(1500).show().fadeOut('slow');
+                $("#err_name").html("Alphabates only").show().delay(1500).show().fadeOut('slow');
+                return false;
+            }
+        });
+        $("#btnSubmit").click(function () {
+            if ($.trim($("#userName").val()) == '') {
+                //$("#err_name").html("नाव आवश्यक आहे / Name is Required").delay(1500).show().fadeOut('slow');
+                $("#err_name").html("Name is Required").delay(1500).show().fadeOut('slow');
+                $('#userName').focus();
+                return false;
+            }
+       
+
+            if ($.trim($("#NotificationMobileNumber").val()) == '') {
+                //$("#err_mobile").html("मोबाइल नंबर आवश्यक आहे / Mobile Number is Required").delay(1500).show().fadeOut('slow');
+                $("#err_mobile").html("Mobile Number is Required").delay(1500).show().fadeOut('slow');
+                $('#userMobileNumber').focus();
+                return false;
+            }
+
+            return true;
+        });
+
+
+</script>

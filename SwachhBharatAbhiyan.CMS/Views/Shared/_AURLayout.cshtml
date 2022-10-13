@@ -1,0 +1,467 @@
+﻿
+@{
+    ViewBag.Title = "House Scanify Emp";
+    IEnumerable<SwachBharat.CMS.Bll.ViewModels.MainModel.MenuItemULB> MenuList = (IEnumerable<SwachBharat.CMS.Bll.ViewModels.MainModel.MenuItemULB>)TempData["MenuList"];
+    var utype = (string)Session["utype"];
+    var HSuserid = (string)Session["LoginId"];
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>@ViewBag.Title</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="all,follow">
+    @Styles.Render("~/Content/ThemeCss")
+    @*@Scripts.Render("~/Scripts/ThemeScripts")*@
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    @*@Scripts.Render("~/bundles/modernizr")*@
+    @*@RenderSection("styles", required: false)*@
+    @*@Styles.Render("~/Content/ThemeCss")*@
+    @*@Scripts.Render("~/bundles/modernizr")*@
+    @RenderSection("styles", required: false)
+    <link href="~/Content/theme-assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="~/Content/images/img/ictsbm2.png" />
+    <link href="~/Content/css/alertify/alertify.core.css" rel="stylesheet" />
+    <link href="~/Content/css/alertify/alertify.default.css" rel="stylesheet" />
+    <link href="~/Content/css/AccountMaster.css" rel="stylesheet" />
+</head>
+
+<body>
+    @*<input type="hidden" value='@Request.QueryString["daId"]' id='HdnIndustries' />*@
+
+    <input type="hidden" value="@utype" id="UType" />
+    <input type="hidden" value="@HSuserid" id="HSID" />
+    <div class="page">
+        <!-- Main Navbar-->
+        <header class="header">
+            <nav class="navbar" style=" background: #9ad9f8 !important; color: #000;">
+                <!-- Search Box-->
+                <div class="search-box">
+                    <button class="dismiss"><i class="icon-close"></i></button>
+                    <form id="searchForm" action="#" role="search">
+                        <input type="search" placeholder="What are you looking for..." class="form-control">
+                    </form>
+                </div>
+
+                <div class="container-fluid" style="padding-right:10%">
+                    <div class="navbar-holder d-flex align-items-center justify-content-between" style="display: -webkit-box !important;">
+                        <!-- Navbar Header-->
+                        <div class="navbar-header d-flex" style="display: -webkit-box !important;">
+                            <!-- Navbar Brand <a href="#" class="navbar-brand">
+                            <div class="brand-text brand-big"><span><img style="height:40px;width:50px;" src="~/Content/images/img/house_icon.svg" /> </span></div>
+                            <div class="brand-text brand-small"><strong><img style="height:40px;width:50px;" src="~/Content/images/img/house_icon.svg" /> </strong></div>
+                        </a>
+                        <!-- Toggle Button-->
+                            <img src="~/Content/images/New_Img/WCMT-Logo.png" style="width:45px;height:auto" />
+                            <h6 style="color: #000; padding-top: 7%; padding-left: 5%;">ICT BASED MONITORING SYSTEM </h6>
+                            <!-- <a id="toggle-btn" href="#" class="menu-btn active"><span></span><span></span><span></span></a>-->
+                        </div>
+                        <!-- Navbar Menu -->
+                        <!-- Logout    -->
+                        @*<li class="nav-item" style="list-style: none;"><a href="/houseScanifyEmp/login" class="nav-link logout">Logout<i class="fa fa-sign-out"></i></a></li>*@
+                        <li class="nav-item" style="list-style: none; margin-left: 70%;" id="HDUserid"></li>
+                        <li class="nav-item" style="list-style: none; padding-right: 1%;" id="HSType"> </li>
+                        <i class="fa-regular fa-user" style="border-right: 2px solid #7daec8; padding-right: 1%; font-size: 14px;"></i>
+                        @Html.Partial("_AURLoginPartial")
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <div class="page-content d-flex align-items-stretch" style="padding-left: 5%; padding-right: 5%;">
+            <!-- Side Navbar -->
+            <nav class="side-navbar">
+                <!-- Sidebar Header-->
+
+                <ul style=" padding: 1PX; margin-bottom: 1PX;list-style:none">
+                    <li id='URbutton' class='py-2 px-4'><a href='AURIndex' class="btn btn-primary" style="background: #9ad9f8 !important; color: #000 !important; font-weight: 600; border-color: #9ad9f8 !important; margin-left: 2%; " onMouseOver="this.style.background='#189cdf!important;'">User Right</a></li>
+                </ul>
+                <input id="searchbar" onkeyup="search_ulbname()" type="text" name="search" placeholder="Search ULB Name" class="search">
+                <ul style=" padding: 1px; margin-bottom: 1px; list-style: none">
+                    <li class='py-2 px-4'><a href='AURMenuIndex' class="btn btn-primary" style="background: #9ad9f8 !important; color: #000 !important; font-weight: 600; border-color: #9ad9f8 !important; margin-left: 2%; ">MAHARASHTRA</a></li>
+                </ul>
+                <nav class="side-navbar ulbnavbar">
+                    <!-- Sidebar Header-->
+                    <ul class="list-unstyled">
+                        @{
+                            if (MenuList != null)
+                            {
+                                var i = 0;
+                                //var icount = Model.Where(s => s.districtId == 0 && s.ULBId == 0).ToList().Count;
+                                foreach (var item in MenuList.Where(s => s.districtId == 0 && s.ULBId == 0).ToList())
+                                {
+                                    i++;
+                                    var aName = "#exampledropdownDropdow" + i;
+                                    var lName = "exampledropdownDropdow" + i;
+
+                                    <li class="folder">
+                                        @if ((MenuList.Where(s => s.districtId == 0 && s.ULBId == 0).ToList().Count > 0))
+                                        {
+                                            <span class="plus">&nbsp;</span>
+                                            @Html.ActionLink(@item.LinkText, @item.ActionName, new { area = "", controller = @item.ControllerName, DivisionId = @item.divisionId, DistrictId = 0, AppId = 0, Type = @item.Type })
+
+                                        }
+                                        <ul id="@{@lName}" class="list-unstyled inner_ul">
+                                            @{
+                                                var j = 0;
+                                                //var jcount = Model.Where(s => s.ULBId == 0 && s.districtId != 0 && s.divisionId == item.divisionId).ToList().Count;
+                                                foreach (var firstItem in (MenuList.Where(s => s.ULBId == 0 && s.districtId != 0 && s.divisionId == item.divisionId).ToList()))
+                                                {
+                                                    j++;
+                                                    var aName1 = "#exampledropdownDropdow" + i + j;
+                                                    var lName1 = "exampledropdownDropdow" + i + j;
+                                                    <li class="folder">
+                                                        @if (MenuList.Where(s => s.ULBId == 0 && s.districtId != 0 && s.divisionId == item.divisionId).ToList().Count > 0)
+                                                        {
+                                                            <span class="plus">&nbsp;</span>
+                                                            @Html.ActionLink(@firstItem.LinkText, @firstItem.ActionName, new { area = "", controller = @firstItem.ControllerName, DivisionId = 0, DistrictId = @firstItem.districtId, AppId = 0, Type = @firstItem.Type })
+
+                                                        }
+
+                                                        <ul id="@{@lName1}" class="list-unstyled">
+                                                            @{foreach (var secondItem in (MenuList.Where(s => s.divisionId == item.divisionId && s.districtId == firstItem.districtId && s.ULBId != 0).ToList()))
+                                                                {
+                                                                    <li class="file a2">
+                                                                        @Html.ActionLink(@secondItem.LinkText, @secondItem.ActionName, new { area = "", controller = @secondItem.ControllerName, DivisionId = 0, DistrictId = 0, AppId = @secondItem.ULBId, Type = @secondItem.Type })
+                                                                    </li>
+
+                                                                }
+                                                            }
+                                                        </ul>
+                                                    </li>
+
+
+                                                }
+                                            }
+                                        </ul>
+                                    </li>
+
+                                }
+                            }
+                        }
+                    </ul>
+                </nav>
+                @*<span class="heading">Extras</span>*@
+                @*<div class="wrapper">
+                    <h3 class="heading">File Browser</h3>
+                    <div class="file-browser">
+                        <ul>
+                            <li class="folder folder-open">
+                                Dashboard
+                                <ul>
+                                    <li class="file">Accounts Module</li>
+                                    <li class="file">Help Module</li>
+                                </ul>
+                            </li>
+                            <li class="folder">
+                                Transfers
+                                <ul>
+                                    <li class="folder folder-open">
+                                        Quick
+                                        <ul>
+                                            <li class="file">Disclosures</li>
+                                            <li class="file">Modals</li>
+                                        </ul>
+                                    </li>
+                                    <li class="file">Classic</li>
+                                    <li class="folder">
+                                        Scheduled
+                                        <ul>
+                                            <li class="folder">
+                                                Calendar
+                                                <ul>
+                                                    <li class="file">Days</li>
+                                                    <li class="file">Months</li>
+                                                </ul>
+                                            </li>
+                                            <li class="file">Modals</li>
+                                        </ul>
+                                    </li>
+                                    <li class="file">History</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>*@
+            </nav>
+            <div class="content-inner">
+
+                @RenderBody()
+
+            </div>
+
+        </div>
+        <footer class="" style="padding:0px">
+            <!--<div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">-->
+            @*<p>Appynitty &copy; 2017-2019</p>*@
+            <!--<p>All Rights Reserved © 2017-2022</p>
+        </div>
+        <div class="col-sm-6 text-right">
+            <p>-->
+            @*Design by <a href="https://bootstrapious.com/admin-templates" class="external">Bootstrapious</a>*@<!--</p>-->
+            <!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
+            <!--</div>
+            </div>
+        </div>-->
+            <div class="row justify-content-center bg-footer">
+                <a href="https://egreetings.gov.in" target="blank">
+                    <img src="~/Content/images/Linked_imag/e-greating.png" style="padding: 8px;">
+                </a>
+                <a href="https://transformingindia.mygov.in" target="blank">
+                    <img src="~/Content/images/Linked_imag/Transforming-india-logo.png" style="border-left: 1px solid #6b6c6f; padding: 8px;">
+                </a>
+                <a href="https://innovateindia.mygov.in" target="blank">
+                    <img src="~/Content/images/Linked_imag/innovation-logo.png" style="border-left: 1px solid #6b6c6f;padding: 8px;">
+                </a>
+                <a href="https://swachhbharat.mygov.in/" target="blank">
+                    <img src="~/Content/images/Linked_imag/swachh-bharat.png" style="border-left: 1px solid #6b6c6f;padding: 8px;">
+                </a>
+                <a href="https://quiz.mygov.in" target="blank">
+                    <img src="~/Content/images/Linked_imag/mygov_quiz.png" style="border-left: 1px solid #6b6c6f;padding: 8px;">
+                </a>
+                <a href="https://blog.mygov.in" target="blank">
+                    <img src="~/Content/images/Linked_imag/blog-logo.png" style="border-left: 1px solid #6b6c6f; padding: 8px;">
+                </a>
+                <a href="https://self4society.mygov.in" target="blank">
+                    <img src="~/Content/images/Linked_imag/itowe-logo.png" style="border-left: 1px solid #6b6c6f;padding: 8px;">
+                </a>
+            </div>
+            <div class="row justify-content-center bg-black">
+                <a href="http://pmindia.gov.in" target="blank">
+                    <img src="~/Content/images/Linked_imag/pm-india-logo.png" style="padding: 10px;">
+                </a>
+                <a href="http://meity.gov.in/" target="blank">
+                    <img src="~/Content/images/Linked_imag/Meity_logo.png" style="border-left: 1px solid #3e3e42;padding: 10px;">
+                </a>
+
+
+                <a href="https://www.mygov.in" target="blank">
+                    <img src="~/Content/images/Linked_imag/mygov-footer-logo.png" style="border-left: 1px solid #3e3e42;padding: 10px;">
+                </a>
+                <a href="https://india.gov.in" target="blank">
+                    <img src="~/Content/images/Linked_imag/india-gov-logo.png" style="border-left: 1px solid #3e3e42;padding: 10px;">
+                </a>
+                <a href="http://data.gov.in" target="blank">
+                    <img src="~/Content/images/Linked_imag/data-gov-logo.png" style="border-left: 1px solid #3e3e42;padding: 10px;">
+                </a>
+                <a href="http://www.digitalindia.gov.in" target="blank">
+                    <img src="~/Content/images/Linked_imag/digital-india-logo.png" style="border-left: 1px solid #3e3e42; padding: 10px;">
+                </a>
+
+
+            </div>
+        </footer>
+    </div>
+
+
+    @Scripts.Render("~/Scripts/ThemeScripts")
+    <script>
+        $(".plus").click(function () {
+            $(this).toggleClass("minus").siblings("ul").toggle();
+        })
+
+        $(function () {
+            $('.folder').on('click', function (e) {
+                $(this).toggleClass('folder-open');
+                e.stopPropagation();
+            });
+
+            $('.file').on('click', function (e) {
+                e.stopPropagation();
+            });
+            $('a').on('click', function (e) {
+                $(this).toggleClass('a1');
+
+            });
+        })
+        $(document).ready(function () {
+
+          
+            var HSID = $('#HSID').val();
+            document.getElementById("HDUserid").innerHTML = HSID.toUpperCase();
+
+            var Utypes = $('#UType').val();
+            if (Utypes == 'A') {
+                //$('#URbutton').show();
+                document.getElementById("URbutton").style.display = "block";
+                document.getElementById("HSType").innerHTML = "(ADMIN)";
+            }
+            else {
+                // $('#URbutton').hide();
+                document.getElementById("URbutton").style.display = "none";
+                document.getElementById("HSType").innerHTML = "(SUB-ADMIN)";
+            }
+
+            $('#a').collapse({
+                toggle: false
+            })
+
+        });
+
+        function AppList(Id) {
+            //alert(Id);
+            
+            if (Id != null) {
+                var url = "/HouseScanifyEmp/HSUserList?AppId=" + Id;
+                window.location.href = url;
+            }
+        };
+
+
+        // var ulb_menu=JSON.parse(window.localStorage.getItem("ulb_menu"));
+        
+        var appid = $('#appid').val();
+
+
+
+
+
+
+    </script>
+    <script src="~/Content/theme-assets/js/icons_load.js"></script>
+    <script>
+        //
+        var date = new Date();
+        var today = '';
+        var day = date.getDate();
+        var month = date.getMonth() + 1;
+        var year = date.getFullYear();
+
+        if (month < 10) month = "0" + month;
+        if (day < 10) day = "0" + day;
+
+        var today = day + "/" + month + "/" + year;
+
+        document.getElementById('txt_fdate').value = today;
+        document.getElementById('txt_tdate').value = today;
+
+
+    </script>
+    <script src="~/Content/css/datepicker/js/datepicker.js"></script>
+    <script type="text/javascript">
+        $('.datepicker').datepicker({
+            format: 'dd/mm/yyyy',
+            weekStart: 1,
+            color: 'red',
+            pickTime: false
+        }).on('changeDate', function (e) {
+
+            $(this).datepicker('hide');
+
+        });
+        //hide  show on hover
+        $('#txt_fdate').focus(function () {
+            $('.dtpk_drpdwn').eq(1).hide();
+        });
+        $('#txt_tdate').focus(function () {
+            $('.dtpk_drpdwn').eq(0).hide();
+        });
+
+        $('#toggle-btn').on('click', function (e) {
+            e.preventDefault();
+            $(this).toggleClass('active');
+
+            $('.side-navbar').toggleClass('shrinked');
+            $('.content-inner').toggleClass('active');
+            $(document).trigger('sidebarChanged');
+
+            if ($(window).outerWidth() > 1183) {
+                if ($('#toggle-btn').hasClass('active')) {
+                    $('.navbar-header .brand-small').hide();
+                    $('.navbar-header .brand-big').show();
+                } else {
+                    $('.navbar-header .brand-small').show();
+                    $('.navbar-header .brand-big').hide();
+                }
+            }
+
+            if ($(window).outerWidth() < 1183) {
+                $('.navbar-header .brand-small').show();
+            }
+        });
+    </script>
+
+
+
+
+
+    <script type="text/javascript">
+        //function search_ulbname1() {
+
+        //    let input = document.getElementById('searchbar').value
+        //    input = input.toLowerCase();
+        //    $('. ul').find('a:not(:contains("' + input + '"))').each(function () {
+        //        console.log($(this).text());
+        //        $(this).hide();
+        //    });
+        //    $('.ulbnavbar ul').find(':contains("' + input + '")').each(function () {
+        //        console.log($(this).text());
+        //        $(this).show();
+        //    });
+        //}
+        function search_ulbname() {
+
+            let input = document.getElementById('searchbar').value
+            input = input.toLowerCase();
+            $('.ulbnavbar ul').find('a').each(function () {
+                if ($(this).text().toLowerCase().indexOf(input) >= 0) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+
+        }
+
+        function search_ulbname1() {
+            let input = document.getElementById('searchbar').value
+            input = input.toLowerCase();
+            let x = document.getElementsByClassName('ulb');
+
+            for (i = 0; i < x.length; i++) {
+                if (!x[i].innerHTML.toLowerCase().includes(input)) {
+                    x[i].style.display = "none";
+                }
+                else {
+                    x[i].style.display = "block";
+                }
+            }
+        }
+    </script>
+
+    <script>
+        var idleTime = 0;
+        $(document).ready(function () {
+            //Increment the idle time counter every minute.
+            var idleInterval = setInterval(timerIncrement, 60000); // 1 minute
+
+            //Zero the idle timer on mouse movement.
+            $(this).mousemove(function (e) {
+                idleTime = 0;
+            });
+            $(this).keypress(function (e) {
+                idleTime = 0;
+            });
+        });
+
+        function timerIncrement() {
+            idleTime = idleTime + 1;
+            if (idleTime > 30) { // 15 minutes
+                // window.location = "/Account/login"
+                alert('Session TimeOut');
+                document.getElementById('logoutForm').submit()
+            }
+        }
+    </script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+
+
