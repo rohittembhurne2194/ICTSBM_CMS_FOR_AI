@@ -291,7 +291,7 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
             var psi = new ProcessStartInfo();
             psi.FileName = @"C:\Users\user\AppData\Local\Programs\Python\Python37\python.exe"; // or any python environment
 
-            psi.Arguments = $"\"C:/Users/heatmap_Armori.py";
+            psi.Arguments = $"\"D:/Rohit/ICTSBM_CMS_AI_TEST_NEW/SwachhBharatAbhiyan.CMS/AI_ReportsFiles/heatmap_Armori.py";
 
             psi.UseShellExecute = false;
             psi.CreateNoWindow = false;
