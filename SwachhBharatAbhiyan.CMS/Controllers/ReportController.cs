@@ -14,6 +14,8 @@ using SwachBharat.CMS.Bll.ViewModels.SS2020Reports;
 using System.Diagnostics;
 using System.Text;
 using System.IO;
+using Microsoft.Win32;
+using System.Net;
 
 namespace SwachhBharatAbhiyan.CMS.Controllers
 {
@@ -282,6 +284,8 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
                 return Redirect("/Account/Login");
         }
 
+        
+
         public ActionResult AIFile_Test()
         {
 
@@ -289,7 +293,16 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
             //return View(test);
 
             var psi = new ProcessStartInfo();
-            psi.FileName = @"C:\Users\user\AppData\Local\Programs\Python\Python37\python.exe"; // or any python environment
+            string HostName = Request.Url.Host;
+            if(HostName == "localhost")
+            {
+                psi.FileName = @"C:\Users\user\AppData\Local\Programs\Python\Python37\python.exe"; // or any python environment
+               
+            }
+            else
+            {
+                psi.FileName = @"C:\Users\Administrator\AppData\Local\Programs\Python\Python37\python.exe"; // or any python environment
+            }
 
             psi.Arguments = $"\"D:/Rohit/ICTSBM_CMS_AI_TEST_NEW/SwachhBharatAbhiyan.CMS/AI_ReportsFiles/heatmap_Armori.py";
 
@@ -314,15 +327,32 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
             return View(decodedString);
         }
 
-        public string Run(string scriptFilePatch= "D:/Rohit/AI_Documents/heatmap_Armori.py")
+        public ActionResult EMp_WiseCollection_AI()
         {
-            var psi = new ProcessStartInfo();
-            psi.FileName = @"C:\Users\user\AppData\Local\Programs\Python\Python37\python.exe"; // or any python environment
 
-            psi.Arguments = $"\"{scriptFilePatch}";
+            //var test = Process.Start("D:/Rohit/AI_Documents/heatmap_Armori.py");
+            //return View(test);
+            var IP = SessionHandler.Current.DB_Source;
+            var DB = SessionHandler.Current.DB_Name;
+            var psi = new ProcessStartInfo();
+            string HostName = Request.Url.Host;
+            if (HostName == "localhost")
+            {
+                psi.FileName = @"C:\Users\user\AppData\Local\Programs\Python\Python37\python.exe"; // or any python environment
+
+            }
+            else
+            {
+                psi.FileName = @"C:\Users\Administrator\AppData\Local\Programs\Python\Python37\python.exe"; // or any python environment
+            }
+
+            //psi.Arguments = $"\"D:/Rohit/ICTSBM_CMS_AI_TEST_NEW/SwachhBharatAbhiyan.CMS/AI_ReportsFiles/EmpWise_Collection.py";
+
+            psi.Arguments = string.Format("{0} {1} {2}", "D:/Rohit/ICTSBM_CMS_AI_TEST_NEW/SwachhBharatAbhiyan.CMS/AI_ReportsFiles/EmpWise_Collection.py", "-ip " +IP , "-db " +DB);
+
 
             psi.UseShellExecute = false;
-            psi.CreateNoWindow = true;
+            psi.CreateNoWindow = false;
             psi.RedirectStandardOutput = true;
             psi.RedirectStandardError = true;
             psi.StandardOutputEncoding = Encoding.UTF8;
@@ -337,10 +367,39 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
             }
             StringWriter writer = new StringWriter();
             HttpUtility.HtmlDecode(result, writer);
-            string decodedString = writer.ToString();
+            var decodedString = writer.ToString();
 
-            return decodedString;
+            return View(decodedString);
         }
+
+
+        //public string Run(string scriptFilePatch= "D:/Rohit/AI_Documents/heatmap_Armori.py")
+        //{
+        //    var psi = new ProcessStartInfo();
+        //    psi.FileName = @"C:\Users\user\AppData\Local\Programs\Python\Python37\python.exe"; // or any python environment
+
+        //    psi.Arguments = $"\"{scriptFilePatch}";
+
+        //    psi.UseShellExecute = false;
+        //    psi.CreateNoWindow = true;
+        //    psi.RedirectStandardOutput = true;
+        //    psi.RedirectStandardError = true;
+        //    psi.StandardOutputEncoding = Encoding.UTF8;
+
+        //    string errors = "", result = "";
+
+        //    using (var process = Process.Start(psi))
+        //    {
+        //        result = process.StandardOutput.ReadToEnd();
+        //        errors = process.StandardError.ReadToEnd();
+
+        //    }
+        //    StringWriter writer = new StringWriter();
+        //    HttpUtility.HtmlDecode(result, writer);
+        //    string decodedString = writer.ToString();
+
+        //    return decodedString;
+        //}
         // Pointwise Reports
 
         #region 1.1

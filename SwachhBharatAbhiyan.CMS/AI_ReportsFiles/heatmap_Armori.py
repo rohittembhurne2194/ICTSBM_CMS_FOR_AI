@@ -32,5 +32,5 @@ del cnxn  # close the connection
 
 # Generating the heat map
 sns.heatmap(df.corr(), annot=True)
-plt.savefig("D:\Rohit\ICTSBM_CMS_AI_TEST_NEW\SwachhBharatAbhiyan.CMS\Images\AI\\Test3.png")
+plt.savefig("D:\Rohit\ICTSBM_CMS_AI_TEST_NEW\SwachhBharatAbhiyan.CMS\Images\AI\Test3.png")
 #plt.show()
