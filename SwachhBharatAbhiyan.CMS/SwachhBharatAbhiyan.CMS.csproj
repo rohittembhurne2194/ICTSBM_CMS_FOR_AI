@@ -379,6 +379,8 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AI_ReportsFiles\EmpWise_Collection.py" />
+    <Content Include="AI_ReportsFiles\heatmap_Armori.py" />
     <Content Include="Areas\Liquid\Content\Custom\HomeIndex.js" />
     <Content Include="Areas\Liquid\Content\images\011320160335_67ec.jpg" />
     <Content Include="Areas\Liquid\Content\images\011320160723_9f54.jpg" />
@@ -2491,6 +2493,8 @@
     <Content Include="DisplayReports.aspx" />
     <Content Include="Images\052120180915_1a70.jpg" />
     <Content Include="Images\add_image_square.png" />
+    <Content Include="Images\AI\Emp_WiseCollection.png" />
+    <Content Include="Images\AI\Test3.png" />
     <Content Include="Images\default.png" />
     <Content Include="Images\default1.png" />
     <Content Include="Images\default2.png" />
