@@ -14,7 +14,12 @@
         <div class="p-2 bd-highlight" style="margin:auto;" id="docupload">
 
             @*<embed src="~\D:\Publish\AI\Test3.png" id="Sketchdiagram2" height="500px" width="950px" style="border:solid" />*@
-            <img src="~/Images/AI/Emp_WiseCollection.png" />
+            @*<img src="~/Images/AI/Emp_WiseCollection.png" />*@
+            @if (@ViewBag.AIReportFolder != null || @ViewBag.AIReportFolder != "")
+            {
+                <img src="~/Images/AI/@ViewBag.AIReportFolder/Emp_WiseCollection.png" />
+            }
+            
         </div>
     </div>
 </div>

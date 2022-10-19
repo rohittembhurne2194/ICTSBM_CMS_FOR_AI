@@ -16,6 +16,7 @@ using System.Text;
 using System.IO;
 using Microsoft.Win32;
 using System.Net;
+using System.Text.RegularExpressions;
 
 namespace SwachhBharatAbhiyan.CMS.Controllers
 {
@@ -334,21 +335,32 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
             //return View(test);
             var IP = SessionHandler.Current.DB_Source;
             var DB = SessionHandler.Current.DB_Name;
+            var ULB_Name = SessionHandler.Current.AppName;
+
+            string trim_ULB_Name = ULB_Name.Replace(" ", "");
+
             var psi = new ProcessStartInfo();
             string HostName = Request.Url.Host;
+            string port = Convert.ToString(Request.Url.Port);
+
             if (HostName == "localhost")
             {
                 psi.FileName = @"C:\Users\user\AppData\Local\Programs\Python\Python37\python.exe"; // or any python environment
 
+              
             }
             else
             {
+                HostName = HostName +":"+ port;
                 psi.FileName = @"C:\Users\Administrator\AppData\Local\Programs\Python\Python37\python.exe"; // or any python environment
+               
             }
 
             //psi.Arguments = $"\"D:/Rohit/ICTSBM_CMS_AI_TEST_NEW/SwachhBharatAbhiyan.CMS/AI_ReportsFiles/EmpWise_Collection.py";
+           // string pythonfile = System.Web.Hosting.HostingEnvironment.MapPath("~/AI_ReportsFiles/EmpWise_Collection.py");
+            string pythonfile = System.Web.Hosting.HostingEnvironment.MapPath("~/AI_ReportsFiles/EmpWise_Collection.py");
 
-            psi.Arguments = string.Format("{0} {1} {2}", "D:/Rohit/ICTSBM_CMS_AI_TEST_NEW/SwachhBharatAbhiyan.CMS/AI_ReportsFiles/EmpWise_Collection.py", "-ip " +IP , "-db " +DB);
+            psi.Arguments = string.Format("{0} {1} {2} {3} {4}", pythonfile, "-ip " +IP , "-db " +DB, "-ulbname " + trim_ULB_Name, "-hostname " + HostName);
 
 
             psi.UseShellExecute = false;
@@ -369,7 +381,8 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
             HttpUtility.HtmlDecode(result, writer);
             var decodedString = writer.ToString();
 
-            return View(decodedString);
+            ViewBag.AIReportFolder = trim_ULB_Name;
+            return View();
         }
 
 

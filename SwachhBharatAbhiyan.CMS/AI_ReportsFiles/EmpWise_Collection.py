@@ -1,4 +1,5 @@
 # import matplotlib modules
+import os
 import sys
 import pandas as pd
 import matplotlib
@@ -12,13 +13,41 @@ import pymssql
 import argparse
 # construct the argument parse and parse the arguments
 ap = argparse.ArgumentParser()
-ap.add_argument("-ip", "--datasource", required=True,help="hostname")
+ap.add_argument("-ip", "--datasource", required=True,help="server IP")
 ap.add_argument("-db", "--database", required=True,help="name of the Database")
+ap.add_argument("-ulbname", "--ulbname", required=True,help="name of the ULB")
+ap.add_argument("-hostname", "--hostname", required=True,help="name of the ULB")
 
 args = vars(ap.parse_args())
 
+#HostName
+hostname = args["hostname"]
+# Directory 
+directory = args["ulbname"]
+
+if hostname == "localhost":   
+
+    # Parent Directory path 
+    parent_dir = "D:\Rohit\ICTSBM_CMS_AI_TEST_NEW\SwachhBharatAbhiyan.CMS\Images\AI"
+
+else:
+
+    # Parent Directory path 
+    parent_dir = "D:\AdvancePublish\ICTSBMCMS_AI\Images\AI"
+
+
+# Path 
+path = os.path.join(parent_dir, directory)
+
+try: 
+    os.mkdir(path) 
+except OSError as error: 
+    print(error)
+
+
 # ip = args["datasource"]
 # DB = args["database"]
+
 
 # Establish the Python SQL Server Connection
 # cnxn_str = ("Driver={SQL Server};"
@@ -62,4 +91,5 @@ pt.set_xticklabels(labels=df["house_count"], fontsize=9, color="navy")
 pt.get_xaxis().set_major_formatter(matplotlib.ticker.FuncFormatter(lambda x, p: format(int(x), ",")))
   
 # save bar chart to PDF file
-plt.savefig("D:\Rohit\ICTSBM_CMS_AI_TEST_NEW\SwachhBharatAbhiyan.CMS\Images\AI\Emp_WiseCollection.png",bbox_inches="tight", pad_inches=.5)
+#plt.savefig("D:\Rohit\ICTSBM_CMS_AI_TEST_NEW\SwachhBharatAbhiyan.CMS\Images\AI\Khapa_New\Emp_WiseCollection.png",bbox_inches="tight", pad_inches=.5)
+plt.savefig(path+"\Emp_WiseCollection.png",bbox_inches="tight", pad_inches=.5)
