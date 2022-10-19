@@ -3251,6 +3251,7 @@
     <Content Include="Views\MasterQR\AddMasterQRBunchDetails.cshtml" />
     <Content Include="Views\Report\AIFile_Test.cshtml" />
     <Content Include="Views\Report\EMp_WiseCollection_AI.cshtml" />
+    <Content Include="Views\Report\DumpYardForcast_AI.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

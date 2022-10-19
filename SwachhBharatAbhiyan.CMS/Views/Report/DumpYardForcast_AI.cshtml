@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "DumpYardForcast_AI";
+}
+
+<center>DumpYard Forcast Report</center>
+
+
+<link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+<script defer src="https://pyscript.net/latest/pyscript.js"></script>
+
+<div class="container">
+    <br />
+    <div style="width:100%; margin:0 auto;">
+        <div class="p-2 bd-highlight" style="margin:auto;" id="docupload">
+
+            @*<embed src="~\D:\Publish\AI\Test3.png" id="Sketchdiagram2" height="500px" width="950px" style="border:solid" />*@
+            @*<img src="~/Images/AI/Emp_WiseCollection.png" />*@
+            @if (@ViewBag.AIReportFolder != null || @ViewBag.AIReportFolder != "")
+            {
+                <img src="~/Images/AI/@ViewBag.AIReportFolder/DumpYardforecast.png" />
+            }
+
+        </div>
+    </div>
+</div>

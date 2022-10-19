@@ -8,7 +8,8 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as mticker
 # imports for SQL data part
 import pymssql
-
+from random import randint
+from matplotlib.animation import FuncAnimation
 # import the necessary packages
 import argparse
 # construct the argument parse and parse the arguments
@@ -74,7 +75,7 @@ df = df.groupby("EmployeeName").sum()
 # plt.hist(df["house_count"], color="blue")
 # plt.show()
 # create bar chart object
-pt = df.plot.barh(color="red", alpha=.8, width=.4)
+#   pt = df.plot.barh(color="blue", alpha=.8, width=.4)
 
 # configure title, legend, and grid
 pt.set_title(label="House Collection By Employee", y=1.04, 
@@ -91,9 +92,33 @@ pt.set_yticklabels(labels=df.index, fontsize=9, color="navy")
 pt.set_xlabel("Total House Collection", labelpad=10, fontsize=12, color="navy")
 pt.set_xticklabels(labels=df["house_count"], fontsize=9, color="navy")
 pt.get_xaxis().set_major_formatter(matplotlib.ticker.FuncFormatter(lambda x, p: format(int(x), ",")))
-  
+
+# create empty lists for the x and y data
+x = []
+y = []
+
+fig = plt.figure() 
 # save bar chart to PDF file
 #plt.savefig("D:\Rohit\ICTSBM_CMS_AI_TEST_NEW\SwachhBharatAbhiyan.CMS\Images\AI\Khapa_New\Emp_WiseCollection.png",bbox_inches="tight", pad_inches=.5)
-plt.savefig(path+"\Emp_WiseCollection.png",bbox_inches="tight", pad_inches=.5)
+#plt.savefig(path+"\Emp_WiseCollection.png",bbox_inches="tight", pad_inches=.5)
+print(df)
+# function that draws each frame of the animation
+def animate(i):
+    pt = randint(1,9) # grab a random integer to be the next y-value in the animation
+    x.append(df["house_count"])
+    y.append(df["EmployeeName"])
 
+    
+    plt.plot(x, y)
+    plt.xlim([0,2000])
+    plt.ylim([0,10])
+
+# plot the data and customize
+#ax.plot(data_lst)
+
+
+# run the animation
+ani = FuncAnimation(fig, animate, frames=20, interval=500, repeat=False)
+
+ani.save(path+"\Emp_WiseCollection.gif")
 #python EmpWise_Collection.py -ip 202.65.157.253 -db LIVEAdvanceAarmoriGhantaGadi -ulbname AarmoriNagarParishad -hostname localhost -fromdate 2022-01-01 -todate 2022-09-30
