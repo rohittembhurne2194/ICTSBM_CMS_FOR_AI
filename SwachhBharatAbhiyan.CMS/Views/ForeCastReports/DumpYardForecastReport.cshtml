@@ -1,34 +1,37 @@
 ﻿
 @{
-    ViewBag.Title = "DumpYardForcast_AI";
+    ViewBag.Title = "DumpYardForecastReport";
 }
 
-<center>DumpYard Forcast Report</center>
+
+<center><h3>DumpYard Forecast Report</h3></center>
 
 
 <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
 <script defer src="https://pyscript.net/latest/pyscript.js"></script>
 <style>
-    .plotlyjsicon{
-        display:none !important;
+    .plotlyjsicon {
+        display: none !important;
     }
 </style>
-<div class="container">
+<!--<div class="container">
     <br />
     <div style="width:100%; margin:0 auto;">
-        <div class="p-2 bd-highlight" style="margin:auto;" id="docupload">
+        <div class="p-2 bd-highlight" style="margin:auto;" id="docupload">-->
 
             @*<embed src="~\D:\Publish\AI\Test3.png" id="Sketchdiagram2" height="500px" width="950px" style="border:solid" />*@
             @*<img src="~/Images/AI/Emp_WiseCollection.png" />*@
-            @if (@ViewBag.AIReportFolder != null || @ViewBag.AIReportFolder != "")
+            <!--@if (@ViewBag.AIReportFolder != null || @ViewBag.AIReportFolder != "")
             {
                 <img src="~/Images/AI/@ViewBag.AIReportFolder/DumpYardforecast.png" />
             }
 
         </div>
     </div>
-</div>
+</div>-->
 
 
-@Html.Raw(File.ReadAllText(Server.MapPath("~/Images/AI/"+@ViewBag.AIReportFolder+"/graph.html")))
+@Html.Raw(File.ReadAllText(Server.MapPath("~/Images/AI/" + @ViewBag.AIReportFolder + "/DumpYardforecast.html")))
+
+
 

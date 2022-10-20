@@ -339,6 +339,7 @@
     <Compile Include="Controllers\EmpBeatMapController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\EmpShiftController.cs" />
+    <Compile Include="Controllers\ForeCastReportsController.cs" />
     <Compile Include="Controllers\GarbageCollectionController.cs" />
     <Compile Include="Controllers\GarbagePointController.cs" />
     <Compile Include="Controllers\GridController.cs" />
@@ -2494,6 +2495,9 @@
     <Content Include="Images\052120180915_1a70.jpg" />
     <Content Include="Images\add_image_square.png" />
     <Content Include="Images\AI\Emp_WiseCollection.png" />
+    <Content Include="Images\AI\JathNagarParishad\Emp_WiseCollection.png" />
+    <Content Include="Images\AI\ManwatNagarParishad\DumpYardforecast.png" />
+    <Content Include="Images\AI\ManwatNagarParishad\graph.html" />
     <Content Include="Images\AI\Test3.png" />
     <Content Include="Images\default.png" />
     <Content Include="Images\default1.png" />
@@ -3252,6 +3256,8 @@
     <Content Include="Views\Report\AIFile_Test.cshtml" />
     <Content Include="Views\Report\EMp_WiseCollection_AI.cshtml" />
     <Content Include="Views\Report\DumpYardForcast_AI.cshtml" />
+    <Content Include="Views\ForeCastReports\DumpYardForecastReport.cshtml" />
+    <Content Include="Views\ForeCastReports\EMp_WiseCollection_AI.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3275,6 +3281,7 @@
     <Folder Include="Content\datepicker\less\" />
     <Folder Include="Content\theme-assets\vendor\font-awesome\less\" />
     <Folder Include="Content\theme-assets\vendor\font-awesome\scss\" />
+    <Folder Include="Images\AI\LIVEAdvanceNagpurGhantaGadi\" />
     <Folder Include="Images\Nagpur\DumpYardQRCode\bundel\" />
     <Folder Include="Images\Nagpur\HouseQRCode\" />
     <Folder Include="Images\Nagpur\QRCodePDF\" />

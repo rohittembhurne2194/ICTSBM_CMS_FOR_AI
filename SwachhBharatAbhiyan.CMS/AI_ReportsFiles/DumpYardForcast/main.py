@@ -1,13 +1,11 @@
-# Run  python .\main.py --server 202.65.157.253 --database LIVEBhadravatiGhantaGadi
+# Run  python main.py --server 202.65.157.253 --database LIVEBhadravatiGhantaGadi --ulbname Bhadravati --hostname localhost
 
 ## Bhadravati Data ##
+import os
 import pandas as pd
 import matplotlib.pyplot as plt
-import pymssql
 import argparse
-import keras as k
-import tensorflow as tf
-import os
+
 #scripts
 from pre import *
 from lstm import *
@@ -41,14 +39,15 @@ else:
     # Parent Directory path 
     parent_dir = "D:/AdvancePublish/ICTSBMCMS_AI/Images/AI"
 
+
 # Path 
 path = os.path.join(parent_dir, directory)
 
 try: 
     os.mkdir(path) 
 except OSError as error: 
-    path = os.path.join(parent_dir, directory)
-
+    print(error)
+    
 # Read data from server
 dataframe = df_server(args["server"],args["database"])
 
@@ -63,17 +62,37 @@ forecast = predict(df=dataframe,num_prediction = num_pred, model=Model, look_bac
 forecast_dates = predict_dates(df=dataframe,num_prediction = num_pred)
 
 # Plot
-plt.figure(figsize=(10,4))
-plt.plot(date_test[-15:], weight_test[-15:], color='blue', label='Actual')
-lg= "Forecast " + str(forecast_dates[0].date()) + " To " + str(forecast_dates.iloc[-1].date())
-plt.plot(forecast_dates,forecast, color='red', label=lg)
-plt.xlabel("Date")
-plt.ylabel("Total Weight(Tons)")
-plt.title("Garbage Generation Forecast of "+ str(num_pred) + " Days")
-# plt.xticks(rotation=45)
-plt.legend()
-plt.grid()
-# Save file to the dir
-plt.savefig(path+'/DumpYardforecast.png')
-#plt.show()
-# Run  python main.py --server 202.65.157.253 --database LIVEAdvanceNagpurGhantaGadi --ulbname Nagpur --hostname localhost
+# plt.figure(figsize=(10,6))
+# plt.plot(date_test[-15:], weight_test[-15:], color='blue', label='Actual')
+# lg= "Forecast " + str(forecast_dates[0].date()) + " To " + str(forecast_dates.iloc[-1].date())
+# plt.plot(forecast_dates,forecast, color='red', label=lg)
+# plt.xlabel("Date")
+# plt.ylabel("Total Weight(Tons)")
+# plt.title("Garbage Generation Forecast of "+ str(num_pred) + " Days")
+# # plt.xticks(rotation=45)
+# plt.legend()
+# plt.grid()
+# plt.savefig('forecast.png')
+# plt.show()
+
+import plotly.graph_objects as go
+weight_test = weight_test.reshape((-1))
+trace1 = go.Scatter(
+    x = date_test[-15:],
+    y = weight_test[-15:],
+    mode = 'lines',
+    name = 'Actual'
+)
+trace2 = go.Scatter(
+    x = forecast_dates,
+    y = forecast,
+    mode = 'lines',
+    name = 'Forecast'
+)
+layout = go.Layout(
+    title = "Garbage Generation Forecast of "+ str(num_pred) + " Days",
+    xaxis = {'title' : "Date"},
+    yaxis = {'title' : "Total Weight(Tons)"}
+)
+fig = go.Figure(data=[trace1,trace2], layout=layout)
+fig.write_html(path+"/DumpYardforecast.html")

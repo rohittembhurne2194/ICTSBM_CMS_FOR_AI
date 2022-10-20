@@ -205,9 +205,9 @@
                         </a>
                         <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
                             @*<li><a href="/HouseMaster/MenuIndex">घर नोंदणी</a></li>
-        <li><a href="/GarbagePoint/MenuIndex">कचरा पॉइंट नोंदणी</a></li>
-        <li><a href="/DumpYard/MenuIndex">डंप यार्ड नोंदणी</a></li>
-        <li><a href="/Employee/MenuIndex"> कर्मचारी नोंदणी</a></li>*@
+                <li><a href="/GarbagePoint/MenuIndex">कचरा पॉइंट नोंदणी</a></li>
+                <li><a href="/DumpYard/MenuIndex">डंप यार्ड नोंदणी</a></li>
+                <li><a href="/Employee/MenuIndex"> कर्मचारी नोंदणी</a></li>*@
 
                             <li><a href="/HouseMaster/MenuIndex">House Registration </a></li>
                             @*<li><a href="/GarbagePoint/MenuIndex">Garbage Point Registration </a></li>*@
@@ -231,17 +231,17 @@
                         </a>
                         <ul id="exampledropdownDropdown4" class="collapse list-unstyled ">
                             @*<li><a href="/HouseMaster/ReportIndex">घर संकलन रिपोर्ट (कचरा पॅटर्न नुसार) </a></li>
-        <li><a href="/Report/SingleEmployeeCollection"> घनकचरा संकलन (कर्मचारीनिहाय)</a></li>
-        <li><a href="/Report/GarbageCollectionPercentage"> घनकचरा संकलन (टक्केवारीनुसार)</a></li>
-        <li><a href="/Report/EmployeeCollectionCount"> कर्मचारीनिहाय कचरा संकलन </a></li>
-        <li><a href="/Report/EmployeeCollectionSummary"> घनकचरा संकलन (तारीखानुसार)</a></li>
-        <li><a href="/Report/AreawiseGarbageCollection"> घनकचरा संकलन (वार्डनिहाय)</a></li>
-        <li><a href="/Report/CitywiseGarbageReport">शहरानुसार घनकचरा रिपोर्ट</a></li>
-        <li><a href="/Report/AreawiseGarbageTypeCollection">क्षेत्रानुसार घनकचरा प्रकार रिपोर्ट</a></li>
-        <li><a href="/Report/Dashboard1">घनकचरा डैशबोर्ड</a></li>
-        <li><a href="/Report/DumpYardSummary">डंप यार्ड तपशील</a></li>
-        <li><a href="/Report/Housewise">घरनिहाय तपशील</a></li>
-        <li><a href="/Report/Daywise">दिवासनुसार तपशील</a></li>*@
+                <li><a href="/Report/SingleEmployeeCollection"> घनकचरा संकलन (कर्मचारीनिहाय)</a></li>
+                <li><a href="/Report/GarbageCollectionPercentage"> घनकचरा संकलन (टक्केवारीनुसार)</a></li>
+                <li><a href="/Report/EmployeeCollectionCount"> कर्मचारीनिहाय कचरा संकलन </a></li>
+                <li><a href="/Report/EmployeeCollectionSummary"> घनकचरा संकलन (तारीखानुसार)</a></li>
+                <li><a href="/Report/AreawiseGarbageCollection"> घनकचरा संकलन (वार्डनिहाय)</a></li>
+                <li><a href="/Report/CitywiseGarbageReport">शहरानुसार घनकचरा रिपोर्ट</a></li>
+                <li><a href="/Report/AreawiseGarbageTypeCollection">क्षेत्रानुसार घनकचरा प्रकार रिपोर्ट</a></li>
+                <li><a href="/Report/Dashboard1">घनकचरा डैशबोर्ड</a></li>
+                <li><a href="/Report/DumpYardSummary">डंप यार्ड तपशील</a></li>
+                <li><a href="/Report/Housewise">घरनिहाय तपशील</a></li>
+                <li><a href="/Report/Daywise">दिवासनुसार तपशील</a></li>*@
                             <li id="Month_Att_BI" style="display:none;"><a href="/Report/MonthlyAttendance">Employee Monthly Attendance</a></li>
                             <li><a href="/HouseMaster/ReportIndex">Household Collection Report (Pattern-wise)</a></li>
                             <li><a href="/Report/SingleEmployeeCollection">Garbage Collection (Employee-wise)</a></li>
@@ -257,11 +257,20 @@
                             <li><a href="/Report/Daywise">Day-wise Collection Summary </a></li>
                             <li><a href="/Report/EmployeeCollectionAverage">Employee Collection Average</a></li>
                             <li id="CTPT_FeedBack" style="display:none;"><a href="/Report/CTPTFeedbackReport">CTPT Feedback Report</a></li>
-                            <li><a href="/Report/AIFile_Test">AI Testing</a></li>
-                            <li><a href="/Report/EMp_WiseCollection_AI">Employee Wies Collection</a></li>
-                            <li><a href="/Report/DumpYardForcast_AI">DumpYard Forcast</a></li>
+                            @*<li><a href="/Report/EMp_WiseCollection_AI">Employee Wies Collection</a></li>
+                            <li><a href="/Report/DumpYardForcast_AI">DumpYard Forcast</a></li>*@
                         </ul>
-                    <li>
+                    
+                    <li id="report_menu">
+                        <a href="#forecastreports" aria-expanded="false" data-toggle="collapse">
+                            <i class="svg_report"> </i>
+                            @*रिपोर्ट*@ Forecast Reports
+                        </a>
+                        <ul id="forecastreports" class="collapse list-unstyled ">
+                            <li><a href="/ForeCastReports/EMp_WiseCollection_AI">Employee Wies Collection</a></li>
+                            <li><a href="/ForeCastReports/DumpYardForecastReport">DumpYard Forecast</a></li>
+                        </ul>
+                    </li>
                     <li>
                         <a href="#exampledropdownDropdown2" aria-expanded="false" data-toggle="collapse">
                             <i class="svg_master"> </i>
@@ -269,16 +278,16 @@
                         </a>
                         <ul id="exampledropdownDropdown2" class="collapse list-unstyled ">
                             @*<li><a href="/MainMaster/MenuStateIndex">राज्य तपशील</a></li>
-        <li><a href="/MainMaster/MenuDistrictIndex">जिल्हा तपशील</a></li>
-        <li><a href="/MainMaster/MenuTalukaIndex">तालुका तपशील</a></li>
-        <li><a href="/MainMaster/MenuZoneIndex">झोन तपशील</a></li>
-        <li><a href="/MainMaster/MenuWardIndex">वार्ड तपशील</a></li>
-        <li><a href="/MainMaster/MenuAreaIndex">क्षेत्र तपशील</a></li>
-        <li><a href="/MainMaster/MenuVehicleIndex">वाहनाचे प्रकार तपशील</a></li>*@
+                <li><a href="/MainMaster/MenuDistrictIndex">जिल्हा तपशील</a></li>
+                <li><a href="/MainMaster/MenuTalukaIndex">तालुका तपशील</a></li>
+                <li><a href="/MainMaster/MenuZoneIndex">झोन तपशील</a></li>
+                <li><a href="/MainMaster/MenuWardIndex">वार्ड तपशील</a></li>
+                <li><a href="/MainMaster/MenuAreaIndex">क्षेत्र तपशील</a></li>
+                <li><a href="/MainMaster/MenuVehicleIndex">वाहनाचे प्रकार तपशील</a></li>*@
 
                             @*<li><a href="/MainMaster/MenuStateIndex">State Details</a></li>
-        <li><a href="/MainMaster/MenuDistrictIndex">District Details</a></li>
-        <li><a href="/MainMaster/MenuTalukaIndex">Taluka Details</a></li>*@
+                <li><a href="/MainMaster/MenuDistrictIndex">District Details</a></li>
+                <li><a href="/MainMaster/MenuTalukaIndex">Taluka Details</a></li>*@
                             <li><a href="/MainMaster/MenuZoneIndex">Zone Details</a></li>
                             <li><a href="/MainMaster/MenuWardIndex">Ward / Prabhag Details</a></li>
                             <li><a href="/MainMaster/MenuAreaIndex">Area Details</a></li>

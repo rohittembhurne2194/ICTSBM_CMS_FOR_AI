@@ -1,18 +1,13 @@
 ﻿
 @{
-    ViewBag.Title = "DumpYardForcast_AI";
+    ViewBag.Title = "EMp_WiseCollection_AI";
 }
 
-<center>DumpYard Forcast Report</center>
-
+<h2>EMp_WiseCollection_AI</h2>
 
 <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
 <script defer src="https://pyscript.net/latest/pyscript.js"></script>
-<style>
-    .plotlyjsicon{
-        display:none !important;
-    }
-</style>
+
 <div class="container">
     <br />
     <div style="width:100%; margin:0 auto;">
@@ -22,13 +17,9 @@
             @*<img src="~/Images/AI/Emp_WiseCollection.png" />*@
             @if (@ViewBag.AIReportFolder != null || @ViewBag.AIReportFolder != "")
             {
-                <img src="~/Images/AI/@ViewBag.AIReportFolder/DumpYardforecast.png" />
+                <img src="~/Images/AI/@ViewBag.AIReportFolder/Emp_WiseCollection.png" />
             }
 
         </div>
     </div>
 </div>
-
-
-@Html.Raw(File.ReadAllText(Server.MapPath("~/Images/AI/"+@ViewBag.AIReportFolder+"/graph.html")))
-
