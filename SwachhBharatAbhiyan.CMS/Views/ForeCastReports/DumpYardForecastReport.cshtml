@@ -30,8 +30,10 @@
     </div>
 </div>-->
 
+<div id="plotly_div">
+    @Html.Raw(File.ReadAllText(Server.MapPath("~/Images/AI/" + @ViewBag.AIReportFolder + "/DumpYardforecast.html")))
+</div>
 
-@Html.Raw(File.ReadAllText(Server.MapPath("~/Images/AI/" + @ViewBag.AIReportFolder + "/DumpYardforecast.html")))
 
 
 

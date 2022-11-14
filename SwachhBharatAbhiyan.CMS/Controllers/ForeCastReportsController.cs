@@ -105,9 +105,9 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
 
             //psi.Arguments = $"\"D:/Rohit/ICTSBM_CMS_AI_TEST_NEW/SwachhBharatAbhiyan.CMS/AI_ReportsFiles/EmpWise_Collection.py";
             // string pythonfile = System.Web.Hosting.HostingEnvironment.MapPath("~/AI_ReportsFiles/EmpWise_Collection.py");
-            string pythonfile = System.Web.Hosting.HostingEnvironment.MapPath("~/AI_ReportsFiles/DumpYardForcast/main.py");
+            string pythonfile = System.Web.Hosting.HostingEnvironment.MapPath("~/AI_ReportsFiles/DumpYardForeCast2/forecast_deply_1.py");
 
-            psi.Arguments = string.Format("{0} {1} {2} {3} {4}", pythonfile, "-ip " + IP, "-db " + DB, "-ulbname " + trim_ULB_Name, "-hostname " + HostName);
+            psi.Arguments = string.Format("{0} {1} {2} {3} {4} {5}", pythonfile, "-ip " + IP, "-db " + DB, "-ulbname " + trim_ULB_Name, "-hostname " + HostName, "-filename DumpYardForecast");
 
 
             psi.UseShellExecute = false;

@@ -95,7 +95,7 @@ def preprocess(df):
     df = df.round({"House_Count":0,"Total_Weight":3})
 
     # Save dataframe to csv file
-    # df.to_csv("Prepared_data_for_forcasting3.csv")
+    df.to_csv("D:/Rohit/ICTSBM_CMS_AI_TEST_NEW/SwachhBharatAbhiyan.CMS/AI_ReportsFiles/DumpYardForcast/Prepared_data_for_forcasting3.csv")
     return df
 # Plots
 # plt.subplot(2,2,2)

@@ -380,6 +380,10 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AI_ReportsFiles\DumpYardForcast\forecast.py" />
+    <Content Include="AI_ReportsFiles\DumpYardForcast\lstm.py" />
+    <Content Include="AI_ReportsFiles\DumpYardForcast\main.py" />
+    <Content Include="AI_ReportsFiles\DumpYardForcast\pre.py" />
     <Content Include="AI_ReportsFiles\EmpWise_Collection.py" />
     <Content Include="AI_ReportsFiles\heatmap_Armori.py" />
     <Content Include="Areas\Liquid\Content\Custom\HomeIndex.js" />
@@ -2726,6 +2730,11 @@
     <Content Include="Areas\Street\Views\StreetGarbage\MenuStreetBitMapIndex.cshtml" />
     <Content Include="Areas\Street\Views\StreetGarbage\StreetBitMapIndex.cshtml" />
     <Content Include="Areas\Street\Views\Shared\_StreetBeatMap.cshtml" />
+    <Content Include="AI_ReportsFiles\DumpYardForcast\Prepared_data_for_forcasting3.csv" />
+    <Content Include="AI_ReportsFiles\DumpYardForcast\__pycache__\forecast.cpython-37.pyc" />
+    <Content Include="AI_ReportsFiles\DumpYardForcast\__pycache__\lstm.cpython-37.pyc" />
+    <Content Include="AI_ReportsFiles\DumpYardForcast\__pycache__\pre.cpython-37.pyc" />
+    <Content Include="AI_ReportsFiles\__pycache__\gifly.cpython-37.pyc" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

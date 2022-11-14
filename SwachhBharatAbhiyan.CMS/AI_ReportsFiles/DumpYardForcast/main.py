@@ -1,4 +1,4 @@
-# Run  python main.py --server 202.65.157.253 --database LIVEBhadravatiGhantaGadi --ulbname Bhadravati --hostname localhost
+# Run  python main.py --server 202.65.157.253 --database LIVEBhadravatiGhantaGadi --ulbname Bhadravati --hostname localhost --filename DumpYardForecast
 
 ## Bhadravati Data ##
 import os
@@ -13,7 +13,7 @@ from forecast import *
 
 #Input
 num_pred = 7
-epochs = 3
+epochs = 3000
 lookback = 7
 
 # construct the argument parser and parse the arguments
@@ -22,13 +22,15 @@ ap.add_argument("-ip", "--server", required=True, help="Server IP address")
 ap.add_argument("-db", "--database", required=True, help="Database name")
 ap.add_argument("-ulbname", "--ulbname", required=True,help="name of the ULB")
 ap.add_argument("-hostname", "--hostname", required=True,help="name of the ULB")
+ap.add_argument("-filename", "--filename", required=True,help="name of the File")
 args = vars(ap.parse_args())
 
 #HostName
 hostname = args["hostname"]
 # Directory 
 directory = args["ulbname"]
-
+# Filename 
+filename = args["filename"]
 if hostname == "localhost":   
 
     # Parent Directory path 
@@ -76,6 +78,7 @@ forecast_dates = predict_dates(df=dataframe,num_prediction = num_pred)
 # plt.show()
 
 import plotly.graph_objects as go
+#import plotly.express as px
 weight_test = weight_test.reshape((-1))
 trace1 = go.Scatter(
     x = date_test[-15:],
@@ -94,5 +97,15 @@ layout = go.Layout(
     xaxis = {'title' : "Date"},
     yaxis = {'title' : "Total Weight(Tons)"}
 )
+config = {
+  'toImageButtonOptions': {
+    'format': 'png', # one of png, svg, jpeg, webp
+    'filename': filename
+    # 'height': 500,
+    # 'width': 700,
+    # 'scale': 1 # Multiply title/legend/axis/canvas sizes by this factor
+  }
+}
 fig = go.Figure(data=[trace1,trace2], layout=layout)
-fig.write_html(path+"/DumpYardforecast.html")
+#fig.show(config=config)
+fig.write_html(path+"/DumpYardforecast.html",config=config)
