@@ -31,7 +31,14 @@
 </div>-->
 
 <div id="plotly_div">
-    @Html.Raw(File.ReadAllText(Server.MapPath("~/Images/AI/" + @ViewBag.AIReportFolder + "/DumpYardforecast.html")))
+    @if (File.Exists(Server.MapPath("~/Images/AI/" + @ViewBag.AIReportFolder + "/DumpYardforecast.html")))
+    {
+        @Html.Raw(File.ReadAllText(Server.MapPath("~/Images/AI/" + @ViewBag.AIReportFolder + "/DumpYardforecast.html")))
+    }
+    else
+    {
+        <center><h1>Data Not available</h1></center>
+    }
 </div>
 
 

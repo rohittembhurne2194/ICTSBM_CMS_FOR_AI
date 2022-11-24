@@ -77,6 +77,7 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
 
         public ActionResult DumpYardForecastReport()
         {
+           
 
             //var test = Process.Start("D:/Rohit/AI_Documents/heatmap_Armori.py");
             //return View(test);
@@ -90,7 +91,15 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
             string HostName = Request.Url.Host;
             string port = Convert.ToString(Request.Url.Port);
 
-            if (HostName == "localhost")
+           
+            string path = Server.MapPath("~/Images/AI/" + trim_ULB_Name + "/DumpYardforecast.html");
+            FileInfo file = new FileInfo(path);
+            if (file.Exists)
+            {
+                file.Delete();
+                Console.WriteLine("File deleted.");
+            }
+           if (HostName == "localhost")
             {
                 psi.FileName = @"C:\Users\user\AppData\Local\Programs\Python\Python37\python.exe"; // or any python environment
 
@@ -107,7 +116,7 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
             // string pythonfile = System.Web.Hosting.HostingEnvironment.MapPath("~/AI_ReportsFiles/EmpWise_Collection.py");
             string pythonfile = System.Web.Hosting.HostingEnvironment.MapPath("~/AI_ReportsFiles/DumpYardForeCast2/forecast_deply_1.py");
 
-            psi.Arguments = string.Format("{0} {1} {2} {3} {4} {5}", pythonfile, "-ip " + IP, "-db " + DB, "-ulbname " + trim_ULB_Name, "-hostname " + HostName, "-filename DumpYardForecast");
+            psi.Arguments = string.Format("{0} {1} {2} {3} {4} {5} {6}", pythonfile, "-ip " + IP, "-db " + DB, "-ulbname " + trim_ULB_Name, "-hostname " + HostName, "-filename DumpYardForecast", "-ReportTitle " + '"'+ ULB_Name + '"');
 
 
             psi.UseShellExecute = false;

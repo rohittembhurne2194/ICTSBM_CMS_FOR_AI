@@ -1,4 +1,4 @@
-# Run python forecast_deply_1.py --server 202.65.157.253 --database LIVEBhadravatiGhantaGadi --ulbname Bhadravati --hostname localhost --filename DumpYardForecast
+# Run python forecast_deply_1.py --server 202.65.157.253 --database LIVEAdvanceAheriGhantaGadi --ulbname AheriNagarPanchayat --hostname localhost --filename DumpYardForecast --ReportTitle "Aheri Nagar Panchayat"
 
 import pymssql
 import pandas as pd
@@ -6,14 +6,17 @@ import numpy as np
 from datetime import datetime
 import argparse
 import os
-
+import plotly.graph_objs as go
+from plotly.offline import iplot
+    
 # construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
 ap.add_argument("-ip", "--server", required=True, help="Server IP address")
 ap.add_argument("-db", "--database", required=True, help="Database name")
-ap.add_argument("-ulbname", "--ulbname", required=True, help="name of the ULB")
+ap.add_argument("-ulbname", "--ulbname", required=True, help="name of the ULB For Folder Creation")
 ap.add_argument("-hostname", "--hostname", required=True, help="name of the ULB")
 ap.add_argument("-filename", "--filename", required=True, help="name of the File")
+ap.add_argument("-ReportTitle", "--ReportTitle", required=True, help="name of the ULB")
 args = vars(ap.parse_args())
 
 # HostName
@@ -22,6 +25,9 @@ hostname = args["hostname"]
 directory = args["ulbname"]
 # Filename
 filename = args["filename"]
+# Report Title
+reporttitle = args["ReportTitle"]
+
 if hostname == "localhost":
 
     # Parent Directory path
@@ -75,9 +81,9 @@ if df['Total_Weight'].count() <= 10:
     data.append(value)
 
     layout = go.Layout(
-        title='Garbage Generation Forecast of ' + database,
+        title='Garbage Generation Forecast of ' + reporttitle,
         xaxis={"title": "Date"},
-        yaxis={"title": "Total_Weight"},
+        yaxis={"title": "Total_Weight In Tons"},
     )
 
     fig = go.Figure(data=data, layout=layout)
@@ -87,9 +93,19 @@ if df['Total_Weight'].count() <= 10:
         'showarrow': False,  # would you want to see arrow
         'font': {'size': 20, 'color': 'orange'}  # font style
     }
+    config = {
+        'toImageButtonOptions': {
+            'format': 'png',  # one of png, svg, jpeg, webp
+            'filename': filename
+            # 'height': 500,
+            # 'width': 700,
+            # 'scale': 1 # Multiply title/legend/axis/canvas sizes by this factor
+        }
+    }
     fig.add_annotation(annotation)
-    graph_name = "./Forecast_graph/" + database + "_Forecast.html"
-    fig.write_html(graph_name)
+    #graph_name = path + "/DumpYardforecast.html"
+    #fig.write_html(graph_name)
+    fig.write_html(path + "/DumpYardforecast.html", config=config)
     # iplot(fig)
 else:
 
@@ -133,7 +149,7 @@ else:
         layout = go.Layout(
             title='Total_Weight',
             xaxis={"title": "Date"},
-            yaxis={"title": "Total_Weight"},
+            yaxis={"title": "Total_Weight In Tons"},
         )
         config = {
             'toImageButtonOptions': {
@@ -146,8 +162,8 @@ else:
         }
 
         fig = go.Figure(data=data, layout=layout)
-        iplot(fig)
-        fig.write_html(path + "/DumpYardforecast.html", config=config)
+        #iplot(fig)
+        #fig.write_html(path + "/DumpYardforecast.html", config=config)
 
 
     if not df.index.is_monotonic:
@@ -291,8 +307,7 @@ else:
     forecast_tree = randforest.predict(X_forecast)
 
     # Plot Forecasting
-    import plotly.graph_objs as go
-    from plotly.offline import iplot
+ 
 
     data = []
 
@@ -336,9 +351,9 @@ else:
         data.append(no_work)
 
     layout = go.Layout(
-        title='Garbage Generation Forecast of ' + database,
+        title='Garbage Generation Forecast of ' + reporttitle,
         xaxis={"title": "Date"},
-        yaxis={"title": "Total_Weight"},
+        yaxis={"title": "Total_Weight In Tons"},
     )
     config = {
         'toImageButtonOptions': {
