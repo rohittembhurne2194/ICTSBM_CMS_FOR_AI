@@ -3267,6 +3267,7 @@
     <Content Include="Views\Report\DumpYardForcast_AI.cshtml" />
     <Content Include="Views\ForeCastReports\DumpYardForecastReport.cshtml" />
     <Content Include="Views\ForeCastReports\EMp_WiseCollection_AI.cshtml" />
+    <Content Include="Views\ForeCastReports\HouseCountForecastReport.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
