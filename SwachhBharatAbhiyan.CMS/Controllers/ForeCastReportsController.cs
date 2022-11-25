@@ -181,7 +181,7 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
             // string pythonfile = System.Web.Hosting.HostingEnvironment.MapPath("~/AI_ReportsFiles/EmpWise_Collection.py");
             string pythonfile = System.Web.Hosting.HostingEnvironment.MapPath("~/AI_ReportsFiles/HouseScanForecast/forecast_hc_deply.py");
 
-            psi.Arguments = string.Format("{0} {1} {2} {3} {4} {5} {6}", pythonfile, "-ip " + IP, "-db " + DB, "-ulbname " + trim_ULB_Name, "-hostname " + HostName, "-filename DumpYardForecast", "-ReportTitle " + '"' + ULB_Name + '"');
+            psi.Arguments = string.Format("{0} {1} {2} {3} {4} {5} {6}", pythonfile, "-ip " + IP, "-db " + DB, "-ulbname " + trim_ULB_Name, "-hostname " + HostName, "-filename HouseScanForecast", "-ReportTitle " + '"' + ULB_Name + '"');
 
 
             psi.UseShellExecute = false;

@@ -1,5 +1,4 @@
-
-# Run python forecast_hc_deply.py --server 202.65.157.253 --database LIVEBhadravatiGhantaGadi --ulbname Bhadravati --hostname localhost --filename HouseScanforecast --ReportTitle "Aheri Nagar Panchayat"
+# Run python forecast_hc_deply.py --server 202.65.157.253 --database LIVEAdvanceAheriGhantaGadi --ulbname AheriNagarPanchayat --hostname localhost --filename HouseScanForecast --ReportTitle "Aheri Nagar Panchayat"
 
 import pymssql
 import pandas as pd
@@ -9,6 +8,7 @@ from datetime import date
 import holidays
 from sklearn.ensemble import RandomForestRegressor
 import plotly.graph_objs as go
+import numpy as np
 
 # construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
@@ -74,7 +74,8 @@ if df['House_Count'].count() <= 10:  # Plot No Enough Samples
     # Plot No Enough Samples
 
     layout = go.Layout(
-        title='House Scan Forecast of ' + reporttitle,
+        title=go.layout.Title(text='House Scan Forecast of ' + reporttitle, font=dict(size=20,color='#fa0526')),
+        #title='House Scan Forecast of ' + reporttitle,
         xaxis={"title": "Date"},
         yaxis={"title": "House_Count"},
     )
@@ -221,6 +222,9 @@ else:  # Preprocess
     # Forecasting
     forecast_tree = randforest.predict(X_forecast)
 
+    # Round the forecasted values
+    forecast_tree = np.round_(forecast_tree)
+
     # Plot Forecasting
     data = []
 
@@ -264,7 +268,8 @@ else:  # Preprocess
         data.append(no_work)
 
     layout = go.Layout(
-        title='House Scan Forecast of ' + reporttitle,
+        title=go.layout.Title(text='House Scan Forecast of ' + reporttitle, font=dict(family="Times New Roman",size=20,color='#000000')),
+        #title='House Scan Forecast of ' + reporttitle,
         xaxis={"title": "Date"},
         yaxis={"title": "House_Count"}
     )
@@ -277,6 +282,9 @@ else:  # Preprocess
             # 'scale': 1 # Multiply title/legend/axis/canvas sizes by this factor
         }
     }
+    
+    #annotations = list([dict(align='center')])
+    #layout['annotations'] = annotations
     fig = go.Figure(data=data, layout=layout)
     # graph_name = "./Forecast_graph/" + database + "_HC_Forecast.html"
     fig.write_html(path + "/HouseScanforecast.html", config=config)
