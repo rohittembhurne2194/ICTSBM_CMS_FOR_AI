@@ -287,46 +287,46 @@ namespace SwachhBharatAbhiyan.CMS.Controllers
 
         
 
-        public ActionResult AIFile_Test()
-        {
+        //public ActionResult AIFile_Test()
+        //{
 
-            //var test = Process.Start("D:/Rohit/AI_Documents/heatmap_Armori.py");
-            //return View(test);
+        //    //var test = Process.Start("D:/Rohit/AI_Documents/heatmap_Armori.py");
+        //    //return View(test);
 
-            var psi = new ProcessStartInfo();
-            string HostName = Request.Url.Host;
-            if(HostName == "localhost")
-            {
-                psi.FileName = @"C:\Users\user\AppData\Local\Programs\Python\Python37\python.exe"; // or any python environment
+        //    var psi = new ProcessStartInfo();
+        //    string HostName = Request.Url.Host;
+        //    if(HostName == "localhost")
+        //    {
+        //        psi.FileName = @"C:\Users\user\AppData\Local\Programs\Python\Python37\python.exe"; // or any python environment
                
-            }
-            else
-            {
-                psi.FileName = @"C:\Users\Administrator\AppData\Local\Programs\Python\Python37\python.exe"; // or any python environment
-            }
+        //    }
+        //    else
+        //    {
+        //        psi.FileName = @"C:\Users\Administrator\AppData\Local\Programs\Python\Python37\python.exe"; // or any python environment
+        //    }
 
-            psi.Arguments = $"\"D:/Rohit/ICTSBM_CMS_AI_TEST_NEW/SwachhBharatAbhiyan.CMS/AI_ReportsFiles/heatmap_Armori.py";
+        //    psi.Arguments = $"\"D:/Rohit/ICTSBM_CMS_AI_TEST_NEW/SwachhBharatAbhiyan.CMS/AI_ReportsFiles/heatmap_Armori.py";
 
-            psi.UseShellExecute = false;
-            psi.CreateNoWindow = false;
-            psi.RedirectStandardOutput = true;
-            psi.RedirectStandardError = true;
-            psi.StandardOutputEncoding = Encoding.UTF8;
+        //    psi.UseShellExecute = false;
+        //    psi.CreateNoWindow = false;
+        //    psi.RedirectStandardOutput = true;
+        //    psi.RedirectStandardError = true;
+        //    psi.StandardOutputEncoding = Encoding.UTF8;
 
-            string errors = "", result = "";
+        //    string errors = "", result = "";
 
-            using (var process = Process.Start(psi))
-            {
-                result = process.StandardOutput.ReadToEnd();
-                errors = process.StandardError.ReadToEnd();
+        //    using (var process = Process.Start(psi))
+        //    {
+        //        result = process.StandardOutput.ReadToEnd();
+        //        errors = process.StandardError.ReadToEnd();
 
-            }
-            StringWriter writer = new StringWriter();
-            HttpUtility.HtmlDecode(result, writer);
-            var decodedString = writer.ToString();
+        //    }
+        //    StringWriter writer = new StringWriter();
+        //    HttpUtility.HtmlDecode(result, writer);
+        //    var decodedString = writer.ToString();
 
-            return View(decodedString);
-        }
+        //    return View(decodedString);
+        //}
 
         public ActionResult EMp_WiseCollection_AI()
         {
