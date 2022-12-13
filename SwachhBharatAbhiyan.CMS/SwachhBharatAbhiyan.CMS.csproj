@@ -382,6 +382,7 @@
   <ItemGroup>
     <Content Include="AI_ReportsFiles\DumpYardForeCast\DumpYardForeCast.py" />
     <Content Include="AI_ReportsFiles\DumpYardForeCast\forecast_deply_1.py" />
+    <Content Include="AI_ReportsFiles\DumpYardForeCast\forecast_gg_bar_deply.py" />
     <Content Include="AI_ReportsFiles\EmpWise_Collection.py" />
     <Content Include="AI_ReportsFiles\heatmap_Armori.py" />
     <Content Include="AI_ReportsFiles\HouseScanForecast\HouseScanForeCast.py" />
@@ -3263,6 +3264,7 @@
     <Content Include="Views\ForeCastReports\DumpYardForecastReport.cshtml" />
     <Content Include="Views\ForeCastReports\EMp_WiseCollection_AI.cshtml" />
     <Content Include="Views\ForeCastReports\HouseCountForecastReport.cshtml" />
+    <Content Include="Views\ForeCastReports\DumpYardForecastBarReport.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
